@@ -1,0 +1,10 @@
+scanner/reports
+.venv
+.vscode
+build_out
+pack
+ascenddevtool/
+__pycache__/
+*.pyc
+.DS_Store
+=*

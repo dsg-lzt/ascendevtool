@@ -1,0 +1,26 @@
+[{
+    "op": "ThreeNN",
+    "language": "cpp",
+    "input_desc": [{
+        "name": "xyz1",
+        "param_type": "required",
+        "format": ["ND", "ND"],
+        "type": ["fp16", "fp32"]
+    }, {
+        "name": "xyz2",
+        "param_type": "required",
+        "format": ["ND", "ND"],
+        "type": ["fp16", "fp32"]
+    }],
+    "output_desc": [{
+        "name": "dist",
+        "param_type": "required",
+        "format": ["ND", "ND"],
+        "type": ["fp16", "fp32"]
+    }, {
+        "name": "idx",
+        "param_type": "required",
+        "format": ["ND", "ND"],
+        "type": ["int32"]
+    }]
+}]

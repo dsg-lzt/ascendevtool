@@ -1,0 +1,3 @@
+OP,Local_Module,Local_Func
+torch.jit.annotate,patcher.local_op_lib.custom_ops,ascend_jit_annotate
+torch.jit.is_scripting,patcher.local_op_lib.custom_ops,ascend_jit_is_scripting

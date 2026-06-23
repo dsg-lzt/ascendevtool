@@ -1,0 +1,65 @@
+[
+    {
+        "op": "FastGelu",
+        "input_desc": [
+            {
+                "name": "x",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            }
+        ],
+        "output_desc": [
+            {
+                "name": "y",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            }
+        ]
+    },
+    {
+        "op": "BallQuery",
+        "input_desc": [
+            {
+                "name": "xyz",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            },
+            {
+                "name": "center_xyz",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            }
+        ],
+        "output_desc": [
+            {
+                "name": "idx",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "int32", "int32" ]
+            }
+        ]
+    },
+    {
+        "op": "CustomSwish",
+        "input_desc": [
+            {
+                "name": "x",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            }
+        ],
+        "output_desc": [
+            {
+                "name": "y",
+                "param_type": "required",
+                "format": [ "ND", "ND" ],
+                "type": [ "float16", "float32" ]
+            }
+        ]
+    }
+]

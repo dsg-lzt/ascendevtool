@@ -1,0 +1,5 @@
+scanner/reports
+.venv
+.vscode
+build_out
+pack
