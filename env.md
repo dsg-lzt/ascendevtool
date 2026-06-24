@@ -5,8 +5,8 @@
 ### 1.1 创建 Conda 环境
 
 ```bash
-conda create -n ascend-dev python=3.13 -y
-conda activate ascend-dev
+conda create -n ascenddevtool python=3.13 -y
+conda activate ascenddevtool
 ```
 
 ### 1.2 在项目内创建 Python 虚拟环境
@@ -72,10 +72,13 @@ python gui/main.py
 ```
 
 GUI 功能：
-- **选择待迁移模型目录** — 通过文件浏览器选择
+- **选择待迁移模型目录 / 迁移目标目录** — 通过文件浏览器选择
 - **选择 PyTorch 版本** — 支持 `默认`、`1.11.0`、`2.1.0`、`2.2.0`、`2.3.1`、`2.4.0`、`2.5.1`、`2.6.0`
 - **扫描模型** — 调用 CANN `pytorch_analyse.sh` 对模型代码做 API 兼容性分析
 - **加载已扫描结果** — 手动选择历史 `unsupported_api.csv` 路径直接展示
+- **迁移到 NPU** — 将 CUDA 代码转换为 NPU 代码（`.cuda()` → `.npu()` 等）
+- **算子替换分析** — 分析不适配算子 → 拆分/改写/代码替换 → 生成 Ascend C 开发工程
+- **开发算子** — 逐个为"需开发"算子生成 msopgen 工程 + cannbot-skills Agent 开发提示
 
 > 扫描策略：先尝试执行 CANN 官方扫描；若官方脚本不存在或执行失败，则退化为读取 `scanner/reports/` 下已有的最新报告。
 
@@ -143,3 +146,12 @@ $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/pytorch_analyse.sh
 ### Q: 扫描超时
 
 增大超时值：`export ASCEND_SCAN_TIMEOUT_SEC=3600`，或设为 0 表示无限等待。
+
+### Q: ModuleNotFoundError: libcst
+
+`libcst` 已包含在 `gui/requirements.txt` 中，若缺失则执行：
+```bash
+pip install libcst
+```
+
+> `libcst` 同时用于 CANN 扫描工具（静态分析）和 NPU 代码迁移模块（AST 级代码转换）。

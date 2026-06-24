@@ -7,4 +7,4 @@ ascenddevtool/
 __pycache__/
 *.pyc
 .DS_Store
-=*
+=*_*.json

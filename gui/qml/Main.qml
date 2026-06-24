@@ -17,6 +17,10 @@ ApplicationWindow {
         id: unsupportedTableModel
     }
 
+    ListModel {
+        id: devOpListModel
+    }
+
     function refreshUnsupportedTable() {
         unsupportedTableModel.clear()
         var raw = backend.unsupportedOpsJson
@@ -53,9 +57,28 @@ ApplicationWindow {
         target: backend
         function onUnsupportedOpsJsonChanged() { refreshUnsupportedTable() }
         function onSummaryChanged() { refreshUnsupportedTable() }
+        function onDevOpListChanged() { refreshDevOpList() }
+        function onRewriteSummaryChanged() { refreshDevOpList() }
     }
 
-    Component.onCompleted: refreshUnsupportedTable()
+    function refreshDevOpList() {
+        devOpListModel.clear()
+        var raw = backend.devOpListJson
+        if (!raw || raw.length === 0) raw = "[]"
+        try {
+            var arr = JSON.parse(raw)
+            for (var i = 0; i < arr.length; i++) {
+                devOpListModel.append(arr[i])
+            }
+        } catch (e) {
+            console.log("refreshDevOpList: JSON.parse failed:", e)
+        }
+    }
+
+    Component.onCompleted: {
+        refreshUnsupportedTable()
+        refreshDevOpList()
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -208,6 +231,172 @@ ApplicationWindow {
                         selectByMouse: true
                         wrapMode: TextEdit.Wrap
                         text: backend.status
+                        color: "#666666"
+                    }
+                }
+            }
+        }
+
+        GroupBox {
+            title: "迁移到 NPU"
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 10
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Button {
+                        text: backend.busy ? "迁移中..." : "迁移到 NPU"
+                        enabled: !backend.busy
+                        onClicked: backend.migrateToNpu()
+                    }
+                    BusyIndicator {
+                        running: backend.busy
+                        visible: backend.busy
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    Label {
+                        text: backend.migrateTotalFiles > 0
+                            ? ("扫描 " + backend.migrateTotalFiles + " 个文件，修改 " + backend.migrateModifiedFiles + " 个，共 " + backend.migrateTotalChanges + " 处变更")
+                            : ""
+                        horizontalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignRight
+                    }
+                }
+
+                ScrollView {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.maximumHeight: 120
+
+                    TextArea {
+                        readOnly: true
+                        selectByMouse: true
+                        wrapMode: TextEdit.Wrap
+                        text: backend.migrateStatus
+                        color: "#666666"
+                    }
+                }
+            }
+        }
+
+        GroupBox {
+            title: "算子替换分析"
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 10
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Button {
+                        text: backend.busy ? "分析中..." : "算子替换分析"
+                        enabled: !backend.busy
+                        onClicked: backend.analyzeOps()
+                    }
+                    BusyIndicator {
+                        running: backend.busy
+                        visible: backend.busy
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    Label {
+                        text: backend.rewriteTotalOps > 0
+                            ? ("共 " + backend.rewriteTotalOps + " 个算子 | 可映射: " + backend.rewriteMapped + " | 可拆分: " + backend.rewriteDecomposable + " | 需开发: " + backend.rewriteNeedDev)
+                            : ""
+                        horizontalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignRight
+                    }
+                }
+
+                ScrollView {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.maximumHeight: 120
+
+                    TextArea {
+                        readOnly: true
+                        selectByMouse: true
+                        wrapMode: TextEdit.Wrap
+                        text: backend.rewriteStatus
+                        color: "#666666"
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Button {
+                        text: backend.busy ? "生成中..." : "生成全部工程"
+                        enabled: !backend.busy
+                        onClicked: backend.developOps()
+                    }
+                    BusyIndicator {
+                        running: backend.busy
+                        visible: backend.busy
+                    }
+
+                    Item { Layout.fillWidth: true }
+                }
+
+                ScrollView {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 150
+                    Layout.maximumHeight: 250
+                    clip: true
+
+                    ColumnLayout {
+                        width: parent.width
+                        spacing: 4
+
+                        Repeater {
+                            model: devOpListModel
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: 6
+
+                                Label {
+                                    text: model.op
+                                    elide: Text.ElideRight
+                                    Layout.fillWidth: true
+                                }
+                                Label {
+                                    text: model.hasProject ? "✅" : "⬜"
+                                    Layout.preferredWidth: 20
+                                }
+                                Button {
+                                    text: backend.busy ? "..." : "开发"
+                                    Layout.preferredWidth: 60
+                                    enabled: !backend.busy
+                                    onClicked: backend.developSingleOp(model.op)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ScrollView {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 40
+                    Layout.maximumHeight: 60
+
+                    TextArea {
+                        readOnly: true
+                        selectByMouse: true
+                        wrapMode: TextEdit.Wrap
+                        text: backend.devStatus
                         color: "#666666"
                     }
                 }

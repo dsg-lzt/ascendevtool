@@ -14,6 +14,8 @@ from gui.scanner_core import (
     load_unsupported_ops_from_path,
     scan_unsupported_ops,
 )
+from migrator.migrator_core import MigrateResult, migrate_directory
+from rewriter.rewriter_core import RewriteResult, rewrite_unsupported_ops, DevTaskResult, run_operator_development
 
 
 class ScanWorker(QObject):
@@ -59,6 +61,92 @@ class LoadResultWorker(QObject):
         self.finished.emit(result)
 
 
+class MigrateWorker(QObject):
+    finished = Signal(object)
+
+    def __init__(self, source_dir: str, target_dir: str) -> None:
+        super().__init__()
+        self._source_dir = source_dir
+        self._target_dir = target_dir
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            result = migrate_directory(Path(self._source_dir), Path(self._target_dir))
+        except Exception as e:
+            result = MigrateResult(
+                status=f"迁移异常：{type(e).__name__}: {e}",
+                total_files=0,
+                modified_files=0,
+                total_changes=0,
+                file_stats=[],
+            )
+        self.finished.emit(result)
+
+
+class RewriteWorker(QObject):
+    finished = Signal(object)
+
+    def __init__(self, unsupported_csv: str, local_ops_csv: str, output_dir: str, source_dir: str) -> None:
+        super().__init__()
+        self._unsupported_csv = unsupported_csv
+        self._local_ops_csv = local_ops_csv
+        self._output_dir = output_dir
+        self._source_dir = source_dir
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            result = rewrite_unsupported_ops(
+                Path(self._unsupported_csv),
+                Path(self._local_ops_csv),
+                Path(self._output_dir) if self._output_dir else None,
+                Path(self._source_dir) if self._source_dir else None,
+            )
+        except Exception as e:
+            result = RewriteResult(
+                status=f"算子分析异常：{type(e).__name__}: {e}",
+                total_ops=0,
+                mapped_count=0,
+                decomposable_count=0,
+                math_rewrite_count=0,
+                need_develop_count=0,
+                solutions=[],
+                generated_ops=[],
+                patched_files=[],
+                total_patches=0,
+            )
+        self.finished.emit(result)
+
+
+class DevWorker(QObject):
+    finished = Signal(object)
+
+    def __init__(self, unsupported_csv: str, local_ops_csv: str, output_dir: str, op_name: str = "") -> None:
+        super().__init__()
+        self._unsupported_csv = unsupported_csv
+        self._local_ops_csv = local_ops_csv
+        self._output_dir = output_dir
+        self._op_name = op_name
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            result = run_operator_development(
+                Path(self._unsupported_csv),
+                Path(self._local_ops_csv),
+                Path(self._output_dir) if self._output_dir else Path.home() / "ascend_dev_tasks",
+                self._op_name if self._op_name else None,
+            )
+        except Exception as e:
+            result = DevTaskResult(
+                status=f"开发任务生成异常：{type(e).__name__}: {e}",
+                total_ops=0,
+                generated_tasks=[],
+            )
+        self.finished.emit(result)
+
+
 class Backend(QObject):
     sourceDirChanged = Signal()
     targetDirChanged = Signal()
@@ -69,6 +157,13 @@ class Backend(QObject):
     summaryChanged = Signal()
     unsupportedOpsChanged = Signal()
     unsupportedOpsJsonChanged = Signal()
+    migrateStatusChanged = Signal()
+    migrateSummaryChanged = Signal()
+    rewriteStatusChanged = Signal()
+    rewriteSummaryChanged = Signal()
+    devStatusChanged = Signal()
+    devSummaryChanged = Signal()
+    devOpListChanged = Signal()
 
     def __init__(self) -> None:
         super().__init__()
@@ -86,6 +181,19 @@ class Backend(QObject):
         self._unsupported_ops_json = "[]"
         self._thread: Optional[QThread] = None
         self._worker: Optional[ScanWorker] = None
+        self._migrate_status = ""
+        self._migrate_total_files = 0
+        self._migrate_modified_files = 0
+        self._migrate_total_changes = 0
+        self._rewrite_status = ""
+        self._rewrite_total_ops = 0
+        self._rewrite_mapped = 0
+        self._rewrite_decomposable = 0
+        self._rewrite_need_dev = 0
+        self._dev_status = ""
+        self._dev_total_ops = 0
+        self._dev_generated_tasks = 0
+        self._dev_op_list_json = "[]"
 
     def getSourceDir(self) -> str:  # noqa: N802
         return self._source_dir
@@ -173,6 +281,103 @@ class Backend(QObject):
         return self._unsupported_ops_json
 
     unsupportedOpsJson = Property(str, getUnsupportedOpsJson, notify=unsupportedOpsJsonChanged)
+
+    def getMigrateStatus(self) -> str:  # noqa: N802
+        return self._migrate_status
+
+    migrateStatus = Property(str, getMigrateStatus, notify=migrateStatusChanged)
+
+    def getMigrateTotalFiles(self) -> int:  # noqa: N802
+        return self._migrate_total_files
+
+    migrateTotalFiles = Property(int, getMigrateTotalFiles, notify=migrateSummaryChanged)
+
+    def getMigrateModifiedFiles(self) -> int:  # noqa: N802
+        return self._migrate_modified_files
+
+    migrateModifiedFiles = Property(int, getMigrateModifiedFiles, notify=migrateSummaryChanged)
+
+    def getMigrateTotalChanges(self) -> int:  # noqa: N802
+        return self._migrate_total_changes
+
+    migrateTotalChanges = Property(int, getMigrateTotalChanges, notify=migrateSummaryChanged)
+
+    def getRewriteStatus(self) -> str:  # noqa: N802
+        return self._rewrite_status
+
+    rewriteStatus = Property(str, getRewriteStatus, notify=rewriteStatusChanged)
+
+    def getRewriteTotalOps(self) -> int:  # noqa: N802
+        return self._rewrite_total_ops
+
+    rewriteTotalOps = Property(int, getRewriteTotalOps, notify=rewriteSummaryChanged)
+
+    def getRewriteMapped(self) -> int:  # noqa: N802
+        return self._rewrite_mapped
+
+    rewriteMapped = Property(int, getRewriteMapped, notify=rewriteSummaryChanged)
+
+    def getRewriteDecomposable(self) -> int:  # noqa: N802
+        return self._rewrite_decomposable
+
+    rewriteDecomposable = Property(int, getRewriteDecomposable, notify=rewriteSummaryChanged)
+
+    def getRewriteNeedDev(self) -> int:  # noqa: N802
+        return self._rewrite_need_dev
+
+    rewriteNeedDev = Property(int, getRewriteNeedDev, notify=rewriteSummaryChanged)
+
+    def getDevStatus(self) -> str:  # noqa: N802
+        return self._dev_status
+
+    devStatus = Property(str, getDevStatus, notify=devStatusChanged)
+
+    def getDevTotalOps(self) -> int:  # noqa: N802
+        return self._dev_total_ops
+
+    devTotalOps = Property(int, getDevTotalOps, notify=devSummaryChanged)
+
+    def getDevGeneratedTasks(self) -> int:  # noqa: N802
+        return self._dev_generated_tasks
+
+    devGeneratedTasks = Property(int, getDevGeneratedTasks, notify=devSummaryChanged)
+
+    def getDevOpListJson(self) -> str:  # noqa: N802
+        return self._dev_op_list_json
+
+    devOpListJson = Property(str, getDevOpListJson, notify=devOpListChanged)
+
+    def _refresh_dev_op_list(self) -> None:
+        try:
+            from rewriter.op_analyzer import analyze_unsupported_ops
+            from pathlib import Path
+
+            reports_dir = Path(__file__).resolve().parents[1] / "scanner" / "reports"
+            csv_files = list(reports_dir.rglob("unsupported_api.csv"))
+            if not csv_files:
+                self._dev_op_list_json = "[]"
+                return
+
+            local_csv = Path(__file__).resolve().parents[1] / "patcher" / "local_op_lib" / "local_ops.csv"
+            from rewriter.rewriter_core import _load_local_ops_csv
+            known = _load_local_ops_csv(local_csv)
+            solutions = analyze_unsupported_ops(csv_files[0], known)
+
+            ops = []
+            for s in solutions:
+                if s.strategy == "需开发":
+                    safe = s.op_name.replace(".", "_").replace("-", "_").replace("/", "_")
+                    ops_src = Path(__file__).resolve().parents[1] / "op_builder" / "ops_src"
+                    has_proj = (ops_src / f"{safe}Sample").is_dir()
+                    ops.append({
+                        "op": s.op_name,
+                        "safeName": safe,
+                        "hasProject": has_proj,
+                    })
+            self._dev_op_list_json = json.dumps(ops, ensure_ascii=False)
+        except Exception:
+            self._dev_op_list_json = "[]"
+        self.devOpListChanged.emit()
 
     def _set_busy(self, v: bool) -> None:
         if v == self._busy:
@@ -268,6 +473,188 @@ class Backend(QObject):
     def _on_thread_finished(self) -> None:
         self._worker = None
         self._thread = None
+
+    @Slot()
+    def migrateToNpu(self) -> None:  # noqa: N802
+        if self._busy:
+            return
+        if not self._source_dir:
+            self._migrate_status = "请先选择待迁移模型目录"
+            self.migrateStatusChanged.emit()
+            return
+        if not self._target_dir:
+            self._migrate_status = "请先选择迁移目标目录"
+            self.migrateStatusChanged.emit()
+            return
+        if not Path(self._source_dir).exists():
+            self._migrate_status = "待迁移模型目录不存在"
+            self.migrateStatusChanged.emit()
+            return
+
+        self._set_busy(True)
+        self._migrate_status = "正在迁移代码到 NPU，请稍候..."
+        self.migrateStatusChanged.emit()
+
+        thread = QThread()
+        worker = MigrateWorker(self._source_dir, self._target_dir)
+        self._thread = thread
+        self._worker = worker
+
+        worker.moveToThread(thread)
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_migrate_finished)
+        worker.finished.connect(thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(self._on_thread_finished)
+        thread.start()
+
+    @Slot(object)
+    def _on_migrate_finished(self, result: object) -> None:
+        if isinstance(result, MigrateResult):
+            self._migrate_status = result.status
+            self._migrate_total_files = result.total_files
+            self._migrate_modified_files = result.modified_files
+            self._migrate_total_changes = result.total_changes
+        else:
+            self._migrate_status = "迁移返回结果格式异常"
+        self.migrateStatusChanged.emit()
+        self.migrateSummaryChanged.emit()
+        self._set_busy(False)
+
+    @Slot()
+    def analyzeOps(self) -> None:  # noqa: N802
+        if self._busy:
+            return
+        if not self._source_dir:
+            self._rewrite_status = "请先选择待迁移模型目录"
+            self.rewriteStatusChanged.emit()
+            return
+
+        reports_dir = Path(__file__).resolve().parents[1] / "scanner" / "reports"
+        csv_files = list(reports_dir.rglob("unsupported_api.csv"))
+        if not csv_files:
+            self._rewrite_status = "未找到 unsupported_api.csv，请先执行扫描"
+            self.rewriteStatusChanged.emit()
+            return
+
+        unsupported_csv = str(csv_files[0])
+        local_csv = str(Path(__file__).resolve().parents[1] / "patcher" / "local_op_lib" / "local_ops.csv")
+        output_dir = self._target_dir or str(Path(__file__).resolve().parents[1] / "rewriter" / "output")
+
+        self._set_busy(True)
+        self._rewrite_status = "正在分析算子替换方案，请稍候..."
+        self.rewriteStatusChanged.emit()
+
+        thread = QThread()
+        worker = RewriteWorker(unsupported_csv, local_csv, output_dir, self._source_dir)
+        self._thread = thread
+        self._worker = worker
+
+        worker.moveToThread(thread)
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_rewrite_finished)
+        worker.finished.connect(thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(self._on_thread_finished)
+        thread.start()
+
+    @Slot(object)
+    def _on_rewrite_finished(self, result: object) -> None:
+        if isinstance(result, RewriteResult):
+            self._rewrite_status = result.status
+            self._rewrite_total_ops = result.total_ops
+            self._rewrite_mapped = result.mapped_count
+            self._rewrite_decomposable = result.decomposable_count
+            self._rewrite_need_dev = result.need_develop_count
+        else:
+            self._rewrite_status = "算子分析返回结果格式异常"
+        self.rewriteStatusChanged.emit()
+        self.rewriteSummaryChanged.emit()
+        self._refresh_dev_op_list()
+        self._set_busy(False)
+
+    @Slot()
+    def developOps(self) -> None:  # noqa: N802
+        if self._busy:
+            return
+
+        reports_dir = Path(__file__).resolve().parents[1] / "scanner" / "reports"
+        csv_files = list(reports_dir.rglob("unsupported_api.csv"))
+        if not csv_files:
+            self._dev_status = "未找到 unsupported_api.csv，请先执行扫描"
+            self.devStatusChanged.emit()
+            return
+
+        unsupported_csv = str(csv_files[0])
+        local_csv = str(Path(__file__).resolve().parents[1] / "patcher" / "local_op_lib" / "local_ops.csv")
+        output_dir = self._target_dir or str(Path(__file__).resolve().parents[1] / "rewriter" / "dev_tasks")
+
+        self._set_busy(True)
+        self._dev_status = "正在生成算子开发任务..."
+        self.devStatusChanged.emit()
+
+        thread = QThread()
+        worker = DevWorker(unsupported_csv, local_csv, output_dir)
+        self._thread = thread
+        self._worker = worker
+
+        worker.moveToThread(thread)
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_dev_finished)
+        worker.finished.connect(thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(self._on_thread_finished)
+        thread.start()
+
+    @Slot(object)
+    def _on_dev_finished(self, result: object) -> None:
+        if isinstance(result, DevTaskResult):
+            self._dev_status = result.status
+            self._dev_total_ops = result.total_ops
+            self._dev_generated_tasks = len(result.generated_tasks)
+        else:
+            self._dev_status = "开发任务生成结果格式异常"
+        self.devStatusChanged.emit()
+        self.devSummaryChanged.emit()
+        self._refresh_dev_op_list()
+        self._set_busy(False)
+
+    @Slot(str)
+    def developSingleOp(self, op_name: str) -> None:  # noqa: N802
+        if self._busy:
+            return
+
+        reports_dir = Path(__file__).resolve().parents[1] / "scanner" / "reports"
+        csv_files = list(reports_dir.rglob("unsupported_api.csv"))
+        if not csv_files:
+            self._dev_status = "未找到 unsupported_api.csv，请先执行扫描"
+            self.devStatusChanged.emit()
+            return
+
+        unsupported_csv = str(csv_files[0])
+        local_csv = str(Path(__file__).resolve().parents[1] / "patcher" / "local_op_lib" / "local_ops.csv")
+        output_dir = self._target_dir or str(Path(__file__).resolve().parents[1] / "rewriter" / "dev_tasks")
+
+        self._set_busy(True)
+        self._dev_status = f"正在生成 [{op_name}] 的开发任务..."
+        self.devStatusChanged.emit()
+
+        thread = QThread()
+        worker = DevWorker(unsupported_csv, local_csv, output_dir, op_name)
+        self._thread = thread
+        self._worker = worker
+
+        worker.moveToThread(thread)
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_dev_finished)
+        worker.finished.connect(thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(self._on_thread_finished)
+        thread.start()
 
     @Slot()
     def shutdown(self) -> None:
