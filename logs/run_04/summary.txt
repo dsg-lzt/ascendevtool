@@ -1,0 +1,15 @@
+=== Pipeline Round 04 Summary ===
+Time: 2026-06-24 17:57:33
+Git commit: fa30184e0f4c93b4c5de0474922689d833da92a9
+
+--- scan.log (tail 30) ---
+SCAN_TOOL_NOT_FOUND
+
+--- rewrite.log (tail 30) ---
+NO_UNSUPPORTED_CSV
+
+--- inference.log (tail 50) ---
+N/A
+
+--- status ---
+NO_STATUS
