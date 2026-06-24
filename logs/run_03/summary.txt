@@ -1,23 +1,55 @@
 === Pipeline Round 03 Summary ===
-Time: 2026-06-24 17:55:47
-Git commit: 608cdafa83ac839b8364e3a84ac6a1e24ea92324
+Time: 2026-06-24 18:19:56
+Git commit: d8be78a3fca6e86d88941cfdc3cdf5de4dd756e0
 
 --- scan.log (tail 30) ---
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
-  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
-  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
-  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
-2026-06-24 17:55:47 [INFO]    Start to check input path...
-2026-06-24 17:55:47 [ERROR]   An error occurred: The Input file /usr/local/Ascend/ascend-toolkit/8.3.RC1/tools/ms_fmk_transplt/resource/op_list_2_6.json is insecure because it does not belong to you.
-2026-06-24 17:55:47 [ERROR]   Analyse run failed!
+2026-06-24 18:19:56 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:19:56 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
+2026-06-24 18:19:56 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
+2026-06-24 18:19:56 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:19:56 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-24 18:19:56 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
+2026-06-24 18:19:56 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
+2026-06-24 18:19:56 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:19:56 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:19:56 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:19:56 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
+2026-06-24 18:19:56 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
+2026-06-24 18:19:56 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:19:56 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:19:56 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
+2026-06-24 18:19:56 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
+2026-06-24 18:19:56 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
+2026-06-24 18:19:56 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:19:56 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
+2026-06-24 18:19:56 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-24 18:19:56 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
++----------------------------+------------+
+|           files            | statistics |
++----------------------------+------------+
+| api_performance_advice.csv |    102     |
+|      cuda_op_list.csv      |    684     |
+|    unsupported_api.csv     |     14     |
+|      unknown_api.csv       |     59     |
+|  api_precision_advice.csv  |     13     |
++----------------------------+------------+
 
 --- rewrite.log (tail 30) ---
-NO_UNSUPPORTED_CSV
+分析完成：13 个不支持的算子
+  已入库/可映射: 2
+  可拆分: 3
+  数学等价改写: 0
+  需开发: 8
+已替换 25 处调用，修改 3 个文件
+已生成 12 个文件/脚手架
 
 --- inference.log (tail 50) ---
-N/A
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 1, in <module>
+    import gorilla
+ModuleNotFoundError: No module named 'gorilla'
 
 --- status ---
 DONE
+DONE
+SUCCESS
