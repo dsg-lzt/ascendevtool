@@ -117,26 +117,7 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
 
     # 用服务器已有的 torch_npu python（自动检测 conda 环境）
     SAM6D_PYTHON="${SAM6D_PYTHON:-}"
-    if [ -z "$SAM6D_PYTHON" ]; then
-        # 优先找 torch_npu 环境
-        for env_name in torch_npu ascenddevtool; do
-            py=$(conda run -n "$env_name" which python 2>/dev/null)
-            if [ -n "$py" ] && "$py" -c "import torch_npu" 2>/dev/null; then
-                SAM6D_PYTHON="$py"
-                break
-            fi
-        done
-        # 遍历其他 conda 环境
-        if [ -z "$SAM6D_PYTHON" ]; then
-            for env in $(conda env list 2>/dev/null | grep -v "^#" | awk '{print $1}' | grep -v "^$"); do
-                py=$(conda run -n "$env" which python 2>/dev/null)
-                if [ -n "$py" ] && "$py" -c "import torch_npu" 2>/dev/null; then
-                    SAM6D_PYTHON="$py"
-                    break
-                fi
-            done
-        fi
-    fi
+    SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     SAM6D_PYTHON="${SAM6D_PYTHON:-python3}"
     log "使用 $SAM6D_PYTHON 运行推理..."
 
