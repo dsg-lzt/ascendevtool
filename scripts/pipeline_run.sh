@@ -46,42 +46,36 @@ cd "$TOOL_DIR"
 # ---- 1. CANN 扫描 ----
 log "1/4 CANN 扫描 SAM-6D..."
 mkdir -p "$SCAN_OUT"
-python -c "
-from pathlib import Path
-sys.argv = ['scan']
-import subprocess, os, sys
-tool = Path(os.environ['ASCEND_TOOLKIT_HOME']) / 'tools/ms_fmk_transplt/analysis/pytorch_analyse.py'
-cmd = [sys.executable, str(tool), '-i', '$SAM6D_SRC', '-o', '$SCAN_OUT', '-v', '2.6.0', '-m', 'torch_apis']
-result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
-print(result.stdout[-3000:])
-if result.returncode != 0:
-    print(result.stderr[-2000:])
-" > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
+SCAN_TOOL="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py"
+if [ -f "$SCAN_TOOL" ]; then
+    python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT" -v 2.6.0 -m torch_apis \
+        > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
+else
+    log "WARN: 未找到 pytorch_analyse.py，跳过扫描"
+    echo "SCAN_TOOL_NOT_FOUND" > "$LOG_DIR/scan.log"
+fi
 
 # ---- 2. 代码迁移 + 算子替换 ----
 log "2/4 代码迁移(NPU) + 算子替换..."
-python -c "
+UNSUPPORTED_CSV=$(find "$SCAN_OUT" -name "unsupported_api.csv" 2>/dev/null | head -1)
+if [ -n "$UNSUPPORTED_CSV" ]; then
+    python -c "
+import sys
+sys.path.insert(0, '$TOOL_DIR')
 from pathlib import Path
 from rewriter.rewriter_core import rewrite_unsupported_ops
-
-unsupported_csv = Path('$SCAN_OUT').rglob('unsupported_api.csv')
-unsupported_csv = list(unsupported_csv)
-if not unsupported_csv:
-    print('WARN: 未找到 unsupported_api.csv，使用已有报告')
-    unsupported_csv = [Path('scanner/reports').rglob('unsupported_api.csv')]
-    unsupported_csv = list(unsupported_csv[0] if hasattr(unsupported_csv[0], '__iter__') else [])
-
-if unsupported_csv:
-    result = rewrite_unsupported_ops(
-        unsupported_csv=unsupported_csv[0],
-        local_ops_csv=Path('patcher/local_op_lib/local_ops.csv'),
-        output_dir=Path('$SAM6D_OUT'),
-        source_dir=Path('$SAM6D_SRC'),
-    )
-    print(result.status)
-else:
-    print('WARN: 跳过算子替换（无扫描结果）')
+result = rewrite_unsupported_ops(
+    unsupported_csv=Path('$UNSUPPORTED_CSV'),
+    local_ops_csv=Path('$TOOL_DIR/patcher/local_op_lib/local_ops.csv'),
+    output_dir=Path('$SAM6D_OUT'),
+    source_dir=Path('$SAM6D_SRC'),
+)
+print(result.status)
 " > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
+else
+    log "WARN: 未找到 unsupported_api.csv，跳过算子替换"
+    echo "NO_UNSUPPORTED_CSV" > "$LOG_DIR/rewrite.log"
+fi
 
 # ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
