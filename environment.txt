@@ -1,8 +1,21 @@
-nohup: 忽略输入
-已经是最新的。
-[LOOP] 18:04:59 初始 commit: 5928b3a747c9c2c33f4c2517498e68db970d1ce5
-[LOOP] 18:04:59 ========================================
-[LOOP] 18:04:59 首次启动，立即执行第 1/10 轮
-[LOOP] 18:04:59 执行 pipeline_run.sh...
-[ROUND 01] 18:04:59 激活虚拟环境...
-[ROUND 01] 18:04:59 1/4 CANN 扫描 SAM-6D...
+remote: Enumerating objects: 34, done.
+remote: Counting objects: 100% (34/34), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 25 (delta 18), reused 22 (delta 15), pack-reused 0 (from 0)
+展开对象中: 100% (25/25), 4.17 KiB | 2.09 MiB/s, 完成.
+来自 https://github.com/dsg-lzt/ascendevtool
+   6ae8413..40e6f47  master     -> origin/master
+更新 6ae8413..40e6f47
+error: 工作区中下列未跟踪的文件将会因为合并操作而被覆盖：
+        =1.1.0
+        =6.6
+        op_builder/_pointnet2_3090_pointnet2_utils_three_interpolate_gen.json
+        op_builder/_pointnet2_3090_pointnet2_utils_three_nn_gen.json
+        op_builder/_pointnet2__ext_furthest_point_sampling_gen.json
+        op_builder/_pointnet2__ext_gather_points_grad_gen.json
+        op_builder/_pointnet2__ext_group_points_grad_gen.json
+        op_builder/_pointnet2__ext_three_interpolate_gen.json
+        op_builder/_pointnet2__ext_three_interpolate_grad_gen.json
+        op_builder/_pointnet2_utils_three_interpolate_gen.json
+请在合并前移动或删除。
+正在终止
