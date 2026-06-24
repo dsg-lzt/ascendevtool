@@ -1,20 +1,23 @@
 === Pipeline Round 03 Summary ===
-Time: 2026-06-24 17:48:35
-Git commit: aaf5d598ce9bae295368757a5a871fc065dbb51a
+Time: 2026-06-24 17:55:47
+Git commit: 608cdafa83ac839b8364e3a84ac6a1e24ea92324
 
 --- scan.log (tail 30) ---
-Traceback (most recent call last):
-  File "<string>", line 3, in <module>
-    sys.argv = ['scan']
-    ^^^
-NameError: name 'sys' is not defined. Did you forget to import 'sys'?
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
+  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
+  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
+  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
+2026-06-24 17:55:47 [INFO]    Start to check input path...
+2026-06-24 17:55:47 [ERROR]   An error occurred: The Input file /usr/local/Ascend/ascend-toolkit/8.3.RC1/tools/ms_fmk_transplt/resource/op_list_2_6.json is insecure because it does not belong to you.
+2026-06-24 17:55:47 [ERROR]   Analyse run failed!
 
 --- rewrite.log (tail 30) ---
-WARN: 未找到 unsupported_api.csv，使用已有报告
-WARN: 跳过算子替换（无扫描结果）
+NO_UNSUPPORTED_CSV
 
 --- inference.log (tail 50) ---
 N/A
 
 --- status ---
-NO_STATUS
+DONE
