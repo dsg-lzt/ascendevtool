@@ -222,10 +222,11 @@ def _generate_gorilla_stub(output_dir: Path) -> Path:
         paths = [output_dir]
     stub_path = paths[0] / "gorilla.py"
     stub_path.write_text('''from __future__ import annotations
-import yaml
+import json
 import torch
 import os
 from collections import namedtuple
+import re
 
 def _dict_to_obj(d):
     if isinstance(d, dict):
@@ -239,7 +240,15 @@ class _GorillaConfig:
     @staticmethod
     def fromfile(path):
         with open(path, "r") as f:
-            cfg = yaml.safe_load(f)
+            content = f.read()
+        try:
+            cfg = json.loads(content)
+        except Exception:
+            try:
+                import yaml
+                cfg = yaml.safe_load(content)
+            except Exception:
+                cfg = {}
         return _dict_to_obj(cfg)
 
 class _GorillaUtils:
