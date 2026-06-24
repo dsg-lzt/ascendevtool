@@ -6,6 +6,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+WHEEL_DIR="$(dirname "$PIPELINE_ROOT")"
 LOG_DIR="$PIPELINE_ROOT/logs/init"
 mkdir -p "$LOG_DIR"
 
@@ -122,7 +123,7 @@ fi
 # ---- 6. torch + torch_npu ----
 log "6/7 安装 torch + torch_npu..."
 TORCH_WHEEL=""
-for d in "$PIPELINE_ROOT" "$PIPELINE_ROOT/AscendDevTool"; do
+for d in "$WHEEL_DIR" "$PIPELINE_ROOT"; do
     if [ -f "$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
         TORCH_WHEEL="$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
         break
@@ -143,7 +144,7 @@ else
 fi
 
 NPU_WHEEL=""
-for d in "$PIPELINE_ROOT" "$PIPELINE_ROOT/AscendDevTool"; do
+for d in "$WHEEL_DIR" "$PIPELINE_ROOT"; do
     if [ -f "$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
         NPU_WHEEL="$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
         break
