@@ -1,0 +1,16 @@
+#安装Python依赖库
+pip install attrs cython 'numpy>=1.19.2,<=1.24.0' decorator sympy cffi pyyaml pathlib2 psutil protobuf==3.20.0 scipy requests absl-py 
+#安装timm
+pip install timm
+#安装torch、torch_npu、torchvision
+pip3 install torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl
+pip3 install torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip3 install torchvision==0.21.0  --index-url https://download.pytorch.org/whl/cpu     --trusted-host download.pytorch.org    --trusted-host download-r2.pytorch.org  --trusted-host files.pythonhosted.org
+# pip3 install torch-2.1.0+cpu-cp310-cp310-linux_x86_64.whl
+# pip3 install torch_npu-2.1.0.post17-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+# pip3 install torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cpu
+#更换triton-ascend
+pip uninstall triton -y 
+pip install triton-ascend==3.2.0rc4
+#安装其他库
+pip install opencv-python addict imageio pycocotools trimesh scipy einops
