@@ -71,7 +71,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
 
     # 执行流水线
     log "执行 pipeline_run.sh..."
-    bash "$PIPELINE_ROOT/pipeline_run.sh" "$round"
+    bash "$TOOL_DIR/scripts/pipeline_run.sh" "$round"
     PIPELINE_EXIT=$?
 
     # 上传日志
@@ -79,6 +79,11 @@ while [ $round -lt $MAX_ROUNDS ]; do
     git add "$LOG_ROOT/" 2>/dev/null || true
     git commit -m "logs: pipeline round $round [auto]" 2>/dev/null || log "WARN: 无日志变更"
     git push origin master 2>/dev/null || log "WARN: git push 失败"
+
+    # 更新 Last commit，避免把日志提交误判为"新变更"
+    git fetch origin master 2>/dev/null
+    CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
+    echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
 
     # 检查是否成功
     STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
