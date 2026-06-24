@@ -39,16 +39,18 @@ if [ ! -d "ascenddevtool" ]; then
 fi
 source ascenddevtool/bin/activate
 
+PIP_MIRROR="https://pypi.tuna.tsinghua.edu.cn/simple"
+
 echo "[INIT] 安装项目依赖..."
-pip install -r gui/requirements.txt
-pip install pandas prettytable -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -r gui/requirements.txt -i "$PIP_MIRROR"
+pip install pandas prettytable -i "$PIP_MIRROR"
 
 # ---- 4. SAM-6D 依赖 ----
 echo "[INIT] 4/6 安装 SAM-6D 依赖..."
-pip install torch torchvision torchaudio
-pip install timm gorilla-core==0.2.7.8 trimesh==3.22.1
-pip install imgaug opencv-python gpustat==1.0.0 einops
-pip install torch_npu 2>/dev/null || echo "[WARN] torch_npu 安装失败（可能不需要手动装）"
+pip install torch torchvision torchaudio -i "$PIP_MIRROR"
+pip install timm gorilla-core==0.2.7.8 trimesh==3.22.1 -i "$PIP_MIRROR"
+pip install imgaug opencv-python gpustat==1.0.0 einops -i "$PIP_MIRROR"
+pip install torch_npu -i "$PIP_MIRROR" 2>/dev/null || echo "[WARN] torch_npu 安装失败（可能不需要手动装）"
 
 # ---- 5. 目录准备 ----
 echo "[INIT] 5/6 准备输出目录..."
