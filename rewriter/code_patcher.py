@@ -216,6 +216,64 @@ def _generate_replacement_module(output_dir: Path, solutions: List[OpSolution]) 
     return path
 
 
+def _generate_gorilla_stub(output_dir: Path) -> Path:
+    stub_path = output_dir / "gorilla.py"
+    stub_path.write_text('''from __future__ import annotations
+import mmcv
+import torch
+import os
+
+class _GorillaConfig:
+    @staticmethod
+    def fromfile(path):
+        cfg = mmcv.Config.fromfile(path)
+        return cfg
+
+class _GorillaUtils:
+    @staticmethod
+    def set_cuda_visible_devices(gpu_ids):
+        devices = gpu_ids.split(",") if isinstance(gpu_ids, str) else [str(g) for g in gpu_ids]
+        os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(devices)
+        try:
+            import torch_npu
+            torch.npu.set_device(0)
+        except ImportError:
+            pass
+
+class _GorillaSolver:
+    @staticmethod
+    def load_checkpoint(model, filename, map_location=None):
+        checkpoint = torch.load(filename, map_location=map_location or "cpu")
+        if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
+            model.load_state_dict(checkpoint["state_dict"])
+        elif isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
+            model.load_state_dict(checkpoint["model_state_dict"])
+        else:
+            model.load_state_dict(checkpoint, strict=False)
+
+    @staticmethod
+    def build_optimizer(model, cfg):
+        return torch.optim.Adam(model.parameters(), lr=cfg.learning_rate)
+
+    @staticmethod
+    def build_lr_scheduler(optimizer, cfg):
+        return torch.optim.lr_scheduler.StepLR(optimizer, step_size=cfg.lr_decay_step, gamma=cfg.lr_decay_factor)
+
+import sys
+
+class _GorillaModule(sys.modules[__name__].__class__):
+    Config = _GorillaConfig
+    utils = _GorillaUtils
+    solver = _GorillaSolver
+
+sys.modules[__name__].__class__ = _GorillaModule
+Config = _GorillaConfig
+utils = _GorillaUtils
+solver = _GorillaSolver
+''')
+    return stub_path
+
+
 def apply_rewrites_to_source(
     source_dir: Path,
     output_dir: Path,
@@ -228,7 +286,8 @@ def apply_rewrites_to_source(
     shutil.copytree(source_dir, output_dir, ignore=shutil.ignore_patterns("__pycache__", ".git", "*.pyc"))
 
     replacement_path = _generate_replacement_module(output_dir, solutions)
-    generated_files = [str(replacement_path)]
+    gorilla_path = _generate_gorilla_stub(output_dir)
+    generated_files = [str(replacement_path), str(gorilla_path)]
 
     py_files = list(output_dir.rglob("*.py"))
     total_changes = 0
