@@ -83,7 +83,7 @@ else:
     print('WARN: 跳过算子替换（无扫描结果）')
 " > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
 
-# ---- 3. SAM-6D 推理测试 ----
+# ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
 INFERENCE_DIR="$SAM6D_OUT/Pose_Estimation_Model"
 if [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
@@ -99,7 +99,11 @@ if [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
 
     mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
 
-    python run_inference_custom.py \
+    # 用服务器已有的 torch_npu python 运行（非 ascenddevtool venv）
+    SAM6D_PYTHON="${SAM6D_PYTHON:-python3}"
+    log "使用 $SAM6D_PYTHON 运行推理..."
+
+    $SAM6D_PYTHON run_inference_custom.py \
         --output_dir "$OUTPUT_DIR" \
         --cad_path "$CAD_PATH" \
         --rgb_path "$RGB_PATH" \
