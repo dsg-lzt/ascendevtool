@@ -1,0 +1,15 @@
+=== Pipeline Round 02 Summary ===
+Time: 2026-06-24 17:53:33
+Git commit: 0c87025c7d94ee6139a6434279f38fd9ee401418
+
+--- scan.log (tail 30) ---
+SCAN_TOOL_NOT_FOUND
+
+--- rewrite.log (tail 30) ---
+NO_UNSUPPORTED_CSV
+
+--- inference.log (tail 50) ---
+N/A
+
+--- status ---
+NO_STATUS
