@@ -101,11 +101,11 @@ fi
 
 # ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
-INFERENCE_DIR="$SAM6D_OUT/Pose_Estimation_Model"
-if [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
+INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
+if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
     cd "$INFERENCE_DIR"
 
-    DATA_DIR="$SAM6D_SRC/Data/Example"
+    DATA_DIR="$SAM6D_SRC/SAM-6D/Data/Example"
     OUTPUT_DIR="$DATA_DIR/outputs"
     CAD_PATH="$DATA_DIR/obj_000005.ply"
     RGB_PATH="$DATA_DIR/rgb.png"
