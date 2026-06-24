@@ -44,25 +44,30 @@ log "初始 commit: $LAST_COMMIT"
 while [ $round -lt $MAX_ROUNDS ]; do
     cd "$TOOL_DIR"
 
-    # 检测新提交
-    git fetch origin master 2>/dev/null
-    CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
-    LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
+    # 第一轮立即执行，不需要等新提交
+    if [ $round -eq 0 ]; then
+        round=1
+        log "========================================"
+        log "首次启动，立即执行第 1/$MAX_ROUNDS 轮"
+    else
+        # 检测新提交
+        git fetch origin master 2>/dev/null
+        CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
+        LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
 
-    if [ "$CURRENT_REMOTE" = "$LAST_COMMIT" ]; then
-        sleep 30
-        continue
+        if [ "$CURRENT_REMOTE" = "$LAST_COMMIT" ]; then
+            sleep 30
+            continue
+        fi
+
+        round=$((round + 1))
+        log "========================================"
+        log "检测到新提交，开始第 $round/$MAX_ROUNDS 轮"
+        log "  $LAST_COMMIT -> $CURRENT_REMOTE"
+
+        git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+        echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
-
-    # 有新提交
-    round=$((round + 1))
-    log "========================================"
-    log "检测到新提交，开始第 $round/$MAX_ROUNDS 轮"
-    log "  $LAST_COMMIT -> $CURRENT_REMOTE"
-
-    # 拉取最新
-    git pull origin master 2>/dev/null || log "WARN: git pull 失败"
-    echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
 
     # 执行流水线
     log "执行 pipeline_run.sh..."
