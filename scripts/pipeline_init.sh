@@ -45,12 +45,44 @@ echo "[INIT] 安装项目依赖..."
 pip install -r gui/requirements.txt -i "$PIP_MIRROR"
 pip install pandas prettytable -i "$PIP_MIRROR"
 
-# ---- 4. SAM-6D 依赖 ----
+# ---- 4. SAM-6D 依赖（来自 environment.txt） ----
 echo "[INIT] 4/6 安装 SAM-6D 依赖..."
-pip install torch torchvision torchaudio -i "$PIP_MIRROR"
-pip install timm gorilla-core==0.2.7.8 trimesh==3.22.1 -i "$PIP_MIRROR"
-pip install imgaug opencv-python gpustat==1.0.0 einops -i "$PIP_MIRROR"
-pip install torch_npu -i "$PIP_MIRROR" 2>/dev/null || echo "[WARN] torch_npu 安装失败（可能不需要手动装）"
+
+# 4.1 基础 Python 库
+pip install attrs cython 'numpy>=1.19.2,<=1.24.0' decorator sympy cffi pyyaml \
+    pathlib2 psutil protobuf==3.20.0 scipy requests absl-py -i "$PIP_MIRROR"
+
+# 4.2 timm
+pip install timm -i "$PIP_MIRROR"
+
+# 4.3 torch + torch_npu（优先 wheel 文件，否则 pip 安装）
+if [ -f "$PIPELINE_ROOT/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
+    pip install "$PIPELINE_ROOT/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
+elif [ -f "$PIPELINE_ROOT/AscendDevTool/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
+    pip install "$PIPELINE_ROOT/AscendDevTool/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
+else
+    echo "[WARN] 未找到 torch wheel 文件，尝试 pip 安装"
+    pip install torch==2.6.0 -i "$PIP_MIRROR"
+fi
+
+if [ -f "$PIPELINE_ROOT/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
+    pip install "$PIPELINE_ROOT/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+elif [ -f "$PIPELINE_ROOT/AscendDevTool/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
+    pip install "$PIPELINE_ROOT/AscendDevTool/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+else
+    echo "[WARN] 未找到 torch_npu wheel 文件，尝试 pip 安装"
+    pip install torch_npu -i "$PIP_MIRROR"
+fi
+
+# 4.4 torchvision
+pip install torchvision==0.21.0 -i "$PIP_MIRROR"
+
+# 4.5 triton-ascend
+pip uninstall triton -y 2>/dev/null || true
+pip install triton-ascend==3.2.0rc4 -i "$PIP_MIRROR"
+
+# 4.6 其他库
+pip install opencv-python addict imageio pycocotools trimesh scipy einops -i "$PIP_MIRROR"
 
 # ---- 5. 目录准备 ----
 echo "[INIT] 5/6 准备输出目录..."
