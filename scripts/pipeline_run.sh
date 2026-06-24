@@ -1,0 +1,143 @@
+#!/bin/bash
+# ============================================================
+# pipeline_run.sh — 单次流水线执行
+# 被 pipeline_loop.sh 调用
+# 用法: bash pipeline_run.sh <round_number>
+# ============================================================
+set -e
+
+ROUND="${1:-01}"
+ROUND=$(printf '%02d' "$ROUND")
+PIPELINE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
+SAM6D_SRC="$PIPELINE_ROOT/SAM-6D"
+SAM6D_OUT="$PIPELINE_ROOT/ascenddev_output/SAM-6D_NPU"
+SCAN_OUT="$PIPELINE_ROOT/ascenddev_output/scan"
+LOG_DIR="$PIPELINE_ROOT/logs/run_$ROUND"
+
+mkdir -p "$LOG_DIR"
+
+log() {
+    echo "[ROUND $ROUND] $(date '+%H:%M:%S') $*"
+}
+
+fail() {
+    log "ERROR: $*"
+    echo "PIPELINE_ERROR: $*" >> "$LOG_DIR/status.txt"
+    exit 1
+}
+
+# ---- 0. 激活环境 ----
+log "激活虚拟环境..."
+source "$TOOL_DIR/ascenddevtool/bin/activate"
+export ASCEND_TOOLKIT_HOME="$HOME/Ascend/ascend-toolkit/latest"
+export ASCEND_HOME_PATH="$HOME/Ascend/ascend-toolkit/latest"
+export ASCEND_OPP_PATH="$ASCEND_TOOLKIT_HOME/opp"
+export PATH="$ASCEND_TOOLKIT_HOME/bin:$ASCEND_TOOLKIT_HOME/compiler/ccec_compiler/bin:$PATH"
+export LD_LIBRARY_PATH="$ASCEND_TOOLKIT_HOME/x86_64-linux/devlib:$ASCEND_TOOLKIT_HOME/runtime/lib64/stub:$LD_LIBRARY_PATH"
+export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$ASCEND_TOOLKIT_HOME/python/site-packages:$PYTHONPATH"
+
+cd "$TOOL_DIR"
+
+# ---- 1. CANN 扫描 ----
+log "1/4 CANN 扫描 SAM-6D..."
+mkdir -p "$SCAN_OUT"
+python -c "
+from pathlib import Path
+sys.argv = ['scan']
+import subprocess, os, sys
+tool = Path(os.environ['ASCEND_TOOLKIT_HOME']) / 'tools/ms_fmk_transplt/analysis/pytorch_analyse.py'
+cmd = [sys.executable, str(tool), '-i', '$SAM6D_SRC', '-o', '$SCAN_OUT', '-v', '2.6.0', '-m', 'torch_apis']
+result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+print(result.stdout[-3000:])
+if result.returncode != 0:
+    print(result.stderr[-2000:])
+" > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
+
+# ---- 2. 代码迁移 + 算子替换 ----
+log "2/4 代码迁移(NPU) + 算子替换..."
+python -c "
+from pathlib import Path
+from rewriter.rewriter_core import rewrite_unsupported_ops
+
+unsupported_csv = Path('$SCAN_OUT').rglob('unsupported_api.csv')
+unsupported_csv = list(unsupported_csv)
+if not unsupported_csv:
+    print('WARN: 未找到 unsupported_api.csv，使用已有报告')
+    unsupported_csv = [Path('scanner/reports').rglob('unsupported_api.csv')]
+    unsupported_csv = list(unsupported_csv[0] if hasattr(unsupported_csv[0], '__iter__') else [])
+
+if unsupported_csv:
+    result = rewrite_unsupported_ops(
+        unsupported_csv=unsupported_csv[0],
+        local_ops_csv=Path('patcher/local_op_lib/local_ops.csv'),
+        output_dir=Path('$SAM6D_OUT'),
+        source_dir=Path('$SAM6D_SRC'),
+    )
+    print(result.status)
+else:
+    print('WARN: 跳过算子替换（无扫描结果）')
+" > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
+
+# ---- 3. SAM-6D 推理测试 ----
+log "3/4 SAM-6D 推理测试..."
+INFERENCE_DIR="$SAM6D_OUT/Pose_Estimation_Model"
+if [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
+    cd "$INFERENCE_DIR"
+
+    DATA_DIR="$SAM6D_SRC/Data/Example"
+    OUTPUT_DIR="$DATA_DIR/outputs"
+    CAD_PATH="$DATA_DIR/obj_000005.ply"
+    RGB_PATH="$DATA_DIR/rgb.png"
+    DEPTH_PATH="$DATA_DIR/depth.png"
+    CAM_PATH="$DATA_DIR/camera.json"
+    SEG_PATH="$OUTPUT_DIR/sam6d_results"
+
+    mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
+
+    python run_inference_custom.py \
+        --output_dir "$OUTPUT_DIR" \
+        --cad_path "$CAD_PATH" \
+        --rgb_path "$RGB_PATH" \
+        --depth_path "$DEPTH_PATH" \
+        --cam_path "$CAM_PATH" \
+        --seg_path "$SEG_PATH" \
+        > "$LOG_DIR/inference.log" 2>&1 &
+    INF_PID=$!
+    wait $INF_PID 2>/dev/null || true
+    INF_EXIT=$?
+    if [ $INF_EXIT -ne 0 ]; then
+        log "WARN: 推理测试退出码 $INF_EXIT"
+        echo "EXIT_CODE=$INF_EXIT" >> "$LOG_DIR/status.txt"
+    else
+        log "SUCCESS: 推理测试完成"
+        echo "SUCCESS" >> "$LOG_DIR/status.txt"
+    fi
+else
+    log "WARN: 未找到 run_inference_custom.py，跳过推理"
+fi
+
+cd "$TOOL_DIR"
+
+# ---- 4. 生成轮次摘要 ----
+log "4/4 生成摘要..."
+{
+    echo "=== Pipeline Round $ROUND Summary ==="
+    echo "Time: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "Git commit: $(git rev-parse HEAD 2>/dev/null || echo unknown)"
+    echo ""
+    echo "--- scan.log (tail 30) ---"
+    tail -30 "$LOG_DIR/scan.log" 2>/dev/null || echo "N/A"
+    echo ""
+    echo "--- rewrite.log (tail 30) ---"
+    tail -30 "$LOG_DIR/rewrite.log" 2>/dev/null || echo "N/A"
+    echo ""
+    echo "--- inference.log (tail 50) ---"
+    tail -50 "$LOG_DIR/inference.log" 2>/dev/null || echo "N/A"
+    echo ""
+    echo "--- status ---"
+    cat "$LOG_DIR/status.txt" 2>/dev/null || echo "NO_STATUS"
+} > "$LOG_DIR/summary.txt"
+
+log "完成"
+echo "DONE" >> "$LOG_DIR/status.txt"

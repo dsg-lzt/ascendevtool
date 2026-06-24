@@ -1,0 +1,85 @@
+#!/bin/bash
+# ============================================================
+# pipeline_loop.sh — git 变更检测 + 循环执行（最多10轮）
+# 用法: nohup bash pipeline_loop.sh > pipeline_loop.log 2>&1 &
+# ============================================================
+
+MAX_ROUNDS=10
+PIPELINE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
+LOG_ROOT="$PIPELINE_ROOT/logs"
+LAST_COMMIT_FILE="$PIPELINE_ROOT/.pipeline_last_commit"
+
+round=0
+mkdir -p "$LOG_ROOT"
+
+log() {
+    echo "[LOOP] $(date '+%H:%M:%S') $*"
+}
+
+# 拉取初始状态
+cd "$TOOL_DIR"
+git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
+echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
+log "初始 commit: $LAST_COMMIT"
+
+while [ $round -lt $MAX_ROUNDS ]; do
+    cd "$TOOL_DIR"
+
+    # 检测新提交
+    git fetch origin master 2>/dev/null
+    CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
+    LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
+
+    if [ "$CURRENT_REMOTE" = "$LAST_COMMIT" ]; then
+        sleep 30
+        continue
+    fi
+
+    # 有新提交
+    round=$((round + 1))
+    log "========================================"
+    log "检测到新提交，开始第 $round/$MAX_ROUNDS 轮"
+    log "  $LAST_COMMIT -> $CURRENT_REMOTE"
+
+    # 拉取最新
+    git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+    echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
+
+    # 执行流水线
+    log "执行 pipeline_run.sh..."
+    bash "$PIPELINE_ROOT/pipeline_run.sh" "$round"
+    PIPELINE_EXIT=$?
+
+    # 上传日志
+    log "上传日志..."
+    git add "$LOG_ROOT/" 2>/dev/null || true
+    git commit -m "logs: pipeline round $round [auto]" 2>/dev/null || log "WARN: 无日志变更"
+    git push origin master 2>/dev/null || log "WARN: git push 失败"
+
+    # 检查是否成功
+    STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
+    if grep -q "SUCCESS" "$STATUS_FILE" 2>/dev/null; then
+        log "========================================"
+        log "✅ 第 $round 轮推理成功！退出循环"
+        echo "PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
+        git add "$LOG_ROOT/" 2>/dev/null || true
+        git commit -m "logs: PIPELINE SUCCESS at round $round" 2>/dev/null || true
+        git push origin master 2>/dev/null || true
+        exit 0
+    fi
+
+    if [ $PIPELINE_EXIT -ne 0 ]; then
+        log "WARN: 流水线退出码 $PIPELINE_EXIT"
+    fi
+
+    sleep 5
+done
+
+log "========================================"
+log "达到最大轮次 $MAX_ROUNDS，退出循环"
+echo "PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
+git add "$LOG_ROOT/" 2>/dev/null || true
+git commit -m "logs: MAX ROUNDS reached [auto]" 2>/dev/null || true
+git push origin master 2>/dev/null || true
