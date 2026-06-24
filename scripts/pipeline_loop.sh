@@ -13,7 +13,7 @@ else
     PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
 fi
 TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
-LOG_ROOT="$PIPELINE_ROOT/logs"
+LOG_ROOT="$TOOL_DIR/logs"
 LAST_COMMIT_FILE="$PIPELINE_ROOT/.pipeline_last_commit"
 
 round=0

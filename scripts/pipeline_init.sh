@@ -13,7 +13,7 @@ else
     PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
 fi
 
-LOG_DIR="$PIPELINE_ROOT/logs/init"
+LOG_DIR="$PIPELINE_ROOT/AscendDevTool/logs/init"
 mkdir -p "$LOG_DIR"
 
 INIT_LOG="$LOG_DIR/init_$(date +%Y%m%d_%H%M%S).log"
@@ -78,7 +78,6 @@ step_pass "git config"
 
 # ============================================================
 # ── 上传日志 ──
-cp -r "$LOG_DIR" "$TOOL_DIR/logs/" 2>/dev/null || true
 cd "$TOOL_DIR"
 git add logs/ 2>/dev/null || true
 git commit -m "logs: pipeline init [auto]" 2>/dev/null || true

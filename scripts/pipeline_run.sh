@@ -17,7 +17,7 @@ TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
 SAM6D_SRC="$PIPELINE_ROOT/SAM-6D"
 SAM6D_OUT="$PIPELINE_ROOT/ascenddev_output/SAM-6D_NPU"
 SCAN_OUT="$PIPELINE_ROOT/ascenddev_output/scan"
-LOG_DIR="$PIPELINE_ROOT/logs/run_$ROUND"
+LOG_DIR="$TOOL_DIR/logs/run_$ROUND"
 
 mkdir -p "$LOG_DIR"
 
