@@ -1,105 +1,205 @@
 #!/bin/bash
 # ============================================================
-# pipeline_init.sh — 远程服务器首次环境配置
-# 在 ~/pipeline_tool/ 目录下执行一次
+# pipeline_init.sh — 远程服务器环境配置（可反复执行）
+# 每次执行都会检查已有步骤，跳过已完成的，重试失败的
 # ============================================================
-set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PIPELINE_ROOT="$SCRIPT_DIR"
+PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+LOG_DIR="$PIPELINE_ROOT/logs/init"
+mkdir -p "$LOG_DIR"
 
-echo "========================================"
-echo "[INIT] 初始化 pipeline 环境"
-echo "[INIT] PIPELINE_ROOT=$PIPELINE_ROOT"
-echo "========================================"
-
-# ---- 1. Conda 环境 ----
-echo "[INIT] 1/6 创建 Conda 环境 ascenddevtool..."
-if conda env list | grep -q ascenddevtool; then
-    echo "[INIT] Conda 环境 ascenddevtool 已存在，跳过"
-else
-    conda create -n ascenddevtool python=3.13 -y
-fi
-
-# ---- 2. 克隆 AscendDevTool ----
-echo "[INIT] 2/6 克隆 AscendDevTool..."
-if [ -d "$PIPELINE_ROOT/AscendDevTool/.git" ]; then
-    echo "[INIT] AscendDevTool 已存在，执行 git pull"
-    cd "$PIPELINE_ROOT/AscendDevTool"
-    git pull
-else
-    git clone https://github.com/dsg-lzt/ascendevtool.git "$PIPELINE_ROOT/AscendDevTool"
-fi
-
-# ---- 3. 创建虚拟环境 ----
-echo "[INIT] 3/6 创建项目虚拟环境..."
-cd "$PIPELINE_ROOT/AscendDevTool"
-if [ ! -d "ascenddevtool" ]; then
-    python -m venv ascenddevtool
-fi
-source ascenddevtool/bin/activate
-
+INIT_LOG="$LOG_DIR/init_$(date +%Y%m%d_%H%M%S).log"
+STATUS_FILE="$LOG_DIR/init_status.txt"
 PIP_MIRROR="https://pypi.tuna.tsinghua.edu.cn/simple"
 
-echo "[INIT] 安装项目依赖..."
-pip install -r gui/requirements.txt -i "$PIP_MIRROR"
-pip install pandas prettytable -i "$PIP_MIRROR"
+PASSED=0
+FAILED=0
+> "$INIT_LOG"
 
-# ---- 4. SAM-6D 依赖（来自 environment.txt） ----
-echo "[INIT] 4/6 安装 SAM-6D 依赖..."
+log() {
+    echo "[INIT] $(date '+%H:%M:%S') $*" | tee -a "$INIT_LOG"
+}
 
-# 4.1 基础 Python 库
-pip install attrs cython 'numpy>=1.19.2,<=1.24.0' decorator sympy cffi pyyaml \
-    pathlib2 psutil protobuf==3.20.0 scipy requests absl-py -i "$PIP_MIRROR"
+step_pass() {
+    PASSED=$((PASSED + 1))
+    log "  ✅ $1"
+}
 
-# 4.2 timm
-pip install timm -i "$PIP_MIRROR"
+step_fail() {
+    FAILED=$((FAILED + 1))
+    log "  ❌ $1 失败（继续执行）"
+}
 
-# 4.3 torch + torch_npu（优先 wheel 文件，否则 pip 安装）
-if [ -f "$PIPELINE_ROOT/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
-    pip install "$PIPELINE_ROOT/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
-elif [ -f "$PIPELINE_ROOT/AscendDevTool/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
-    pip install "$PIPELINE_ROOT/AscendDevTool/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
+# ============================================================
+log "========================================"
+log "初始化 pipeline 环境"
+log "PIPELINE_ROOT=$PIPELINE_ROOT"
+log "日志文件: $INIT_LOG"
+log "========================================"
+
+# ---- 1. Conda 环境 ----
+log "1/7 创建 Conda 环境 ascenddevtool (python=3.10)..."
+if conda env list 2>/dev/null | grep -q ascenddevtool; then
+    log "  Conda 环境已存在，跳过"
+    step_pass "conda env"
 else
-    echo "[WARN] 未找到 torch wheel 文件，尝试 pip 安装"
-    pip install torch==2.6.0 -i "$PIP_MIRROR"
+    if conda create -n ascenddevtool python=3.10 -y >> "$INIT_LOG" 2>&1; then
+        step_pass "conda env"
+    else
+        step_fail "conda env"
+    fi
 fi
 
-if [ -f "$PIPELINE_ROOT/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
-    pip install "$PIPELINE_ROOT/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-elif [ -f "$PIPELINE_ROOT/AscendDevTool/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
-    pip install "$PIPELINE_ROOT/AscendDevTool/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+# ---- 2. Git 拉取最新代码 ----
+log "2/7 Git 拉取 AscendDevTool..."
+if [ -d "$PIPELINE_ROOT/AscendDevTool/.git" ]; then
+    cd "$PIPELINE_ROOT/AscendDevTool"
+    if git pull >> "$INIT_LOG" 2>&1; then
+        step_pass "git pull"
+    else
+        step_fail "git pull"
+    fi
 else
-    echo "[WARN] 未找到 torch_npu wheel 文件，尝试 pip 安装"
-    pip install torch_npu -i "$PIP_MIRROR"
+    if git clone https://github.com/dsg-lzt/ascendevtool.git "$PIPELINE_ROOT/AscendDevTool" >> "$INIT_LOG" 2>&1; then
+        step_pass "git clone"
+    else
+        step_fail "git clone"
+    fi
 fi
 
-# 4.4 torchvision
-pip install torchvision==0.21.0 -i "$PIP_MIRROR"
+# ---- 3. 虚拟环境 ----
+log "3/7 创建项目虚拟环境..."
+cd "$PIPELINE_ROOT/AscendDevTool"
+if [ ! -d "ascenddevtool" ]; then
+    python -m venv ascenddevtool >> "$INIT_LOG" 2>&1
+fi
+if source ascenddevtool/bin/activate 2>> "$INIT_LOG"; then
+    step_pass "venv"
+else
+    step_fail "venv"
+fi
 
-# 4.5 triton-ascend
-pip uninstall triton -y 2>/dev/null || true
-pip install triton-ascend==3.2.0rc4 -i "$PIP_MIRROR"
+# ---- 4. 项目依赖 ----
+log "4/7 安装项目依赖..."
+if pip install -r gui/requirements.txt -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+    step_pass "gui deps (PySide6, libcst)"
+else
+    step_fail "gui deps"
+fi
 
-# 4.6 其他库
-pip install opencv-python addict imageio pycocotools trimesh scipy einops -i "$PIP_MIRROR"
+if pip install pandas prettytable -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+    step_pass "CANN deps (pandas, prettytable)"
+else
+    step_fail "CANN deps"
+fi
 
-# ---- 5. 目录准备 ----
-echo "[INIT] 5/6 准备输出目录..."
+# ---- 5. SAM-6D 基础依赖 ----
+log "5/7 安装 SAM-6D 基础依赖..."
+SAM6D_DEPS=(
+    "attrs cython decorator sympy cffi pyyaml"
+    "pathlib2 psutil protobuf==3.20.0 scipy requests absl-py"
+    "timm"
+    "opencv-python addict imageio pycocotools trimesh scipy einops"
+)
+
+for deps in "${SAM6D_DEPS[@]}"; do
+    name=$(echo "$deps" | awk '{print $1}')
+    if pip install $deps -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+        step_pass "sam6d: $name"
+    else
+        step_fail "sam6d: $name"
+    fi
+done
+
+# numpy 特殊处理（版本范围）
+if pip install 'numpy>=1.19.2,<=1.24.0' -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+    step_pass "sam6d: numpy"
+else
+    step_fail "sam6d: numpy"
+fi
+
+# ---- 6. torch + torch_npu ----
+log "6/7 安装 torch + torch_npu..."
+TORCH_WHEEL=""
+for d in "$PIPELINE_ROOT" "$PIPELINE_ROOT/AscendDevTool"; do
+    if [ -f "$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
+        TORCH_WHEEL="$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
+        break
+    fi
+done
+if [ -n "$TORCH_WHEEL" ]; then
+    if pip install "$TORCH_WHEEL" >> "$INIT_LOG" 2>&1; then
+        step_pass "torch (wheel)"
+    else
+        step_fail "torch (wheel)"
+    fi
+else
+    if pip install torch==2.6.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+        step_pass "torch (pip)"
+    else
+        step_fail "torch (pip)"
+    fi
+fi
+
+NPU_WHEEL=""
+for d in "$PIPELINE_ROOT" "$PIPELINE_ROOT/AscendDevTool"; do
+    if [ -f "$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
+        NPU_WHEEL="$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        break
+    fi
+done
+if [ -n "$NPU_WHEEL" ]; then
+    if pip install "$NPU_WHEEL" >> "$INIT_LOG" 2>&1; then
+        step_pass "torch_npu (wheel)"
+    else
+        step_fail "torch_npu (wheel)"
+    fi
+else
+    if pip install torch_npu -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+        step_pass "torch_npu (pip)"
+    else
+        step_fail "torch_npu (pip)"
+    fi
+fi
+
+if pip install torchvision==0.21.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+    step_pass "torchvision"
+else
+    step_fail "torchvision"
+fi
+
+# ---- 7. triton-ascend + 目录 ----
+log "7/7 triton-ascend + 目录准备..."
+pip uninstall triton -y >> "$INIT_LOG" 2>&1 || true
+if pip install triton-ascend==3.2.0rc4 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+    step_pass "triton-ascend"
+else
+    step_fail "triton-ascend"
+fi
+
 mkdir -p "$PIPELINE_ROOT/ascenddev_output"
 mkdir -p "$PIPELINE_ROOT/logs"
 
-# ---- 6. Git 配置（避免首次 commit 报错） ----
-echo "[INIT] 6/6 配置 Git..."
+# ── Git 配置 ──
 cd "$PIPELINE_ROOT/AscendDevTool"
-git config user.email "pipeline@ascend-dev.local" || true
-git config user.name "Pipeline Bot" || true
+git config user.email "pipeline@ascend-dev.local" 2>/dev/null || true
+git config user.name "Pipeline Bot" 2>/dev/null || true
 
-echo ""
-echo "========================================"
-echo "[INIT] 环境配置完成！"
-echo ""
-echo "  接下来执行："
-echo "    cd $PIPELINE_ROOT"
-echo "    nohup bash pipeline_loop.sh > pipeline_loop.log 2>&1 &"
-echo "========================================"
+# ============================================================
+log "========================================"
+log "初始化完成: 成功 $PASSED / 失败 $FAILED"
+echo "PASSED=$PASSED FAILED=$FAILED" > "$STATUS_FILE"
+echo "LOG=$INIT_LOG" >> "$STATUS_FILE"
+
+if [ $FAILED -gt 0 ]; then
+    log "⚠️  有 $FAILED 个步骤失败，查看日志: $INIT_LOG"
+    log "  修改脚本后重新执行 bash pipeline_init.sh 即可重试失败步骤"
+    log "========================================"
+    exit 1
+else
+    log "全部成功！接下来启动循环："
+    log "  cd $PIPELINE_ROOT"
+    log "  nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &"
+    log "========================================"
+fi
