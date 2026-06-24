@@ -63,12 +63,16 @@ cd "$TOOL_DIR"
 
 # ---- 1. CANN 扫描 ----
 log "1/4 CANN 扫描 SAM-6D..."
-mkdir -p "$SCAN_OUT"
+SCAN_TS=$(date +%Y%m%d_%H%M%S)
+SCAN_OUT_DIR="$SCAN_OUT/scan_$ROUND_$SCAN_TS"
+mkdir -p "$SCAN_OUT_DIR"
 SCAN_TOOL="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py"
 if [ -f "$SCAN_TOOL" ]; then
     export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
-    timeout 600 python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT" -v 2.6.0 -m torch_apis \
+    timeout 600 python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT_DIR" -v 2.6.0 -m torch_apis \
         > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
+    # 更新 unsupported_api.csv 路径为最新扫描结果
+    UNSUPPORTED_CSV=$(find "$SCAN_OUT_DIR" -name "unsupported_api.csv" 2>/dev/null | head -1)
 else
     log "WARN: 未找到 pytorch_analyse.py，跳过扫描"
     echo "SCAN_TOOL_NOT_FOUND" > "$LOG_DIR/scan.log"
@@ -76,7 +80,6 @@ fi
 
 # ---- 2. 代码迁移 + 算子替换 ----
 log "2/4 代码迁移(NPU) + 算子替换..."
-UNSUPPORTED_CSV=$(find "$SCAN_OUT" -name "unsupported_api.csv" 2>/dev/null | head -1)
 if [ -n "$UNSUPPORTED_CSV" ]; then
     python -c "
 import sys
