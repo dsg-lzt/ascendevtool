@@ -66,16 +66,8 @@ log "1/4 CANN 扫描 SAM-6D..."
 mkdir -p "$SCAN_OUT"
 SCAN_TOOL="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py"
 if [ -f "$SCAN_TOOL" ]; then
-    # 修复 CANN resource 文件属主（root 安装问题，只需执行一次）
-    SCAN_RES="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/resource"
-    if [ -d "$SCAN_RES" ]; then
-        CURRENT_OWNER=$(stat -c %U "$SCAN_RES/op_list_2_6.json" 2>/dev/null || echo "")
-        if [ "$CURRENT_OWNER" != "$USER" ] && [ "$CURRENT_OWNER" = "root" ]; then
-            sudo chown -R "$USER:$USER" "$SCAN_RES" 2>/dev/null || true
-        fi
-    fi
     export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
-    python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT" -v 2.6.0 -m torch_apis \
+    timeout 600 python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT" -v 2.6.0 -m torch_apis \
         > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
 else
     log "WARN: 未找到 pytorch_analyse.py，跳过扫描"
@@ -133,7 +125,11 @@ if [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
         --seg_path "$SEG_PATH" \
         > "$LOG_DIR/inference.log" 2>&1 &
     INF_PID=$!
+    # 推理超时 30 分钟
+    (sleep 1800; kill $INF_PID 2>/dev/null) &
+    TIMEOUT_PID=$!
     wait $INF_PID 2>/dev/null || true
+    kill $TIMEOUT_PID 2>/dev/null || true
     INF_EXIT=$?
     if [ $INF_EXIT -ne 0 ]; then
         log "WARN: 推理测试退出码 $INF_EXIT"
