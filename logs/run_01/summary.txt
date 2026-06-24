@@ -1,0 +1,20 @@
+=== Pipeline Round 01 Summary ===
+Time: 2026-06-24 17:52:20
+Git commit: aaf5d598ce9bae295368757a5a871fc065dbb51a
+
+--- scan.log (tail 30) ---
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    sys.argv = ['scan']
+    ^^^
+NameError: name 'sys' is not defined. Did you forget to import 'sys'?
+
+--- rewrite.log (tail 30) ---
+WARN: 未找到 unsupported_api.csv，使用已有报告
+WARN: 跳过算子替换（无扫描结果）
+
+--- inference.log (tail 50) ---
+N/A
+
+--- status ---
+NO_STATUS

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    sys.argv = ['scan']
+    ^^^
+NameError: name 'sys' is not defined. Did you forget to import 'sys'?
