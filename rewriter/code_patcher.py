@@ -222,15 +222,25 @@ def _generate_gorilla_stub(output_dir: Path) -> Path:
         paths = [output_dir]
     stub_path = paths[0] / "gorilla.py"
     stub_path.write_text('''from __future__ import annotations
-import mmcv
+import yaml
 import torch
 import os
+from collections import namedtuple
+
+def _dict_to_obj(d):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                d[k] = _dict_to_obj(v)
+        return namedtuple("Config", d.keys())(**d)
+    return d
 
 class _GorillaConfig:
     @staticmethod
     def fromfile(path):
-        cfg = mmcv.Config.fromfile(path)
-        return cfg
+        with open(path, "r") as f:
+            cfg = yaml.safe_load(f)
+        return _dict_to_obj(cfg)
 
 class _GorillaUtils:
     @staticmethod

@@ -18,6 +18,8 @@ LAST_COMMIT_FILE="$PIPELINE_ROOT/.pipeline_last_commit"
 
 round=0
 mkdir -p "$LOG_ROOT"
+# 清理上次运行的状态
+rm -f "$LOG_ROOT/loop_status.txt" 2>/dev/null
 
 # GIT_TOKEN 配置
 if [ -n "$GIT_TOKEN" ]; then
@@ -27,6 +29,7 @@ fi
 
 # Git 配置
 cd "$TOOL_DIR"
+git config pull.rebase false 2>/dev/null || true
 git config user.email "pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Pipeline Bot" 2>/dev/null || true
 
