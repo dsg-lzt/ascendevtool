@@ -49,10 +49,21 @@ log "========================================"
 
 # ---- 1. Conda 环境 ----
 log "1/7 创建 Conda 环境 ascenddevtool (python=3.10)..."
+CONDA_RECREATE=""
 if conda env list 2>/dev/null | grep -q ascenddevtool; then
-    log "  Conda 环境已存在，跳过"
-    step_pass "conda env"
+    PY_VER=$(conda run -n ascenddevtool python --version 2>&1 || echo "unknown")
+    if echo "$PY_VER" | grep -q "Python 3.10"; then
+        log "  Conda 环境已存在 ($PY_VER)，跳过"
+        step_pass "conda env"
+    else
+        log "  Conda 环境 Python 版本不对 ($PY_VER)，需要 3.10，重建..."
+        conda env remove -n ascenddevtool -y >> "$INIT_LOG" 2>&1 || true
+        CONDA_RECREATE="yes"
+    fi
 else
+    CONDA_RECREATE="yes"
+fi
+if [ "$CONDA_RECREATE" = "yes" ]; then
     if conda create -n ascenddevtool python=3.10 -y >> "$INIT_LOG" 2>&1; then
         step_pass "conda env"
     else
@@ -79,11 +90,29 @@ else
 fi
 
 # ---- 3. 虚拟环境 ----
-log "3/7 创建项目虚拟环境..."
+log "3/7 创建项目虚拟环境（使用 conda python 3.10）..."
 cd "$TOOL_DIR"
-if [ ! -d "ascenddevtool" ]; then
-    python -m venv ascenddevtool >> "$INIT_LOG" 2>&1
+
+# 确保用 conda 的 python 3.10 来创建 venv
+CONDA_PYTHON=$(conda run -n ascenddevtool which python 2>/dev/null || echo "")
+if [ -z "$CONDA_PYTHON" ]; then
+    CONDA_PYTHON=$(which python3 2>/dev/null || which python 2>/dev/null || echo "python3")
 fi
+
+if [ -d "ascenddevtool" ]; then
+    # 检查 venv 的 python 版本
+    VENV_PY_VER=$("$TOOL_DIR/ascenddevtool/bin/python" --version 2>&1 || echo "unknown")
+    if echo "$VENV_PY_VER" | grep -q "Python 3.10"; then
+        log "  venv 已存在 ($VENV_PY_VER)，跳过"
+    else
+        log "  venv Python 版本不对 ($VENV_PY_VER)，重建..."
+        rm -rf ascenddevtool
+        "$CONDA_PYTHON" -m venv ascenddevtool >> "$INIT_LOG" 2>&1
+    fi
+else
+    "$CONDA_PYTHON" -m venv ascenddevtool >> "$INIT_LOG" 2>&1
+fi
+
 if source ascenddevtool/bin/activate 2>> "$INIT_LOG"; then
     step_pass "venv"
 else
