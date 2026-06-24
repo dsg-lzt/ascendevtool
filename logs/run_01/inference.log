@@ -2,5 +2,5 @@ Traceback (most recent call last):
   File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 1, in <module>
     import gorilla
   File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/gorilla.py", line 2, in <module>
-    import mmcv
-ModuleNotFoundError: No module named 'mmcv'
+    import yaml
+ModuleNotFoundError: No module named 'yaml'
