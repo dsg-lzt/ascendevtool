@@ -217,7 +217,10 @@ def _generate_replacement_module(output_dir: Path, solutions: List[OpSolution]) 
 
 
 def _generate_gorilla_stub(output_dir: Path) -> Path:
-    stub_path = output_dir / "gorilla.py"
+    paths = list(output_dir.rglob("Pose_Estimation_Model"))
+    if not paths:
+        paths = [output_dir]
+    stub_path = paths[0] / "gorilla.py"
     stub_path.write_text('''from __future__ import annotations
 import mmcv
 import torch
