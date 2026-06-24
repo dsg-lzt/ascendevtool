@@ -223,17 +223,19 @@ def _generate_gorilla_stub(output_dir: Path) -> Path:
     stub_path = paths[0] / "gorilla.py"
     stub_path.write_text('''from __future__ import annotations
 import json
-import torch
+ import torch
 import os
-from collections import namedtuple
 import re
+
+class _CfgObj:
+    pass
 
 def _dict_to_obj(d):
     if isinstance(d, dict):
+        obj = _CfgObj()
         for k, v in d.items():
-            if isinstance(v, dict):
-                d[k] = _dict_to_obj(v)
-        return namedtuple("Config", d.keys())(**d)
+            setattr(obj, k, _dict_to_obj(v))
+        return obj
     return d
 
 class _GorillaConfig:
