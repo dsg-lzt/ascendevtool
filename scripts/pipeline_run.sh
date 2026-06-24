@@ -115,7 +115,30 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
 
     mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
 
-    # 用服务器已有的 torch_npu python 运行（非 ascenddevtool venv）
+    # 用服务器已有的 torch_npu python（自动检测 conda 环境）
+    SAM6D_PYTHON="${SAM6D_PYTHON:-}"
+    if [ -z "$SAM6D_PYTHON" ]; then
+        for py in \
+            "$(conda run -n ascenddevtool which python 2>/dev/null)" \
+            "$(conda run -n base which python 2>/dev/null)" \
+            "$(which python3)" \
+            "$(which python)"; do
+            if [ -n "$py" ] && "$py" -c "import torch" 2>/dev/null; then
+                SAM6D_PYTHON="$py"
+                break
+            fi
+        done
+        # 遍历所有 conda 环境
+        if [ -z "$SAM6D_PYTHON" ]; then
+            for env in $(conda env list 2>/dev/null | grep -v "^#" | awk '{print $1}' | grep -v "^$"); do
+                py=$(conda run -n "$env" which python 2>/dev/null)
+                if [ -n "$py" ] && "$py" -c "import torch" 2>/dev/null; then
+                    SAM6D_PYTHON="$py"
+                    break
+                fi
+            done
+        fi
+    fi
     SAM6D_PYTHON="${SAM6D_PYTHON:-python3}"
     log "使用 $SAM6D_PYTHON 运行推理..."
 
