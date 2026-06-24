@@ -1,5 +1,9 @@
-Traceback (most recent call last):
-  File "<string>", line 3, in <module>
-    sys.argv = ['scan']
-    ^^^
-NameError: name 'sys' is not defined. Did you forget to import 'sys'?
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
+  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
+  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
+  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
+2026-06-24 18:09:33 [INFO]    Start to check input path...
+The output directory already exists. Do you want to overwrite? Enter 'continue' or 'c' to continue or enter 'exit' to exit: 2026-06-24 18:09:33 [ERROR]   An error occurred: EOF when reading a line
+2026-06-24 18:09:33 [ERROR]   Analyse run failed!

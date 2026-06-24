@@ -1,20 +1,23 @@
 === Pipeline Round 01 Summary ===
-Time: 2026-06-24 17:52:20
-Git commit: aaf5d598ce9bae295368757a5a871fc065dbb51a
+Time: 2026-06-24 18:09:33
+Git commit: 6b1e9b6f93fd453ce4b87037874798073b3c37ac
 
 --- scan.log (tail 30) ---
-Traceback (most recent call last):
-  File "<string>", line 3, in <module>
-    sys.argv = ['scan']
-    ^^^
-NameError: name 'sys' is not defined. Did you forget to import 'sys'?
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
+  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
+  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
+  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
+2026-06-24 18:09:33 [INFO]    Start to check input path...
+The output directory already exists. Do you want to overwrite? Enter 'continue' or 'c' to continue or enter 'exit' to exit: 2026-06-24 18:09:33 [ERROR]   An error occurred: EOF when reading a line
+2026-06-24 18:09:33 [ERROR]   Analyse run failed!
 
 --- rewrite.log (tail 30) ---
-WARN: 未找到 unsupported_api.csv，使用已有报告
-WARN: 跳过算子替换（无扫描结果）
+NO_UNSUPPORTED_CSV
 
 --- inference.log (tail 50) ---
 N/A
 
 --- status ---
-NO_STATUS
+DONE
