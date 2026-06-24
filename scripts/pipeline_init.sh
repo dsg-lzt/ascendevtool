@@ -2,11 +2,18 @@
 # ============================================================
 # pipeline_init.sh — 远程服务器环境配置（可反复执行）
 # 每次执行都会检查已有步骤，跳过已完成的，重试失败的
+# 在 ~/pipeline_tool/ 下执行: bash AscendDevTool/scripts/pipeline_init.sh
 # ============================================================
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
-WHEEL_DIR="$(dirname "$PIPELINE_ROOT")"
+
+# 自动检测 PIPELINE_ROOT：如果脚本在 AscendDevTool/scripts/ 下，则 PIPELINE_ROOT 为其父目录的父目录
+if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
+    PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+else
+    PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
+
 LOG_DIR="$PIPELINE_ROOT/logs/init"
 mkdir -p "$LOG_DIR"
 
@@ -36,6 +43,7 @@ step_fail() {
 log "========================================"
 log "初始化 pipeline 环境"
 log "PIPELINE_ROOT=$PIPELINE_ROOT"
+log "TOOL_DIR=$PIPELINE_ROOT/AscendDevTool"
 log "日志文件: $INIT_LOG"
 log "========================================"
 
@@ -54,15 +62,16 @@ fi
 
 # ---- 2. Git 拉取最新代码 ----
 log "2/7 Git 拉取 AscendDevTool..."
-if [ -d "$PIPELINE_ROOT/AscendDevTool/.git" ]; then
-    cd "$PIPELINE_ROOT/AscendDevTool"
+TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
+if [ -d "$TOOL_DIR/.git" ]; then
+    cd "$TOOL_DIR"
     if git pull >> "$INIT_LOG" 2>&1; then
         step_pass "git pull"
     else
         step_fail "git pull"
     fi
 else
-    if git clone https://github.com/dsg-lzt/ascendevtool.git "$PIPELINE_ROOT/AscendDevTool" >> "$INIT_LOG" 2>&1; then
+    if git clone https://github.com/dsg-lzt/ascendevtool.git "$TOOL_DIR" >> "$INIT_LOG" 2>&1; then
         step_pass "git clone"
     else
         step_fail "git clone"
@@ -71,7 +80,7 @@ fi
 
 # ---- 3. 虚拟环境 ----
 log "3/7 创建项目虚拟环境..."
-cd "$PIPELINE_ROOT/AscendDevTool"
+cd "$TOOL_DIR"
 if [ ! -d "ascenddevtool" ]; then
     python -m venv ascenddevtool >> "$INIT_LOG" 2>&1
 fi
@@ -97,14 +106,13 @@ fi
 
 # ---- 5. SAM-6D 基础依赖 ----
 log "5/7 安装 SAM-6D 基础依赖..."
-SAM6D_DEPS=(
-    "attrs cython decorator sympy cffi pyyaml"
-    "pathlib2 psutil protobuf==3.20.0 scipy requests absl-py"
-    "timm"
-    "opencv-python addict imageio pycocotools trimesh scipy einops"
-)
 
-for deps in "${SAM6D_DEPS[@]}"; do
+for deps in \
+    "attrs cython decorator sympy cffi pyyaml" \
+    "pathlib2 psutil protobuf==3.20.0 scipy requests absl-py" \
+    "timm" \
+    "opencv-python addict imageio pycocotools trimesh scipy einops"
+do
     name=$(echo "$deps" | awk '{print $1}')
     if pip install $deps -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
         step_pass "sam6d: $name"
@@ -113,8 +121,8 @@ for deps in "${SAM6D_DEPS[@]}"; do
     fi
 done
 
-# numpy 特殊处理（版本范围）
-if pip install 'numpy>=1.19.2,<=1.24.0' -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+# numpy: 不要限定上限版本，python 3.10 以上用 >=1.19.2 即可
+if pip install 'numpy>=1.19.2' -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
     step_pass "sam6d: numpy"
 else
     step_fail "sam6d: numpy"
@@ -122,46 +130,30 @@ fi
 
 # ---- 6. torch + torch_npu ----
 log "6/7 安装 torch + torch_npu..."
-TORCH_WHEEL=""
-for d in "$WHEEL_DIR" "$PIPELINE_ROOT"; do
-    if [ -f "$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl" ]; then
-        TORCH_WHEEL="$d/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
-        break
-    fi
-done
-if [ -n "$TORCH_WHEEL" ]; then
+
+# 检查 whl 文件：优先在 PIPELINE_ROOT（~/pipeline_tool/）下找
+TORCH_WHEEL="$PIPELINE_ROOT/torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl"
+if [ -f "$TORCH_WHEEL" ]; then
     if pip install "$TORCH_WHEEL" >> "$INIT_LOG" 2>&1; then
         step_pass "torch (wheel)"
     else
-        step_fail "torch (wheel)"
+        log "  WARN: cp310 whl 不兼容当前 Python，尝试在线安装"
+        pip install torch==2.6.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1 && step_pass "torch (pip)" || step_fail "torch (pip)"
     fi
 else
-    if pip install torch==2.6.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
-        step_pass "torch (pip)"
-    else
-        step_fail "torch (pip)"
-    fi
+    pip install torch==2.6.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1 && step_pass "torch (pip)" || step_fail "torch (pip)"
 fi
 
-NPU_WHEEL=""
-for d in "$WHEEL_DIR" "$PIPELINE_ROOT"; do
-    if [ -f "$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" ]; then
-        NPU_WHEEL="$d/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-        break
-    fi
-done
-if [ -n "$NPU_WHEEL" ]; then
+NPU_WHEEL="$PIPELINE_ROOT/torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+if [ -f "$NPU_WHEEL" ]; then
     if pip install "$NPU_WHEEL" >> "$INIT_LOG" 2>&1; then
         step_pass "torch_npu (wheel)"
     else
-        step_fail "torch_npu (wheel)"
+        log "  WARN: cp310 whl 不兼容当前 Python，尝试在线安装"
+        pip install torch_npu -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1 && step_pass "torch_npu (pip)" || step_fail "torch_npu (pip)"
     fi
 else
-    if pip install torch_npu -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
-        step_pass "torch_npu (pip)"
-    else
-        step_fail "torch_npu (pip)"
-    fi
+    pip install torch_npu -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1 && step_pass "torch_npu (pip)" || step_fail "torch_npu (pip)"
 fi
 
 if pip install torchvision==0.21.0 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
@@ -173,7 +165,8 @@ fi
 # ---- 7. triton-ascend + 目录 ----
 log "7/7 triton-ascend + 目录准备..."
 pip uninstall triton -y >> "$INIT_LOG" 2>&1 || true
-if pip install triton-ascend==3.2.0rc4 -i "$PIP_MIRROR" >> "$INIT_LOG" 2>&1; then
+# triton-ascend 不在清华镜像，用默认源
+if pip install triton-ascend==3.2.0rc4 >> "$INIT_LOG" 2>&1; then
     step_pass "triton-ascend"
 else
     step_fail "triton-ascend"
@@ -183,35 +176,47 @@ mkdir -p "$PIPELINE_ROOT/ascenddev_output"
 mkdir -p "$PIPELINE_ROOT/logs"
 
 # ── Git 配置 ──
-cd "$PIPELINE_ROOT/AscendDevTool"
+# 需要在远程服务器设置 GIT_TOKEN 环境变量
+cd "$TOOL_DIR"
 git config user.email "pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Pipeline Bot" 2>/dev/null || true
+if [ -n "$GIT_TOKEN" ]; then
+    REPO_URL="https://${GIT_TOKEN}@github.com/dsg-lzt/ascendevtool.git"
+    git remote set-url origin "$REPO_URL" 2>/dev/null
+fi
 
 # ============================================================
+# ── 上传日志 ──
+log "上传初始化日志到 git..."
+cd "$TOOL_DIR"
+LOG_DIR_ABS="$PIPELINE_ROOT/logs/init"
+
+# 复制日志到 AscendDevTool 的 logs 目录（才能在 git 中提交）
+mkdir -p logs
+cp -r "$LOG_DIR_ABS" logs/ 2>/dev/null || true
+
+git add logs/ 2>/dev/null || true
+git commit -m "logs: pipeline init [auto]" 2>/dev/null || true
+if git push origin master >> "$INIT_LOG" 2>&1; then
+    log "  ✅ 日志已上传"
+else
+    log "  ❌ 日志上传失败"
+    log "  请设置 GIT_TOKEN: export GIT_TOKEN=ghp_xxxxxxxx"
+    log "  或手动 cd $TOOL_DIR && git push"
+fi
+
 log "========================================"
 log "初始化完成: 成功 $PASSED / 失败 $FAILED"
 echo "PASSED=$PASSED FAILED=$FAILED" > "$STATUS_FILE"
 echo "LOG=$INIT_LOG" >> "$STATUS_FILE"
 
-# ── 上传日志 ──
-log "上传初始化日志到 git..."
-cd "$PIPELINE_ROOT/AscendDevTool"
-git add "$LOG_DIR/" 2>/dev/null || true
-git commit -m "logs: pipeline init [auto]" 2>/dev/null || true
-if git push origin master >> "$INIT_LOG" 2>&1; then
-    log "  ✅ 日志已上传"
-else
-    log "  ❌ 日志上传失败（可在 AscendDevTool 目录手动 git push）"
-fi
-
 if [ $FAILED -gt 0 ]; then
-    log "⚠️  有 $FAILED 个步骤失败，查看日志: $INIT_LOG"
-    log "  修改脚本后重新执行 bash AscendDevTool/scripts/pipeline_init.sh 即可重试"
-    log "========================================"
-    exit 1
+    log "⚠️  有 $FAILED 个步骤失败"
+    log "  日志: $INIT_LOG"
+    log "  重新执行即可重试: bash AscendDevTool/scripts/pipeline_init.sh"
 else
-    log "全部成功！接下来启动循环："
+    log "全部成功！启动循环："
     log "  cd $PIPELINE_ROOT"
     log "  nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &"
-    log "========================================"
 fi
+log "========================================"

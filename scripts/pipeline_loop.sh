@@ -1,17 +1,34 @@
 #!/bin/bash
 # ============================================================
 # pipeline_loop.sh — git 变更检测 + 循环执行（最多10轮）
-# 用法: nohup bash pipeline_loop.sh > pipeline_loop.log 2>&1 &
+# 用法: nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &
 # ============================================================
 
 MAX_ROUNDS=10
-PIPELINE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# 自动检测 PIPELINE_ROOT
+if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
+    PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+else
+    PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
 TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
 LOG_ROOT="$PIPELINE_ROOT/logs"
 LAST_COMMIT_FILE="$PIPELINE_ROOT/.pipeline_last_commit"
 
 round=0
 mkdir -p "$LOG_ROOT"
+
+# GIT_TOKEN 配置
+if [ -n "$GIT_TOKEN" ]; then
+    REPO_URL="https://${GIT_TOKEN}@github.com/dsg-lzt/ascendevtool.git"
+    git remote set-url origin "$REPO_URL" 2>/dev/null
+fi
+
+# Git 配置
+cd "$TOOL_DIR"
+git config user.email "pipeline@ascend-dev.local" 2>/dev/null || true
+git config user.name "Pipeline Bot" 2>/dev/null || true
 
 log() {
     echo "[LOOP] $(date '+%H:%M:%S') $*"

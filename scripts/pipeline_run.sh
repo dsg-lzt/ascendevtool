@@ -4,11 +4,15 @@
 # 被 pipeline_loop.sh 调用
 # 用法: bash pipeline_run.sh <round_number>
 # ============================================================
-set -e
 
 ROUND="${1:-01}"
 ROUND=$(printf '%02d' "$ROUND")
-PIPELINE_ROOT="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
+    PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+else
+    PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
 TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
 SAM6D_SRC="$PIPELINE_ROOT/SAM-6D"
 SAM6D_OUT="$PIPELINE_ROOT/ascenddev_output/SAM-6D_NPU"
