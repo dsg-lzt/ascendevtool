@@ -1,19 +1,35 @@
+ps aux | grep pipelin_loop
+orange    758452  0.0  0.0  14488  2780 pts/6    S+   17:45   0:00 grep --color=auto pipelin_loop
+
+cat pipeline_loop.log 
 nohup: 忽略输入
 已经是最新的。
-[LOOP] 17:40:56 初始 commit: 07dba4ef9ca520a8e279c2d1f996e2a777f7a6a1
-[LOOP] 17:40:56 ========================================
-[LOOP] 17:40:56 首次启动，立即执行第 1/10 轮
-[LOOP] 17:40:56 执行 pipeline_run.sh...
-bash: /home/orange/pipeline_tool/pipeline_run.sh: 没有那个文件或目录
-[LOOP] 17:40:56 上传日志...
+[LOOP] 17:43:34 初始 commit: 1870a5174cd36400fb82993907a09432803bc93a
+[LOOP] 17:43:34 ========================================
+[LOOP] 17:43:34 首次启动，立即执行第 1/10 轮
+[LOOP] 17:43:34 执行 pipeline_run.sh...
+[ROUND 01] 17:43:34 激活虚拟环境...
+[ROUND 01] 17:43:34 1/4 CANN 扫描 SAM-6D...
+[ROUND 01] 17:43:34 WARN: 扫描失败（继续执行）
+[ROUND 01] 17:43:34 2/4 代码迁移(NPU) + 算子替换...
+[ROUND 01] 17:43:34 3/4 SAM-6D 推理测试...
+[ROUND 01] 17:43:34 WARN: 未找到 run_inference_custom.py，跳过推理
+[ROUND 01] 17:43:34 4/4 生成摘要...
+[ROUND 01] 17:43:34 完成
+[LOOP] 17:43:34 上传日志...
 位于分支 master
 您的分支与上游分支 'origin/master' 一致。
 
 未跟踪的文件:
   （使用 "git add <文件>..." 以包含要提交的内容）
-	=1.1.0
-	=6.6
+        =1.1.0
+        =6.6
 
 提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
-[LOOP] 17:40:56 WARN: 无日志变更
-[LOOP] 17:40:57 WARN: 流水线退出码 127
+[LOOP] 17:43:34 WARN: 无日志变更
+
+ls AscendDevTool/scripts/pipeline_loop.sh 
+AscendDevTool/scripts/pipeline_loop.sh
+
+ls AscendDevTool/scripts/pipeline_run.sh 
+AscendDevTool/scripts/pipeline_run.sh
