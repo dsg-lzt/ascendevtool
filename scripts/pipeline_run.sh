@@ -131,18 +131,19 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     # 推理超时 30 分钟
     (sleep 1800; kill $INF_PID 2>/dev/null) &
     TIMEOUT_PID=$!
-    wait $INF_PID 2>/dev/null || true
-    kill $TIMEOUT_PID 2>/dev/null || true
+    wait $INF_PID 2>/dev/null
     INF_EXIT=$?
-    if [ $INF_EXIT -ne 0 ]; then
-        log "WARN: 推理测试退出码 $INF_EXIT"
-        echo "EXIT_CODE=$INF_EXIT" >> "$LOG_DIR/status.txt"
-    else
-        log "SUCCESS: 推理测试完成"
+    kill $TIMEOUT_PID 2>/dev/null
+    if [ $INF_EXIT -eq 0 ]; then
+        log "  ✅ 推理测试通过"
         echo "SUCCESS" >> "$LOG_DIR/status.txt"
+    else
+        log "  ❌ 推理测试退出码 $INF_EXIT"
+        echo "EXIT_CODE=$INF_EXIT" >> "$LOG_DIR/status.txt"
     fi
 else
     log "WARN: 未找到 run_inference_custom.py，跳过推理"
+    echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
 fi
 
 cd "$TOOL_DIR"
