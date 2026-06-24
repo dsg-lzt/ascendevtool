@@ -193,9 +193,20 @@ log "初始化完成: 成功 $PASSED / 失败 $FAILED"
 echo "PASSED=$PASSED FAILED=$FAILED" > "$STATUS_FILE"
 echo "LOG=$INIT_LOG" >> "$STATUS_FILE"
 
+# ── 上传日志 ──
+log "上传初始化日志到 git..."
+cd "$PIPELINE_ROOT/AscendDevTool"
+git add "$LOG_DIR/" 2>/dev/null || true
+git commit -m "logs: pipeline init [auto]" 2>/dev/null || true
+if git push origin master >> "$INIT_LOG" 2>&1; then
+    log "  ✅ 日志已上传"
+else
+    log "  ❌ 日志上传失败（可在 AscendDevTool 目录手动 git push）"
+fi
+
 if [ $FAILED -gt 0 ]; then
     log "⚠️  有 $FAILED 个步骤失败，查看日志: $INIT_LOG"
-    log "  修改脚本后重新执行 bash pipeline_init.sh 即可重试失败步骤"
+    log "  修改脚本后重新执行 bash AscendDevTool/scripts/pipeline_init.sh 即可重试"
     log "========================================"
     exit 1
 else
