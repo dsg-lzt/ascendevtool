@@ -34,8 +34,26 @@ fail() {
 # ---- 0. 激活环境 ----
 log "激活虚拟环境..."
 source "$TOOL_DIR/ascenddevtool/bin/activate"
-export ASCEND_TOOLKIT_HOME="$HOME/Ascend/ascend-toolkit/latest"
-export ASCEND_HOME_PATH="$HOME/Ascend/ascend-toolkit/latest"
+
+# 自动检测 CANN 安装路径
+for d in "$HOME/Ascend/ascend-toolkit/latest" "/usr/local/Ascend/ascend-toolkit/latest" "$ASCEND_TOOLKIT_HOME"; do
+    if [ -f "$d/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
+        ASCEND_TOOLKIT_HOME="$d"
+        break
+    fi
+done
+# 也检查 cann 路径
+if [ ! -f "$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
+    for d in "$HOME/Ascend/cann/latest" "/usr/local/Ascend/cann/latest"; do
+        if [ -f "$d/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
+            ASCEND_TOOLKIT_HOME="$d"
+            break
+        fi
+    done
+fi
+
+export ASCEND_TOOLKIT_HOME
+export ASCEND_HOME_PATH="$ASCEND_TOOLKIT_HOME"
 export ASCEND_OPP_PATH="$ASCEND_TOOLKIT_HOME/opp"
 export PATH="$ASCEND_TOOLKIT_HOME/bin:$ASCEND_TOOLKIT_HOME/compiler/ccec_compiler/bin:$PATH"
 export LD_LIBRARY_PATH="$ASCEND_TOOLKIT_HOME/x86_64-linux/devlib:$ASCEND_TOOLKIT_HOME/runtime/lib64/stub:$LD_LIBRARY_PATH"
