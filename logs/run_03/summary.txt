@@ -1,29 +1,29 @@
 === Pipeline Round 03 Summary ===
-Time: 2026-06-24 18:39:33
-Git commit: 3e8550bf63a0e66abe4b0077d5fbaafbeff2523f
+Time: 2026-06-24 18:45:07
+Git commit: c69b76e84ce5d44094226014c5dfdd85379e0961
 
 --- scan.log (tail 30) ---
-2026-06-24 18:39:23 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-24 18:39:23 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
-2026-06-24 18:39:23 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
-2026-06-24 18:39:23 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-24 18:39:23 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-24 18:39:23 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
-2026-06-24 18:39:23 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
-2026-06-24 18:39:23 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-24 18:39:23 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-24 18:39:23 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-24 18:39:23 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
-2026-06-24 18:39:23 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
-2026-06-24 18:39:23 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-24 18:39:23 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-24 18:39:23 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
-2026-06-24 18:39:23 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
-2026-06-24 18:39:23 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
-2026-06-24 18:39:23 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-24 18:39:23 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
-2026-06-24 18:39:23 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-24 18:39:23 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
+2026-06-24 18:45:07 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:45:07 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
+2026-06-24 18:45:07 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
+2026-06-24 18:45:07 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:45:07 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-24 18:45:07 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
+2026-06-24 18:45:07 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
+2026-06-24 18:45:07 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:45:07 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:45:07 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:45:07 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
+2026-06-24 18:45:07 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
+2026-06-24 18:45:07 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:45:07 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-24 18:45:07 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
+2026-06-24 18:45:07 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
+2026-06-24 18:45:07 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
+2026-06-24 18:45:07 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-24 18:45:07 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
+2026-06-24 18:45:07 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-24 18:45:07 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
 +----------------------------+------------+
 |           files            | statistics |
 +----------------------------+------------+
@@ -47,13 +47,15 @@ Git commit: 3e8550bf63a0e66abe4b0077d5fbaafbeff2523f
 Traceback (most recent call last):
   File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 1, in <module>
     import gorilla
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/gorilla.py", line 3, in <module>
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/gorilla.py", line 3
     import torch
-ModuleNotFoundError: No module named 'torch'
+IndentationError: unexpected indent
 
 --- status ---
 DONE
 DONE
 SUCCESS
+DONE
+EXIT_CODE=1
 DONE
 EXIT_CODE=1
