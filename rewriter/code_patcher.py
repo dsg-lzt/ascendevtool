@@ -223,7 +223,7 @@ def _generate_gorilla_stub(output_dir: Path) -> Path:
     stub_path = paths[0] / "gorilla.py"
     stub_path.write_text('''from __future__ import annotations
 import json
- import torch
+import torch
 import os
 import re
 
