@@ -1,16 +1,257 @@
-#安装Python依赖库
-pip install attrs cython 'numpy>=1.19.2,<=1.24.0' decorator sympy cffi pyyaml pathlib2 psutil protobuf==3.20.0 scipy requests absl-py 
-#安装timm
-pip install timm
-#安装torch、torch_npu、torchvision
-pip3 install torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl
-pip3 install torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-pip3 install torchvision==0.21.0  --index-url https://download.pytorch.org/whl/cpu     --trusted-host download.pytorch.org    --trusted-host download-r2.pytorch.org  --trusted-host files.pythonhosted.org
-# pip3 install torch-2.1.0+cpu-cp310-cp310-linux_x86_64.whl
-# pip3 install torch_npu-2.1.0.post17-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-# pip3 install torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cpu
-#更换triton-ascend
-pip uninstall triton -y 
-pip install triton-ascend==3.2.0rc4
-#安装其他库
-pip install opencv-python addict imageio pycocotools trimesh scipy einops
+[INIT] 17:13:47 ========================================
+[INIT] 17:13:47 初始化 pipeline 环境
+[INIT] 17:13:47 PIPELINE_ROOT=/home/orange/pipeline_tool/AscendDevTool
+[INIT] 17:13:47 日志文件: /home/orange/pipeline_tool/AscendDevTool/logs/init/init_20260624_171347.log
+[INIT] 17:13:47 ========================================
+[INIT] 17:13:47 1/7 创建 Conda 环境 ascenddevtool (python=3.10)...
+[INIT] 17:13:47   Conda 环境已存在，跳过
+[INIT] 17:13:47   ✅ conda env
+[INIT] 17:13:47 2/7 Git 拉取 AscendDevTool...
+fatal: 目标路径 '/home/orange/pipeline_tool/AscendDevTool/AscendDevTool' 已经存在，并且不是一个空目录。
+[INIT] 17:13:47   ❌ git clone 失败（继续执行）
+[INIT] 17:13:47 3/7 创建项目虚拟环境...
+[INIT] 17:13:47   ✅ venv
+[INIT] 17:13:47 4/7 安装项目依赖...
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: Could not open requirements file: [Errno 2] 没有那个文件或目录: 'gui/requirements.txt'
+[INIT] 17:13:47   ❌ gui deps 失败（继续执行）
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: pandas in ./ascenddevtool/lib/python3.13/site-packages (3.0.3)
+Requirement already satisfied: prettytable in ./ascenddevtool/lib/python3.13/site-packages (3.18.0)
+Requirement already satisfied: numpy>=1.26.0 in ./ascenddevtool/lib/python3.13/site-packages (from pandas) (2.5.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in ./ascenddevtool/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: wcwidth>=0.3.5 in ./ascenddevtool/lib/python3.13/site-packages (from prettytable) (0.8.1)
+Requirement already satisfied: six>=1.5 in ./ascenddevtool/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+[INIT] 17:13:48   ✅ CANN deps (pandas, prettytable)
+[INIT] 17:13:48 5/7 安装 SAM-6D 基础依赖...
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: attrs in ./ascenddevtool/lib/python3.13/site-packages (26.1.0)
+Requirement already satisfied: cython in ./ascenddevtool/lib/python3.13/site-packages (3.2.5)
+Requirement already satisfied: decorator in ./ascenddevtool/lib/python3.13/site-packages (5.3.1)
+Requirement already satisfied: sympy in ./ascenddevtool/lib/python3.13/site-packages (1.14.0)
+Requirement already satisfied: cffi in ./ascenddevtool/lib/python3.13/site-packages (2.0.0)
+Requirement already satisfied: pyyaml in ./ascenddevtool/lib/python3.13/site-packages (6.0.3)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./ascenddevtool/lib/python3.13/site-packages (from sympy) (1.3.0)
+Requirement already satisfied: pycparser in ./ascenddevtool/lib/python3.13/site-packages (from cffi) (3.0)
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+[INIT] 17:13:48   ✅ sam6d: attrs
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: pathlib2 in ./ascenddevtool/lib/python3.13/site-packages (2.3.7.post1)
+Requirement already satisfied: psutil in ./ascenddevtool/lib/python3.13/site-packages (7.2.2)
+Requirement already satisfied: protobuf==3.20.0 in ./ascenddevtool/lib/python3.13/site-packages (3.20.0)
+Requirement already satisfied: scipy in ./ascenddevtool/lib/python3.13/site-packages (1.18.0)
+Requirement already satisfied: requests in ./ascenddevtool/lib/python3.13/site-packages (2.34.2)
+Requirement already satisfied: absl-py in ./ascenddevtool/lib/python3.13/site-packages (2.4.0)
+Requirement already satisfied: six in ./ascenddevtool/lib/python3.13/site-packages (from pathlib2) (1.17.0)
+Requirement already satisfied: numpy<2.8,>=2.0.0 in ./ascenddevtool/lib/python3.13/site-packages (from scipy) (2.5.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in ./ascenddevtool/lib/python3.13/site-packages (from requests) (3.4.7)
+Requirement already satisfied: idna<4,>=2.5 in ./ascenddevtool/lib/python3.13/site-packages (from requests) (3.18)
+Requirement already satisfied: urllib3<3,>=1.26 in ./ascenddevtool/lib/python3.13/site-packages (from requests) (2.7.0)
+Requirement already satisfied: certifi>=2023.5.7 in ./ascenddevtool/lib/python3.13/site-packages (from requests) (2026.6.17)
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+[INIT] 17:13:48   ✅ sam6d: pathlib2
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: timm in ./ascenddevtool/lib/python3.13/site-packages (1.0.27)
+Requirement already satisfied: torch in ./ascenddevtool/lib/python3.13/site-packages (from timm) (2.12.1)
+Requirement already satisfied: torchvision in ./ascenddevtool/lib/python3.13/site-packages (from timm) (0.27.1)
+Requirement already satisfied: pyyaml in ./ascenddevtool/lib/python3.13/site-packages (from timm) (6.0.3)
+Requirement already satisfied: huggingface_hub in ./ascenddevtool/lib/python3.13/site-packages (from timm) (1.20.1)
+Requirement already satisfied: safetensors in ./ascenddevtool/lib/python3.13/site-packages (from timm) (0.8.0)
+Requirement already satisfied: click>=8.4.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (8.4.1)
+Requirement already satisfied: filelock>=3.10.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (3.29.4)
+Requirement already satisfied: fsspec>=2023.5.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (2026.6.0)
+Requirement already satisfied: hf-xet<2.0.0,>=1.5.1 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (1.5.1)
+Requirement already satisfied: httpx<1,>=0.23.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (0.28.1)
+Requirement already satisfied: packaging>=20.9 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (26.2)
+Requirement already satisfied: tqdm>=4.42.1 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (4.68.3)
+Requirement already satisfied: typer<0.26.0,>=0.20.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (0.25.1)
+Requirement already satisfied: typing-extensions>=4.1.0 in ./ascenddevtool/lib/python3.13/site-packages (from huggingface_hub->timm) (4.15.0)
+Requirement already satisfied: anyio in ./ascenddevtool/lib/python3.13/site-packages (from httpx<1,>=0.23.0->huggingface_hub->timm) (4.14.0)
+Requirement already satisfied: certifi in ./ascenddevtool/lib/python3.13/site-packages (from httpx<1,>=0.23.0->huggingface_hub->timm) (2026.6.17)
+Requirement already satisfied: httpcore==1.* in ./ascenddevtool/lib/python3.13/site-packages (from httpx<1,>=0.23.0->huggingface_hub->timm) (1.0.9)
+Requirement already satisfied: idna in ./ascenddevtool/lib/python3.13/site-packages (from httpx<1,>=0.23.0->huggingface_hub->timm) (3.18)
+Requirement already satisfied: h11>=0.16 in ./ascenddevtool/lib/python3.13/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface_hub->timm) (0.16.0)
+Requirement already satisfied: shellingham>=1.3.0 in ./ascenddevtool/lib/python3.13/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub->timm) (1.5.4)
+Requirement already satisfied: rich>=13.8.0 in ./ascenddevtool/lib/python3.13/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub->timm) (15.0.0)
+Requirement already satisfied: annotated-doc>=0.0.2 in ./ascenddevtool/lib/python3.13/site-packages (from typer<0.26.0,>=0.20.0->huggingface_hub->timm) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in ./ascenddevtool/lib/python3.13/site-packages (from rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub->timm) (4.2.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in ./ascenddevtool/lib/python3.13/site-packages (from rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub->timm) (2.20.0)
+Requirement already satisfied: mdurl~=0.1 in ./ascenddevtool/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer<0.26.0,>=0.20.0->huggingface_hub->timm) (0.1.2)
+Requirement already satisfied: setuptools<82 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (81.0.0)
+Requirement already satisfied: sympy>=1.13.3 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (3.6.1)
+Requirement already satisfied: jinja2 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (3.1.6)
+Requirement already satisfied: cuda-toolkit==13.0.2 in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.2)
+Requirement already satisfied: nvidia-cublas<=13.1.1.3,>=13.1.0.3 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (13.1.1.3)
+Requirement already satisfied: cuda-bindings<14,>=13.0.3 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (13.3.1)
+Requirement already satisfied: nvidia-cudnn-cu13==9.20.0.48 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (9.20.0.48)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.1 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (0.8.1)
+Requirement already satisfied: nvidia-nccl-cu13==2.29.7 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (2.29.7)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.4.5 in ./ascenddevtool/lib/python3.13/site-packages (from torch->timm) (3.4.5)
+Collecting triton==3.7.1 (from torch->timm)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/07/42/2c3ac59253ae8892b6f307875263dd23dc875cdf732d3aea40d6d41fb7cb/triton-3.7.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (197.7 MB)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.96.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.96)
+Requirement already satisfied: nvidia-cufft==12.0.0.61.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (12.0.0.61)
+Requirement already satisfied: nvidia-cufile==1.15.1.6.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (1.15.1.6)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.85.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.85)
+Requirement already satisfied: nvidia-curand==10.4.0.35.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (10.4.0.35)
+Requirement already satisfied: nvidia-cusolver==12.0.4.66.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (12.0.4.66)
+Requirement already satisfied: nvidia-cusparse==12.6.3.3.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (12.6.3.3)
+Requirement already satisfied: nvidia-nvjitlink==13.0.88.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.88)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.88.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.88)
+Requirement already satisfied: nvidia-nvtx==13.0.85.* in ./ascenddevtool/lib/python3.13/site-packages (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch->timm) (13.0.85)
+Requirement already satisfied: cuda-pathfinder>=1.4.2 in ./ascenddevtool/lib/python3.13/site-packages (from cuda-bindings<14,>=13.0.3->torch->timm) (1.5.5)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./ascenddevtool/lib/python3.13/site-packages (from sympy>=1.13.3->torch->timm) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in ./ascenddevtool/lib/python3.13/site-packages (from jinja2->torch->timm) (3.0.3)
+Requirement already satisfied: numpy in ./ascenddevtool/lib/python3.13/site-packages (from torchvision->timm) (2.5.0)
+Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in ./ascenddevtool/lib/python3.13/site-packages (from torchvision->timm) (12.2.0)
+Installing collected packages: triton
+Successfully installed triton-3.7.1
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+[INIT] 17:13:52   ✅ sam6d: timm
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Requirement already satisfied: opencv-python in ./ascenddevtool/lib/python3.13/site-packages (4.13.0.92)
+Requirement already satisfied: addict in ./ascenddevtool/lib/python3.13/site-packages (2.4.0)
+Requirement already satisfied: imageio in ./ascenddevtool/lib/python3.13/site-packages (2.37.3)
+Requirement already satisfied: pycocotools in ./ascenddevtool/lib/python3.13/site-packages (2.0.11)
+Requirement already satisfied: trimesh in ./ascenddevtool/lib/python3.13/site-packages (4.12.2)
+Requirement already satisfied: scipy in ./ascenddevtool/lib/python3.13/site-packages (1.18.0)
+Requirement already satisfied: einops in ./ascenddevtool/lib/python3.13/site-packages (0.8.2)
+Requirement already satisfied: numpy>=2 in ./ascenddevtool/lib/python3.13/site-packages (from opencv-python) (2.5.0)
+Requirement already satisfied: pillow>=8.3.2 in ./ascenddevtool/lib/python3.13/site-packages (from imageio) (12.2.0)
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+[INIT] 17:13:53   ✅ sam6d: opencv-python
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting numpy<=1.24.0,>=1.19.2
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/5f/c7/5ca7c100dcc85b5ef1b176bdf87be5e4392c2c3018e13cc7cdef828c6a09/numpy-1.24.0.tar.gz (10.9 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Getting requirements to build wheel did not run successfully.
+  │ exit code: 1
+  ╰─> [32 lines of output]
+      Traceback (most recent call last):
+        File "/home/orange/pipeline_tool/AscendDevTool/AscendDevTool/ascenddevtool/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+          main()
+          ~~~~^^
+        File "/home/orange/pipeline_tool/AscendDevTool/AscendDevTool/ascenddevtool/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/home/orange/pipeline_tool/AscendDevTool/AscendDevTool/ascenddevtool/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 137, in get_requires_for_build_wheel
+          backend = _build_backend()
+        File "/home/orange/pipeline_tool/AscendDevTool/AscendDevTool/ascenddevtool/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 70, in _build_backend
+          obj = import_module(mod_path)
+        File "/home/orange/miniconda3/lib/python3.13/importlib/__init__.py", line 88, in import_module
+          return _bootstrap._gcd_import(name[level:], package, level)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+        File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+        File "<frozen importlib._bootstrap>", line 1310, in _find_and_load_unlocked
+        File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+        File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+        File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+        File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+        File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+        File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+        File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+        File "/tmp/pip-build-env-cge1kdce/overlay/lib/python3.13/site-packages/setuptools/__init__.py", line 16, in <module>
+          import setuptools.version
+        File "/tmp/pip-build-env-cge1kdce/overlay/lib/python3.13/site-packages/setuptools/version.py", line 1, in <module>
+          import pkg_resources
+        File "/tmp/pip-build-env-cge1kdce/overlay/lib/python3.13/site-packages/pkg_resources/__init__.py", line 2172, in <module>
+          register_finder(pkgutil.ImpImporter, find_on_path)
+                          ^^^^^^^^^^^^^^^^^^^
+      AttributeError: module 'pkgutil' has no attribute 'ImpImporter'. Did you mean: 'zipimporter'?
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: Failed to build 'numpy' when getting requirements to build wheel
+[INIT] 17:13:59   ❌ sam6d: numpy 失败（继续执行）
+[INIT] 17:13:59 6/7 安装 torch + torch_npu...
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: torch-2.6.0+cpu-cp310-cp310-linux_x86_64.whl is not a supported wheel on this platform.
+[INIT] 17:13:59   ❌ torch (wheel) 失败（继续执行）
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: torch_npu-2.6.0.post3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl is not a supported wheel on this platform.
+[INIT] 17:13:59   ❌ torch_npu (wheel) 失败（继续执行）
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting torchvision==0.21.0
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/cb/4c/99880813aa50e64447fb1c4c6c804a793d2d78f7f7c53e99ddee7fa175fa/torchvision-0.21.0-cp313-cp313-manylinux1_x86_64.whl (7.2 MB)
+Requirement already satisfied: numpy in ./ascenddevtool/lib/python3.13/site-packages (from torchvision==0.21.0) (2.5.0)
+Collecting torch==2.6.0 (from torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/24/85/ead1349fc30fe5a32cadd947c91bda4a62fbfd7f8c34ee61f6398d38fb48/torch-2.6.0-cp313-cp313-manylinux1_x86_64.whl (766.6 MB)
+Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in ./ascenddevtool/lib/python3.13/site-packages (from torchvision==0.21.0) (12.2.0)
+Requirement already satisfied: filelock in ./ascenddevtool/lib/python3.13/site-packages (from torch==2.6.0->torchvision==0.21.0) (3.29.4)
+Requirement already satisfied: typing-extensions>=4.10.0 in ./ascenddevtool/lib/python3.13/site-packages (from torch==2.6.0->torchvision==0.21.0) (4.15.0)
+Requirement already satisfied: networkx in ./ascenddevtool/lib/python3.13/site-packages (from torch==2.6.0->torchvision==0.21.0) (3.6.1)
+Requirement already satisfied: jinja2 in ./ascenddevtool/lib/python3.13/site-packages (from torch==2.6.0->torchvision==0.21.0) (3.1.6)
+Requirement already satisfied: fsspec in ./ascenddevtool/lib/python3.13/site-packages (from torch==2.6.0->torchvision==0.21.0) (2026.6.0)
+Collecting nvidia-cuda-nvrtc-cu12==12.4.127 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/2c/14/91ae57cd4db3f9ef7aa99f4019cfa8d54cb4caa7e00975df6467e9725a9f/nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
+Collecting nvidia-cuda-runtime-cu12==12.4.127 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/ea/27/1795d86fe88ef397885f2e580ac37628ed058a92ed2c39dc8eac3adf0619/nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
+Collecting nvidia-cuda-cupti-cu12==12.4.127 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/67/42/f4f60238e8194a3106d06a058d494b18e006c10bb2b915655bd9f6ea4cb1/nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
+Collecting nvidia-cudnn-cu12==9.1.0.70 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/9f/fd/713452cd72343f682b1c7b9321e23829f00b842ceaedcda96e742ea0b0b3/nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
+Collecting nvidia-cublas-cu12==12.4.5.8 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/ae/71/1c91302526c45ab494c23f61c7a84aa568b8c1f9d196efa5993957faf906/nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
+Collecting nvidia-cufft-cu12==11.2.1.3 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/27/94/3266821f65b92b3138631e9c8e7fe1fb513804ac934485a8d05776e1dd43/nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
+Collecting nvidia-curand-cu12==10.3.5.147 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/8a/6d/44ad094874c6f1b9c654f8ed939590bdc408349f137f9b98a3a23ccec411/nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
+Collecting nvidia-cusolver-cu12==11.6.1.9 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/3a/e1/5b9089a4b2a4790dfdea8b3a006052cfecff58139d5a4e34cb1a51df8d6f/nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
+Collecting nvidia-cusparse-cu12==12.3.1.170 (from torch==2.6.0->torchvision==0.21.0)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/db/f7/97a9ea26ed4bbbfc2d470994b8b4f338ef663be97b8f677519ac195e113d/nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
+Collecting nvidia-cusparselt-cu12==0.6.2 (from torch==2.6.0->torchvision==0.21.0)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/78/a8/bcbb63b53a4b1234feeafb65544ee55495e1bb37ec31b999b963cbccfd1d/nvidia_cusparselt_cu12-0.6.2-py3-none-manylinux2014_x86_64.whl (150.1 MB)
+                                              0.5/150.1 MB 405.3 kB/s eta 0:06:09
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: Operation cancelled by user
+[INIT] 17:14:14   ❌ torchvision 失败（继续执行）
+[INIT] 17:14:14 7/7 triton-ascend + 目录准备...
+Found existing installation: triton 3.7.1
+Uninstalling triton-3.7.1:
+  Successfully uninstalled triton-3.7.1
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+ERROR: Could not find a version that satisfies the requirement triton-ascend==3.2.0rc4 (from versions: none)
+
+[notice] A new release of pip is available: 25.3 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+ERROR: No matching distribution found for triton-ascend==3.2.0rc4
+[INIT] 17:14:16   ❌ triton-ascend 失败（继续执行）
+[INIT] 17:14:16 ========================================
+[INIT] 17:14:16 初始化完成: 成功 7 / 失败 7
+[INIT] 17:14:16 上传初始化日志到 git...
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: 'https://github.com/dsg-lzt/ascendevtool.git/' 鉴权失败
+[INIT] 17:14:36   ❌ 日志上传失败（可在 AscendDevTool 目录手动 git push）
+[INIT] 17:14:36 ⚠️  有 7 个步骤失败，查看日志: /home/orange/pipeline_tool/AscendDevTool/logs/init/init_20260624_171347.log
+[INIT] 17:14:36   修改脚本后重新执行 bash AscendDevTool/scripts/pipeline_init.sh 即可重试
+[INIT] 17:14:36 ========================================
