@@ -136,6 +136,11 @@ def _patch_source_file_regex(
             source,
         )
         source = re.sub(
+            r"model\s*=\s*model\s*\.\s*npu\s*\(\s*\)\s*\n\s*model\s*\.\s*eval\s*\(\s*\)\s*\n\s*gorilla\.solver\.load_checkpoint\s*\(\s*model\s*=\s*model\s*,\s*filename\s*=\s*(\S+)\s*\)",
+            r"model.load_state_dict(torch.load(\1, map_location='cpu')['model'])\nmodel = model.npu()\nmodel.eval()",
+            source,
+        )
+        source = re.sub(
             r"gorilla\.solver\.load_checkpoint\s*\(\s*model\s*=\s*model\s*,\s*filename\s*=\s*(\S+)\s*\)",
             r"model.load_state_dict(torch.load(\1, map_location='cpu')['model'])",
             source,
