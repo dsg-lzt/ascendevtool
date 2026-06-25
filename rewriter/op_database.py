@@ -39,10 +39,11 @@ _DECOMPOSE_RULES: Dict[str, str] = {
 def ascend_gather_points(xyz, idx):
     batch_size, num_dims, num_points = xyz.size()
     if idx.dim() == 2:
-        idx = idx.unsqueeze(1)
-    _, npoint, nsamples = idx.size()
-    idx_expanded = idx.long().unsqueeze(1).expand(-1, num_dims, -1, -1)
-    xyz_expanded = xyz.unsqueeze(3).expand(-1, -1, -1, nsamples)
+        idx = idx.unsqueeze(1).unsqueeze(-1)
+    else:
+        idx = idx.unsqueeze(-1)
+    idx_expanded = idx.long().expand(-1, num_dims, -1, -1)
+    xyz_expanded = xyz.unsqueeze(3).expand(-1, -1, -1, idx_expanded.size(-1))
     gathered = torch.gather(xyz_expanded, 2, idx_expanded)
     return gathered.contiguous()
 """,
