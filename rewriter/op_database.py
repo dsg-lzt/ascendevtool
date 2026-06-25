@@ -38,13 +38,16 @@ _DECOMPOSE_RULES: Dict[str, str] = {
     "pointnet2._ext.gather_points": """
 def ascend_gather_points(xyz, idx):
     batch_size, num_dims, num_points = xyz.size()
-    if idx.dim() == 2:
+    idx_2d = idx.dim() == 2
+    if idx_2d:
         idx = idx.unsqueeze(1).unsqueeze(-1)
     else:
         idx = idx.unsqueeze(-1)
     idx_expanded = idx.long().expand(-1, num_dims, -1, -1)
     xyz_expanded = xyz.unsqueeze(3).expand(-1, -1, -1, idx_expanded.size(-1))
     gathered = torch.gather(xyz_expanded, 2, idx_expanded)
+    if idx_2d:
+        gathered = gathered.squeeze(-1)
     return gathered.contiguous()
 """,
     "pointnet2._ext.group_points": """
