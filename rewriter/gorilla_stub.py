@@ -21,17 +21,8 @@ def _dict_to_obj(d):
 class _GorillaConfig:
     @staticmethod
     def fromfile(path):
-        with open(path, "r") as f:
-            content = f.read()
-        try:
-            cfg = json.loads(content)
-        except Exception:
-            try:
-                import yaml
-                cfg = yaml.safe_load(content)
-            except Exception:
-                cfg = {}
-        return _dict_to_obj(cfg)
+        from mmcv import Config as _MMCVConfig
+        return _MMCVConfig.fromfile(path)
 
 class _GorillaUtils:
     @staticmethod
