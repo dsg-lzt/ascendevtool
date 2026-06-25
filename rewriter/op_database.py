@@ -37,8 +37,10 @@ def load_supported_ops(torch_version: str = "2.6") -> Set[str]:
 _DECOMPOSE_RULES: Dict[str, str] = {
     "pointnet2._ext.gather_points": """
 def ascend_gather_points(xyz, idx):
-    batch_size, num_dims, _ = xyz.size()
-    _, num_points, nsamples = idx.size()
+    batch_size, num_dims, num_points = xyz.size()
+    if idx.dim() == 2:
+        idx = idx.unsqueeze(1)
+    _, npoint, nsamples = idx.size()
     idx_expanded = idx.long().unsqueeze(1).expand(-1, num_dims, -1, -1)
     xyz_expanded = xyz.unsqueeze(3).expand(-1, -1, -1, nsamples)
     gathered = torch.gather(xyz_expanded, 2, idx_expanded)
