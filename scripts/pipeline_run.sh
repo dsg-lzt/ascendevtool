@@ -146,8 +146,8 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     # 用 conda run 继承 torch_npu 环境的正确环境变量
     export PYTHONHTTPSVERIFY=0
     export CURL_CA_BUNDLE=""
-    log "使用 conda run -n torch_npu 运行推理..."
-    conda run -n torch_npu python run_inference_custom.py \
+    log "使用 conda run -n torch_npu --cwd $INFERENCE_DIR 运行推理..."
+    conda run -n torch_npu --cwd "$INFERENCE_DIR" python run_inference_custom.py \
         --output_dir "$OUTPUT_DIR" \
         --cad_path "$CAD_PATH" \
         --rgb_path "$RGB_PATH" \

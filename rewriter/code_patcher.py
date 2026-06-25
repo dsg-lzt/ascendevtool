@@ -288,8 +288,7 @@ def _generate_config_module(output_dir: Path) -> Path:
     config_dir = dest / "config"
     config_dir.mkdir(parents=True, exist_ok=True)
     dest_path = config_dir / "config.py"
-    if not dest_path.exists():
-        shutil.copy(src, dest_path)
+    shutil.copy(src, dest_path)  # 每次都覆盖，确保最新
     return dest_path
 
 
