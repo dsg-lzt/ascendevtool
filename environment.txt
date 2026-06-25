@@ -1,9 +1,9 @@
 export TORCH_DEVICE_BACKEND_AUTOLOAD=0
-cd ~/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model
+cd ~/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model
 /home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
-    --output_dir ../Data/Example/outputs \
-    --cad_path ../Data/Example/obj_000005.ply \
-    --rgb_path ../Data/Example/rgb.png \
-    --depth_path ../Data/Example/depth.png \
-    --cam_path ../Data/Example/camera.json \
-    --seg_path ../Data/Example/outputs/sam6d_results
+    --output_dir ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs \
+    --cad_path ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/obj_000005.ply \
+    --rgb_path ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/rgb.png \
+    --depth_path ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/depth.png \
+    --cam_path ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/camera.json \
+    --seg_path ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/sam6d_results
