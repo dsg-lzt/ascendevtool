@@ -21,8 +21,8 @@ def _dict_to_obj(d):
 class _GorillaConfig:
     @staticmethod
     def fromfile(path):
-        from mmcv import Config as _MMCVConfig
-        return _MMCVConfig.fromfile(path)
+        from config.config import Config
+        return Config.fromfile(path)
 
 class _GorillaUtils:
     @staticmethod
