@@ -4,374 +4,374 @@
   LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
 /usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
   TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
-2026-06-25 17:11:47 [INFO]    Start to check input path...
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
-2026-06-25 17:11:47 [INFO]    PyTorch analysis start working now, please wait for a moment.
-2026-06-25 17:11:47 [INFO]    Analysis start...
-2026-06-25 17:11:47 [INFO]    [Progress:  0.00%]  Start the analysis of SAM-6D/Render/render_custom_templates.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  0.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
-2026-06-25 17:11:47 [INFO]    [Progress:  0.00%]  Analysis of SAM-6D/Render/render_custom_templates.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  1.32%]  Start the analysis of SAM-6D/Render/render_gso_templates.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  1.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
-2026-06-25 17:11:47 [INFO]    [Progress:  1.32%]  Analysis of SAM-6D/Render/render_gso_templates.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  2.63%]  Start the analysis of SAM-6D/Render/render_shapenet_templates.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  2.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
-2026-06-25 17:11:47 [INFO]    [Progress:  2.63%]  Analysis of SAM-6D/Render/render_shapenet_templates.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  3.95%]  Start the analysis of SAM-6D/Render/render_bop_templates.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  3.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
-2026-06-25 17:11:47 [INFO]    [Progress:  3.95%]  Analysis of SAM-6D/Render/render_bop_templates.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  5.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_dinov2.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  5.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
-2026-06-25 17:11:47 [INFO]    [Progress:  5.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_dinov2.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/run_inference_custom.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  6.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 90 ~ 90 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 150 ~ 150 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 151 ~ 151 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 186 ~ 186 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 186 ~ 186 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  line: 191 ~ 191 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  6.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/run_inference_custom.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  7.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_sam.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  7.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
-2026-06-25 17:11:47 [INFO]    [Progress:  7.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_sam.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress:  9.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/run_inference.py.
-2026-06-25 17:11:47 [WARNING] [Progress:  9.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
-2026-06-25 17:11:47 [INFO]    [Progress:  9.21%]  line: 46 ~ 51 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress:  9.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/run_inference.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 10.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_fastsam.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 10.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
-2026-06-25 17:11:47 [INFO]    [Progress: 10.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_fastsam.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 11.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/trimesh_utils.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 11.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
-2026-06-25 17:11:47 [INFO]    [Progress: 11.84%]  line: 82 ~ 82 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress: 11.84%]  line: 83 ~ 83 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress: 11.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/trimesh_utils.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 13.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/weight.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 13.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
-2026-06-25 17:11:47 [INFO]    [Progress: 13.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/weight.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 14.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/bbox_utils.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 14.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
-2026-06-25 17:11:47 [INFO]    [Progress: 14.47%]  line: 73 ~ 73 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:47 [INFO]    [Progress: 14.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/bbox_utils.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 15.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/inout.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 15.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
-2026-06-25 17:11:47 [INFO]    [Progress: 15.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/inout.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 17.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/logging.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 17.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
-2026-06-25 17:11:47 [INFO]    [Progress: 17.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/logging.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 18.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/create_template_poses.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 18.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
-2026-06-25 17:11:47 [INFO]    [Progress: 18.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/create_template_poses.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 19.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/find_neighbors.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 19.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
-2026-06-25 17:11:47 [INFO]    [Progress: 19.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/find_neighbors.py completed.
-2026-06-25 17:11:47 [INFO]    [Progress: 21.05%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pose_utils.py.
-2026-06-25 17:11:47 [WARNING] [Progress: 21.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
-2026-06-25 17:11:48 [INFO]    [Progress: 21.05%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pose_utils.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 22.37%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pyrender.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 22.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
-2026-06-25 17:11:48 [INFO]    [Progress: 22.37%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pyrender.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 23.68%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/fps.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 23.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
-2026-06-25 17:11:48 [INFO]    [Progress: 23.68%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/fps.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 25.00%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/build_sam.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 25.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
-2026-06-25 17:11:48 [INFO]    [Progress: 25.00%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/build_sam.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 26.32%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/automatic_mask_generator.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 26.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
-2026-06-25 17:11:48 [INFO]    [Progress: 26.32%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 26.32%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/automatic_mask_generator.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 27.63%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/__init__.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 27.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
-2026-06-25 17:11:48 [INFO]    [Progress: 27.63%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/__init__.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 28.95%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/predictor.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 28.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
-2026-06-25 17:11:48 [INFO]    [Progress: 28.95%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/predictor.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 30.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/__init__.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 30.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
-2026-06-25 17:11:48 [INFO]    [Progress: 30.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/__init__.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 31.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/transforms.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 31.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
-2026-06-25 17:11:48 [INFO]    [Progress: 31.58%]  line: 78 ~ 78 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 31.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/transforms.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 32.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/amg.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 32.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
-2026-06-25 17:11:48 [INFO]    [Progress: 32.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/amg.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/onnx.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 34.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  line: 45 ~ 45 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  line: 48 ~ 48 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  line: 84 ~ 84 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  line: 97 ~ 99 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 34.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/onnx.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 35.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/common.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 35.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:48 [INFO]    [Progress: 35.53%]  line: 21 ~ 21 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 35.53%]  line: 22 ~ 22 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 35.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/common.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 36.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/__init__.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 36.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:48 [INFO]    [Progress: 36.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/__init__.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/prompt_encoder.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 38.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  line: 46 ~ 46 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  line: 48 ~ 48 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  line: 60 ~ 60 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  line: 214 ~ 214 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 38.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/prompt_encoder.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 39.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/mask_decoder.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 39.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:48 [INFO]    [Progress: 39.47%]  line: 49 ~ 49 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-25 17:11:48 [INFO]    [Progress: 39.47%]  line: 51 ~ 51 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-25 17:11:48 [INFO]    [Progress: 39.47%]  line: 167 ~ 167 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:48 [INFO]    [Progress: 39.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/mask_decoder.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 40.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/sam.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 40.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:48 [INFO]    [Progress: 40.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/sam.py completed.
-2026-06-25 17:11:48 [INFO]    [Progress: 42.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/image_encoder.py.
-2026-06-25 17:11:48 [WARNING] [Progress: 42.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:49 [INFO]    [Progress: 42.11%]  line: 212 ~ 212 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 42.11%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 42.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/image_encoder.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/transformer.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 43.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  line: 203 ~ 203 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  line: 204 ~ 204 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  line: 205 ~ 205 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  line: 206 ~ 206 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 43.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/transformer.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 44.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/base_bop.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 44.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
-2026-06-25 17:11:49 [INFO]    [Progress: 44.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/base_bop.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 46.05%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/bop_pbr.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 46.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
-2026-06-25 17:11:49 [INFO]    [Progress: 46.05%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/bop_pbr.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 47.37%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/bop.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 47.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
-2026-06-25 17:11:49 [INFO]    [Progress: 47.37%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/bop.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 48.68%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/__init__.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 48.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:49 [INFO]    [Progress: 48.68%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/__init__.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 50.00%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/fast_sam.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 50.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:49 [INFO]    [Progress: 50.00%]  line: 123 ~ 123 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 50.00%]  line: 124 ~ 124 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 50.00%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/fast_sam.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 51.32%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/dinov2.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 51.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:49 [INFO]    [Progress: 51.32%]  line: 138 ~ 138 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 51.32%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/dinov2.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 52.63%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/vision_transformer.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 52.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:49 [INFO]    [Progress: 52.63%]  line: 207 ~ 207 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 52.63%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:49 [INFO]    [Progress: 52.63%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/vision_transformer.py completed.
-2026-06-25 17:11:49 [INFO]    [Progress: 53.95%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/sam.py.
-2026-06-25 17:11:49 [WARNING] [Progress: 53.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:50 [INFO]    [Progress: 53.95%]  line: 37 ~ 37 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 53.95%]  line: 47 ~ 47 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 53.95%]  line: 137 ~ 137 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 53.95%]  line: 148 ~ 148 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 53.95%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/sam.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/detector.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 55.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 220 ~ 220 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 86 ~ 86 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 111 ~ 111 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 117 ~ 117 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 156 ~ 156 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 156 ~ 156 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 160 ~ 160 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 160 ~ 160 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 168 ~ 168 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 188 ~ 188 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 225 ~ 225 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 246 ~ 246 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 249 ~ 249 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  line: 254 ~ 254 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 55.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/detector.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 56.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/loss.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 56.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:50 [INFO]    [Progress: 56.58%]  line: 54 ~ 54 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:50 [INFO]    [Progress: 56.58%]  line: 66 ~ 66 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:50 [INFO]    [Progress: 56.58%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:50 [INFO]    [Progress: 56.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/loss.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 57.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/utils.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 57.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
-2026-06-25 17:11:50 [INFO]    [Progress: 57.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/utils.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/dino_head.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 59.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  line: 28 ~ 28 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  line: 47 ~ 47 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  line: 49 ~ 49 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  line: 54 ~ 54 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  line: 58 ~ 58 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 59.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/dino_head.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 60.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/__init__.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 60.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 60.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/__init__.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 61.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/patch_embed.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 61.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 61.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/patch_embed.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 63.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/drop_path.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 63.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 63.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/drop_path.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 64.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/attention.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 64.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 64.47%]  line: 44 ~ 44 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 64.47%]  line: 46 ~ 46 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 64.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/attention.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 65.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/swiglu_ffn.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 65.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 65.79%]  line: 26 ~ 26 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 65.79%]  line: 27 ~ 27 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 65.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/swiglu_ffn.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 67.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/block.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 67.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 67.11%]  line: 130 ~ 130 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 67.11%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 67.11%]  line: 149 ~ 149 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 67.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/block.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 68.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/layer_scale.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 68.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 68.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/layer_scale.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 69.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/mlp.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 69.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
-2026-06-25 17:11:50 [INFO]    [Progress: 69.74%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 69.74%]  line: 32 ~ 32 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 69.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/mlp.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 71.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/download_sam6d-pem.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 71.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
-2026-06-25 17:11:50 [INFO]    [Progress: 71.05%]  Analysis of SAM-6D/Pose_Estimation_Model/download_sam6d-pem.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 72.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/train.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 72.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
-2026-06-25 17:11:50 [WARNING] [Progress: 72.37%]  line: 97 ~ 97 Operation Type: UNSUPPORTED Message: NA
-2026-06-25 17:11:50 [INFO]    [Progress: 72.37%]  line: 119 ~ 127 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-25 17:11:50 [INFO]    [Progress: 72.37%]  Analysis of SAM-6D/Pose_Estimation_Model/train.py completed.
-2026-06-25 17:11:50 [INFO]    [Progress: 73.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/run_inference_custom.py.
-2026-06-25 17:11:50 [WARNING] [Progress: 73.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
-2026-06-25 17:11:51 [INFO]    [Progress: 73.68%]  Analysis of SAM-6D/Pose_Estimation_Model/run_inference_custom.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 75.00%]  Start the analysis of SAM-6D/Pose_Estimation_Model/test_bop.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 75.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
-2026-06-25 17:11:51 [WARNING] [Progress: 75.00%]  line: 206 ~ 206 Operation Type: UNSUPPORTED Message: NA
-2026-06-25 17:11:51 [INFO]    [Progress: 75.00%]  line: 106 ~ 114 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-25 17:11:51 [INFO]    [Progress: 75.00%]  Analysis of SAM-6D/Pose_Estimation_Model/test_bop.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/model_utils.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 76.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  line: 100 ~ 100 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  line: 103 ~ 103 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  line: 150 ~ 150 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  line: 175 ~ 175 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  line: 345 ~ 345 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:51 [INFO]    [Progress: 76.32%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/model_utils.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 77.63%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/draw_utils.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 77.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 77.63%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/draw_utils.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 78.95%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/data_utils.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 78.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 78.95%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/data_utils.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 80.26%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/loss_utils.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 80.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 80.26%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/loss_utils.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 81.58%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/bop_object_utils.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 81.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 81.58%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/bop_object_utils.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 82.89%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/solver.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 82.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
-2026-06-25 17:11:51 [INFO]    [Progress: 82.89%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/solver.py completed.
-2026-06-25 17:11:51 [INFO]    [Progress: 84.21%]  Start the analysis of SAM-6D/Pose_Estimation_Model/provider/training_dataset.py.
-2026-06-25 17:11:51 [WARNING] [Progress: 84.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/provider.
-2026-06-25 17:11:52 [INFO]    [Progress: 84.21%]  Analysis of SAM-6D/Pose_Estimation_Model/provider/training_dataset.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 85.53%]  Start the analysis of SAM-6D/Pose_Estimation_Model/provider/bop_test_dataset.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 85.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/provider.
-2026-06-25 17:11:52 [INFO]    [Progress: 85.53%]  Analysis of SAM-6D/Pose_Estimation_Model/provider/bop_test_dataset.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 86.84%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pose_estimation_model.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 86.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
-2026-06-25 17:11:52 [INFO]    [Progress: 86.84%]  line: 27 ~ 27 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 86.84%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pose_estimation_model.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 88.16%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/feature_extraction.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 88.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
-2026-06-25 17:11:52 [INFO]    [Progress: 88.16%]  line: 67 ~ 67 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 88.16%]  Analysis of SAM-6D/Pose_Estimation_Model/model/feature_extraction.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 89.47%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/coarse_point_matching.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 89.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
-2026-06-25 17:11:52 [INFO]    [Progress: 89.47%]  line: 21 ~ 21 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 89.47%]  line: 22 ~ 22 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 89.47%]  Analysis of SAM-6D/Pose_Estimation_Model/model/coarse_point_matching.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 90.79%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/fine_point_matching.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 90.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
-2026-06-25 17:11:52 [INFO]    [Progress: 90.79%]  line: 19 ~ 19 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 90.79%]  line: 20 ~ 20 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 90.79%]  Analysis of SAM-6D/Pose_Estimation_Model/model/fine_point_matching.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/transformer.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 92.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 144 ~ 144 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 402 ~ 402 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 103 ~ 103 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 105 ~ 105 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 155 ~ 155 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 185 ~ 185 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 187 ~ 187 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 295 ~ 295 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 296 ~ 296 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 362 ~ 362 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 363 ~ 363 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 364 ~ 364 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 365 ~ 365 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 413 ~ 413 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 529 ~ 529 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 530 ~ 530 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 531 ~ 531 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  line: 571 ~ 571 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 92.11%]  Analysis of SAM-6D/Pose_Estimation_Model/model/transformer.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 93.42%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 71 ~ 71 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 107 ~ 107 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 113 ~ 113 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 140 ~ 140 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 177 ~ 177 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 199 ~ 201 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 232 ~ 232 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 252 ~ 252 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:52 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-25 17:11:52 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-25 17:11:52 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
-2026-06-25 17:11:52 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
-2026-06-25 17:11:52 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-25 17:11:53 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:53 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:53 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
-2026-06-25 17:11:53 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
-2026-06-25 17:11:53 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-25 17:11:53 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-25 17:11:53 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
-2026-06-25 17:11:53 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
-2026-06-25 17:11:53 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
-2026-06-25 17:11:53 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
-2026-06-25 17:11:53 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
-2026-06-25 17:11:53 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-25 17:11:53 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
+2026-06-25 17:13:50 [INFO]    Start to check input path...
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2/_ext_src/src.
+2026-06-25 17:13:50 [INFO]    PyTorch analysis start working now, please wait for a moment.
+2026-06-25 17:13:50 [INFO]    Analysis start...
+2026-06-25 17:13:50 [INFO]    [Progress:  0.00%]  Start the analysis of SAM-6D/Render/render_custom_templates.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  0.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
+2026-06-25 17:13:50 [INFO]    [Progress:  0.00%]  Analysis of SAM-6D/Render/render_custom_templates.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  1.32%]  Start the analysis of SAM-6D/Render/render_gso_templates.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  1.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
+2026-06-25 17:13:50 [INFO]    [Progress:  1.32%]  Analysis of SAM-6D/Render/render_gso_templates.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  2.63%]  Start the analysis of SAM-6D/Render/render_shapenet_templates.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  2.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
+2026-06-25 17:13:50 [INFO]    [Progress:  2.63%]  Analysis of SAM-6D/Render/render_shapenet_templates.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  3.95%]  Start the analysis of SAM-6D/Render/render_bop_templates.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  3.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Render.
+2026-06-25 17:13:50 [INFO]    [Progress:  3.95%]  Analysis of SAM-6D/Render/render_bop_templates.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  5.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_dinov2.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  5.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
+2026-06-25 17:13:50 [INFO]    [Progress:  5.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_dinov2.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/run_inference_custom.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  6.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 90 ~ 90 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 150 ~ 150 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 151 ~ 151 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 186 ~ 186 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 186 ~ 186 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  line: 191 ~ 191 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  6.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/run_inference_custom.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  7.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_sam.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  7.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
+2026-06-25 17:13:50 [INFO]    [Progress:  7.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_sam.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress:  9.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/run_inference.py.
+2026-06-25 17:13:50 [WARNING] [Progress:  9.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
+2026-06-25 17:13:50 [INFO]    [Progress:  9.21%]  line: 46 ~ 51 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-25 17:13:50 [INFO]    [Progress:  9.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/run_inference.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress: 10.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/download_fastsam.py.
+2026-06-25 17:13:50 [WARNING] [Progress: 10.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model.
+2026-06-25 17:13:50 [INFO]    [Progress: 10.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/download_fastsam.py completed.
+2026-06-25 17:13:50 [INFO]    [Progress: 11.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/trimesh_utils.py.
+2026-06-25 17:13:50 [WARNING] [Progress: 11.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 11.84%]  line: 82 ~ 82 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:51 [INFO]    [Progress: 11.84%]  line: 83 ~ 83 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:51 [INFO]    [Progress: 11.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/trimesh_utils.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 13.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/weight.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 13.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 13.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/weight.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 14.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/bbox_utils.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 14.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 14.47%]  line: 73 ~ 73 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:51 [INFO]    [Progress: 14.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/bbox_utils.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 15.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/inout.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 15.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 15.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/inout.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 17.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/logging.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 17.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 17.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/logging.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 18.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/create_template_poses.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 18.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
+2026-06-25 17:13:51 [INFO]    [Progress: 18.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/create_template_poses.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 19.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/find_neighbors.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 19.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
+2026-06-25 17:13:51 [INFO]    [Progress: 19.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/find_neighbors.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 21.05%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pose_utils.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 21.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
+2026-06-25 17:13:51 [INFO]    [Progress: 21.05%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pose_utils.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 22.37%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pyrender.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 22.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
+2026-06-25 17:13:51 [INFO]    [Progress: 22.37%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/pyrender.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 23.68%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/fps.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 23.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/utils/poses.
+2026-06-25 17:13:51 [INFO]    [Progress: 23.68%]  Analysis of SAM-6D/Instance_Segmentation_Model/utils/poses/fps.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 25.00%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/build_sam.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 25.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
+2026-06-25 17:13:51 [INFO]    [Progress: 25.00%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/build_sam.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 26.32%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/automatic_mask_generator.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 26.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
+2026-06-25 17:13:51 [INFO]    [Progress: 26.32%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:51 [INFO]    [Progress: 26.32%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/automatic_mask_generator.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 27.63%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/__init__.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 27.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
+2026-06-25 17:13:51 [INFO]    [Progress: 27.63%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/__init__.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 28.95%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/predictor.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 28.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything.
+2026-06-25 17:13:51 [INFO]    [Progress: 28.95%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/predictor.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 30.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/__init__.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 30.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 30.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/__init__.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 31.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/transforms.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 31.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
+2026-06-25 17:13:51 [INFO]    [Progress: 31.58%]  line: 78 ~ 78 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:51 [INFO]    [Progress: 31.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/transforms.py completed.
+2026-06-25 17:13:51 [INFO]    [Progress: 32.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/amg.py.
+2026-06-25 17:13:51 [WARNING] [Progress: 32.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
+2026-06-25 17:13:52 [INFO]    [Progress: 32.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/amg.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/onnx.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 34.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/utils.
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  line: 45 ~ 45 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  line: 48 ~ 48 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  line: 84 ~ 84 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  line: 97 ~ 99 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 34.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/utils/onnx.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 35.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/common.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 35.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 35.53%]  line: 21 ~ 21 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 35.53%]  line: 22 ~ 22 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 35.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/common.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 36.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/__init__.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 36.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 36.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/__init__.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/prompt_encoder.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 38.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  line: 46 ~ 46 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  line: 48 ~ 48 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  line: 60 ~ 60 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  line: 214 ~ 214 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 38.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/prompt_encoder.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 39.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/mask_decoder.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 39.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 39.47%]  line: 49 ~ 49 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-25 17:13:52 [INFO]    [Progress: 39.47%]  line: 51 ~ 51 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-25 17:13:52 [INFO]    [Progress: 39.47%]  line: 167 ~ 167 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 39.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/mask_decoder.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 40.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/sam.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 40.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 40.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/sam.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 42.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/image_encoder.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 42.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 42.11%]  line: 212 ~ 212 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 42.11%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 42.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/image_encoder.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/transformer.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 43.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/segment_anything/modeling.
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  line: 203 ~ 203 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  line: 204 ~ 204 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  line: 205 ~ 205 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  line: 206 ~ 206 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:52 [INFO]    [Progress: 43.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/segment_anything/modeling/transformer.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 44.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/base_bop.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 44.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
+2026-06-25 17:13:52 [INFO]    [Progress: 44.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/base_bop.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 46.05%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/bop_pbr.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 46.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
+2026-06-25 17:13:52 [INFO]    [Progress: 46.05%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/bop_pbr.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 47.37%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/provider/bop.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 47.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/provider.
+2026-06-25 17:13:52 [INFO]    [Progress: 47.37%]  Analysis of SAM-6D/Instance_Segmentation_Model/provider/bop.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 48.68%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/__init__.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 48.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:52 [INFO]    [Progress: 48.68%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/__init__.py completed.
+2026-06-25 17:13:52 [INFO]    [Progress: 50.00%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/fast_sam.py.
+2026-06-25 17:13:52 [WARNING] [Progress: 50.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 50.00%]  line: 123 ~ 123 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 50.00%]  line: 124 ~ 124 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 50.00%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/fast_sam.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 51.32%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/dinov2.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 51.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 51.32%]  line: 138 ~ 138 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 51.32%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/dinov2.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 52.63%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/vision_transformer.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 52.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 52.63%]  line: 207 ~ 207 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 52.63%]  line: 213 ~ 213 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 52.63%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/vision_transformer.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/sam.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 53.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  line: 37 ~ 37 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  line: 47 ~ 47 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  line: 137 ~ 137 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  line: 148 ~ 148 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 53.95%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/sam.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/detector.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 55.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 220 ~ 220 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 86 ~ 86 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 111 ~ 111 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 117 ~ 117 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 156 ~ 156 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 156 ~ 156 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 160 ~ 160 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 160 ~ 160 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 168 ~ 168 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 188 ~ 188 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 225 ~ 225 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 246 ~ 246 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 249 ~ 249 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  line: 254 ~ 254 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 55.26%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/detector.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 56.58%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/loss.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 56.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 56.58%]  line: 54 ~ 54 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:53 [INFO]    [Progress: 56.58%]  line: 66 ~ 66 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:53 [INFO]    [Progress: 56.58%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:53 [INFO]    [Progress: 56.58%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/loss.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 57.89%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/utils.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 57.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model.
+2026-06-25 17:13:53 [INFO]    [Progress: 57.89%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/utils.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/dino_head.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 59.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  line: 28 ~ 28 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  line: 47 ~ 47 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  line: 49 ~ 49 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  line: 54 ~ 54 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  line: 58 ~ 58 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 59.21%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/dino_head.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 60.53%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/__init__.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 60.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 60.53%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/__init__.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 61.84%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/patch_embed.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 61.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 61.84%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/patch_embed.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 63.16%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/drop_path.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 63.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 63.16%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/drop_path.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 64.47%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/attention.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 64.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 64.47%]  line: 44 ~ 44 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 64.47%]  line: 46 ~ 46 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 64.47%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/attention.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 65.79%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/swiglu_ffn.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 65.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:53 [INFO]    [Progress: 65.79%]  line: 26 ~ 26 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 65.79%]  line: 27 ~ 27 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:53 [INFO]    [Progress: 65.79%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/swiglu_ffn.py completed.
+2026-06-25 17:13:53 [INFO]    [Progress: 67.11%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/block.py.
+2026-06-25 17:13:53 [WARNING] [Progress: 67.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:54 [INFO]    [Progress: 67.11%]  line: 130 ~ 130 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 67.11%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 67.11%]  line: 149 ~ 149 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 67.11%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/block.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 68.42%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/layer_scale.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 68.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:54 [INFO]    [Progress: 68.42%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/layer_scale.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 69.74%]  Start the analysis of SAM-6D/Instance_Segmentation_Model/model/layers/mlp.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 69.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Instance_Segmentation_Model/model/layers.
+2026-06-25 17:13:54 [INFO]    [Progress: 69.74%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 69.74%]  line: 32 ~ 32 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 69.74%]  Analysis of SAM-6D/Instance_Segmentation_Model/model/layers/mlp.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 71.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/download_sam6d-pem.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 71.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
+2026-06-25 17:13:54 [INFO]    [Progress: 71.05%]  Analysis of SAM-6D/Pose_Estimation_Model/download_sam6d-pem.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 72.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/train.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 72.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
+2026-06-25 17:13:54 [WARNING] [Progress: 72.37%]  line: 97 ~ 97 Operation Type: UNSUPPORTED Message: NA
+2026-06-25 17:13:54 [INFO]    [Progress: 72.37%]  line: 119 ~ 127 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 72.37%]  Analysis of SAM-6D/Pose_Estimation_Model/train.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 73.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/run_inference_custom.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 73.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
+2026-06-25 17:13:54 [INFO]    [Progress: 73.68%]  Analysis of SAM-6D/Pose_Estimation_Model/run_inference_custom.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 75.00%]  Start the analysis of SAM-6D/Pose_Estimation_Model/test_bop.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 75.00%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model.
+2026-06-25 17:13:54 [WARNING] [Progress: 75.00%]  line: 206 ~ 206 Operation Type: UNSUPPORTED Message: NA
+2026-06-25 17:13:54 [INFO]    [Progress: 75.00%]  line: 106 ~ 114 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 75.00%]  Analysis of SAM-6D/Pose_Estimation_Model/test_bop.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/model_utils.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 76.32%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  line: 100 ~ 100 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  line: 103 ~ 103 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  line: 150 ~ 150 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  line: 175 ~ 175 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  line: 345 ~ 345 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:54 [INFO]    [Progress: 76.32%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/model_utils.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 77.63%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/draw_utils.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 77.63%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:54 [INFO]    [Progress: 77.63%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/draw_utils.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 78.95%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/data_utils.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 78.95%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:54 [INFO]    [Progress: 78.95%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/data_utils.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 80.26%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/loss_utils.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 80.26%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:54 [INFO]    [Progress: 80.26%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/loss_utils.py completed.
+2026-06-25 17:13:54 [INFO]    [Progress: 81.58%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/bop_object_utils.py.
+2026-06-25 17:13:54 [WARNING] [Progress: 81.58%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:55 [INFO]    [Progress: 81.58%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/bop_object_utils.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 82.89%]  Start the analysis of SAM-6D/Pose_Estimation_Model/utils/solver.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 82.89%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/utils.
+2026-06-25 17:13:55 [INFO]    [Progress: 82.89%]  Analysis of SAM-6D/Pose_Estimation_Model/utils/solver.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 84.21%]  Start the analysis of SAM-6D/Pose_Estimation_Model/provider/training_dataset.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 84.21%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/provider.
+2026-06-25 17:13:55 [INFO]    [Progress: 84.21%]  Analysis of SAM-6D/Pose_Estimation_Model/provider/training_dataset.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 85.53%]  Start the analysis of SAM-6D/Pose_Estimation_Model/provider/bop_test_dataset.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 85.53%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/provider.
+2026-06-25 17:13:55 [INFO]    [Progress: 85.53%]  Analysis of SAM-6D/Pose_Estimation_Model/provider/bop_test_dataset.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 86.84%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pose_estimation_model.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 86.84%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
+2026-06-25 17:13:55 [INFO]    [Progress: 86.84%]  line: 27 ~ 27 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 86.84%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pose_estimation_model.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 88.16%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/feature_extraction.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 88.16%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
+2026-06-25 17:13:55 [INFO]    [Progress: 88.16%]  line: 67 ~ 67 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 88.16%]  Analysis of SAM-6D/Pose_Estimation_Model/model/feature_extraction.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 89.47%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/coarse_point_matching.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 89.47%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
+2026-06-25 17:13:55 [INFO]    [Progress: 89.47%]  line: 21 ~ 21 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 89.47%]  line: 22 ~ 22 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 89.47%]  Analysis of SAM-6D/Pose_Estimation_Model/model/coarse_point_matching.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 90.79%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/fine_point_matching.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 90.79%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
+2026-06-25 17:13:55 [INFO]    [Progress: 90.79%]  line: 19 ~ 19 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 90.79%]  line: 20 ~ 20 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:55 [INFO]    [Progress: 90.79%]  Analysis of SAM-6D/Pose_Estimation_Model/model/fine_point_matching.py completed.
+2026-06-25 17:13:55 [INFO]    [Progress: 92.11%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/transformer.py.
+2026-06-25 17:13:55 [WARNING] [Progress: 92.11%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model.
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 144 ~ 144 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 402 ~ 402 Operation Type: SUGGESTION Message: torch.matmul has a suggestion about precision
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 103 ~ 103 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 105 ~ 105 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 155 ~ 155 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 185 ~ 185 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 187 ~ 187 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 295 ~ 295 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 296 ~ 296 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 362 ~ 362 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 363 ~ 363 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 364 ~ 364 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 365 ~ 365 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 413 ~ 413 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 529 ~ 529 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 530 ~ 530 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 531 ~ 531 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  line: 571 ~ 571 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 92.11%]  Analysis of SAM-6D/Pose_Estimation_Model/model/transformer.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress: 93.42%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 71 ~ 71 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 107 ~ 107 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 113 ~ 113 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 140 ~ 140 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 177 ~ 177 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 199 ~ 201 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 232 ~ 232 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 252 ~ 252 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
+2026-06-25 17:13:56 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 17:13:56 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
+2026-06-25 17:13:56 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 17:13:56 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
+2026-06-25 17:13:56 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 17:13:56 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 17:13:56 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
+2026-06-25 17:13:56 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
+2026-06-25 17:13:56 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 17:13:56 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
+2026-06-25 17:13:56 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-25 17:13:56 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
 +----------------------------+------------+
 |           files            | statistics |
 +----------------------------+------------+
