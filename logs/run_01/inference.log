@@ -8,25 +8,38 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 => creating model ...
 load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
-=> extracting templates ...
+[W625 10:16:46.219198412 IsNegInfKernelNpu.cpp:35] Warning: Warning: kernel [isneginf.out] is not supported by NPU currently. Now this kernel is running on CPU. (function operator())
+..=> extracting templates ...
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 275, in <module>
-    all_tem, all_tem_pts, all_tem_choose = get_templates(tem_path, cfg.test_dataset)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 159, in get_templates
-    tem, tem_choose, tem_pts = _get_template(path, cfg, i)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 123, in _get_template
-    rgb = load_im(rgb_path).astype(np.uint8)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/utils/data_utils.py", line 15, in load_im
-    im = imageio.imread(path)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/__init__.py", line 100, in imread
-    return imread_v2(uri, format=format, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/v2.py", line 359, in imread
-    with imopen(uri, "ri", **imopen_args) as file:
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/imopen.py", line 113, in imopen
-    request = Request(uri, io_mode, format_hint=format_hint, extension=extension)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/request.py", line 250, in __init__
-    self._parse_uri(uri)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/request.py", line 410, in _parse_uri
-    raise FileNotFoundError("No such file: '%s'" % fn)
-FileNotFoundError: No such file: '/home/orange/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/templates/rgb_0.png'
-[ERROR] 2026-06-25-10:11:34 (PID:303694, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 277, in <module>
+    all_tem_pts, all_tem_feat = model.feature_extraction.get_obj_feats(all_tem, all_tem_pts, all_tem_choose)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 177, in get_obj_feats
+    tem_feat_list.append(self.get_img_feats(tem, tem_choose))
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 169, in get_img_feats
+    return get_chosen_pixel_feats(self.rgb_net(img)[0], choose)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 101, in forward
+    vit_outs = self.vit(x)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 33, in forward
+    x = blk(x)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/vision_transformer.py", line 212, in forward
+    x = x + self.drop_path1(self.ls1(self.attn(self.norm1(x), attn_mask=attn_mask, is_causal=is_causal)))
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/layers/attention.py", line 120, in forward
+    x = F.scaled_dot_product_attention(
+RuntimeError: can not cast format when output is input
+[ERROR] 2026-06-25-10:17:08 (PID:327802, Device:0, RankID:-1) ERR01007 OPS feature not supported
