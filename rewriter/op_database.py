@@ -99,7 +99,23 @@ def ascend_three_interpolate(features, idx, weight):
 """,
     "pointnet2._ext.ball_query": """
 def ascend_ball_query(new_xyz, xyz, radius, nsample):
-    return _mmcv_ball_query(new_xyz.contiguous(), xyz.contiguous(), radius, nsample)
+    B, M, _ = new_xyz.shape
+    _, N, _ = xyz.shape
+    idx = torch.zeros(B, M, nsample, dtype=torch.long, device=xyz.device)
+    for b in range(B):
+        for m in range(M):
+            d = torch.sum((xyz[b] - new_xyz[b, m:m+1]) ** 2, dim=1)
+            valid = d < radius * radius
+            valid_idx = torch.nonzero(valid).squeeze(1)
+            if valid_idx.numel() == 0:
+                idx[b, m, :] = 0
+            elif valid_idx.numel() >= nsample:
+                rand_choice = valid_idx[torch.randperm(valid_idx.numel())[:nsample]]
+                idx[b, m, :] = rand_choice
+            else:
+                tile = valid_idx.repeat((nsample + valid_idx.numel() - 1) // valid_idx.numel())
+                idx[b, m, :] = tile[:nsample]
+    return idx
 """,
     "pointnet2._ext.gather_points_grad": """
 def ascend_gather_points_grad(grad_out, idx, N):
