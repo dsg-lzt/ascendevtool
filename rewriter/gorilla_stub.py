@@ -8,6 +8,9 @@ import os
 import re
 
 torch.npu.set_compile_mode(jit_compile=False)
+# 允许 NPU 内部格式转换，避免 scaled_dot_product_attention 报错
+if hasattr(torch.npu, 'config') and hasattr(torch.npu.config, 'allow_internal_format'):
+    torch.npu.config.allow_internal_format = True
 
 # 禁用 flash attention，避免 NPU scaled_dot_product_attention 报错
 torch.backends.cuda.enable_math_sdp(True)

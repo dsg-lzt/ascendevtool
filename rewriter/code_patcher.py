@@ -173,7 +173,7 @@ def _patch_source_file_regex(
         if "torch.npu.set_compile_mode" not in source:
             source = re.sub(
                 r"(import torch_npu\s*\n)",
-                r"\1torch.npu.set_compile_mode(jit_compile=False)\n",
+                r"\1torch.npu.set_compile_mode(jit_compile=False)\ntorch.npu.config.allow_internal_format = True\n",
                 source,
             )
         changes += 1
