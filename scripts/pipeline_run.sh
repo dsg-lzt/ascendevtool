@@ -137,7 +137,7 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     CAM_PATH="$DATA_DIR/camera.json"
     SEG_PATH="$OUTPUT_DIR/sam6d_results/detection_ism.json"
 
-    mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
+    mkdir -p "$OUTPUT_DIR" "$(dirname "$SEG_PATH")"
 
     SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     export PYTHONHTTPSVERIFY=0
