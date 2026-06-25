@@ -23,6 +23,10 @@ class _GorillaConfig:
     def fromfile(path):
         import yaml
         from addict import Dict
+        import os
+        if not os.path.isfile(path):
+            base = os.path.dirname(os.path.abspath(__file__))
+            path = os.path.join(base, path)
         with open(path, 'r') as f:
             cfg_dict = yaml.safe_load(f)
         return Dict(cfg_dict)
