@@ -94,6 +94,17 @@ result = rewrite_unsupported_ops(
 )
 print(result.status)
 " > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
+
+    # 追加：CUDA→NPU 迁移（.cuda() → .npu() 等）
+    log "2.5 CUDA→NPU 代码迁移..."
+    python -c "
+import sys
+sys.path.insert(0, '$TOOL_DIR')
+from pathlib import Path
+from migrator.migrator_core import migrate_directory
+result = migrate_directory(Path('$SAM6D_OUT'), Path('$SAM6D_OUT'))
+print(result.status)
+" >> "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: NPU迁移失败（继续执行）"
 else
     log "WARN: 未找到 unsupported_api.csv，跳过算子替换"
     echo "NO_UNSUPPORTED_CSV" > "$LOG_DIR/rewrite.log"
