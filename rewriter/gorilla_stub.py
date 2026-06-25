@@ -21,8 +21,11 @@ def _dict_to_obj(d):
 class _GorillaConfig:
     @staticmethod
     def fromfile(path):
-        from config.config import Config
-        return Config.fromfile(path)
+        import yaml
+        from addict import Dict
+        with open(path, 'r') as f:
+            cfg_dict = yaml.safe_load(f)
+        return Dict(cfg_dict)
 
 class _GorillaUtils:
     @staticmethod
