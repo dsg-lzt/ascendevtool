@@ -128,6 +128,11 @@ log "3/4 SAM-6D 推理测试..."
 INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
 if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
     cd "$INFERENCE_DIR"
+    # 确保 CWD 有效（避免 rewrite 重建输出目录后 CWD 失效）
+    if [ ! -d "$PWD" ]; then
+        cd "$(dirname "$INFERENCE_DIR")" || cd "$HOME"
+        INFERENCE_DIR="$PWD"
+    fi
 
     DATA_DIR="$SAM6D_SRC/SAM-6D/Data/Example"
     OUTPUT_DIR="$DATA_DIR/outputs"
