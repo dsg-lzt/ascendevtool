@@ -150,7 +150,20 @@ def _patch_source_file_regex(
             r"os.environ.setdefault('ASCEND_VISIBLE_DEVICES', '0')",
             source,
         )
-        # 添加 from config.config import Config
+                # 确保 model.load_state_dict 在 model.cuda/npu 之前
+        src_lines = source.split("\n")
+        cuda_i = -1
+        for i, ln in enumerate(src_lines):
+            s = ln.strip()
+            if re.match(r"model\s*=\s*model\s*\.\s*(?:cuda|npu)\s*\(\s*\)", s):
+                cuda_i = i
+            if "model.load_state_dict(torch.load(" in s and cuda_i >= 0:
+                cuda_line = src_lines.pop(cuda_i)
+                src_lines.insert(i, cuda_line)
+                break
+        source = "\n".join(src_lines)
+
+# 添加 from config.config import Config
         if "from config.config import Config" not in source:
             source = source.replace(
                 "# import gorilla  # replaced by AscendDevTool",
