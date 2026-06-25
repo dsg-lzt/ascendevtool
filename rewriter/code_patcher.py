@@ -156,6 +156,13 @@ def _patch_source_file_regex(
                 "# import gorilla  # replaced by AscendDevTool",
                 "from config.config import Config\n# import gorilla  # replaced by AscendDevTool",
             )
+        # 注入 NPU 编译模式设置（解决 scaled_dot_product_attention 报错）
+        if "torch.npu.set_compile_mode" not in source:
+            source = re.sub(
+                r"(import torch_npu\s*\n)",
+                r"\1torch.npu.set_compile_mode(jit_compile=False)\n",
+                source,
+            )
         changes += 1
 
     for op_path, replacement_func in _OP_TO_REPLACEMENT_FUNC.items():
