@@ -120,10 +120,10 @@ fi
 
 # ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
-# 清理 CANN 工具环境变量，避免干扰 torch_npu
+# 清理扫描阶段的环境变量，避免干扰 torch_npu
 unset ASCEND_OPP_PATH
 unset ASCEND_HOME_PATH
-unset PYTHONPATH
+# 保留 ASCEND_TOOLKIT_HOME 和 PATH（torch_npu 需要）
 INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
 if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
     cd "$INFERENCE_DIR"
@@ -143,15 +143,11 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
 
     mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
 
-    SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
+    # 用 conda run 继承 torch_npu 环境的正确环境变量
     export PYTHONHTTPSVERIFY=0
     export CURL_CA_BUNDLE=""
-    # 推理时不要覆盖 torch_npu 的库路径
-    unset LD_LIBRARY_PATH
-    unset ASCEND_OPP_PATH
-    log "使用 $SAM6D_PYTHON 运行推理..."
-
-    $SAM6D_PYTHON run_inference_custom.py \
+    log "使用 conda run -n torch_npu 运行推理..."
+    conda run -n torch_npu python run_inference_custom.py \
         --output_dir "$OUTPUT_DIR" \
         --cad_path "$CAD_PATH" \
         --rgb_path "$RGB_PATH" \
