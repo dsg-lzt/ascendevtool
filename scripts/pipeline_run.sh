@@ -56,8 +56,8 @@ export ASCEND_TOOLKIT_HOME
 export ASCEND_HOME_PATH="$ASCEND_TOOLKIT_HOME"
 export ASCEND_OPP_PATH="$ASCEND_TOOLKIT_HOME/opp"
 export PATH="$ASCEND_TOOLKIT_HOME/bin:$ASCEND_TOOLKIT_HOME/compiler/ccec_compiler/bin:$PATH"
-export LD_LIBRARY_PATH="$ASCEND_TOOLKIT_HOME/x86_64-linux/devlib:$ASCEND_TOOLKIT_HOME/runtime/lib64/stub:$LD_LIBRARY_PATH"
 export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$ASCEND_TOOLKIT_HOME/python/site-packages:$PYTHONPATH"
+# 不覆盖 LD_LIBRARY_PATH，避免和 torch_npu 冲突
 
 cd "$TOOL_DIR"
 

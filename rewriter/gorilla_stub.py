@@ -37,11 +37,7 @@ class _GorillaUtils:
     def set_cuda_visible_devices(gpu_ids):
         devices = gpu_ids.split(",") if isinstance(gpu_ids, str) else [str(g) for g in gpu_ids]
         os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(devices)
-        try:
-            import torch_npu
-            torch.npu.set_device(0)
-        except ImportError:
-            pass
+        os.environ["ASCEND_VISIBLE_DEVICES"] = "0"
 
 class _GorillaSolver:
     @staticmethod
