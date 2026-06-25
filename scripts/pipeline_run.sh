@@ -97,26 +97,26 @@ result = rewrite_unsupported_ops(
 print(result.status)
 " > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
 
-    # 2.2 再 CUDA→NPU 迁移输出（跳过已生成的 gorilla/ascend）
+    # 2.2 再 CUDA→NPU 迁移（仅处理入口文件，不动 model/provider/utils 目录）
     log "2.2 CUDA→NPU 迁移..."
     python -c "
 import sys
 sys.path.insert(0, '$TOOL_DIR')
 from pathlib import Path
 from migrator.torch_to_npu import transform_source
+# 只处理入口级别的 .py 文件，不深入 model/provider/utils 子目录
 py_files = list(Path('$SAM6D_OUT').rglob('*.py'))
+py_files = [f for f in py_files if '/model/' not in str(f) and '/provider/' not in str(f) and '/utils/' not in str(f)]
 changes = 0
-skipped = set()
 for f in py_files:
     if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
-        skipped.add(f.name)
         continue
     src = f.read_text(encoding='utf-8')
     new_src, c = transform_source(src)
     if c > 0:
         f.write_text(new_src, encoding='utf-8')
         changes += c
-print(f'迁移完成: {changes} 处变更, 跳过 {len(skipped)} 个文件 ({skipped})')
+print(f'迁移完成: {changes} 处变更')
 " >> "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: NPU迁移失败（继续执行）"
 else
     log "WARN: 未找到 unsupported_api.csv，跳过算子替换"
