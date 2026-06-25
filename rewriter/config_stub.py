@@ -7,9 +7,20 @@ from argparse import Namespace
 import yaml
 from addict import Dict
 
-# 纯 PyTorch 实现 scaled_dot_product_attention（替代 NPU 不支持的融合版本）
+# 纯 PyTorch 实现 scaled_dot_product_attention 和 torch.cross（替代 NPU 不支持的版本）
 import torch
 import torch.nn.functional as F
+
+_orig_cross = torch.cross
+def _cross_npu(input, other, dim=-1):
+    if input.device.type == 'npu':
+        return torch.stack([
+            input[...,1]*other[...,2] - input[...,2]*other[...,1],
+            input[...,2]*other[...,0] - input[...,0]*other[...,2],
+            input[...,0]*other[...,1] - input[...,1]*other[...,0],
+        ], dim=dim)
+    return _orig_cross(input, other, dim=dim)
+torch.cross = _cross_npu
 
 _orig_sdpa = F.scaled_dot_product_attention
 
