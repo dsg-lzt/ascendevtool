@@ -112,13 +112,14 @@ def ascend_three_interpolate(features, idx, weight):
     return out
 """,
     "pointnet2._ext.ball_query": """
-def ascend_ball_query(radius, nsample, xyz, new_xyz):
-    B, N, _ = xyz.shape
-    _, M, _ = new_xyz.shape
+def ascend_ball_query(new_xyz, xyz, radius, nsample):
+    B, M, _ = new_xyz.shape
+    _, N, _ = xyz.shape
     idx = torch.zeros(B, M, nsample, dtype=torch.long, device=xyz.device)
     for b in range(B):
         for m in range(M):
-            d = torch.sum((xyz[b] - new_xyz[b, m]) ** 2, dim=1)
+            d = torch.sum((xyz[b] - new_xyz[b, m:m+1]) ** 2, dim=1)
+            d_n = d / (torch.max(d) + 1e-6)
             valid = d < radius * radius
             valid_idx = torch.nonzero(valid).squeeze(1)
             if valid_idx.numel() == 0:
@@ -130,6 +131,35 @@ def ascend_ball_query(radius, nsample, xyz, new_xyz):
                 tile = valid_idx.repeat((nsample + valid_idx.numel() - 1) // valid_idx.numel())
                 idx[b, m, :] = tile[:nsample]
     return idx
+""",
+    "pointnet2._ext.gather_points_grad": """
+def ascend_gather_points_grad(grad_out, idx, N):
+    B, C, M = grad_out.shape
+    grad_points = grad_out.new_zeros(B, C, N)
+    grad_points.scatter_add_(2, idx.unsqueeze(1).expand(-1, C, -1), grad_out)
+    return grad_points
+""",
+    "pointnet2._ext.group_points_grad": """
+def ascend_group_points_grad(grad_out, idx, N):
+    B, C, nsample, npoint = grad_out.shape
+    grad_xyz = grad_out.new_zeros(B, C, N)
+    grad_xyz = grad_xyz.view(B, C, N)
+    idx = idx.long()
+    for b in range(B):
+        for s in range(nsample):
+            grad_xyz[b].scatter_add_(1, idx[b, s:s+1].expand(C, -1), grad_out[b, :, s, :])
+    return grad_xyz
+""",
+    "pointnet2._ext.three_interpolate_grad": """
+def ascend_three_interpolate_grad(grad_out, idx, weight, M):
+    B, C, N = grad_out.shape
+    grad_features = grad_out.new_zeros(B, C, M)
+    for b in range(B):
+        for n in range(N):
+            w = weight[b, n]
+            for k in range(3):
+                grad_features[b, :, idx[b, n, k]] += grad_out[b, :, n] * w[k]
+    return grad_features
 """,
 }
 
