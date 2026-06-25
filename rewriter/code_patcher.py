@@ -151,7 +151,10 @@ def _patch_source_file_regex(
 
 def _generate_replacement_module(output_dir: Path, solutions: List[OpSolution]) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
-    path = output_dir / "ascend_pointnet2_ops.py"
+    # 放到 Pose_Estimation_Model 目录下，确保 import 能找到
+    dest_dirs = list(output_dir.rglob("Pose_Estimation_Model"))
+    dest = dest_dirs[0] if dest_dirs else output_dir
+    path = dest / "ascend_pointnet2_ops.py"
 
     lines = [
         "from __future__ import annotations",
