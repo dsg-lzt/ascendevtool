@@ -1,19 +1,32 @@
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=> creating model ...
+load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
+=> extracting templates ...
 Traceback (most recent call last):
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/__init__.py", line 41, in <module>
-    import torch_npu.npu
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/__init__.py", line 138, in <module>
-    from torch_npu.utils import _should_print_warning
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/__init__.py", line 4, in <module>
-    from torch_npu import _C
-ImportError: /usr/local/Ascend/ascend-toolkit/latest/lib64/libruntime_common.so: undefined symbol: _ZN12ErrorManager19ATCReportErrMessageESsRKSt6vectorISsSaISsEES4_
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 13, in <module>
-    import torch_npu
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/__init__.py", line 43, in <module>
-    from torch_npu.utils._error_code import ErrCode, pta_error
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/__init__.py", line 4, in <module>
-    from torch_npu import _C
-ImportError: /usr/local/Ascend/ascend-toolkit/latest/lib64/libruntime_common.so: undefined symbol: _ZN12ErrorManager19ATCReportErrMessageESsRKSt6vectorISsSaISsEES4_
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 275, in <module>
+    all_tem, all_tem_pts, all_tem_choose = get_templates(tem_path, cfg.test_dataset)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 159, in get_templates
+    tem, tem_choose, tem_pts = _get_template(path, cfg, i)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 123, in _get_template
+    rgb = load_im(rgb_path).astype(np.uint8)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/utils/data_utils.py", line 15, in load_im
+    im = imageio.imread(path)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/__init__.py", line 100, in imread
+    return imread_v2(uri, format=format, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/v2.py", line 359, in imread
+    with imopen(uri, "ri", **imopen_args) as file:
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/imopen.py", line 113, in imopen
+    request = Request(uri, io_mode, format_hint=format_hint, extension=extension)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/request.py", line 250, in __init__
+    self._parse_uri(uri)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/imageio/core/request.py", line 410, in _parse_uri
+    raise FileNotFoundError("No such file: '%s'" % fn)
+FileNotFoundError: No such file: '/home/orange/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/templates/rgb_0.png'
+[ERROR] 2026-06-25-10:11:34 (PID:303694, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
