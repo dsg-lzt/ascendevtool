@@ -37,31 +37,11 @@ def load_supported_ops(torch_version: str = "2.6") -> Set[str]:
 _DECOMPOSE_RULES: Dict[str, str] = {
     "pointnet2._ext.gather_points": """
 def ascend_gather_points(xyz, idx):
-    batch_size, num_dims, num_points = xyz.size()
-    idx_2d = idx.dim() == 2
-    if idx_2d:
-        idx = idx.unsqueeze(1).unsqueeze(-1)
-    else:
-        idx = idx.unsqueeze(-1)
-    idx_expanded = idx.long().expand(-1, num_dims, -1, -1)
-    xyz_expanded = xyz.unsqueeze(3).expand(-1, -1, -1, idx_expanded.size(-1))
-    gathered = torch.gather(xyz_expanded, 2, idx_expanded)
-    if idx_2d:
-        gathered = gathered.squeeze(-1)
-    return gathered.contiguous()
+    return _mmcv_gather_points(xyz, idx)
 """,
     "pointnet2._ext.group_points": """
 def ascend_group_points(xyz, idx):
-    batch_size, num_dims, num_points = xyz.size()
-    _, nsamples, npoints = idx.size()
-    idx_base = torch.arange(0, batch_size, device=xyz.device).view(-1, 1, 1) * num_points
-    idx = idx.long() + idx_base
-    idx = idx.view(-1)
-    xyz = xyz.transpose(2, 1).contiguous()
-    grouped = xyz.view(batch_size * num_points, -1)[idx, :]
-    grouped = grouped.view(batch_size, nsamples, npoints, num_dims)
-    grouped = grouped.permute(0, 3, 1, 2).contiguous()
-    return grouped
+    return _mmcv_grouping_operation(xyz, idx)
 """,
     "torch.nn.DataParallel": """
 def ascend_data_parallel(model, device_ids=None, output_device=None):
@@ -119,24 +99,7 @@ def ascend_three_interpolate(features, idx, weight):
 """,
     "pointnet2._ext.ball_query": """
 def ascend_ball_query(new_xyz, xyz, radius, nsample):
-    B, M, _ = new_xyz.shape
-    _, N, _ = xyz.shape
-    idx = torch.zeros(B, M, nsample, dtype=torch.long, device=xyz.device)
-    for b in range(B):
-        for m in range(M):
-            d = torch.sum((xyz[b] - new_xyz[b, m:m+1]) ** 2, dim=1)
-            d_n = d / (torch.max(d) + 1e-6)
-            valid = d < radius * radius
-            valid_idx = torch.nonzero(valid).squeeze(1)
-            if valid_idx.numel() == 0:
-                idx[b, m, :] = 0
-            elif valid_idx.numel() >= nsample:
-                rand_choice = valid_idx[torch.randperm(valid_idx.numel())[:nsample]]
-                idx[b, m, :] = rand_choice
-            else:
-                tile = valid_idx.repeat((nsample + valid_idx.numel() - 1) // valid_idx.numel())
-                idx[b, m, :] = tile[:nsample]
-    return idx
+    return _mmcv_ball_query(new_xyz.contiguous(), xyz.contiguous(), radius, nsample)
 """,
     "pointnet2._ext.gather_points_grad": """
 def ascend_gather_points_grad(grad_out, idx, N):
