@@ -39,15 +39,16 @@ class _GorillaSolver:
         checkpoint = torch.load(filename, map_location=map_location or "cpu")
         if isinstance(checkpoint, dict):
             if "model" in checkpoint:
-                model.load_state_dict(checkpoint["model"], strict=False)
+                state = checkpoint["model"]
             elif "state_dict" in checkpoint:
-                model.load_state_dict(checkpoint["state_dict"], strict=False)
+                state = checkpoint["state_dict"]
             elif "model_state_dict" in checkpoint:
-                model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+                state = checkpoint["model_state_dict"]
             else:
-                model.load_state_dict(checkpoint, strict=False)
+                state = checkpoint
         else:
-            model.load_state_dict(checkpoint, strict=False)
+            state = checkpoint
+        model.load_state_dict(state, strict=False)
 
 import sys
 
