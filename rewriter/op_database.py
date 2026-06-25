@@ -55,10 +55,9 @@ def ascend_data_parallel(model, device_ids=None, output_device=None):
     return model.to('cpu')
 """,
     "pointnet2._ext.furthest_point_sampling": """
-def ascend_furthest_point_sampling(xyz_transposed, npoint):
-    xyz = xyz_transposed.transpose(1, 2).contiguous()
-    device = xyz.device
+def ascend_furthest_point_sampling(xyz, npoint):
     B, N, C = xyz.shape
+    device = xyz.device
     centroids = torch.zeros(B, npoint, dtype=torch.long, device=device)
     distance = torch.ones(B, N, device=device) * 1e10
     farthest = torch.zeros(B, dtype=torch.long, device=device)
