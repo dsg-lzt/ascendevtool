@@ -135,7 +135,12 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     RGB_PATH="$DATA_DIR/rgb.png"
     DEPTH_PATH="$DATA_DIR/depth.png"
     CAM_PATH="$DATA_DIR/camera.json"
-    SEG_PATH="$OUTPUT_DIR/sam6d_results"
+    SEG_PATH="$OUTPUT_DIR/sam6d_results/detection_ism.json"
+    # 如果 seg 文件不存在，生成空的检测结果
+    if [ ! -f "$SEG_PATH" ]; then
+        mkdir -p "$(dirname "$SEG_PATH")"
+        echo '[]' > "$SEG_PATH"
+    fi
 
     mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
 
