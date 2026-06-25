@@ -215,6 +215,7 @@ def _generate_replacement_module(output_dir: Path, solutions: List[OpSolution]) 
         "import warnings",
         "# 优先使用 mmcv 的高性能实现",
         "from mmcv.ops import gather_points as _mmcv_gather_points",
+        "from mmcv.ops import ball_query as _mmcv_ball_query",
         "from mmcv.ops import grouping_operation as _mmcv_grouping_operation",
         "",
     ]

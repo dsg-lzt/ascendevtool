@@ -55,20 +55,26 @@ def ascend_data_parallel(model, device_ids=None, output_device=None):
     return model.to('cpu')
 """,
     "pointnet2._ext.furthest_point_sampling": """
-def ascend_furthest_point_sampling(xyz, npoint):
-    B, N, _ = xyz.shape
+def ascend_furthest_point_sampling(xyz_transposed, npoint):
+    xyz = xyz_transposed.transpose(1, 2).contiguous()
     device = xyz.device
+    B, N, C = xyz.shape
     centroids = torch.zeros(B, npoint, dtype=torch.long, device=device)
     distance = torch.ones(B, N, device=device) * 1e10
-    farthest = torch.randint(0, N, (B,), dtype=torch.long, device=device)
-    batch_indices = torch.arange(B, device=device)
+    farthest = torch.zeros(B, dtype=torch.long, device=device)
+    batch_indices = torch.arange(B, dtype=torch.long, device=device)
     for i in range(npoint):
         centroids[:, i] = farthest
-        centroid = xyz[batch_indices, farthest, :].view(B, 1, 3)
+        centroid = xyz[batch_indices, farthest].view(B, 1, 3)
         dist = torch.sum((xyz - centroid) ** 2, -1)
-        distance = torch.min(distance, dist)
+        mask = dist < distance
+        distance[mask] = dist[mask]
         farthest = torch.max(distance, -1)[1]
-    return centroids
+    return centroids.to(torch.int32)
+""",
+    "pointnet2._ext.ball_query": """
+def ascend_ball_query(new_xyz, xyz, radius, nsample):
+    return _mmcv_ball_query(0, radius, nsample, xyz.contiguous(), new_xyz.contiguous())
 """,
     "pointnet2._ext.three_nn": """
 def ascend_three_nn(unknown, known):
@@ -77,9 +83,7 @@ def ascend_three_nn(unknown, known):
     dists = torch.zeros(B, N, 3, device=unknown.device)
     idx = torch.zeros(B, N, 3, dtype=torch.long, device=unknown.device)
     for b in range(B):
-        u = unknown[b]
-        k = known[b]
-        d = torch.cdist(u, k)
+        d = torch.cdist(unknown[b], known[b])
         d_topk, i_topk = torch.topk(d, 3, dim=1, largest=False)
         dists[b] = d_topk
         idx[b] = i_topk
@@ -88,13 +92,14 @@ def ascend_three_nn(unknown, known):
     "pointnet2._ext.three_interpolate": """
 def ascend_three_interpolate(features, idx, weight):
     B, C, M = features.shape
-    _, N, _ = idx.shape
+    N = idx.size(1)
     out = torch.zeros(B, C, N, device=features.device)
     for b in range(B):
         for n in range(N):
-            w = weight[b, n]
-            for k in range(3):
-                out[b, :, n] += features[b, :, idx[b, n, k]] * w[k]
+            w = weight[b, n].unsqueeze(0)
+            out[b, :, n] = (features[b, :, idx[b, n, 0]] * w[0] +
+                             features[b, :, idx[b, n, 1]] * w[1] +
+                             features[b, :, idx[b, n, 2]] * w[2])
     return out
 """,
     "pointnet2._ext.ball_query": """
