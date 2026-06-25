@@ -1,3 +1,4 @@
+[W625 14:23:50.427050342 IsNegInfKernelNpu.cpp:35] Warning: Warning: kernel [isneginf.out] is not supported by NPU currently. Now this kernel is running on CPU. (function operator())
 手动迁移的
 import os
 import torch
