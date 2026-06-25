@@ -1,2 +1,1 @@
-conda run -n torch_npu python -c "import yaml; print('OK')"
-OK
+cat ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/sam6d_results/detection_ism.json | head -c 200
