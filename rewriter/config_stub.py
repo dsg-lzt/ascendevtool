@@ -32,7 +32,10 @@ def _npu_sdpa(query, key, value, attn_mask=None, dropout_p=0.0, is_causal=False,
             return out.transpose(1, 2).contiguous()
         except Exception:
             pass
-    return _orig_sdpa(query, key, value, attn_mask, dropout_p, is_causal, scale)
+    try:
+        return _orig_sdpa(query, key, value, attn_mask, is_causal=is_causal, scale=scale)
+    except TypeError:
+        return _orig_sdpa(query, key, value, attn_mask=attn_mask, is_causal=is_causal, scale=scale)
 
 torch.nn.functional.scaled_dot_product_attention = _npu_sdpa
 
