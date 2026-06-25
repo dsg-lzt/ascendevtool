@@ -7,11 +7,13 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 259, in <module>
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 260, in <module>
     cfg = init()
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 68, in init
-    cfg = gorilla.Config.fromfile(args.config)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/gorilla.py", line 24, in fromfile
-    from config.config import Config
-ModuleNotFoundError: No module named 'config.config'
-[ERROR] 2026-06-25-14:39:03 (PID:1760746, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 69, in init
+    cfg = Config.fromfile(args.config)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/config/config.py", line 38, in fromfile
+    cfg_dict = Config._file2dict(filename)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/config/config.py", line 43, in _file2dict
+    with open(filename, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'config/base.yaml'
+[ERROR] 2026-06-25-14:50:09 (PID:1801972, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
