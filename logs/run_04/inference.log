@@ -1,0 +1,218 @@
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=> creating model ...
+load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
+[W625 16:00:20.406136030 IsNegInfKernelNpu.cpp:35] Warning: Warning: kernel [isneginf.out] is not supported by NPU currently. Now this kernel is running on CPU. (function operator())
+=> extracting templates ...
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 278, in <module>
+    print("=> loading input data ...")
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 177, in get_obj_feats
+    
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 169, in get_img_feats
+    
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 101, in forward
+    cls_tokens = vit_outs[-1][:,0,:].contiguous()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 33, in forward
+    if idx in idx_nblock:
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/vision_transformer.py", line 212, in forward
+    x = x + self.drop_path1(self.ls1(self.attn(self.norm1(x), attn_mask=attn_mask, is_causal=is_causal)))
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/layers/attention.py", line 120, in forward
+    x = F.scaled_dot_product_attention(
+RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is ConcatD.
+Since the operator is called asynchronously, the stacktrace may be inaccurate. If you want to get the accurate stacktrace, please set the environment variable ASCEND_LAUNCH_BLOCKING=1.
+Note: ASCEND_LAUNCH_BLOCKING=1 will force ops to run in synchronous mode, resulting in performance degradation. Please unset ASCEND_LAUNCH_BLOCKING in time after debugging.
+[ERROR] 2026-06-25-16:00:20 (PID:2071414, Device:0, RankID:-1) ERR00100 PTA call acl api failed.
+[PID: 2071414] 2026-06-25-16:00:20.786.612 Invalid_Path(E40023): Path [/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model] for [ge.debugDir] is invalid. Result: real path get failed. Reason: path does not exist or has no permission to access.
+        Possible Cause: The path does not exist.
+        Solution: Change the path to the effective value.
+        TraceBack (most recent call last):
+        Do prebuild failed, taskID[140456252089920:27].[FUNC:PreBuildTbeOpInner][FILE:prebuild_manager.cc][LINE:64]
+        Failed to compile Op [ConcatD10]. (optype: [ConcatD])
+        [SubGraphOpt][Pre-Comp]Failed to pre-compile node ConcatD10. thread id is [140456252089920], task is [27].[FUNC:ParallelPreCompileOp][FILE:tbe_op_store_adapter.cc][LINE:629]
+        [SubGraphOpt][Pre-Comp]Failed to pre-compile graph [partition0_rank1_new_sub_graph2][FUNC:PreCompileOp][FILE:op_compiler.cc][LINE:809]
+        Call OptimizeFusedGraph failed, ret:4294967295, engine_name:AIcoreEngine, graph_name:partition0_rank1_new_sub_graph2[FUNC:OptimizeSubGraph][FILE:graph_optimize.cc][LINE:125]
+        subgraph 0 optimize failed[FUNC:OptimizeSubGraphWithMultiThreads][FILE:graph_manager.cc][LINE:962]
+        build graph failed, graph id:9, ret:4294967295[FUNC:BuildModelWithGraphId][FILE:ge_generator.cc][LINE:1594]
+        [Build][SingleOpModel]call ge interface generator.BuildSingleOpModel failed. ge result = 4294967295[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:162]
+        [Build][Op]Fail to build op model[FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:146]
+        build op model failed, result = 500002[FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:146]
+
+Traceback (most recent call last):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1045, in deinit_multi_process_env
+    del_tmp_files(OpCompiler.atc_time_stamp)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1018, in del_tmp_files
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1045, in deinit_multi_process_env
+    del_tmp_files(OpCompiler.atc_time_stamp)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1018, in del_tmp_files
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Process ForkServerProcess-12:
+Process ForkServerProcess-16:
+Process ForkServerProcess-14:
+Process ForkServerProcess-13:
+Process ForkServerProcess-15:
+Process ForkServerProcess-17:
+Process ForkServerProcess-11:
+Process ForkServerProcess-18:
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+Traceback (most recent call last):
+FileNotFoundError: [Errno 2] No such file or directory
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+Traceback (most recent call last):
+FileNotFoundError: [Errno 2] No such file or directory
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 113, in get
+    if not self._poll(timeout):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/connection.py", line 257, in poll
+    return self._poll(timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/connection.py", line 424, in _poll
+    r = wait([self], timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+FileNotFoundError: [Errno 2] No such file or directory

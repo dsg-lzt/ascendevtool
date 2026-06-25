@@ -1,15 +1,101 @@
 === Pipeline Round 04 Summary ===
-Time: 2026-06-24 17:57:33
-Git commit: fa30184e0f4c93b4c5de0474922689d833da92a9
+Time: 2026-06-25 16:00:28
+Git commit: e162ee223c02b368ccb13afe1fce8008678a29ac
 
 --- scan.log (tail 30) ---
-SCAN_TOOL_NOT_FOUND
+2026-06-25 16:00:01 [WARNING] [Progress: 93.42%]  line: 282 ~ 282 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 16:00:01 [INFO]    [Progress: 93.42%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py completed.
+2026-06-25 16:00:01 [INFO]    [Progress: 94.74%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py.
+2026-06-25 16:00:01 [WARNING] [Progress: 94.74%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 16:00:01 [INFO]    [Progress: 94.74%]  line: 259 ~ 259 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-25 16:00:01 [INFO]    [Progress: 94.74%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pytorch_utils.py completed.
+2026-06-25 16:00:01 [INFO]    [Progress: 96.05%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py.
+2026-06-25 16:00:01 [WARNING] [Progress: 96.05%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 16:00:01 [WARNING] [Progress: 96.05%]  line: 185 ~ 185 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 16:00:01 [WARNING] [Progress: 96.05%]  line: 190 ~ 192 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 16:00:01 [INFO]    [Progress: 96.05%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_modules.py completed.
+2026-06-25 16:00:01 [INFO]    [Progress: 97.37%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py.
+2026-06-25 16:00:01 [WARNING] [Progress: 97.37%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 16:00:01 [WARNING] [Progress: 97.37%]  line: 27 ~ 27 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-25 16:00:01 [INFO]    [Progress: 97.37%]  line: 30 ~ 30 Operation Type: SUGGESTION Message: torch.autograd.gradcheck has a suggestion about performance
+2026-06-25 16:00:01 [INFO]    [Progress: 97.37%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_test.py completed.
+2026-06-25 16:00:01 [INFO]    [Progress: 98.68%]  Start the analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py.
+2026-06-25 16:00:01 [WARNING] [Progress: 98.68%]  The dir is writable by others: /home/orange/pipeline_tool/SAM-6D/SAM-6D/Pose_Estimation_Model/model/pointnet2.
+2026-06-25 16:00:01 [INFO]    [Progress: 98.68%]  Analysis of SAM-6D/Pose_Estimation_Model/model/pointnet2/setup.py completed.
+2026-06-25 16:00:01 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-25 16:00:01 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is SAM-6D_analysis.
++----------------------------+------------+
+|           files            | statistics |
++----------------------------+------------+
+| api_performance_advice.csv |    102     |
+|      cuda_op_list.csv      |    684     |
+|    unsupported_api.csv     |     14     |
+|      unknown_api.csv       |     59     |
+|  api_precision_advice.csv  |     13     |
++----------------------------+------------+
 
 --- rewrite.log (tail 30) ---
-NO_UNSUPPORTED_CSV
+分析完成：13 个不支持的算子
+  已入库/可映射: 2
+  可拆分: 3
+  数学等价改写: 0
+  需开发: 8
+已替换 29 处调用，修改 9 个文件
+已生成 18 个文件/脚手架
+迁移完成: 86 处变更, 跳过 2 个文件 ({'ascend_pointnet2_ops.py', 'gorilla.py'})
 
 --- inference.log (tail 50) ---
-N/A
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 289, in exec_compilation_task
+    worker.loop()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 1351, in loop
+    task = self._task_queue.get(True, self._block_timeout)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 180, in worker_sigint_handler_no_print
+    del_tmp_files_by_pid(OpCompiler.master_pid)
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+  File "/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/te_fusion/parallel_compilation.py", line 991, in del_tmp_files_by_pid
+    cur_path = os.getcwd()
+FileNotFoundError: [Errno 2] No such file or directory
+FileNotFoundError: [Errno 2] No such file or directory
 
 --- status ---
-NO_STATUS
+DONE
+INFERENCE_ERROR
