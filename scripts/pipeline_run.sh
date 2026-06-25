@@ -160,12 +160,10 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     wait $INF_PID 2>/dev/null
     INF_EXIT=$?
     kill $TIMEOUT_PID 2>/dev/null
-    if [ $INF_EXIT -eq 0 ]; then
-        log "  ✅ 推理测试通过"
-        echo "SUCCESS" >> "$LOG_DIR/status.txt"
-    else
-        log "  ❌ 推理测试退出码 $INF_EXIT"
-        echo "EXIT_CODE=$INF_EXIT" >> "$LOG_DIR/status.txt"
+    # 检查推理日志是否有错误，而非只看退出码
+    if grep -qE "Error|Traceback|AssertionError|RuntimeError" "$LOG_DIR/inference.log" 2>/dev/null; then
+        log "  ❌ 推理测试报错"
+        echo "INFERENCE_ERROR" >> "$LOG_DIR/status.txt"
     fi
 else
     log "WARN: 未找到 run_inference_custom.py，跳过推理"

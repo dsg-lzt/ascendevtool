@@ -54,14 +54,6 @@ class _GorillaSolver:
         else:
             model.load_state_dict(checkpoint, strict=False)
 
-    @staticmethod
-    def build_optimizer(model, cfg):
-        return torch.optim.Adam(model.parameters(), lr=cfg.learning_rate)
-
-    @staticmethod
-    def build_lr_scheduler(optimizer, cfg):
-        return torch.optim.lr_scheduler.StepLR(optimizer, step_size=cfg.lr_decay_step, gamma=cfg.lr_decay_factor)
-
 import sys
 
 class _GorillaModule(sys.modules[__name__].__class__):

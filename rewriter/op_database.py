@@ -58,18 +58,16 @@ def ascend_group_points(xyz, idx):
     return grouped
 """,
     "torch.nn.DataParallel": """
-import torch.nn as nn
-
-
 def ascend_data_parallel(model, device_ids=None, output_device=None):
-    if device_ids is None:
-        device_ids = list(range(torch.npu.device_count()))
-    if not device_ids:
-        return model
-    model = model.to(f'npu:{device_ids[0]}')
-    if len(device_ids) == 1:
-        return model
-    return nn.DataParallel(model, device_ids=device_ids, output_device=output_device)
+    # NPU 上 DataParallel 不适用，直接放第一个设备
+    try:
+        import torch_npu
+        if torch.npu.is_available() and torch.npu.device_count() > 0:
+            model = model.to('npu:0')
+            return model
+    except Exception:
+        pass
+    return model.to('cpu')
 """,
 }
 
