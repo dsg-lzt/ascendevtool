@@ -250,8 +250,13 @@ def _generate_replacement_module(output_dir: Path, solutions: List[OpSolution]) 
                 func_lines = func_code.split("\n")
                 for line in func_lines:
                     if line.strip().startswith("def ascend_"):
-                        lines.append(f"# ── decomposed: {s.op_name} ──")
+                        lines.append(f"# ── decomposed: {s.op_name} (PyTorch fallback, 建议后续用 Ascend C 替换) ──")
                         lines.append(line)
+                        # 注入运行时警告
+                        indent = line[:len(line) - len(line.lstrip())]
+                        func_name = line.strip().split("(")[0].replace("def ", "")
+                        lines.append(f'{indent}    import warnings')
+                        lines.append(f'{indent}    warnings.warn("AscendDevTool: 算子 {s.op_name} 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")')
                     else:
                         lines.append(line)
                 lines.append("")
