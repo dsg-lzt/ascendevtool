@@ -3,6 +3,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 import json
 import torch
+import torch_npu
 import os
 import re
 
@@ -38,6 +39,8 @@ class _GorillaUtils:
         devices = gpu_ids.split(",") if isinstance(gpu_ids, str) else [str(g) for g in gpu_ids]
         os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(devices)
         os.environ["ASCEND_VISIBLE_DEVICES"] = "0"
+        if torch.npu.is_available():
+            torch.npu.set_device(0)
 
 class _GorillaSolver:
     @staticmethod
