@@ -8,14 +8,31 @@ import os
 import re
 
 torch.npu.set_compile_mode(jit_compile=False)
-# 允许 NPU 内部格式转换，避免 scaled_dot_product_attention 报错
 if hasattr(torch.npu, 'config') and hasattr(torch.npu.config, 'allow_internal_format'):
     torch.npu.config.allow_internal_format = True
 
-# 禁用 flash attention，避免 NPU scaled_dot_product_attention 报错
-torch.backends.cuda.enable_math_sdp(True)
-torch.backends.cuda.enable_flash_sdp(False)
-torch.backends.cuda.enable_mem_efficient_sdp(False)
+# NPU 原生 attention 替换 scaled_dot_product_attention
+_orig_sdpa = torch.nn.functional.scaled_dot_product_attention
+
+def _npu_sdpa(query, key, value, attn_mask=None, dropout_p=0.0, is_causal=False, scale=None):
+    if query.device.type == 'npu':
+        q = query.transpose(1, 2).contiguous()
+        k = key.transpose(1, 2).contiguous()
+        v = value.transpose(1, 2).contiguous()
+        m = attn_mask
+        if m is not None and m.dim() == 2:
+            m = m.unsqueeze(0)
+        out, _ = torch_npu.npu_fused_infer_attention_score(
+            q, k, v,
+            num_heads=q.size(2),
+            input_layout="BSH",
+            scale=scale if scale is not None else q.size(-1) ** -0.5,
+            atten_mask=m,
+        )
+        return out.transpose(1, 2).contiguous()
+    return _orig_sdpa(query, key, value, attn_mask, dropout_p, is_causal, scale)
+
+torch.nn.functional.scaled_dot_product_attention = _npu_sdpa
 
 class _CfgObj:
     pass
