@@ -79,8 +79,43 @@ else
 fi
 
 # ---- 2. 代码迁移 + 算子替换 ----
-log "2/4 代码迁移(NPU) + 算子替换..."
+log "2/4 CUDA→NPU + 算子替换..."
 if [ -n "$UNSUPPORTED_CSV" ]; then
+    # 先全量复制源文件到输出
+    log "2.1 复制源文件..."
+    python -c "
+import shutil
+from pathlib import Path
+src = Path('$SAM6D_SRC')
+dst = Path('$SAM6D_OUT')
+if dst.exists():
+    shutil.rmtree(dst)
+shutil.copytree(src, dst, ignore=shutil.ignore_patterns('__pycache__', '.git', '*.pyc'))
+print('复制完成')
+" >> "$LOG_DIR/rewrite.log" 2>&1
+
+    # CUDA→NPU 迁移输出目录
+    log "2.2 CUDA→NPU 迁移..."
+    python -c "
+import sys
+sys.path.insert(0, '$TOOL_DIR')
+from pathlib import Path
+from migrator.torch_to_npu import transform_source
+py_files = list(Path('$SAM6D_OUT').rglob('*.py'))
+changes = 0
+for f in py_files:
+    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
+        continue
+    src = f.read_text(encoding='utf-8')
+    new_src, c = transform_source(src)
+    if c > 0:
+        f.write_text(new_src, encoding='utf-8')
+        changes += c
+print(f'迁移完成: {changes} 处变更')
+" >> "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: NPU迁移失败（继续执行）"
+
+    # 算子替换
+    log "2.3 算子替换..."
     python -c "
 import sys
 sys.path.insert(0, '$TOOL_DIR')
@@ -93,18 +128,7 @@ result = rewrite_unsupported_ops(
     source_dir=Path('$SAM6D_SRC'),
 )
 print(result.status)
-" > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
-
-    # 追加：CUDA→NPU 迁移（.cuda() → .npu() 等）
-    log "2.5 CUDA→NPU 代码迁移..."
-    python -c "
-import sys
-sys.path.insert(0, '$TOOL_DIR')
-from pathlib import Path
-from migrator.migrator_core import migrate_directory
-result = migrate_directory(Path('$SAM6D_OUT'), Path('$SAM6D_OUT'))
-print(result.status)
-" >> "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: NPU迁移失败（继续执行）"
+" >> "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
 else
     log "WARN: 未找到 unsupported_api.csv，跳过算子替换"
     echo "NO_UNSUPPORTED_CSV" > "$LOG_DIR/rewrite.log"
