@@ -127,6 +127,32 @@ def _patch_source_file_regex(
 ) -> Tuple[str, int]:
     changes = 0
 
+    # ── gorilla 替换 ──
+    if "import gorilla" in source:
+        source = source.replace("import gorilla", "# import gorilla  # replaced by AscendDevTool")
+        source = re.sub(
+            r"gorilla\.Config\.fromfile",
+            "Config.fromfile",
+            source,
+        )
+        source = re.sub(
+            r"gorilla\.solver\.load_checkpoint\s*\(\s*model\s*=\s*model\s*,\s*filename\s*=\s*(\S+)\s*\)",
+            r"model.load_state_dict(torch.load(\1, map_location='cpu')['model'])",
+            source,
+        )
+        source = re.sub(
+            r"gorilla\.utils\.set_cuda_visible_devices\s*\([^)]*\)",
+            r"os.environ.setdefault('ASCEND_VISIBLE_DEVICES', '0')",
+            source,
+        )
+        # 添加 from config.config import Config
+        if "from config.config import Config" not in source:
+            source = source.replace(
+                "# import gorilla  # replaced by AscendDevTool",
+                "from config.config import Config\n# import gorilla  # replaced by AscendDevTool",
+            )
+        changes += 1
+
     for op_path, replacement_func in _OP_TO_REPLACEMENT_FUNC.items():
         short_name = op_path.split(".")[-1]
         pattern = rf"_ext\.{re.escape(short_name)}\b"
@@ -229,6 +255,19 @@ def _generate_gorilla_stub(output_dir: Path) -> Path:
     return dest_path
 
 
+def _generate_config_module(output_dir: Path) -> Path:
+    import shutil
+    src = Path(__file__).parent / "config_stub.py"
+    paths = list(output_dir.rglob("Pose_Estimation_Model"))
+    dest = paths[0] if paths else output_dir
+    config_dir = dest / "config"
+    config_dir.mkdir(parents=True, exist_ok=True)
+    dest_path = config_dir / "config.py"
+    if not dest_path.exists():
+        shutil.copy(src, dest_path)
+    return dest_path
+
+
 def apply_rewrites_to_source(
     source_dir: Path,
     output_dir: Path,
@@ -242,7 +281,8 @@ def apply_rewrites_to_source(
 
     replacement_path = _generate_replacement_module(output_dir, solutions)
     gorilla_path = _generate_gorilla_stub(output_dir)
-    generated_files = [str(replacement_path), str(gorilla_path)]
+    config_path = _generate_config_module(output_dir)
+    generated_files = [str(replacement_path), str(gorilla_path), str(config_path)]
 
     py_files = list(output_dir.rglob("*.py"))
     total_changes = 0
