@@ -143,12 +143,12 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
 
     mkdir -p "$OUTPUT_DIR" "$SEG_PATH"
 
-    # 用 conda run 继承 torch_npu 环境的正确环境变量
+    SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     export PYTHONHTTPSVERIFY=0
     export CURL_CA_BUNDLE=""
     unset PYTHONPATH
-    log "使用 conda run -n torch_npu --cwd $INFERENCE_DIR 运行推理..."
-    conda run -n torch_npu --cwd "$INFERENCE_DIR" python run_inference_custom.py \
+    log "使用 $SAM6D_PYTHON 运行推理..."
+    $SAM6D_PYTHON run_inference_custom.py \
         --output_dir "$OUTPUT_DIR" \
         --cad_path "$CAD_PATH" \
         --rgb_path "$RGB_PATH" \
