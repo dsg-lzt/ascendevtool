@@ -8,8 +8,6 @@ from rewriter.op_database import OpSolution, decompose_op, get_math_equivalent
 
 
 _MAP_STRATEGIES: Dict[str, str] = {
-    "pointnet2._ext.three_nn": "patcher.local_op_lib.ascend_pointnet2_ops.ascend_three_nn(mapped to op_builder ThreeNNSample)",
-    "pointnet2._ext.ball_query": "patcher.local_op_lib.ascend_pointnet2_ops.ascend_ball_query(mapped to op_builder BallQuerySample)",
 }
 
 
