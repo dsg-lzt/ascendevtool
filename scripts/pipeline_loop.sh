@@ -88,9 +88,9 @@ while [ $round -lt $MAX_ROUNDS ]; do
     CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
     echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
 
-    # 检查是否成功
+    # 检查是否成功（精确匹配，避免 inference.log 中的 success 字样干扰）
     STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
-    if grep -q "SUCCESS" "$STATUS_FILE" 2>/dev/null; then
+    if tail -1 "$STATUS_FILE" 2>/dev/null | grep -q "^SUCCESS$"; then
         log "========================================"
         log "✅ 第 $round 轮推理成功！退出循环"
         echo "PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
