@@ -120,10 +120,6 @@ fi
 
 # ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
-# 清理扫描阶段的环境变量，避免干扰 torch_npu
-unset ASCEND_OPP_PATH
-unset ASCEND_HOME_PATH
-# 保留 ASCEND_TOOLKIT_HOME 和 PATH（torch_npu 需要）
 INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
 if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
     cd "$INFERENCE_DIR"
@@ -146,7 +142,6 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     export PYTHONHTTPSVERIFY=0
     export CURL_CA_BUNDLE=""
-    unset PYTHONPATH
     log "使用 $SAM6D_PYTHON 运行推理..."
     $SAM6D_PYTHON run_inference_custom.py \
         --output_dir "$OUTPUT_DIR" \
