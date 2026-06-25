@@ -37,10 +37,15 @@ class _GorillaSolver:
     @staticmethod
     def load_checkpoint(model, filename, map_location=None):
         checkpoint = torch.load(filename, map_location=map_location or "cpu")
-        if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
-            model.load_state_dict(checkpoint["state_dict"])
-        elif isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-            model.load_state_dict(checkpoint["model_state_dict"])
+        if isinstance(checkpoint, dict):
+            if "model" in checkpoint:
+                model.load_state_dict(checkpoint["model"], strict=False)
+            elif "state_dict" in checkpoint:
+                model.load_state_dict(checkpoint["state_dict"], strict=False)
+            elif "model_state_dict" in checkpoint:
+                model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+            else:
+                model.load_state_dict(checkpoint, strict=False)
         else:
             model.load_state_dict(checkpoint, strict=False)
 
