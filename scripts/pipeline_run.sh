@@ -35,34 +35,29 @@ fail() {
 log "激活虚拟环境..."
 source "$TOOL_DIR/ascenddevtool/bin/activate"
 
-# 自动检测 CANN 安装路径
+cd "$TOOL_DIR"
+
+# ---- 1. CANN 扫描 ----
+log "1/4 CANN 扫描 SAM-6D..."
+
+# CANN 环境变量（仅扫描步骤需要）
 for d in "$HOME/Ascend/ascend-toolkit/latest" "/usr/local/Ascend/ascend-toolkit/latest" "$ASCEND_TOOLKIT_HOME"; do
     if [ -f "$d/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
         ASCEND_TOOLKIT_HOME="$d"
         break
     fi
 done
-# 也检查 cann 路径
-if [ ! -f "$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
-    for d in "$HOME/Ascend/cann/latest" "/usr/local/Ascend/cann/latest"; do
-        if [ -f "$d/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
-            ASCEND_TOOLKIT_HOME="$d"
-            break
-        fi
-    done
-fi
-
+for d in "$HOME/Ascend/cann/latest" "/usr/local/Ascend/cann/latest"; do
+    if [ -f "$d/tools/ms_fmk_transplt/analysis/pytorch_analyse.py" ]; then
+        ASCEND_TOOLKIT_HOME="$d"
+        break
+    fi
+done
 export ASCEND_TOOLKIT_HOME
 export ASCEND_HOME_PATH="$ASCEND_TOOLKIT_HOME"
 export ASCEND_OPP_PATH="$ASCEND_TOOLKIT_HOME/opp"
 export PATH="$ASCEND_TOOLKIT_HOME/bin:$ASCEND_TOOLKIT_HOME/compiler/ccec_compiler/bin:$PATH"
 export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$ASCEND_TOOLKIT_HOME/python/site-packages:$PYTHONPATH"
-# 不覆盖 LD_LIBRARY_PATH，避免和 torch_npu 冲突
-
-cd "$TOOL_DIR"
-
-# ---- 1. CANN 扫描 ----
-log "1/4 CANN 扫描 SAM-6D..."
 SCAN_TS=$(date +%Y%m%d_%H%M%S)
 SCAN_OUT_DIR="$SCAN_OUT/scan_$ROUND_$SCAN_TS"
 mkdir -p "$SCAN_OUT_DIR"
@@ -125,6 +120,10 @@ fi
 
 # ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
 log "3/4 SAM-6D 推理测试..."
+# 清理 CANN 工具环境变量，避免干扰 torch_npu
+unset ASCEND_OPP_PATH
+unset ASCEND_HOME_PATH
+unset PYTHONPATH
 INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
 if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
     cd "$INFERENCE_DIR"
@@ -147,6 +146,9 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
     SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     export PYTHONHTTPSVERIFY=0
     export CURL_CA_BUNDLE=""
+    # 推理时不要覆盖 torch_npu 的库路径
+    unset LD_LIBRARY_PATH
+    unset ASCEND_OPP_PATH
     log "使用 $SAM6D_PYTHON 运行推理..."
 
     $SAM6D_PYTHON run_inference_custom.py \
