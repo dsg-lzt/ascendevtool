@@ -117,6 +117,8 @@ if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; t
 
     SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     export TORCH_DEVICE_BACKEND_AUTOLOAD=0
+    export PYTHONHTTPSVERIFY=0
+    export CURL_CA_BUNDLE=""
     log "使用 $SAM6D_PYTHON 运行推理..."
 
     $SAM6D_PYTHON run_inference_custom.py \
