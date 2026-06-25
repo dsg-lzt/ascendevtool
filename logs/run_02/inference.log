@@ -8,17 +8,16 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 => creating model ...
 load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
-[W625 17:08:42.053215575 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
-/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:19: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+.../home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:19: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
   warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
-/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:37: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+.[W625 17:27:09.888865983 GetCANNInfo.cpp:117] Warning: Driver Version: 24.1.rc4.b999 is invalid or not supported yet. (function operator())
+./home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:37: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
   warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
-=> extracting templates ...
+.=> extracting templates ...
 => loading input data ...
+=> running model ...
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 281, in <module>
-    input_data, img, whole_pts, model_points, detections = get_test_data(
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 169, in get_test_data
-    with open(seg_path) as f:
-IsADirectoryError: [Errno 21] Is a directory: '/home/orange/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/sam6d_results'
-[ERROR] 2026-06-25-17:08:45 (PID:2342663, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 289, in <module>
+    input_data['dense_po'] = all_tem_pts.repeat(ninstance,1,1)
+RuntimeError: Number of dimensions of repeat dims can not be smaller than number of dimensions of tensor
+[ERROR] 2026-06-25-17:27:22 (PID:2411873, Device:0, RankID:-1) ERR01001 OPS invalid parameter
