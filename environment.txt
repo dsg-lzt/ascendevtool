@@ -1,1 +1,2 @@
 cat ~/pipeline_tool/SAM-6D/SAM-6D/Data/Example/outputs/sam6d_results/detection_ism.json | head -c 200
+[{"scene_id": 0, "image_id": 0, "category_id": 1, "bbox": [156, 46, 59, 50], "score": 0.3460060954093933, "time": 0.0, "segmentation": {"counts": [74949, 5, 471, 12, 466, 16, 462, 20, 459, 22, 457, 24
