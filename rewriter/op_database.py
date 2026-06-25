@@ -59,7 +59,6 @@ def ascend_group_points(xyz, idx):
 """,
     "torch.nn.DataParallel": """
 def ascend_data_parallel(model, device_ids=None, output_device=None):
-    # NPU 上 DataParallel 不适用，直接放第一个设备
     try:
         import torch_npu
         if torch.npu.is_available() and torch.npu.device_count() > 0:
@@ -68,6 +67,69 @@ def ascend_data_parallel(model, device_ids=None, output_device=None):
     except Exception:
         pass
     return model.to('cpu')
+""",
+    "pointnet2._ext.furthest_point_sampling": """
+def ascend_furthest_point_sampling(xyz, npoint):
+    B, N, _ = xyz.shape
+    device = xyz.device
+    centroids = torch.zeros(B, npoint, dtype=torch.long, device=device)
+    distance = torch.ones(B, N, device=device) * 1e10
+    farthest = torch.randint(0, N, (B,), dtype=torch.long, device=device)
+    batch_indices = torch.arange(B, device=device)
+    for i in range(npoint):
+        centroids[:, i] = farthest
+        centroid = xyz[batch_indices, farthest, :].view(B, 1, 3)
+        dist = torch.sum((xyz - centroid) ** 2, -1)
+        distance = torch.min(distance, dist)
+        farthest = torch.max(distance, -1)[1]
+    return centroids
+""",
+    "pointnet2._ext.three_nn": """
+def ascend_three_nn(unknown, known):
+    B, N, _ = unknown.shape
+    _, M, _ = known.shape
+    dists = torch.zeros(B, N, 3, device=unknown.device)
+    idx = torch.zeros(B, N, 3, dtype=torch.long, device=unknown.device)
+    for b in range(B):
+        u = unknown[b]
+        k = known[b]
+        d = torch.cdist(u, k)
+        d_topk, i_topk = torch.topk(d, 3, dim=1, largest=False)
+        dists[b] = d_topk
+        idx[b] = i_topk
+    return dists, idx
+""",
+    "pointnet2._ext.three_interpolate": """
+def ascend_three_interpolate(features, idx, weight):
+    B, C, M = features.shape
+    _, N, _ = idx.shape
+    out = torch.zeros(B, C, N, device=features.device)
+    for b in range(B):
+        for n in range(N):
+            w = weight[b, n]
+            for k in range(3):
+                out[b, :, n] += features[b, :, idx[b, n, k]] * w[k]
+    return out
+""",
+    "pointnet2._ext.ball_query": """
+def ascend_ball_query(radius, nsample, xyz, new_xyz):
+    B, N, _ = xyz.shape
+    _, M, _ = new_xyz.shape
+    idx = torch.zeros(B, M, nsample, dtype=torch.long, device=xyz.device)
+    for b in range(B):
+        for m in range(M):
+            d = torch.sum((xyz[b] - new_xyz[b, m]) ** 2, dim=1)
+            valid = d < radius * radius
+            valid_idx = torch.nonzero(valid).squeeze(1)
+            if valid_idx.numel() == 0:
+                idx[b, m, :] = 0
+            elif valid_idx.numel() >= nsample:
+                rand_choice = valid_idx[torch.randperm(valid_idx.numel())[:nsample]]
+                idx[b, m, :] = rand_choice
+            else:
+                tile = valid_idx.repeat((nsample + valid_idx.numel() - 1) // valid_idx.numel())
+                idx[b, m, :] = tile[:nsample]
+    return idx
 """,
 }
 
