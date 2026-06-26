@@ -1,12 +1,19 @@
 #!/bin/bash
 # ============================================================
-# pipeline_loop.sh — git 变更检测 + 循环执行（最多10轮，泛化版）
-# 用法: bash scripts/pipeline_loop.sh <model_name>
-# 后台: nohup bash scripts/pipeline_loop.sh sam2 > pipeline_loop.log 2>&1 &
+# pipeline_loop.sh — git 变更检测 + 循环执行（泛化版）
+# 用法:
+#   仅扫描迁移:  bash scripts/pipeline_loop.sh <model_name>
+#   指定推理脚本: ASCEND_INF_SCRIPT=/path/to/infer.py bash scripts/pipeline_loop.sh sam2
+#   指定推理命令: ASCEND_INF_CMD="python infer.py --arg val" bash scripts/pipeline_loop.sh sam2
+#   后台运行:      nohup bash scripts/pipeline_loop.sh sam2 > pipeline_loop.log 2>&1 &
 # ============================================================
 
 MODEL_NAME="${1:-SAM-6D}"
 MAX_ROUNDS="${2:-10}"
+# 推理配置通过环境变量传入（nohup 会继承）：
+#   ASCEND_INF_SCRIPT — 推理脚本路径
+#   ASCEND_INF_CMD    — 完整推理命令
+#   ASCEND_INF_PYTHON — Python 解释器 (默认 /home/orange/.../torch_npu/bin/python)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
     PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
