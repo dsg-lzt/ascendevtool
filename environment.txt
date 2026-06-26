@@ -1,10 +1,4 @@
-/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
-  --output_dir ../Data/Example/outputs \
-  --cad_path ../Data/Example/obj_000005.ply \
-  --rgb_path ../Data/Example/rgb.png \
-  --depth_path ../Data/Example/depth.png \
-  --cam_path ../Data/Example/camera.json \
-  --seg_path ../Data/Example/outputs/sam6d_results/detection_ism.json
+python test.py 
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
@@ -13,8 +7,117 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/models/GroundingDINO/ms_deform_attn.py:33: UserWarning: Failed to load custom C++ ops. Running on CPU mode Only!
+  warnings.warn("Failed to load custom C++ ops. Running on CPU mode Only!")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+final text_encoder_type: bert-base-uncased
+'(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')), '(Request ID: 2945b04f-2e77-4825-8b31-93b43b4bdcec)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/tokenizer_config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: f42896e4-d4e9-4044-b45b-3dba1ca8e2c9)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/tokenizer_config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 5c583c47-4c99-445f-b3c7-5721ddf2d295)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/tokenizer_config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 843c0adf-0969-4f7b-932c-2b74f6452cac)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/tokenizer_config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 2cd3d361-d49a-472e-81d0-8d50700aba43)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+Retrying in 8s [Retry 5/5].
+'(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')), '(Request ID: 8b3df256-ecc5-4516-a10a-41a8aaff5d21)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 40488e24-a2fb-408e-89a2-6f2b3316b169)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
+Retrying in 1s [Retry 1/5].
+'(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')), '(Request ID: 3c4e604d-9d83-4974-85f7-62775ddbbcb2)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
+Retrying in 2s [Retry 2/5].
+'(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')), '(Request ID: 4c277530-a290-40ea-9bc4-0a37bf381421)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: c954d539-4259-4b0d-a395-c35a4a0f3539)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 60c6f2b2-a71c-47a0-b5de-7fbf30df9981)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
+Retrying in 8s [Retry 5/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: ce0a77ab-d7a5-4335-ab49-503b2c5ba2a7)')' thrown while requesting HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 16, in <module>
-    import npu_compat  # Ascend NPU compat patches
-ModuleNotFoundError: No module named 'npu_compat'
-[ERROR] 2026-06-26-15:09:54 (PID:3473653, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/connectionpool.py", line 774, in urlopen
+    self._prepare_proxy(conn)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1055, in _prepare_proxy
+    conn.connect()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/connection.py", line 776, in connect
+    self._tunnel()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/connection.py", line 275, in _tunnel
+    raise OSError(
+OSError: Tunnel connection failed: 504 Gateway Time-out
+
+The above exception was the direct cause of the following exception:
+
+urllib3.exceptions.ProxyError: ('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/adapters.py", line 645, in send
+    resp = conn.urlopen(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/test.py", line 10, in <module>
+    model = load_model(model_config_path="/home/orange/Documents/Lingshu-1130/src/eai_perception/eai_perception/submodules/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py",model_checkpoint_path= "/home/orange/Documents/Lingshu-1130/src/eai_perception/eai_perception/weights/GroundingDINO/groundingdino_swint_ogc.pth",device = 'npu')
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/util/inference.py", line 34, in load_model
+    model = build_model(args)
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/models/__init__.py", line 17, in build_model
+    model = build_func(args)
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/models/GroundingDINO/groundingdino.py", line 390, in build_groundingdino
+    model = GroundingDINO(
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/models/GroundingDINO/groundingdino.py", line 109, in __init__
+    self.tokenizer = get_tokenlizer.get_tokenlizer(text_encoder_type)
+  File "/home/orange/pipeline_tool/ascenddev_output/groudingdino_NPU/groundingdino/util/get_tokenlizer.py", line 19, in get_tokenlizer
+    tokenizer = AutoTokenizer.from_pretrained(text_encoder_type)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py", line 1109, in from_pretrained
+    config = AutoConfig.from_pretrained(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/utils/hub.py", line 567, in cached_files
+    raise e
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1077, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 306, in _request_wrapper
+    response = http_backoff(method=method, url=url, **params)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 326, in http_backoff
+    raise err
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 307, in http_backoff
+    response = session.request(method=method, url=url, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/sessions.py", line 592, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/sessions.py", line 706, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/adapters.py", line 672, in send
+    raise ProxyError(e, request=request)
+requests.exceptions.ProxyError: (MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: ce0a77ab-d7a5-4335-ab49-503b2c5ba2a7)')
+[ERROR] 2026-06-26-15:57:14 (PID:3706717, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
