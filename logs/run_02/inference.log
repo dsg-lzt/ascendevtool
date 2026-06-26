@@ -6,16 +6,34 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
- npu Autocast only supports dtypes of torch.float16 currently.
-  warnings.warn(error_message)
-usage: vos_inference.py [-h] [--sam2_cfg SAM2_CFG]
-                        [--sam2_checkpoint SAM2_CHECKPOINT] --base_video_dir
-                        BASE_VIDEO_DIR --input_mask_dir INPUT_MASK_DIR
-                        [--video_list_file VIDEO_LIST_FILE] --output_mask_dir
-                        OUTPUT_MASK_DIR [--score_thresh SCORE_THRESH]
-                        [--use_all_masks] [--per_obj_png_file]
-                        [--apply_postprocessing]
-                        [--track_object_appearing_later_in_video]
-                        [--use_vos_optimized_video_predictor]
-vos_inference.py: error: the following arguments are required: --base_video_dir, --input_mask_dir, --output_mask_dir
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/modeling/sam/transformer.py", line 272, in __init__
+    freqs_cis.to("npu") if torch.npu.is_available() else freqs_cis
+RuntimeError: Current settings do not support Complex dtype. Please try again with jit_compile=False.
+[ERROR] 2026-06-26-14:03:27 (PID:3192291, Device:0, RankID:-1) ERR01007 OPS feature not supported
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/test.py", line 62, in <module>
+    predictor = SAM2ImagePredictor(build_sam2(config_file=model_cfg, ckpt_path=checkpoint,device=device))
+  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/build_sam.py", line 93, in build_sam2
+    model = instantiate(cfg.model, _recursive_=True)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
+    value = instantiate_node(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
+    value = instantiate_node(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
+    value = instantiate_node(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'sam2.modeling.sam.transformer.RoPEAttention':
+RuntimeError('Current settings do not support Complex dtype. Please try again with jit_compile=False.\n[ERROR] 2026-06-26-14:03:27 (PID:3192291, Device:0, RankID:-1) ERR01007 OPS feature not supported')
+full_key: model.memory_attention.layer.self_attention
+.
