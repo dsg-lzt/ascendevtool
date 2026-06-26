@@ -10,6 +10,40 @@ from libcst import matchers as m
 from rewriter.op_database import OpSolution
 
 
+# ── NPU 兼容 monkey-patch（内联注入，避免 import 路径问题）──
+_NPU_COMPAT_CODE = """
+try:
+    import torch_npu
+    torch.npu.set_compile_mode(jit_compile=False)
+    torch.npu.config.allow_internal_format = True
+except Exception:
+    pass
+
+import torch.nn.functional as _F
+_orig_cross = torch.cross
+def _npu_cross(input, other, dim=-1):
+    if input.device.type == 'npu':
+        return torch.stack([input[...,1]*other[...,2]-input[...,2]*other[...,1], input[...,2]*other[...,0]-input[...,0]*other[...,2], input[...,0]*other[...,1]-input[...,1]*other[...,0]], dim=dim)
+    return _orig_cross(input, other, dim=dim)
+torch.cross = _npu_cross
+
+_orig_sdpa = _F.scaled_dot_product_attention
+def _npu_sdpa(query, key, value, attn_mask=None, dropout_p=0.0, is_causal=False, scale=None):
+    if query.device.type != 'npu': return _orig_sdpa(query, key, value, attn_mask=attn_mask, dropout_p=dropout_p, is_causal=is_causal, scale=scale)
+    L, S = query.size(-2), key.size(-2)
+    s = scale if scale is not None else query.size(-1)**-0.5
+    attn = torch.matmul(query, key.transpose(-2, -1)) * s
+    if attn_mask is not None:
+        if attn_mask.dim() == 2: attn_mask = attn_mask.unsqueeze(0).unsqueeze(0)
+        attn = attn + attn_mask
+    if is_causal:
+        m = torch.triu(torch.ones(L, S, device=query.device, dtype=torch.bool), diagonal=1)
+        attn.masked_fill_(m, float('-inf'))
+    attn = torch.softmax(attn, dim=-1)
+    return torch.matmul(attn, value)
+_F.scaled_dot_product_attention = _npu_sdpa
+""".strip()
+
 _OP_TO_REPLACEMENT_FUNC: Dict[str, str] = {
     "pointnet2._ext.gather_points": "ascend_gather_points",
     "_ext.gather_points": "ascend_gather_points",
@@ -351,7 +385,7 @@ def _copy_npu_compat(output_dir: Path) -> Path:
 
 
 def _inject_npu_compat(source: str, output_root: Optional[Path] = None) -> str:
-    if "import npu_compat" in source:
+    if "_npu_cross" in source or "npu_compat" in source:
         return source
     if "import torch" in source:
         lines = source.split("\n")
@@ -359,15 +393,14 @@ def _inject_npu_compat(source: str, output_root: Optional[Path] = None) -> str:
         for i, line in enumerate(lines):
             stripped = line.strip()
             if stripped.startswith("import torch_npu") or stripped.startswith("import torch"):
-                if output_root:
-                    root = str(output_root.resolve())
-                    lines.insert(i + 1, f"import sys; sys.path.insert(0, r'{root}')  # npu_compat")
-                lines.insert(i + 1, "import npu_compat  # Ascend NPU compat patches")
+                lines.insert(i + 1, "# === Ascend NPU compat (auto-injected by AscendDevTool) ===")
+                for compat_line in reversed(_NPU_COMPAT_CODE.split("\n")):
+                    lines.insert(i + 1, compat_line)
                 inserted = True
                 break
         if not inserted:
-            if output_root:
-                lines.insert(0, f"import sys; sys.path.insert(0, r'{output_root.resolve()}')  # npu_compat")
-            lines.insert(0, "import npu_compat  # Ascend NPU compat patches")
+            lines.insert(0, "# === Ascend NPU compat (auto-injected by AscendDevTool) ===")
+            for compat_line in reversed(_NPU_COMPAT_CODE.split("\n")):
+                lines.insert(0, compat_line)
         source = "\n".join(lines)
     return source
