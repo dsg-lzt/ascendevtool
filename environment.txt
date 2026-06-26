@@ -1,8 +1,20 @@
-cd ~/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model
 /home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
-    --output_dir /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/outputs \
-    --cad_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/obj_000005.ply \
-    --rgb_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/rgb.png \
-    --depth_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/depth.png \
-    --cam_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/camera.json \
-    --seg_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/outputs/sam6d_results/detection_ism.json
+  --output_dir ../Data/Example/outputs \
+  --cad_path ../Data/Example/obj_000005.ply \
+  --rgb_path ../Data/Example/rgb.png \
+  --depth_path ../Data/Example/depth.png \
+  --cam_path ../Data/Example/camera.json \
+  --seg_path ../Data/Example/outputs/sam6d_results/detection_ism.json
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 16, in <module>
+    import npu_compat  # Ascend NPU compat patches
+ModuleNotFoundError: No module named 'npu_compat'
+[ERROR] 2026-06-26-15:09:54 (PID:3473653, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
