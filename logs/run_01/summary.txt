@@ -1,20 +1,49 @@
 === Pipeline Round 01 Summary ===
-Model: GroudingDINO
-Time: 2026-06-26 16:46:17
-Git commit: 2301818a3901a570a0cfd05d736ea3f7a396d79f
+Model: GroundingDINO
+Time: 2026-06-26 16:49:48
+Git commit: 2525c58f7753916c78aded3e7187d99ec0af7e33
 
 --- scan.log (tail 30) ---
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
-  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
-  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
-  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
-2026-06-26 16:46:17 [ERROR]   An error occurred: Input /home/orange/pipeline_tool/GroudingDINO does not exist!
-2026-06-26 16:46:17 [ERROR]   Analyse run failed!
+2026-06-26 16:49:43 [WARNING] [Progress: 90.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:49:43 [INFO]    [Progress: 90.00%]  Analysis of demo/gradio_app.py completed.
+2026-06-26 16:49:43 [INFO]    [Progress: 92.50%]  Start the analysis of demo/create_coco_dataset.py.
+2026-06-26 16:49:43 [WARNING] [Progress: 92.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:49:43 [INFO]    [Progress: 92.50%]  Analysis of demo/create_coco_dataset.py completed.
+2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  Start the analysis of demo/inference_on_a_image.py.
+2026-06-26 16:49:43 [WARNING] [Progress: 95.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 119 ~ 122 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  Analysis of demo/inference_on_a_image.py completed.
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  Start the analysis of demo/test_ap_on_coco.py.
+2026-06-26 16:49:43 [WARNING] [Progress: 97.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 159 ~ 160 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 181 ~ 181 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 188 ~ 189 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  Analysis of demo/test_ap_on_coco.py completed.
+2026-06-26 16:49:43 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-26 16:49:43 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is GroundingDINO_analysis.
++----------------------------+------------+
+|           files            | statistics |
++----------------------------+------------+
+| api_performance_advice.csv |     66     |
+|      cuda_op_list.csv      |     80     |
+|    unsupported_api.csv     |     6      |
+|      unknown_api.csv       |     11     |
+|  api_precision_advice.csv  |     5      |
++----------------------------+------------+
 
 --- rewrite.log (tail 30) ---
-NO_UNSUPPORTED_CSV
+分析完成：4 个不支持的算子
+  已入库/可映射: 0
+  可拆分: 0
+  数学等价改写: 0
+  需开发: 4
+已生成 8 个文件/脚手架
+<unknown>:3: SyntaxWarning: invalid escape sequence '\s'
+迁移完成: 89 处变更, 跳过 2 个文件 ({'gorilla.py', 'ascend_pointnet2_ops.py'})
 
 --- inference.log (tail 50) ---
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
@@ -26,35 +55,10 @@ NO_UNSUPPORTED_CSV
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 Traceback (most recent call last):
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
-    return _target_(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/modeling/sam/transformer.py", line 272, in __init__
-    freqs_cis.to("npu") if torch.npu.is_available() else freqs_cis
-RuntimeError: Current settings do not support Complex dtype. Please try again with jit_compile=False.
-[ERROR] 2026-06-26-12:15:38 (PID:2791939, Device:0, RankID:-1) ERR01007 OPS feature not supported
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/util/inference.py", line 13, in <module>
+    import groundingdino.datasets.transforms as T
+ModuleNotFoundError: No module named 'groundingdino'
+[ERROR] 2026-06-26-16:49:47 (PID:3955060, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
 
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/test.py", line 62, in <module>
-    predictor = SAM2ImagePredictor(build_sam2(config_file=model_cfg, ckpt_path=checkpoint,device=device))
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/build_sam.py", line 93, in build_sam2
-    model = instantiate(cfg.model, _recursive_=True)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
-    return instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
-    return _call_target(_target_, partial, args, kwargs, full_key)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
-    raise InstantiationException(msg) from e
-hydra.errors.InstantiationException: Error in call to target 'sam2.modeling.sam.transformer.RoPEAttention':
-RuntimeError('Current settings do not support Complex dtype. Please try again with jit_compile=False.\n[ERROR] 2026-06-26-12:15:38 (PID:2791939, Device:0, RankID:-1) ERR01007 OPS feature not supported')
-full_key: model.memory_attention.layer.self_attention
-.
 --- status ---
-INFERENCE_SKIPPED
+INFERENCE_ERROR
