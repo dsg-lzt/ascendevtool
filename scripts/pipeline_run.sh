@@ -100,7 +100,7 @@ print(result.status)
 
     # 2.2 再 CUDA→NPU 迁移输出（跳过已生成的 gorilla/ascend）
     log "2.2 CUDA→NPU 迁移..."
-    python -c "
+    python -W ignore::SyntaxWarning -c "
 import sys
 sys.path.insert(0, '$TOOL_DIR')
 from pathlib import Path
