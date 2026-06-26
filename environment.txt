@@ -1,27 +1,8 @@
-python -c "
-from pathlib import Path
-from rewriter.rewriter_core import rewrite_unsupported_ops
-from migrator.torch_to_npu import transform_source
-
-# 替换为你的实际路径
-csv_path = Path('<unsupported_api.csv 路径>')
-src_dir = Path('<待迁移模型目录>')
-out_dir = Path('<迁移输出目录>')
-local_csv = Path('patcher/local_op_lib/local_ops.csv')
-
-# 2.1 算子替换分析 + 代码改写
-result = rewrite_unsupported_ops(csv_path, local_csv, out_dir, src_dir)
-print(result.status)
-
-# 2.2 CUDA→NPU 迁移（跳过工具生成的 ascend/gorilla 文件）
-for f in out_dir.rglob('*.py'):
-    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
-        continue
-    src = f.read_text(encoding='utf-8')
-    new_src, changes = transform_source(src)
-    if changes > 0:
-        f.write_text(new_src, encoding='utf-8')
-        print(f'{f.name}: {changes} 处变更')
-
-print('迁移完成')
-"
+cd ~/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model
+/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
+    --output_dir /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/outputs \
+    --cad_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/obj_000005.ply \
+    --rgb_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/rgb.png \
+    --depth_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/depth.png \
+    --cam_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/camera.json \
+    --seg_path /home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Data/Example/outputs/sam6d_results/detection_ism.json
