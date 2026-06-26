@@ -155,22 +155,8 @@ elif [ -n "$_INF_SCRIPT" ]; then
     $_INF_PYTHON "$_INF_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
     _RUN_INF=1
 else
-    # 自动查找推理脚本（仅限当前模型输出目录内）
-    _AUTO_SCRIPT=$(find "$MODEL_OUT" -maxdepth 5 -name "*.py" -path "*run_*" 2>/dev/null | head -1)
-    if [ -z "$_AUTO_SCRIPT" ]; then
-        _AUTO_SCRIPT=$(find "$MODEL_OUT" -maxdepth 5 -name "*.py" -path "*infer*" -o -name "*.py" -path "*demo*" 2>/dev/null | head -1)
-    fi
-    if [ -n "$_AUTO_SCRIPT" ]; then
-        _INF_DIR=$(dirname "$_AUTO_SCRIPT")
-        log "自动找到推理脚本: $_AUTO_SCRIPT"
-        cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null
-        export PYTHONPATH="$MODEL_OUT:$PYTHONPATH"
-        $_INF_PYTHON "$_AUTO_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
-        _RUN_INF=1
-    else
-        log "WARN: 未找到推理脚本，跳过推理"
-        echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
-    fi
+    log "WARN: 未指定推理脚本（设置 ASCEND_INF_SCRIPT 或 ASCEND_INF_CMD），跳过推理"
+    echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
 fi
 
 if [ $_RUN_INF -eq 1 ]; then
