@@ -1,48 +1,20 @@
 === Pipeline Round 01 Summary ===
-Model: sam2
-Time: 2026-06-26 12:16:04
-Git commit: 2aad5d39233522bc5732b082903b8ebc6cafb8ac
+Model: GroudingDINO
+Time: 2026-06-26 16:46:17
+Git commit: 2301818a3901a570a0cfd05d736ea3f7a396d79f
 
 --- scan.log (tail 30) ---
-2026-06-26 12:15:29 [INFO]    [Progress: 90.62%]  Start the analysis of training/dataset/__init__.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 90.62%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 90.62%]  Analysis of training/dataset/__init__.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress: 92.19%]  Start the analysis of training/dataset/transforms.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 92.19%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 92.19%]  Analysis of training/dataset/transforms.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress: 93.75%]  Start the analysis of training/dataset/vos_segment_loader.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 93.75%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 93.75%]  Analysis of training/dataset/vos_segment_loader.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress: 95.31%]  Start the analysis of training/dataset/utils.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 95.31%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 95.31%]  Analysis of training/dataset/utils.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress: 96.88%]  Start the analysis of training/dataset/sam2_datasets.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 96.88%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 96.88%]  line: 171 ~ 178 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-26 12:15:29 [INFO]    [Progress: 96.88%]  Analysis of training/dataset/sam2_datasets.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress: 98.44%]  Start the analysis of training/dataset/vos_raw_dataset.py.
-2026-06-26 12:15:29 [WARNING] [Progress: 98.44%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:15:29 [INFO]    [Progress: 98.44%]  Analysis of training/dataset/vos_raw_dataset.py completed.
-2026-06-26 12:15:29 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-26 12:15:29 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is sam2_analysis.
-+----------------------------+------------+
-|           files            | statistics |
-+----------------------------+------------+
-| api_performance_advice.csv |     70     |
-|      cuda_op_list.csv      |     64     |
-|    unsupported_api.csv     |     8      |
-|      unknown_api.csv       |     66     |
-|  api_precision_advice.csv  |     6      |
-+----------------------------+------------+
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
+  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
+  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
+  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
+2026-06-26 16:46:17 [ERROR]   An error occurred: Input /home/orange/pipeline_tool/GroudingDINO does not exist!
+2026-06-26 16:46:17 [ERROR]   Analyse run failed!
 
 --- rewrite.log (tail 30) ---
-分析完成：4 个不支持的算子
-  已入库/可映射: 0
-  可拆分: 0
-  数学等价改写: 0
-  需开发: 4
-已生成 8 个文件/脚手架
-迁移完成: 111 处变更, 跳过 2 个文件 ({'ascend_pointnet2_ops.py', 'gorilla.py'})
+NO_UNSUPPORTED_CSV
 
 --- inference.log (tail 50) ---
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
@@ -85,4 +57,4 @@ RuntimeError('Current settings do not support Complex dtype. Please try again wi
 full_key: model.memory_attention.layer.self_attention
 .
 --- status ---
-INFERENCE_ERROR
+INFERENCE_SKIPPED
