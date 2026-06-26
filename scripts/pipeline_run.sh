@@ -115,14 +115,6 @@ for f in py_files:
     src = f.read_text(encoding='utf-8')
     new_src, c = transform_source(src)
     if c > 0:
-        # 注入 NPU compile_mode（解决 Complex dtype 问题）
-        if 'import torch_npu' in new_src and 'set_compile_mode' not in new_src:
-            new_src = new_src.replace(
-                'import torch_npu',
-                'import torch_npu; torch.npu.set_compile_mode(jit_compile=False)',
-            )
-        # 替换 device 字符串 gpu → npu
-        new_src = new_src.replace('= \"gpu\"', '= \"npu\"').replace(\"= 'gpu'\", \"= 'npu'\")
         f.write_text(new_src, encoding='utf-8')
         changes += c
 print(f'迁移完成: {changes} 处变更, 跳过 {len(skipped)} 个文件 ({skipped})')

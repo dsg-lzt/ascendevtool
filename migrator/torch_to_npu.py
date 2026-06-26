@@ -7,7 +7,7 @@ import libcst as cst
 from libcst import matchers as m
 
 
-_CUDA_DEVICE_STR_RE = re.compile(r"^cuda(:\d+)?$")
+_CUDA_DEVICE_STR_RE = re.compile(r"^(cuda|gpu)(:\d+)?$")
 
 
 class TorchToNpuTransformer(cst.CSTTransformer):
@@ -52,13 +52,12 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         if self._torch_import_index is None or self._torch_npu_already_imported:
             return updated_node
         new_import = cst.parse_statement("import torch_npu\n")
+        set_cm = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=False)\n")
         new_body: List[cst.BaseStatement] = list(updated_node.body)
         insert_at = self._torch_import_index + 1
-        if insert_at >= len(new_body):
-            new_body.append(new_import)
-        else:
-            new_body.insert(insert_at, new_import)
-        self.changes += 1
+        new_body.insert(insert_at, set_cm)
+        new_body.insert(insert_at, new_import)
+        self.changes += 2
         return updated_node.with_changes(body=tuple(new_body))
 
     # ── Attribute: torch.cuda → torch.npu / torch.cuda.X → torch.npu.X ──
@@ -84,11 +83,11 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 )
         return updated_node
 
-    # ── SimpleString: "cuda" / "cuda:0" → "npu" / "npu:0" ────────────
+    # ── SimpleString: "cuda"/"gpu" → "npu" ───────────────────
     def leave_SimpleString(self, original_node: cst.SimpleString, updated_node: cst.SimpleString) -> cst.BaseExpression:
         val = original_node.evaluated_value
         if isinstance(val, str) and _CUDA_DEVICE_STR_RE.match(val):
-            new_val = val.replace("cuda", "npu", 1)
+            new_val = val.replace("cuda", "npu", 1).replace("gpu", "npu", 1)
             self.changes += 1
             quote = original_node.quote
             return cst.SimpleString(f'{quote}{new_val}{quote}')
