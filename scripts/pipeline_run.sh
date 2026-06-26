@@ -136,8 +136,18 @@ if [ -n "$_INF_CMD" ]; then
     bash -c "$_INF_CMD" > "$LOG_DIR/inference.log" 2>&1 &
     _RUN_INF=1
 elif [ -n "$_INF_SCRIPT" ]; then
-    # 外部通过 ASCEND_INF_SCRIPT 指定
-    _INF_DIR=$(dirname "$_INF_SCRIPT")
+    # 外部通过 ASCEND_INF_SCRIPT 指定（相对路径 → 映射到迁移后输出目录）
+    if [[ "$_INF_SCRIPT" == /* ]]; then
+        _INF_DIR=$(dirname "$_INF_SCRIPT")
+    else
+        # 相对路径：优先找迁移后输出目录，其次源码目录
+        if [ -f "$MODEL_OUT/$_INF_SCRIPT" ]; then
+            _INF_SCRIPT="$MODEL_OUT/$_INF_SCRIPT"
+        elif [ -f "$MODEL_SRC/$_INF_SCRIPT" ]; then
+            _INF_SCRIPT="$MODEL_SRC/$_INF_SCRIPT"
+        fi
+        _INF_DIR=$(dirname "$_INF_SCRIPT")
+    fi
     log "使用推理脚本: $_INF_SCRIPT"
     cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
     $_INF_PYTHON "$_INF_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
