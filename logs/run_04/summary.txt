@@ -1,30 +1,30 @@
 === Pipeline Round 04 Summary ===
 Model: sam2
-Time: 2026-06-26 12:01:36
-Git commit: 88280a355782af6245bee17bbb51ec73eeb684fe
+Time: 2026-06-26 14:11:30
+Git commit: a102ff836c96021d91f68d7ab2074ad4e77ff8d6
 
 --- scan.log (tail 30) ---
-2026-06-26 12:01:23 [INFO]    [Progress: 90.62%]  Start the analysis of training/dataset/__init__.py.
-2026-06-26 12:01:23 [WARNING] [Progress: 90.62%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:23 [INFO]    [Progress: 90.62%]  Analysis of training/dataset/__init__.py completed.
-2026-06-26 12:01:23 [INFO]    [Progress: 92.19%]  Start the analysis of training/dataset/transforms.py.
-2026-06-26 12:01:23 [WARNING] [Progress: 92.19%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:24 [INFO]    [Progress: 92.19%]  Analysis of training/dataset/transforms.py completed.
-2026-06-26 12:01:24 [INFO]    [Progress: 93.75%]  Start the analysis of training/dataset/vos_segment_loader.py.
-2026-06-26 12:01:24 [WARNING] [Progress: 93.75%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:24 [INFO]    [Progress: 93.75%]  Analysis of training/dataset/vos_segment_loader.py completed.
-2026-06-26 12:01:24 [INFO]    [Progress: 95.31%]  Start the analysis of training/dataset/utils.py.
-2026-06-26 12:01:24 [WARNING] [Progress: 95.31%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:24 [INFO]    [Progress: 95.31%]  Analysis of training/dataset/utils.py completed.
-2026-06-26 12:01:24 [INFO]    [Progress: 96.88%]  Start the analysis of training/dataset/sam2_datasets.py.
-2026-06-26 12:01:24 [WARNING] [Progress: 96.88%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:24 [INFO]    [Progress: 96.88%]  line: 171 ~ 178 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-26 12:01:24 [INFO]    [Progress: 96.88%]  Analysis of training/dataset/sam2_datasets.py completed.
-2026-06-26 12:01:24 [INFO]    [Progress: 98.44%]  Start the analysis of training/dataset/vos_raw_dataset.py.
-2026-06-26 12:01:24 [WARNING] [Progress: 98.44%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
-2026-06-26 12:01:24 [INFO]    [Progress: 98.44%]  Analysis of training/dataset/vos_raw_dataset.py completed.
-2026-06-26 12:01:24 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-26 12:01:24 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is sam2_analysis.
+2026-06-26 14:11:24 [INFO]    [Progress: 90.62%]  Start the analysis of training/dataset/__init__.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 90.62%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 90.62%]  Analysis of training/dataset/__init__.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress: 92.19%]  Start the analysis of training/dataset/transforms.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 92.19%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 92.19%]  Analysis of training/dataset/transforms.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress: 93.75%]  Start the analysis of training/dataset/vos_segment_loader.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 93.75%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 93.75%]  Analysis of training/dataset/vos_segment_loader.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress: 95.31%]  Start the analysis of training/dataset/utils.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 95.31%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 95.31%]  Analysis of training/dataset/utils.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress: 96.88%]  Start the analysis of training/dataset/sam2_datasets.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 96.88%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 96.88%]  line: 171 ~ 178 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-26 14:11:24 [INFO]    [Progress: 96.88%]  Analysis of training/dataset/sam2_datasets.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress: 98.44%]  Start the analysis of training/dataset/vos_raw_dataset.py.
+2026-06-26 14:11:24 [WARNING] [Progress: 98.44%]  The dir is writable by others: /home/orange/pipeline_tool/sam2/training/dataset.
+2026-06-26 14:11:24 [INFO]    [Progress: 98.44%]  Analysis of training/dataset/vos_raw_dataset.py completed.
+2026-06-26 14:11:24 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-26 14:11:24 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is sam2_analysis.
 +----------------------------+------------+
 |           files            | statistics |
 +----------------------------+------------+
@@ -42,7 +42,10 @@ Git commit: 88280a355782af6245bee17bbb51ec73eeb684fe
   数学等价改写: 0
   需开发: 4
 已生成 8 个文件/脚手架
-迁移完成: 111 处变更, 跳过 2 个文件 ({'ascend_pointnet2_ops.py', 'gorilla.py'})
+  File "<string>", line 23
+    new_src = re.sub(r'=[ \t]*[']gpu[\']', '= npu', new_src)
+                                ^
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '('
 
 --- inference.log (tail 50) ---
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
@@ -53,19 +56,17 @@ Git commit: 88280a355782af6245bee17bbb51ec73eeb684fe
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
- npu Autocast only supports dtypes of torch.float16 currently.
-  warnings.warn(error_message)
-usage: vos_inference.py [-h] [--sam2_cfg SAM2_CFG]
-                        [--sam2_checkpoint SAM2_CHECKPOINT] --base_video_dir
-                        BASE_VIDEO_DIR --input_mask_dir INPUT_MASK_DIR
-                        [--video_list_file VIDEO_LIST_FILE] --output_mask_dir
-                        OUTPUT_MASK_DIR [--score_thresh SCORE_THRESH]
-                        [--use_all_masks] [--per_obj_png_file]
-                        [--apply_postprocessing]
-                        [--track_object_appearing_later_in_video]
-                        [--use_vos_optimized_video_predictor]
-vos_inference.py: error: the following arguments are required: --base_video_dir, --input_mask_dir, --output_mask_dir
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/storage.py:41: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  if self.device.type != 'cpu':
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/test.py", line 61, in <module>
+    predictor = SAM2ImagePredictor(build_sam2(config_file=model_cfg, ckpt_path=checkpoint,device=device))
+  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/build_sam.py", line 94, in build_sam2
+    model = model.to(device)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 58, in to
+    device, dtype, non_blocking, convert_to_format = torch._C._nn._parse_to(*args, **kwargs)
+RuntimeError: Expected one of cpu, cuda, ipu, xpu, mkldnn, opengl, opencl, ideep, hip, ve, fpga, maia, xla, lazy, vulkan, mps, meta, hpu, mtia, privateuseone device type at start of device string: gpu
+[ERROR] 2026-06-26-14:11:29 (PID:3228392, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
 
 --- status ---
 INFERENCE_ERROR
