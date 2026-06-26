@@ -77,6 +77,11 @@ for f in out_dir.rglob('*.py'):
     src = f.read_text(encoding='utf-8')
     new_src, changes = transform_source(src)
     if changes > 0:
+        # NPU 兼容补丁：compile_mode + gpu→npu
+        if 'import torch_npu' in new_src and 'set_compile_mode' not in new_src:
+            new_src = new_src.replace('import torch_npu',
+                'import torch_npu; torch.npu.set_compile_mode(jit_compile=False)')
+        new_src = new_src.replace('= \"gpu\"', '= \"npu\"').replace(\"= 'gpu'\", \"= 'npu'\")
         f.write_text(new_src, encoding='utf-8')
         print(f'{f.name}: {changes} 处变更')
 
@@ -84,7 +89,7 @@ print('迁移完成')
 "
 ```
 
-替换内容：`.cuda()` → `.npu()`、`torch.cuda.*` → `torch.npu.*`、gorilla → config.config 等。
+> **推荐直接用管道**：`bash scripts/pipeline_run.sh 1 <模型名>` 自动处理上述所有步骤（包括 compile_mode 注入、gpu→npu 替换等）。手动模式仅用于调试。
 
 ### 3. 推理测试
 
