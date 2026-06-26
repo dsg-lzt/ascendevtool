@@ -6,53 +6,16 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-=> creating model ...
-load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
-[W625 18:06:06.589650211 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
-/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:24: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
-  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
-/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:42: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
-  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
-[W625 18:06:09.219008543 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_linalg_det.result' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
-/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:120: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_ball_query 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
-  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_ball_query 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
-=> extracting templates ...
-=> loading input data ...
-=> running model ...
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 291, in <module>
-    out = model(input_data)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/pose_estimation_model.py", line 48, in forward
-    end_points = self.fine_point_matching(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/fine_point_matching.py", line 47, in forward
-    f1 = self.in_proj(f1) + self.PE(p1_)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/fine_point_matching.py", line 107, in forward
-    feat1 = self.group1(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 335, in forward
-    idx = ball_query(self.radius, self.nsample, xyz, new_xyz)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
-    return super().apply(*args, **kwargs)  # type: ignore[misc]
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 283, in forward
-    inds = _ext.ascend_ball_query(new_xyz, xyz, radius, nsample)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py", line 121, in ascend_ball_query
-    return _mmcv_ball_query(new_xyz.contiguous(), xyz.contiguous(), radius, nsample)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
-    return super().apply(*args, **kwargs)  # type: ignore[misc]
-TypeError: BallQuery.forward() missing 1 required positional argument: 'center_xyz'
-[ERROR] 2026-06-25-18:06:11 (PID:2895253, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
+ npu Autocast only supports dtypes of torch.float16 currently.
+  warnings.warn(error_message)
+usage: vos_inference.py [-h] [--sam2_cfg SAM2_CFG]
+                        [--sam2_checkpoint SAM2_CHECKPOINT] --base_video_dir
+                        BASE_VIDEO_DIR --input_mask_dir INPUT_MASK_DIR
+                        [--video_list_file VIDEO_LIST_FILE] --output_mask_dir
+                        OUTPUT_MASK_DIR [--score_thresh SCORE_THRESH]
+                        [--use_all_masks] [--per_obj_png_file]
+                        [--apply_postprocessing]
+                        [--track_object_appearing_later_in_video]
+                        [--use_vos_optimized_video_predictor]
+vos_inference.py: error: the following arguments are required: --base_video_dir, --input_mask_dir, --output_mask_dir
