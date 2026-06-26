@@ -1,118 +1,213 @@
-# Pytorch VLA模型310P端侧部署迁移方案
+# AscendDevTool — PyTorch 模型迁移至 Ascend NPU 工具链
 
-## 硬件设备
-
-极摩客K11电脑、香橙派ai studio pro（Ascend 310P）。
+目标硬件：Ascend 310P（香橙派 AI Studio Pro）
 
 ---
 
-## 快速开始
+## 快速开始（一条命令）
 
 ```bash
-cd /home/lzt/ascend_project/AscendDevTool
-python gui/main.py
+cd AscendDevTool
+source ascenddevtool/bin/activate
+bash scripts/pipeline_run.sh 1
 ```
 
-GUI 界面提供四个功能面板：
-
-| 面板 | 功能 |
-|------|------|
-| 路径选择 | 选择模型目录、输出目录、PyTorch版本 → 点击"扫描模型" |
-| 迁移到 NPU | 将 CUDA 代码转换为 NPU 代码（`.cuda()` → `.npu()` 等） |
-| 算子替换分析 | 分析不适配算子 → 拆分/改写/替换 → 生成算子开发工程 |
-| 不支持算子统计 | 按出现次数展示不支持算子 |
+自动完成 **扫描 → 算子替换 → CUDA迁移 → 推理**，日志在 `logs/run_01/`。
 
 ---
 
-## 完整迁移工作流
+## 命令行分步操作
 
-```
-① 扫描模型 → ② 代码迁移(NPU) → ③ 算子替换分析 → ④ 逐个开发算子 → ⑤ 编译入库
-```
+适用于需要自定义路径、换模型等场景。以下 `< >` 标记为用户需替换的路径。
 
-### ① 扫描模型
-使用 CANN 内置 `ms_fmk_transplt` 扫描 PyTorch 代码，输出 `unsupported_api.csv`。
+### 0. 激活环境
 
-### ② 代码迁移（NPU）
-将原始代码完整复制到输出目录，并自动替换：
-- `import torch` 后追加 `import torch_npu`
-- `.cuda()` → `.npu()`
-- `.to("cuda")` → `.to("npu")`
-- `torch.cuda.*` → `torch.npu.*`
-- `from torch.cuda.amp import ...` → `from torch.npu.amp import ...`
-
-### ③ 算子替换分析
-对 `unsupported_api.csv` 中的每个不适配算子，按优先级尝试：
-1. **可映射** — 已有 Ascend C 实现，写入 `local_ops.csv` 映射表
-2. **可拆分** — 拆解为原生 PyTorch 算子组合，生成 `decomposed_ops.py`
-3. **数学等价改写** — 替换为数学等价表达式
-4. **需开发** — 生成 Ascend C 工程骨架 + Agent 开发提示
-
-替换模块 `ascend_pointnet2_ops.py` 随输出目录一起生成。
-
-### ④ 逐个开发算子
-在"算子替换分析"面板中，每个"需开发"算子都有独立的"开发"按钮，点击后：
-- 调用 `msopgen` 生成完整 Ascend C 工程（`op_builder/ops_src/` 下）
-- 生成 `AGENT_PROMPT_*.md`，内含 kernel stub、原始 CUDA 源码、cannbot-skills 参考文档
-
-### ⑤ 编译入库
 ```bash
-cd op_builder/ops_src/<OpName>Sample/FrameworkLaunch/<op_name>
-bash build.sh              # 编译 Ascend C
-# 然后写回 patcher/local_op_lib/local_ops.csv
+cd AscendDevTool
+source ascenddevtool/bin/activate
+```
+
+### 1. 扫描模型
+
+```bash
+# 设置 CANN 环境（根据实际路径选一个）
+export ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest
+# 或: export ASCEND_TOOLKIT_HOME=$HOME/Ascend/ascend-toolkit/latest
+
+export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
+
+python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
+  -i <待迁移模型目录> \
+  -o <扫描输出目录> \
+  -v 2.6.0 \
+  -m torch_apis
+```
+
+扫描完成后，`unsupported_api.csv` 在 `<扫描输出目录>/*_analysis/` 下。
+
+### 2. 算子替换 + CUDA→NPU 迁移
+
+```bash
+python -c "
+from pathlib import Path
+from rewriter.rewriter_core import rewrite_unsupported_ops
+from migrator.torch_to_npu import transform_source
+
+# 替换为你的实际路径
+csv_path = Path('<unsupported_api.csv 路径>')
+src_dir = Path('<待迁移模型目录>')
+out_dir = Path('<迁移输出目录>')
+local_csv = Path('patcher/local_op_lib/local_ops.csv')
+
+# 2.1 算子替换分析 + 代码改写
+result = rewrite_unsupported_ops(csv_path, local_csv, out_dir, src_dir)
+print(result.status)
+
+# 2.2 CUDA→NPU 迁移（跳过工具生成的 ascend/gorilla 文件）
+for f in out_dir.rglob('*.py'):
+    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
+        continue
+    src = f.read_text(encoding='utf-8')
+    new_src, changes = transform_source(src)
+    if changes > 0:
+        f.write_text(new_src, encoding='utf-8')
+        print(f'{f.name}: {changes} 处变更')
+
+print('迁移完成')
+"
+```
+
+替换内容：`.cuda()` → `.npu()`、`torch.cuda.*` → `torch.npu.*`、gorilla → config.config 等。
+
+### 3. 推理测试
+
+```bash
+cd <迁移输出目录>
+# 使用 torch_npu 环境运行推理脚本
+/home/orange/miniconda3/envs/torch_npu/bin/python <推理脚本.py>
+```
+
+如需指定参数：
+
+```bash
+/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
+  --output_dir <输出目录> \
+  --cad_path <CAD模型路径> \
+  --rgb_path <RGB图片路径> \
+  --depth_path <深度图路径> \
+  --cam_path <相机参数> \
+  --seg_path <分割结果>
 ```
 
 ---
 
-## 目录结构
+## 完整示例（以 SAM-6D 为例）
 
-```text
-.
-├── target_models/              # 待迁移的原始 PyTorch 模型
-├── scanner/                    # 算子扫描模块（依赖 CANN ms_fmk_transplt）
-│   ├── README.md
-│   └── reports/                # 扫描输出（unsupported_api.csv 等）
-├── patcher/                    # Monkey Patch 运行时替换模块
-│   ├── patch_core.py           # 运行时动态劫持 torch API
-│   ├── ops_config.yaml         # API → 本地库映射配置
-│   └── local_op_lib/           # 本地算子库
-│       ├── local_ops.csv       # 算子 → 本地实现映射表
-│       ├── custom_ops.py       # Python 层替身实现
-│       └── loader.py           # .so 动态库加载器
-├── op_builder/                 # Ascend C 算子开发车间
-│   ├── op_manager.py           # 算子生命周期管理（generate/build/install）
-│   ├── create_op.py            # C++ 绑定脚手架生成
-│   ├── ops_src/                # 所有算子源码工程
-│   ├── skill_docs/             # Ascend C 开发参考文档（LLM 用）
-│   └── templates/              # 代码模板
-├── oplib/                      # 编译产物（.so / .run 安装包）
-│   └── custom_opp_packages/
-├── gui/                        # PySide6 + QML 可视化界面
-├── migrator/                   # CUDA → NPU 代码转换模块
-│   ├── torch_to_npu.py         # libcst AST 转换器
-│   └── migrator_core.py        # 批量迁移入口
-├── rewriter/                   # 算子替换/拆分/重写/开发模块
-│   ├── op_database.py          # 算子知识库（CANN 支持列表 + 拆解规则）
-│   ├── op_analyzer.py          # 算子分析引擎
-│   ├── op_decomposer.py        # 算子拆分引擎
-│   ├── op_rewriter.py          # 数学等价改写
-│   ├── op_dev_generator.py     # Ascend C 脚手架生成
-│   ├── op_dev_agent.py         # Agent 开发任务生成（msopgen + cannbot-skills）
-│   ├── code_patcher.py         # 源码级算子调用替换
-│   └── rewriter_core.py        # 主协调器
-├── tests/                      # 测试用例
-├── scripts/                    # 全局自动化脚本
-├── env.md                      # 环境配置指南
-└── README.md
+```bash
+# 目录结构
+# ~/pipeline_tool/
+#   AscendDevTool/      ← 本工具
+#   SAM-6D/             ← 待迁移模型
+#   ascenddev_output/   ← 输出目录（自动创建）
+
+cd ~/pipeline_tool/AscendDevTool
+source ascenddevtool/bin/activate
+
+# 扫描
+export ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest
+export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
+python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
+  -i ../SAM-6D -o ../ascenddev_output/scan -v 2.6.0 -m torch_apis
+
+# 找到 csv
+CSV=$(find ../ascenddev_output/scan -name unsupported_api.csv | head -1)
+
+# 替换 + 迁移
+python -c "
+from pathlib import Path
+from rewriter.rewriter_core import rewrite_unsupported_ops
+from migrator.torch_to_npu import transform_source
+csv = Path('$CSV')
+src = Path('../SAM-6D')
+out = Path('../ascenddev_output/SAM-6D_NPU')
+local = Path('patcher/local_op_lib/local_ops.csv')
+print(rewrite_unsupported_ops(csv, local, out, src).status)
+for f in out.rglob('*.py'):
+    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name: continue
+    s = f.read_text(encoding='utf-8')
+    ns, c = transform_source(s)
+    if c > 0: f.write_text(ns, encoding='utf-8'); print(f'{f.name}: {c}')
+print('done')
+"
+
+# 推理
+cd ../ascenddev_output/SAM-6D_NPU
+INF_DIR=$(dirname $(find . -name run_inference_custom.py | head -1))
+cd "$INF_DIR"
+/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py
+```
+
+---
+
+## 算子开发（进阶）
+
+对于扫描后标记为"需开发"的算子，可生成 Ascend C 工程骨架：
+
+```bash
+python -c "
+from pathlib import Path
+from rewriter.rewriter_core import run_operator_development
+result = run_operator_development(
+    Path('<unsupported_api.csv 路径>'),
+    Path('patcher/local_op_lib/local_ops.csv'),
+    Path('op_builder/ops_src'),
+)
+print(result.status)
+"
+```
+
+工程生成在 `op_builder/ops_src/<算子名>Sample/` 下，编译：
+
+```bash
+cd op_builder/ops_src/<算子名>Sample/FrameworkLaunch/<op_name>
+bash build.sh
 ```
 
 ---
 
 ## 环境配置
 
-详见 [env.md](env.md)，主要内容：
-- Conda 环境创建
-- 虚拟环境 + `requirements.txt` 依赖安装
-- CANN / Ascend Toolkit 环境变量配置
-- `pandas` / `prettytable` 等 CANN 扫描工具依赖
+详见 [env.md](env.md)，关键点：
 
+| 项目 | 说明 |
+|------|------|
+| 工具 venv | `AscendDevTool/ascenddevtool/`（PySide6、libcst） |
+| 推理环境 | conda `torch_npu`（`/home/orange/miniconda3/envs/torch_npu/`） |
+| CANN 路径 | `/usr/local/Ascend/ascend-toolkit/latest` 或 `$HOME/Ascend/ascend-toolkit/latest` |
+| 环境变量 | `ASCEND_TOOLKIT_HOME`、`PYTHONPATH` 需包含 `ms_fmk_transplt` |
+
+---
+
+## 目录结构
+
+```
+AscendDevTool/
+├── gui/                 # PySide6+QML 界面（可选，命令行版不需要）
+├── scanner/             # CANN 扫描封装
+├── migrator/            # CUDA→NPU 代码转换（libcst AST）
+├── rewriter/            # 算子分析/替换/拆分/开发
+│   ├── op_database.py   # 算子知识库（拆解规则）
+│   ├── op_analyzer.py   # 分析引擎（可映射→可拆分→需开发）
+│   ├── code_patcher.py  # 源码级替换
+│   └── rewriter_core.py # 主协调器
+├── op_builder/          # Ascend C 算子开发车间
+│   └── ops_src/         # 算子源码工程
+├── patcher/             # Monkey Patch 运行时替换
+│   └── local_op_lib/    # 算子映射表
+├── scripts/             # CI/CD 流水线脚本
+│   ├── pipeline_run.sh  # 单次流水线（扫描→迁移→替换→推理）
+│   └── pipeline_init.sh # 远程首次环境配置
+├── logs/                # 流水线日志
+├── env.md               # 环境配置指南
+└── context.md           # 项目上下文（开发用）
+```
