@@ -353,7 +353,8 @@ def _copy_npu_compat(output_dir: Path) -> Path:
 def _inject_npu_compat(source: str) -> str:
     if "import npu_compat" in source:
         return source
-    if "torch.cross" in source or "scaled_dot_product_attention" in source:
+    # 所有 import torch 的文件都注入 npu_compat（含 compile_mode 设置）
+    if "import torch" in source:
         lines = source.split("\n")
         inserted = False
         for i, line in enumerate(lines):

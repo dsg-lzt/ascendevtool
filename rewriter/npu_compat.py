@@ -1,6 +1,13 @@
 import torch
 import torch.nn.functional as F
 
+try:
+    import torch_npu
+    torch.npu.set_compile_mode(jit_compile=False)
+    torch.npu.config.allow_internal_format = True
+except Exception:
+    pass
+
 _orig_cross = torch.cross
 
 def _cross_npu(input, other, dim=-1):
