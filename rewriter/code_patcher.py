@@ -329,7 +329,7 @@ def apply_rewrites_to_source(
             continue
 
         # 注入 npu_compat（torch.cross 等 monkey-patch）
-        source = _inject_npu_compat(source)
+        source = _inject_npu_compat(source, output_dir)
 
         new_source, changes = patch_source_file(source)
         if changes == 0 and source == new_source:
@@ -350,23 +350,24 @@ def _copy_npu_compat(output_dir: Path) -> Path:
     return dest
 
 
-def _inject_npu_compat(source: str) -> str:
+def _inject_npu_compat(source: str, output_root: Optional[Path] = None) -> str:
     if "import npu_compat" in source:
         return source
-    # 所有 import torch 的文件都注入 npu_compat（含 compile_mode 设置）
     if "import torch" in source:
         lines = source.split("\n")
         inserted = False
         for i, line in enumerate(lines):
             stripped = line.strip()
             if stripped.startswith("import torch_npu") or stripped.startswith("import torch"):
+                if output_root:
+                    root = str(output_root.resolve())
+                    lines.insert(i + 1, f"import sys; sys.path.insert(0, r'{root}')  # npu_compat")
                 lines.insert(i + 1, "import npu_compat  # Ascend NPU compat patches")
                 inserted = True
                 break
         if not inserted:
-            if lines and (lines[0].startswith("#!") or lines[0].startswith("#")):
-                lines.insert(1, "import npu_compat  # Ascend NPU compat patches")
-            else:
-                lines.insert(0, "import npu_compat  # Ascend NPU compat patches")
+            if output_root:
+                lines.insert(0, f"import sys; sys.path.insert(0, r'{output_root.resolve()}')  # npu_compat")
+            lines.insert(0, "import npu_compat  # Ascend NPU compat patches")
         source = "\n".join(lines)
     return source
