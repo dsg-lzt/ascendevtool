@@ -8,3 +8,6 @@ __pycache__/
 *.pyc
 .DS_Store
 =*_*.json
+=1.1.0
+=6.6
+op_builder/_pointnet2_*.json
