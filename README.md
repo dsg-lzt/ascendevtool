@@ -112,9 +112,7 @@ CSV=$(find ../ascenddev_output/scan -name unsupported_api.csv | head -1)
 python migrate.py ../SAM-6D "$CSV" -o ../ascenddev_output/SAM-6D_NPU
 
 # 推理
-cd ../ascenddev_output/SAM-6D_NPU
-INF_DIR=$(dirname $(find . -name run_inference_custom.py | head -1))
-cd "$INF_DIR"
+cd ../ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model 2>/dev/null || cd ../ascenddev_output/SAM-6D_NPU
 /home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py
 ```
 
