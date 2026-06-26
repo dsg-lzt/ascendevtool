@@ -133,6 +133,7 @@ if [ -n "$_INF_CMD" ]; then
     # 用户指定了完整推理命令（第3参数）
     log "使用自定义推理命令..."
     cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
+    export PYTHONPATH="$MODEL_OUT:$PYTHONPATH"
     bash -c "$_INF_CMD" > "$LOG_DIR/inference.log" 2>&1 &
     _RUN_INF=1
 elif [ -n "$_INF_SCRIPT" ]; then
@@ -150,6 +151,7 @@ elif [ -n "$_INF_SCRIPT" ]; then
     fi
     log "使用推理脚本: $_INF_SCRIPT"
     cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
+    export PYTHONPATH="$MODEL_OUT:$PYTHONPATH"
     $_INF_PYTHON "$_INF_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
     _RUN_INF=1
 else
@@ -162,6 +164,7 @@ else
         _INF_DIR=$(dirname "$_AUTO_SCRIPT")
         log "自动找到推理脚本: $_AUTO_SCRIPT"
         cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null
+        export PYTHONPATH="$MODEL_OUT:$PYTHONPATH"
         $_INF_PYTHON "$_AUTO_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
         _RUN_INF=1
     else
