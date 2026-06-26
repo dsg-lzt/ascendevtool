@@ -1,74 +1,11 @@
-=== AscendDevTool 命令行使用步骤 ===
-
-前提：已在远程服务器的 ~/pipeline_tool/ 目录下有：
-  AscendDevTool/   (本工具)
-  SAM-6D/          (待迁移模型)
-
----------- 1. 激活环境 ----------
-
-cd ~/pipeline_tool/AscendDevTool
+(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd ~/pipeline_tool/AscendDevTool
 source ascenddevtool/bin/activate
-
----------- 2. 扫描模型 ----------
-
-export ASCEND_TOOLKIT_HOME=$HOME/Ascend/ascend-toolkit/latest
+(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ export ASCEND_TOOLKIT_HOME=$HOME/Ascend/ascend-toolkit/latest
 export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
-
-python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
+(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
   -i ../SAM-6D \
   -o ../ascenddev_output/scan \
   -v 2.6.0 \
   -m torch_apis
-
-扫描完成后 unsupported_api.csv 在 ../ascenddev_output/scan/*/ 下。
-
----------- 3. 算子替换 + CUDA→NPU 迁移 ----------
-
-先找到 unsupported_api.csv 路径：
-  find ../ascenddev_output/scan -name unsupported_api.csv
-
-假设路径是 ../ascenddev_output/scan/xxx_analysis/unsupported_api.csv，执行：
-
-python -c "
-from pathlib import Path
-from rewriter.rewriter_core import rewrite_unsupported_ops
-from migrator.torch_to_npu import transform_source
-
-csv_path = Path('../ascenddev_output/scan/xxx_analysis/unsupported_api.csv')
-local_csv = Path('patcher/local_op_lib/local_ops.csv')
-out_dir = Path('../ascenddev_output/SAM-6D_NPU')
-src_dir = Path('../SAM-6D')
-
-# 3.1 算子替换分析 + 代码改写
-result = rewrite_unsupported_ops(csv_path, local_csv, out_dir, src_dir)
-print(result.status)
-
-# 3.2 CUDA→NPU 迁移（跳过已生成的 ascend/gorilla 文件）
-for f in out_dir.rglob('*.py'):
-    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
-        continue
-    src = f.read_text(encoding='utf-8')
-    new_src, changes = transform_source(src)
-    if changes > 0:
-        f.write_text(new_src, encoding='utf-8')
-        print(f'{f.name}: {changes} 处变更')
-
-print('迁移完成')
-"
-
----------- 4. 推理测试 ----------
-
-cd ../ascenddev_output/SAM-6D_NPU
-找到 run_inference_custom.py 所在目录并进入，然后用 torch_npu 环境运行：
-
-/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py
-
-推理结果在输出目录下。
-
----------- 单命令一键执行 ----------
-
-如果上面跑通了，也可以把步骤2-3合并用 pipeline 脚本一次跑完：
-
-bash scripts/pipeline_run.sh 1
-
-日志在 logs/run_01/ 下。
+python: can't open file '/home/orange/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/pytorch_analyse.py': [Errno 2] No such file or directory
+(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd ..
