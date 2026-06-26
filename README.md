@@ -112,8 +112,15 @@ CSV=$(find ../ascenddev_output/scan -name unsupported_api.csv | head -1)
 python migrate.py ../SAM-6D "$CSV" -o ../ascenddev_output/SAM-6D_NPU
 
 # 推理
-cd ../ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model 2>/dev/null || cd ../ascenddev_output/SAM-6D_NPU
-/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py
+cd ../ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model
+
+/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
+  --output_dir ../Data/Example/outputs \
+  --cad_path ../Data/Example/obj_000005.ply \
+  --rgb_path ../Data/Example/rgb.png \
+  --depth_path ../Data/Example/depth.png \
+  --cam_path ../Data/Example/camera.json \
+  --seg_path ../Data/Example/outputs/sam6d_results/detection_ism.json
 ```
 
 ---
