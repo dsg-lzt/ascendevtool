@@ -167,7 +167,7 @@ if [ $_RUN_INF -eq 1 ]; then
     wait $INF_PID 2>/dev/null
     INF_EXIT=$?
     kill $TIMEOUT_PID 2>/dev/null
-    if grep -qE "Traceback \(most recent call\)|Error|AssertionError|RuntimeError" "$LOG_DIR/inference.log" 2>/dev/null; then
+    if grep -qE "Traceback \(most recent call\)|Error|^error:|AssertionError|RuntimeError" "$LOG_DIR/inference.log" 2>/dev/null; then
         log "  ❌ 推理测试报错"
         echo "INFERENCE_ERROR" >> "$LOG_DIR/status.txt"
     else
