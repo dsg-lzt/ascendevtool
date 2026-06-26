@@ -9,10 +9,17 @@
 ```bash
 cd AscendDevTool
 source ascenddevtool/bin/activate
-bash scripts/pipeline_run.sh 1
+
+# 单次执行
+bash scripts/pipeline_run.sh 1 <模型名>     # 如: bash scripts/pipeline_run.sh 1 sam2
+
+# 或后台循环（自动检测 git 变更，最多10轮迭代调试）
+nohup bash scripts/pipeline_loop.sh <模型名> > ../pipeline_loop.log 2>&1 &
 ```
 
 自动完成 **扫描 → 算子替换 → CUDA迁移 → 推理**，日志在 `logs/run_01/`。
+
+模型源码放在 `~/pipeline_tool/<模型名>/`，输出在 `~/pipeline_tool/ascenddev_output/<模型名>_NPU/`。
 
 ---
 

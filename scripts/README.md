@@ -1,19 +1,17 @@
-# Pipeline 脚本
+# Pipeline 脚本（泛化版）
 
-远程 NPU 服务器自动测试流水线，与本地开发迭代配合使用。
+远程 NPU 服务器自动测试流水线，支持任意模型。
 
 ## 远程部署结构
 
 ```
 ~/pipeline_tool/
 ├── AscendDevTool/          # 本仓库 (git clone)
-├── SAM-6D/                 # 待转换模型 (手动放置)
-├── Data/                   # 测试数据 → 软链到 SAM-6D/Data/
-├── ascenddev_output/       # 扫描+重写输出
-├── logs/                   # 每轮日志
-├── pipeline_init.sh        # 首次环境配置
-├── pipeline_loop.sh        # 主循环（检测 git → 执行 → 推日志）
-└── pipeline_run.sh         # 单次流水线
+├── <model_name>/           # 待转换模型 (sam2, SAM-6D 等)
+├── ascenddev_output/       # 输出目录
+│   ├── <model>_scan/       # 扫描结果
+│   └── <model>_NPU/        # 迁移后代码
+└── pipeline_loop.log       # 循环日志
 ```
 
 ## 使用流程
@@ -22,19 +20,16 @@
 
 ```bash
 mkdir ~/pipeline_tool && cd ~/pipeline_tool
-
-# 把脚本传上去（或直接用 git）
 git clone https://github.com/dsg-lzt/ascendevtool.git AscendDevTool
 
-# 放置 SAM-6D 和测试数据
-cp -r /path/to/SAM-6D ~/pipeline_tool/
-ln -sfn ~/pipeline_tool/SAM-6D/SAM-6D/Data ~/pipeline_tool/Data
+# 放置模型源码
+cp -r /path/to/sam2 ~/pipeline_tool/
 
 # 配置环境
 bash AscendDevTool/scripts/pipeline_init.sh
 
-# 启动后台循环
-nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &
+# 后台启动循环
+nohup bash AscendDevTool/scripts/pipeline_loop.sh sam2 > pipeline_loop.log 2>&1 &
 ```
 
 ### 本地开发机
@@ -44,18 +39,34 @@ nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &
 3. `git pull` 拉取 `logs/run_NN/` 日志
 4. 根据报错修改 → 回到步骤 1
 
+## 命令行手动执行
+
+```bash
+# 单次执行（不循环）
+bash scripts/pipeline_run.sh 1 <model_name>
+
+# 自定义推理脚本
+INFERENCE_SCRIPT=/path/to/my_infer.py bash scripts/pipeline_run.sh 1 sam2
+
+# 自定义推理命令
+INFERENCE_CMD="python run.py --arg1 val" bash scripts/pipeline_run.sh 1 sam2
+
+# 指定推理用的 Python
+INFERENCE_PYTHON=/home/orange/miniconda3/envs/torch_npu/bin/python \
+  bash scripts/pipeline_run.sh 1 sam2
+```
+
 ## 脚本说明
 
-| 脚本 | 执行方式 | 功能 |
-|------|---------|------|
-| `pipeline_init.sh` | 手动执行一次 | conda、venv、依赖安装 |
-| `pipeline_loop.sh` | `nohup bash ... &` 后台常驻 | git 变更检测 + 循环（最多10轮） |
-| `pipeline_run.sh` | 被 loop 调用 | 扫描→迁移→替换→推理→日志 |
+| 脚本 | 参数 | 功能 |
+|------|------|------|
+| `pipeline_run.sh` | `<round> <model_name> [inference_cmd]` | 扫描→迁移→替换→推理 |
+| `pipeline_loop.sh` | `<model_name> [max_rounds]` | git 变更检测 + 循环（默认10轮） |
 
 ## 循环终止条件
 
-- 推理成功（`inference.log` 无报错）→ 自动停止
-- 达到 10 轮 → 停止并推 `MAX_ROUNDS` 标记
+- 推理成功（`inference.log` 无 Traceback/Error）→ 自动停止 ✅
+- 达到最大轮次 → 推 `MAX_ROUNDS` 标记
 - 手动 `kill` 进程
 
 ## 日志结构
@@ -64,7 +75,7 @@ nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &
 logs/run_01/
 ├── scan.log          # CANN 扫描输出
 ├── rewrite.log       # 算子替换输出
-├── inference.log     # SAM-6D 推理输出
-├── summary.txt       # 轮次摘要
-└── status.txt        # SUCCESS / EXIT_CODE=X / PIPELINE_ERROR
+├── inference.log     # 推理输出
+├── summary.txt       # 轮次摘要（含模型名）
+└── status.txt        # SUCCESS / INFERENCE_ERROR / INFERENCE_SKIPPED
 ```

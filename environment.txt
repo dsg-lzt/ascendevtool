@@ -1,10 +1,24 @@
-(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
-  -i ../sam2 -o ../ascenddev_output/sam2_scan -v 2.6.0 -m torch_apis
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
-  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
-  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
-/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
-  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
-2026-06-26 10:47:21 [ERROR]   An error occurred: Output ../ascenddev_output/sam2_scan is not a valid directory!
-2026-06-26 10:47:21 [ERROR]   Analyse run failed!
+=== 已修复 + 泛化改造 ===
+
+问题：扫描报错 Output ../ascenddev_output/sam2_scan is not a valid directory
+原因：输出目录需先存在  已修复：pipeline_run.sh 现在会自动 mkdir -p
+
+改造成泛化版，支持任意模型。使用方法：
+
+---------- 启动循环 ----------
+
+cd ~/pipeline_tool/AscendDevTool
+source ascenddevtool/bin/activate
+
+# 模型名作为参数传入，支持任意模型
+nohup bash scripts/pipeline_loop.sh sam2 > ../pipeline_loop.log 2>&1 &
+
+---------- 或手动单次执行 ----------
+
+bash scripts/pipeline_run.sh 1 sam2
+
+推理脚本会自动查找输出目录下的 run* 文件。
+如需手动指定：
+  INFERENCE_SCRIPT=<脚本> bash scripts/pipeline_run.sh 1 sam2
+
+日志在 logs/run_01/ 下。

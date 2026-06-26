@@ -1,0 +1,43 @@
+[
+  {
+    "op": "pointnet2__ext_three_interpolate",
+    "language": "cpp",
+    "input_desc": [
+      {
+        "name": "x0",
+        "param_type": "required",
+        "format": [
+          "ND"
+        ],
+        "type": [
+          "float16",
+          "float32"
+        ]
+      },
+      {
+        "name": "x1",
+        "param_type": "required",
+        "format": [
+          "ND"
+        ],
+        "type": [
+          "float16",
+          "float32"
+        ]
+      }
+    ],
+    "output_desc": [
+      {
+        "name": "y0",
+        "param_type": "required",
+        "format": [
+          "ND"
+        ],
+        "type": [
+          "float16",
+          "float32"
+        ]
+      }
+    ]
+  }
+]

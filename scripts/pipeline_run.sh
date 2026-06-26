@@ -1,12 +1,15 @@
 #!/bin/bash
 # ============================================================
-# pipeline_run.sh — 单次流水线执行
-# 被 pipeline_loop.sh 调用
-# 用法: bash pipeline_run.sh <round_number>
+# pipeline_run.sh — 单次流水线执行（泛化版，支持任意模型）
+# 用法: bash pipeline_run.sh <round_number> <model_name> [inference_cmd]
 # ============================================================
 
 ROUND="${1:-01}"
 ROUND=$(printf '%02d' "$ROUND")
+MODEL_NAME="${2:-SAM-6D}"
+INFERENCE_CMD="${3:-}"              # 可选：自定义推理命令
+INFERENCE_PYTHON="${INFERENCE_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
     PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -14,12 +17,12 @@ else
     PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
 fi
 TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
-SAM6D_SRC="$PIPELINE_ROOT/SAM-6D"
-SAM6D_OUT="$PIPELINE_ROOT/ascenddev_output/SAM-6D_NPU"
-SCAN_OUT="$PIPELINE_ROOT/ascenddev_output/scan"
+MODEL_SRC="$PIPELINE_ROOT/$MODEL_NAME"
+SCAN_OUT="$PIPELINE_ROOT/ascenddev_output/${MODEL_NAME}_scan"
+MODEL_OUT="$PIPELINE_ROOT/ascenddev_output/${MODEL_NAME}_NPU"
 LOG_DIR="$TOOL_DIR/logs/run_$ROUND"
 
-mkdir -p "$LOG_DIR"
+mkdir -p "$LOG_DIR" "$SCAN_OUT" "$MODEL_OUT"
 
 log() {
     echo "[ROUND $ROUND] $(date '+%H:%M:%S') $*"
@@ -38,7 +41,7 @@ source "$TOOL_DIR/ascenddevtool/bin/activate"
 cd "$TOOL_DIR"
 
 # ---- 1. CANN 扫描 ----
-log "1/4 CANN 扫描 SAM-6D..."
+log "1/4 CANN 扫描 $MODEL_NAME..."
 
 # CANN 环境变量（仅扫描步骤需要）
 for d in "$HOME/Ascend/ascend-toolkit/latest" "/usr/local/Ascend/ascend-toolkit/latest" "$ASCEND_TOOLKIT_HOME"; do
@@ -64,9 +67,8 @@ mkdir -p "$SCAN_OUT_DIR"
 SCAN_TOOL="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py"
 if [ -f "$SCAN_TOOL" ]; then
     export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
-    timeout 600 python "$SCAN_TOOL" -i "$SAM6D_SRC" -o "$SCAN_OUT_DIR" -v 2.6.0 -m torch_apis \
+    timeout 600 python "$SCAN_TOOL" -i "$MODEL_SRC" -o "$SCAN_OUT_DIR" -v 2.6.0 -m torch_apis \
         > "$LOG_DIR/scan.log" 2>&1 || log "WARN: 扫描失败（继续执行）"
-    # 更新 unsupported_api.csv 路径为最新扫描结果
     UNSUPPORTED_CSV=$(find "$SCAN_OUT_DIR" -name "unsupported_api.csv" 2>/dev/null | head -1)
 else
     log "WARN: 未找到 pytorch_analyse.py，跳过扫描"
@@ -86,8 +88,8 @@ from rewriter.rewriter_core import rewrite_unsupported_ops
 result = rewrite_unsupported_ops(
     unsupported_csv=Path('$UNSUPPORTED_CSV'),
     local_ops_csv=Path('$TOOL_DIR/patcher/local_op_lib/local_ops.csv'),
-    output_dir=Path('$SAM6D_OUT'),
-    source_dir=Path('$SAM6D_SRC'),
+    output_dir=Path('$MODEL_OUT'),
+    source_dir=Path('$MODEL_SRC'),
 )
 print(result.status)
 " > "$LOG_DIR/rewrite.log" 2>&1 || log "WARN: 算子替换失败（继续执行）"
@@ -99,7 +101,7 @@ import sys
 sys.path.insert(0, '$TOOL_DIR')
 from pathlib import Path
 from migrator.torch_to_npu import transform_source
-py_files = list(Path('$SAM6D_OUT').rglob('*.py'))
+py_files = list(Path('$MODEL_OUT').rglob('*.py'))
 changes = 0
 skipped = set()
 for f in py_files:
@@ -118,54 +120,50 @@ else
     echo "NO_UNSUPPORTED_CSV" > "$LOG_DIR/rewrite.log"
 fi
 
-# ---- 3. SAM-6D 推理测试（使用服务器已有的 torch_npu 环境）----
-log "3/4 SAM-6D 推理测试..."
-INFERENCE_DIR=$(find "$SAM6D_OUT" -name "run_inference_custom.py" -path "*/Pose_Estimation_Model/*" 2>/dev/null | head -1 | xargs dirname 2>/dev/null)
-if [ -n "$INFERENCE_DIR" ] && [ -f "$INFERENCE_DIR/run_inference_custom.py" ]; then
-    cd "$INFERENCE_DIR"
-    # 确保 CWD 有效（避免 rewrite 重建输出目录后 CWD 失效）
-    if [ ! -d "$PWD" ]; then
-        cd "$(dirname "$INFERENCE_DIR")" || cd "$HOME"
-        INFERENCE_DIR="$PWD"
+# ---- 3. 推理测试 ----
+log "3/4 推理测试..."
+
+if [ -n "$INFERENCE_CMD" ]; then
+    # 用户指定了完整推理命令
+    log "使用自定义推理命令..."
+    cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
+    bash -c "$INFERENCE_CMD" > "$LOG_DIR/inference.log" 2>&1 &
+elif [ -n "$INFERENCE_SCRIPT" ]; then
+    # 用户指定了推理脚本路径
+    INF_DIR=$(dirname "$INFERENCE_SCRIPT")
+    log "使用推理脚本: $INFERENCE_SCRIPT"
+    cd "$INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
+    $INFERENCE_PYTHON "$INFERENCE_SCRIPT" $INFERENCE_ARGS > "$LOG_DIR/inference.log" 2>&1 &
+else
+    # 自动查找推理脚本
+    INFERENCE_SCRIPT=$(find "$MODEL_OUT" -name "*.py" -path "*/run*" 2>/dev/null | head -1)
+    if [ -n "$INFERENCE_SCRIPT" ]; then
+        INF_DIR=$(dirname "$INFERENCE_SCRIPT")
+        log "自动找到推理脚本: $INFERENCE_SCRIPT"
+        cd "$INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null
+        $INFERENCE_PYTHON "$INFERENCE_SCRIPT" $INFERENCE_ARGS > "$LOG_DIR/inference.log" 2>&1 &
+    else
+        log "WARN: 未找到推理脚本，跳过推理"
+        echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
     fi
+fi
 
-    DATA_DIR="$SAM6D_SRC/SAM-6D/Data/Example"
-    OUTPUT_DIR="$DATA_DIR/outputs"
-    CAD_PATH="$DATA_DIR/obj_000005.ply"
-    RGB_PATH="$DATA_DIR/rgb.png"
-    DEPTH_PATH="$DATA_DIR/depth.png"
-    CAM_PATH="$DATA_DIR/camera.json"
-    SEG_PATH="$OUTPUT_DIR/sam6d_results/detection_ism.json"
-
-    mkdir -p "$OUTPUT_DIR" "$(dirname "$SEG_PATH")"
-
-    SAM6D_PYTHON="${SAM6D_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
-    export PYTHONHTTPSVERIFY=0
-    export CURL_CA_BUNDLE=""
-    log "使用 $SAM6D_PYTHON 运行推理..."
-    $SAM6D_PYTHON run_inference_custom.py \
-        --output_dir "$OUTPUT_DIR" \
-        --cad_path "$CAD_PATH" \
-        --rgb_path "$RGB_PATH" \
-        --depth_path "$DEPTH_PATH" \
-        --cam_path "$CAM_PATH" \
-        --seg_path "$SEG_PATH" \
-        > "$LOG_DIR/inference.log" 2>&1 &
+if [ -n "$INFERENCE_SCRIPT" ] || [ -n "$INFERENCE_CMD" ]; then
     INF_PID=$!
-    # 推理超时 30 分钟
     (sleep 1800; kill $INF_PID 2>/dev/null) &
     TIMEOUT_PID=$!
     wait $INF_PID 2>/dev/null
     INF_EXIT=$?
     kill $TIMEOUT_PID 2>/dev/null
-    # 检查推理日志是否有错误，而非只看退出码
-    if grep -qE "Error|Traceback|AssertionError|RuntimeError" "$LOG_DIR/inference.log" 2>/dev/null; then
+    if grep -qE "Traceback \(most recent call\)|Error|AssertionError|RuntimeError" "$LOG_DIR/inference.log" 2>/dev/null; then
         log "  ❌ 推理测试报错"
         echo "INFERENCE_ERROR" >> "$LOG_DIR/status.txt"
+    else
+        log "  ✅ 推理测试完成"
+        echo "SUCCESS" >> "$LOG_DIR/status.txt"
     fi
 else
-    log "WARN: 未找到 run_inference_custom.py，跳过推理"
-    echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
+    log "推理已跳过"
 fi
 
 cd "$TOOL_DIR"
@@ -174,6 +172,7 @@ cd "$TOOL_DIR"
 log "4/4 生成摘要..."
 {
     echo "=== Pipeline Round $ROUND Summary ==="
+    echo "Model: $MODEL_NAME"
     echo "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "Git commit: $(git rev-parse HEAD 2>/dev/null || echo unknown)"
     echo ""
