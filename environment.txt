@@ -1,39 +1,27 @@
-python test.py
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-Traceback (most recent call last):
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
-    return _target_(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/modeling/sam/transformer.py", line 272, in __init__
-    freqs_cis.to("npu") if torch.npu.is_available() else freqs_cis
-RuntimeError: Current settings do not support Complex dtype. Please try again with jit_compile=False.
-[ERROR] 2026-06-26-14:25:46 (PID:3290900, Device:0, RankID:-1) ERR01007 OPS feature not supported
+python -c "
+from pathlib import Path
+from rewriter.rewriter_core import rewrite_unsupported_ops
+from migrator.torch_to_npu import transform_source
 
-The above exception was the direct cause of the following exception:
+# 替换为你的实际路径
+csv_path = Path('<unsupported_api.csv 路径>')
+src_dir = Path('<待迁移模型目录>')
+out_dir = Path('<迁移输出目录>')
+local_csv = Path('patcher/local_op_lib/local_ops.csv')
 
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/test.py", line 62, in <module>
-    predictor = SAM2ImagePredictor(build_sam2(config_file=model_cfg, ckpt_path=checkpoint,device=device))
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/build_sam.py", line 93, in build_sam2
-    model = instantiate(cfg.model, _recursive_=True)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
-    return instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
-    value = instantiate_node(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
-    return _call_target(_target_, partial, args, kwargs, full_key)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
-    raise InstantiationException(msg) from e
-hydra.errors.InstantiationException: Error in call to target 'sam2.modeling.sam.transformer.RoPEAttention':
-RuntimeError('Current settings do not support Complex dtype. Please try again with jit_compile=False.\n[ERROR] 2026-06-26-14:25:46 (PID:3290900, Device:0, RankID:-1) ERR01007 OPS feature not supported')
-full_key: model.memory_attention.layer.self_attention
+# 2.1 算子替换分析 + 代码改写
+result = rewrite_unsupported_ops(csv_path, local_csv, out_dir, src_dir)
+print(result.status)
+
+# 2.2 CUDA→NPU 迁移（跳过工具生成的 ascend/gorilla 文件）
+for f in out_dir.rglob('*.py'):
+    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
+        continue
+    src = f.read_text(encoding='utf-8')
+    new_src, changes = transform_source(src)
+    if changes > 0:
+        f.write_text(new_src, encoding='utf-8')
+        print(f'{f.name}: {changes} 处变更')
+
+print('迁移完成')
+"
