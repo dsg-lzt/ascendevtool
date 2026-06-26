@@ -1,11 +1,10 @@
-(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd ~/pipeline_tool/AscendDevTool
-source ascenddevtool/bin/activate
-(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ export ASCEND_TOOLKIT_HOME=$HOME/Ascend/ascend-toolkit/latest
-export PYTHONPATH="$ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt:$PYTHONPATH"
 (ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
-  -i ../SAM-6D \
-  -o ../ascenddev_output/scan \
-  -v 2.6.0 \
-  -m torch_apis
-python: can't open file '/home/orange/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/pytorch_analyse.py': [Errno 2] No such file or directory
-(ascenddevtool) (ascenddevtool) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd ..
+  -i ../sam2 -o ../ascenddev_output/sam2_scan -v 2.6.0 -m torch_apis
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:12: SyntaxWarning: invalid escape sequence '\('
+  CPP_FUNC_SUB_RE_PATTERN = re.compile('&|\(|\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:16: SyntaxWarning: invalid escape sequence '\['
+  LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
+/usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
+  TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
+2026-06-26 10:47:21 [ERROR]   An error occurred: Output ../ascenddev_output/sam2_scan is not a valid directory!
+2026-06-26 10:47:21 [ERROR]   Analyse run failed!
