@@ -101,7 +101,7 @@ print(result.status)
     # 2.2 再 CUDA→NPU 迁移输出（跳过已生成的 gorilla/ascend）
     log "2.2 CUDA→NPU 迁移..."
     python -c "
-import sys
+import sys, re
 sys.path.insert(0, '$TOOL_DIR')
 from pathlib import Path
 from migrator.torch_to_npu import transform_source
@@ -121,6 +121,8 @@ for f in py_files:
                 'import torch_npu',
                 'import torch_npu; torch.npu.set_compile_mode(jit_compile=False)',
             )
+        # 替换 device 字符串 "gpu" → "npu"（NPU 不认识 "gpu"）
+        new_src = re.sub(r'=[ \t]*["\']gpu["\']', '= "npu"', new_src)
         f.write_text(new_src, encoding='utf-8')
         changes += c
 print(f'迁移完成: {changes} 处变更, 跳过 {len(skipped)} 个文件 ({skipped})')
