@@ -7,8 +7,10 @@
 ROUND="${1:-01}"
 ROUND=$(printf '%02d' "$ROUND")
 MODEL_NAME="${2:-SAM-6D}"
-INFERENCE_CMD="${3:-}"              # 可选：自定义推理命令
-INFERENCE_PYTHON="${INFERENCE_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
+_INF_CMD="${3:-}"                   # 内部变量，避免 env 污染
+_INF_PYTHON="${ASCEND_INF_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
+# 外部可覆盖推理脚本路径
+_INF_SCRIPT="${ASCEND_INF_SCRIPT:-}"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
@@ -23,6 +25,8 @@ MODEL_OUT="$PIPELINE_ROOT/ascenddev_output/${MODEL_NAME}_NPU"
 LOG_DIR="$TOOL_DIR/logs/run_$ROUND"
 
 mkdir -p "$LOG_DIR" "$SCAN_OUT" "$MODEL_OUT"
+# 清空本轮状态文件，避免累积
+: > "$LOG_DIR/status.txt"
 
 log() {
     echo "[ROUND $ROUND] $(date '+%H:%M:%S') $*"
@@ -123,32 +127,40 @@ fi
 # ---- 3. 推理测试 ----
 log "3/4 推理测试..."
 
-if [ -n "$INFERENCE_CMD" ]; then
-    # 用户指定了完整推理命令
+_RUN_INF=0
+
+if [ -n "$_INF_CMD" ]; then
+    # 用户指定了完整推理命令（第3参数）
     log "使用自定义推理命令..."
     cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
-    bash -c "$INFERENCE_CMD" > "$LOG_DIR/inference.log" 2>&1 &
-elif [ -n "$INFERENCE_SCRIPT" ]; then
-    # 用户指定了推理脚本路径
-    INF_DIR=$(dirname "$INFERENCE_SCRIPT")
-    log "使用推理脚本: $INFERENCE_SCRIPT"
-    cd "$INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
-    $INFERENCE_PYTHON "$INFERENCE_SCRIPT" $INFERENCE_ARGS > "$LOG_DIR/inference.log" 2>&1 &
+    bash -c "$_INF_CMD" > "$LOG_DIR/inference.log" 2>&1 &
+    _RUN_INF=1
+elif [ -n "$_INF_SCRIPT" ]; then
+    # 外部通过 ASCEND_INF_SCRIPT 指定
+    _INF_DIR=$(dirname "$_INF_SCRIPT")
+    log "使用推理脚本: $_INF_SCRIPT"
+    cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null || cd "$TOOL_DIR"
+    $_INF_PYTHON "$_INF_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
+    _RUN_INF=1
 else
-    # 自动查找推理脚本
-    INFERENCE_SCRIPT=$(find "$MODEL_OUT" -name "*.py" -path "*/run*" 2>/dev/null | head -1)
-    if [ -n "$INFERENCE_SCRIPT" ]; then
-        INF_DIR=$(dirname "$INFERENCE_SCRIPT")
-        log "自动找到推理脚本: $INFERENCE_SCRIPT"
-        cd "$INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null
-        $INFERENCE_PYTHON "$INFERENCE_SCRIPT" $INFERENCE_ARGS > "$LOG_DIR/inference.log" 2>&1 &
+    # 自动查找推理脚本（仅限当前模型输出目录内）
+    _AUTO_SCRIPT=$(find "$MODEL_OUT" -maxdepth 5 -name "*.py" -path "*run_*" 2>/dev/null | head -1)
+    if [ -z "$_AUTO_SCRIPT" ]; then
+        _AUTO_SCRIPT=$(find "$MODEL_OUT" -maxdepth 5 -name "*.py" -path "*infer*" -o -name "*.py" -path "*demo*" 2>/dev/null | head -1)
+    fi
+    if [ -n "$_AUTO_SCRIPT" ]; then
+        _INF_DIR=$(dirname "$_AUTO_SCRIPT")
+        log "自动找到推理脚本: $_AUTO_SCRIPT"
+        cd "$_INF_DIR" 2>/dev/null || cd "$MODEL_OUT" 2>/dev/null
+        $_INF_PYTHON "$_AUTO_SCRIPT" > "$LOG_DIR/inference.log" 2>&1 &
+        _RUN_INF=1
     else
         log "WARN: 未找到推理脚本，跳过推理"
         echo "INFERENCE_SKIPPED" >> "$LOG_DIR/status.txt"
     fi
 fi
 
-if [ -n "$INFERENCE_SCRIPT" ] || [ -n "$INFERENCE_CMD" ]; then
+if [ $_RUN_INF -eq 1 ]; then
     INF_PID=$!
     (sleep 1800; kill $INF_PID 2>/dev/null) &
     TIMEOUT_PID=$!

@@ -316,7 +316,8 @@ def apply_rewrites_to_source(
     replacement_path = _generate_replacement_module(output_dir, solutions)
     gorilla_path = _generate_gorilla_stub(output_dir)
     config_path = _generate_config_module(output_dir)
-    generated_files = [str(replacement_path), str(gorilla_path), str(config_path)]
+    npu_compat_path = _copy_npu_compat(output_dir)
+    generated_files = [str(replacement_path), str(gorilla_path), str(config_path), str(npu_compat_path)]
 
     py_files = list(output_dir.rglob("*.py"))
     total_changes = 0
@@ -327,8 +328,11 @@ def apply_rewrites_to_source(
         except Exception:
             continue
 
+        # 注入 npu_compat（torch.cross 等 monkey-patch）
+        source = _inject_npu_compat(source)
+
         new_source, changes = patch_source_file(source)
-        if changes == 0:
+        if changes == 0 and source == new_source:
             continue
 
         py_file.write_text(new_source, encoding="utf-8")
@@ -336,3 +340,32 @@ def apply_rewrites_to_source(
         total_changes += changes
 
     return generated_files, total_changes
+
+
+def _copy_npu_compat(output_dir: Path) -> Path:
+    import shutil
+    src = Path(__file__).parent / "npu_compat.py"
+    dest = output_dir / "npu_compat.py"
+    shutil.copy(src, dest)
+    return dest
+
+
+def _inject_npu_compat(source: str) -> str:
+    if "import npu_compat" in source:
+        return source
+    if "torch.cross" in source or "scaled_dot_product_attention" in source:
+        lines = source.split("\n")
+        inserted = False
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if stripped.startswith("import torch_npu") or stripped.startswith("import torch"):
+                lines.insert(i + 1, "import npu_compat  # Ascend NPU compat patches")
+                inserted = True
+                break
+        if not inserted:
+            if lines and (lines[0].startswith("#!") or lines[0].startswith("#")):
+                lines.insert(1, "import npu_compat  # Ascend NPU compat patches")
+            else:
+                lines.insert(0, "import npu_compat  # Ascend NPU compat patches")
+        source = "\n".join(lines)
+    return source
