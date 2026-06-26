@@ -1,13 +1,17 @@
-=== 已修复，git pull 后循环自动触发 ===
+pkill -f pipeline_loop.sh
 
-修复内容：
-1. torch.cross NPU fallback — 310P 不支持 torch.cross，已加 monkey-patch
-2. 推理脚本误找到旧模型 — 修复了环境变量污染问题
-3. 日志状态累积 — 清空了 status.txt 截断逻辑
+cd ~/pipeline_tool/AscendDevTool/
 
-远程无需操作，循环检测到新提交会自动执行下一轮。
-日志在 logs/run_02/ 下。
+git pull
 
-如果要手动指定推理脚本（sam2 有自定义的 inference demo）：
-  kill 掉循环后：
-  ASCEND_INF_SCRIPT=/path/to/sam2_inference.py bash scripts/pipeline_run.sh 2 sam2
+source ascenddevtool/bin/activate
+
+
+export ASCEND_INF_SCRIPT = test.py
+
+nohup bash scripts/pipeline_loop.sh sam2 > ../pipeline_loop.log 2>&1 &
+# cd ..
+
+# nohup bash AscendDevTool/scripts/pipeline_loop.sh > pipeline_loop.log 2>&1 &
+
+ps aux | grep pipelin_loop
