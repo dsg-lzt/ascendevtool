@@ -1,24 +1,14 @@
-=== 已修复 + 泛化改造 ===
-
-问题：扫描报错 Output ../ascenddev_output/sam2_scan is not a valid directory
-原因：输出目录需先存在  已修复：pipeline_run.sh 现在会自动 mkdir -p
-
-改造成泛化版，支持任意模型。使用方法：
-
----------- 启动循环 ----------
+=== sam2 迁移调试 - 操作步骤 ===
 
 cd ~/pipeline_tool/AscendDevTool
+git pull
 source ascenddevtool/bin/activate
 
-# 模型名作为参数传入，支持任意模型
+# 如果之前的循环还在跑，先停掉
+pkill -f pipeline_loop
+
+# 启动 sam2 循环（后台）
 nohup bash scripts/pipeline_loop.sh sam2 > ../pipeline_loop.log 2>&1 &
 
----------- 或手动单次执行 ----------
-
-bash scripts/pipeline_run.sh 1 sam2
-
-推理脚本会自动查找输出目录下的 run* 文件。
-如需手动指定：
-  INFERENCE_SCRIPT=<脚本> bash scripts/pipeline_run.sh 1 sam2
-
-日志在 logs/run_01/ 下。
+# 看实时日志
+tail -f ../pipeline_loop.log
