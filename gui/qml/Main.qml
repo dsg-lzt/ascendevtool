@@ -59,6 +59,7 @@ ApplicationWindow {
         function onSummaryChanged() { refreshUnsupportedTable() }
         function onDevOpListChanged() { refreshDevOpList() }
         function onRewriteSummaryChanged() { refreshDevOpList() }
+        function onInferenceScriptPathChanged() { inferenceScriptField.text = backend.inferenceScriptPath }
     }
 
     function refreshDevOpList() {
@@ -404,6 +405,80 @@ ApplicationWindow {
         }
 
         GroupBox {
+            title: "推理验证"
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 10
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Label { text: "推理脚本"; Layout.preferredWidth: 90 }
+                    TextField {
+                        id: inferenceScriptField
+                        Layout.fillWidth: true
+                        Layout.minimumWidth: 0
+                        readOnly: true
+                        clip: true
+                        selectByMouse: true
+                        text: backend.inferenceScriptPath
+                        placeholderText: "选择推理脚本（.py 或 .sh）"
+                    }
+                    Button {
+                        text: "浏览..."
+                        onClicked: inferenceScriptDialog.open()
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Button {
+                        text: backend.busy ? "运行中..." : "运行推理"
+                        enabled: !backend.busy
+                        onClicked: backend.runInference()
+                    }
+                    BusyIndicator {
+                        running: backend.busy
+                        visible: backend.busy
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    Label {
+                        text: backend.inferenceStatus
+                        color: backend.inferenceStatus.indexOf("失败") >= 0 ? "#cc0000"
+                             : backend.inferenceStatus.indexOf("完成") >= 0 ? "#228822"
+                             : "#666666"
+                        Layout.alignment: Qt.AlignRight
+                    }
+                }
+
+                ScrollView {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredHeight: 160
+                    Layout.maximumHeight: 320
+                    clip: true
+                    visible: backend.inferenceOutput.length > 0
+
+                    TextArea {
+                        readOnly: true
+                        selectByMouse: true
+                        wrapMode: TextEdit.Wrap
+                        text: backend.inferenceOutput
+                        font.family: "monospace"
+                        color: "#333333"
+                    }
+                }
+            }
+        }
+
+        GroupBox {
             title: "不支持算子统计（按出现次数降序）"
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -496,6 +571,16 @@ ApplicationWindow {
         title: "选择已扫描结果路径"
         onAccepted: {
             backend.reportPath = reportDialog.folder.toString().replace(/^file:\/\//, "")
+        }
+    }
+
+    FileDialog {
+        id: inferenceScriptDialog
+        title: "选择推理脚本"
+        fileMode: FileDialog.OpenFile
+        nameFilters: ["脚本文件 (*.py *.sh)", "Python 文件 (*.py)", "Shell 文件 (*.sh)", "所有文件 (*)"]
+        onAccepted: {
+            backend.inferenceScriptPath = inferenceScriptDialog.file.toString().replace(/^file:\/\//, "")
         }
     }
 }

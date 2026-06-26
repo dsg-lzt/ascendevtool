@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -147,6 +150,60 @@ class DevWorker(QObject):
         self.finished.emit(result)
 
 
+class InferenceWorker(QObject):
+    finished = Signal(object)
+
+    def __init__(self, script_path: str, cwd: str) -> None:
+        super().__init__()
+        self._script_path = script_path
+        self._cwd = cwd
+
+    @Slot()
+    def run(self) -> None:
+        try:
+            sp = Path(self._script_path)
+            if not sp.is_file():
+                self.finished.emit({"output": "", "exit_code": -1, "error": f"脚本不存在: {self._script_path}"})
+                return
+
+            if sp.suffix == ".sh":
+                cmd = ["bash", str(sp)]
+            elif sp.suffix == ".py":
+                cmd = [sys.executable, str(sp)]
+            else:
+                cmd = [sys.executable, str(sp)]
+
+            env = os.environ.copy()
+            env.setdefault("PYTHONIOENCODING", "utf-8")
+
+            proc = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=1800,
+                cwd=self._cwd or str(sp.parent),
+                env=env,
+            )
+
+            output = ""
+            if proc.stdout:
+                output += proc.stdout
+            if proc.stderr:
+                if output:
+                    output += "\n"
+                output += proc.stderr
+
+            self.finished.emit({
+                "output": output,
+                "exit_code": proc.returncode,
+                "error": "",
+            })
+        except subprocess.TimeoutExpired:
+            self.finished.emit({"output": "", "exit_code": -1, "error": "推理超时（超过30分钟）"})
+        except Exception as e:
+            self.finished.emit({"output": "", "exit_code": -1, "error": f"{type(e).__name__}: {e}"})
+
+
 class Backend(QObject):
     sourceDirChanged = Signal()
     targetDirChanged = Signal()
@@ -164,6 +221,9 @@ class Backend(QObject):
     devStatusChanged = Signal()
     devSummaryChanged = Signal()
     devOpListChanged = Signal()
+    inferenceScriptPathChanged = Signal()
+    inferenceOutputChanged = Signal()
+    inferenceStatusChanged = Signal()
 
     def __init__(self) -> None:
         super().__init__()
@@ -194,6 +254,9 @@ class Backend(QObject):
         self._dev_total_ops = 0
         self._dev_generated_tasks = 0
         self._dev_op_list_json = "[]"
+        self._inference_script_path = ""
+        self._inference_output = ""
+        self._inference_status = ""
 
     def getSourceDir(self) -> str:  # noqa: N802
         return self._source_dir
@@ -655,6 +718,84 @@ class Backend(QObject):
         thread.finished.connect(thread.deleteLater)
         thread.finished.connect(self._on_thread_finished)
         thread.start()
+
+    def getInferenceScriptPath(self) -> str:  # noqa: N802
+        return self._inference_script_path
+
+    def setInferenceScriptPath(self, v: str) -> None:  # noqa: N802
+        if v == self._inference_script_path:
+            return
+        self._inference_script_path = v
+        self.inferenceScriptPathChanged.emit()
+
+    inferenceScriptPath = Property(str, getInferenceScriptPath, setInferenceScriptPath, notify=inferenceScriptPathChanged)
+
+    def getInferenceOutput(self) -> str:  # noqa: N802
+        return self._inference_output
+
+    inferenceOutput = Property(str, getInferenceOutput, notify=inferenceOutputChanged)
+
+    def getInferenceStatus(self) -> str:  # noqa: N802
+        return self._inference_status
+
+    inferenceStatus = Property(str, getInferenceStatus, notify=inferenceStatusChanged)
+
+    @Slot()
+    def runInference(self) -> None:  # noqa: N802
+        if self._busy:
+            return
+        if not self._inference_script_path:
+            self._inference_status = "请先选择推理脚本"
+            self.inferenceStatusChanged.emit()
+            return
+
+        sp = Path(self._inference_script_path)
+        if not sp.is_file():
+            self._inference_status = "推理脚本不存在"
+            self.inferenceStatusChanged.emit()
+            return
+
+        self._set_busy(True)
+        self._inference_status = "推理运行中..."
+        self._inference_output = ""
+        self.inferenceStatusChanged.emit()
+        self.inferenceOutputChanged.emit()
+
+        cwd = self._target_dir or str(sp.parent)
+
+        thread = QThread()
+        worker = InferenceWorker(str(sp), cwd)
+        self._thread = thread
+        self._worker = worker
+
+        worker.moveToThread(thread)
+        thread.started.connect(worker.run)
+        worker.finished.connect(self._on_inference_finished)
+        worker.finished.connect(thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        thread.finished.connect(thread.deleteLater)
+        thread.finished.connect(self._on_thread_finished)
+        thread.start()
+
+    @Slot(object)
+    def _on_inference_finished(self, result: dict) -> None:
+        output = result.get("output", "")
+        exit_code = result.get("exit_code", -1)
+        error = result.get("error", "")
+
+        if error:
+            self._inference_output = error
+            self._inference_status = f"推理失败: {error}"
+        else:
+            self._inference_output = output
+            if exit_code == 0:
+                self._inference_status = "推理完成 (exit 0)"
+            else:
+                self._inference_status = f"推理结束 (exit {exit_code})"
+
+        self.inferenceOutputChanged.emit()
+        self.inferenceStatusChanged.emit()
+        self._set_busy(False)
 
     @Slot()
     def shutdown(self) -> None:
