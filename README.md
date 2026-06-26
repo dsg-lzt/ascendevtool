@@ -55,36 +55,15 @@ python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
 ### 2. 算子替换 + CUDA→NPU 迁移
 
 ```bash
-python -c "
-from pathlib import Path
-from rewriter.rewriter_core import rewrite_unsupported_ops
-from migrator.torch_to_npu import transform_source
-
-# 替换为你的实际路径
-csv_path = Path('<unsupported_api.csv 路径>')
-src_dir = Path('<待迁移模型目录>')
-out_dir = Path('<迁移输出目录>')
-local_csv = Path('patcher/local_op_lib/local_ops.csv')
-
-# 2.1 算子替换分析 + 代码改写
-result = rewrite_unsupported_ops(csv_path, local_csv, out_dir, src_dir)
-print(result.status)
-
-# 2.2 CUDA→NPU 迁移（跳过工具生成的 ascend/gorilla 文件）
-for f in out_dir.rglob('*.py'):
-    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name:
-        continue
-    src = f.read_text(encoding='utf-8')
-    new_src, changes = transform_source(src)
-    if changes > 0:
-        f.write_text(new_src, encoding='utf-8')
-        print(f'{f.name}: {changes} 处变更')
-
-print('迁移完成')
-"
+python migrate.py <待迁移模型目录> <unsupported_api.csv 路径> -o <迁移输出目录>
 ```
 
-包含：`.cuda()` → `.npu()`、`torch.cuda.*` → `torch.npu.*`、`"cuda"/"gpu"` → `"npu"`、compile_mode 设置、gorilla → config.config 等。
+示例：
+```bash
+python migrate.py ../sam2 ../ascenddev_output/sam2_scan/scan_01_xxx/sam2_analysis/unsupported_api.csv -o ../ascenddev_output/sam2_NPU
+```
+
+一步完成算子替换分析、代码改写、CUDA→NPU 迁移（`.cuda()`→`.npu()`、`"gpu"`→`"npu"`、compile_mode 设置等）。
 
 ### 3. 推理测试
 
@@ -129,23 +108,8 @@ python $ASCEND_TOOLKIT_HOME/tools/ms_fmk_transplt/analysis/pytorch_analyse.py \
 # 找到 csv
 CSV=$(find ../ascenddev_output/scan -name unsupported_api.csv | head -1)
 
-# 替换 + 迁移
-python -c "
-from pathlib import Path
-from rewriter.rewriter_core import rewrite_unsupported_ops
-from migrator.torch_to_npu import transform_source
-csv = Path('$CSV')
-src = Path('../SAM-6D')
-out = Path('../ascenddev_output/SAM-6D_NPU')
-local = Path('patcher/local_op_lib/local_ops.csv')
-print(rewrite_unsupported_ops(csv, local, out, src).status)
-for f in out.rglob('*.py'):
-    if 'ascend_pointnet2' in f.name or 'gorilla' in f.name: continue
-    s = f.read_text(encoding='utf-8')
-    ns, c = transform_source(s)
-    if c > 0: f.write_text(ns, encoding='utf-8'); print(f'{f.name}: {c}')
-print('done')
-"
+# 替换 + 迁移（一行搞定）
+python migrate.py ../SAM-6D "$CSV" -o ../ascenddev_output/SAM-6D_NPU
 
 # 推理
 cd ../ascenddev_output/SAM-6D_NPU
