@@ -4,4 +4,5 @@
   数学等价改写: 0
   需开发: 4
 已生成 8 个文件/脚手架
-迁移完成: 111 处变更, 跳过 2 个文件 ({'gorilla.py', 'ascend_pointnet2_ops.py'})
+<unknown>:3: SyntaxWarning: invalid escape sequence '\s'
+迁移完成: 89 处变更, 跳过 2 个文件 ({'ascend_pointnet2_ops.py', 'gorilla.py'})

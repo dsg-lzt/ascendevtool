@@ -4,209 +4,209 @@
   LAMBDA_ARG_RE_PATTERN = re.compile('\[\]\((.*?)\)')
 /usr/local/Ascend/ascend-toolkit/latest/tools/ms_fmk_transplt/analysis/unsupported_api_analysis/cuda_cpp_parser.py:17: SyntaxWarning: invalid escape sequence '\('
   TORCH_FN_RE_PATTERN = re.compile('TORCH_FN\((.*?)\)')
-2026-06-26 16:49:40 [INFO]    Start to check input path...
-2026-06-26 16:49:40 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc.
-2026-06-26 16:49:40 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc.
-2026-06-26 16:49:40 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc/MsDeformAttn.
-2026-06-26 16:49:40 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc/MsDeformAttn.
-2026-06-26 16:49:40 [INFO]    PyTorch analysis start working now, please wait for a moment.
-2026-06-26 16:49:40 [INFO]    Analysis start...
-2026-06-26 16:49:40 [INFO]    [Progress:  0.00%]  Start the analysis of docker_test.py.
-2026-06-26 16:49:40 [WARNING] [Progress:  0.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress:  0.00%]  line: 6 ~ 6 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress:  0.00%]  Analysis of docker_test.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress:  2.50%]  Start the analysis of test.py.
-2026-06-26 16:49:40 [WARNING] [Progress:  2.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress:  2.50%]  Analysis of test.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress:  5.00%]  Start the analysis of setup.py.
-2026-06-26 16:49:40 [WARNING] [Progress:  5.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress:  5.00%]  Analysis of setup.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress:  7.50%]  Start the analysis of groundingdino/__init__.py.
-2026-06-26 16:49:40 [WARNING] [Progress:  7.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino.
-2026-06-26 16:49:40 [INFO]    [Progress:  7.50%]  Analysis of groundingdino/__init__.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 10.00%]  Start the analysis of groundingdino/models/__init__.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 10.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models.
-2026-06-26 16:49:40 [INFO]    [Progress: 10.00%]  Analysis of groundingdino/models/__init__.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 12.50%]  Start the analysis of groundingdino/models/registry.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 12.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models.
-2026-06-26 16:49:40 [INFO]    [Progress: 12.50%]  Analysis of groundingdino/models/registry.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 15.00%]  Start the analysis of groundingdino/models/GroundingDINO/__init__.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 15.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress: 15.00%]  Analysis of groundingdino/models/GroundingDINO/__init__.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 17.50%]  Start the analysis of groundingdino/models/GroundingDINO/bertwarper.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 17.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress: 17.50%]  line: 221 ~ 221 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 17.50%]  line: 273 ~ 273 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 17.50%]  Analysis of groundingdino/models/GroundingDINO/bertwarper.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  Start the analysis of groundingdino/models/GroundingDINO/ms_deform_attn.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 20.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [WARNING] [Progress: 20.00%]  line: 53 ~ 60 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-26 16:49:40 [WARNING] [Progress: 20.00%]  line: 80 ~ 88 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
-2026-06-26 16:49:40 [WARNING] [Progress: 20.00%]  line: 118 ~ 120 Operation Type: UNSUPPORTED Message: NA
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  line: 187 ~ 187 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  line: 188 ~ 188 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  line: 189 ~ 189 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  line: 190 ~ 190 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 20.00%]  Analysis of groundingdino/models/GroundingDINO/ms_deform_attn.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  Start the analysis of groundingdino/models/GroundingDINO/fuse_modules.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 22.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 24 ~ 24 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 115 ~ 115 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 116 ~ 116 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 117 ~ 117 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 120 ~ 120 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  line: 121 ~ 121 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 22.50%]  Analysis of groundingdino/models/GroundingDINO/fuse_modules.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 25.00%]  Start the analysis of groundingdino/models/GroundingDINO/utils.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 25.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [INFO]    [Progress: 25.00%]  line: 132 ~ 132 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 25.00%]  line: 179 ~ 179 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 25.00%]  Analysis of groundingdino/models/GroundingDINO/utils.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 27.50%]  Start the analysis of groundingdino/models/GroundingDINO/transformer_vanilla.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 27.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:40 [WARNING] [Progress: 27.50%]  line: 83 ~ 83 Operation Type: UNSUPPORTED Message: NA
-2026-06-26 16:49:40 [INFO]    [Progress: 27.50%]  line: 85 ~ 85 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 27.50%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:40 [INFO]    [Progress: 27.50%]  Analysis of groundingdino/models/GroundingDINO/transformer_vanilla.py completed.
-2026-06-26 16:49:40 [INFO]    [Progress: 30.00%]  Start the analysis of groundingdino/models/GroundingDINO/groundingdino.py.
-2026-06-26 16:49:40 [WARNING] [Progress: 30.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  line: 225 ~ 225 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  line: 248 ~ 250 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  line: 320 ~ 320 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  line: 321 ~ 321 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 30.00%]  Analysis of groundingdino/models/GroundingDINO/groundingdino.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  Start the analysis of groundingdino/models/GroundingDINO/transformer.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 32.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
-2026-06-26 16:49:41 [WARNING] [Progress: 32.50%]  line: 830 ~ 830 Operation Type: UNSUPPORTED Message: NA
-2026-06-26 16:49:41 [WARNING] [Progress: 32.50%]  line: 835 ~ 835 Operation Type: UNSUPPORTED Message: NA
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 165 ~ 165 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 209 ~ 209 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 177 ~ 177 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 763 ~ 763 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 766 ~ 766 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 840 ~ 840 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  line: 843 ~ 843 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 32.50%]  Analysis of groundingdino/models/GroundingDINO/transformer.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 35.00%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/__init__.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 35.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
-2026-06-26 16:49:41 [INFO]    [Progress: 35.00%]  Analysis of groundingdino/models/GroundingDINO/backbone/__init__.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/swin_transformer.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 37.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 33 ~ 33 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 35 ~ 35 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 126 ~ 126 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 128 ~ 128 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 311 ~ 311 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  line: 751 ~ 751 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 37.50%]  Analysis of groundingdino/models/GroundingDINO/backbone/swin_transformer.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 40.00%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/position_encoding.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 40.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
-2026-06-26 16:49:41 [INFO]    [Progress: 40.00%]  line: 141 ~ 141 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-26 16:49:41 [INFO]    [Progress: 40.00%]  line: 142 ~ 142 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
-2026-06-26 16:49:41 [INFO]    [Progress: 40.00%]  Analysis of groundingdino/models/GroundingDINO/backbone/position_encoding.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 42.50%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/backbone.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 42.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
-2026-06-26 16:49:41 [INFO]    [Progress: 42.50%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 42.50%]  line: 157 ~ 157 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:41 [INFO]    [Progress: 42.50%]  Analysis of groundingdino/models/GroundingDINO/backbone/backbone.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 45.00%]  Start the analysis of groundingdino/datasets/__init__.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 45.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
-2026-06-26 16:49:41 [INFO]    [Progress: 45.00%]  Analysis of groundingdino/datasets/__init__.py completed.
-2026-06-26 16:49:41 [INFO]    [Progress: 47.50%]  Start the analysis of groundingdino/datasets/transforms.py.
-2026-06-26 16:49:41 [WARNING] [Progress: 47.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
-2026-06-26 16:49:42 [INFO]    [Progress: 47.50%]  Analysis of groundingdino/datasets/transforms.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 50.00%]  Start the analysis of groundingdino/datasets/cocogrounding_eval.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 50.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
-2026-06-26 16:49:42 [INFO]    [Progress: 50.00%]  Analysis of groundingdino/datasets/cocogrounding_eval.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 52.50%]  Start the analysis of groundingdino/util/logger.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 52.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 52.50%]  Analysis of groundingdino/util/logger.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 55.00%]  Start the analysis of groundingdino/util/vl_utils.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 55.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 55.00%]  Analysis of groundingdino/util/vl_utils.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 57.50%]  Start the analysis of groundingdino/util/__init__.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 57.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 57.50%]  Analysis of groundingdino/util/__init__.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 60.00%]  Start the analysis of groundingdino/util/time_counter.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 60.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 60.00%]  Analysis of groundingdino/util/time_counter.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 62.50%]  Start the analysis of groundingdino/util/get_tokenlizer.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 62.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 62.50%]  Analysis of groundingdino/util/get_tokenlizer.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  Start the analysis of groundingdino/util/inference.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 65.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  line: 77 ~ 77 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  line: 78 ~ 78 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  line: 158 ~ 162 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  line: 190 ~ 190 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  line: 233 ~ 233 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 65.00%]  Analysis of groundingdino/util/inference.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 67.50%]  Start the analysis of groundingdino/util/slconfig.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 67.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 67.50%]  Analysis of groundingdino/util/slconfig.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  Start the analysis of groundingdino/util/utils.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 70.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  line: 162 ~ 162 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  line: 192 ~ 192 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  line: 485 ~ 485 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  line: 493 ~ 493 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  line: 595 ~ 595 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:42 [INFO]    [Progress: 70.00%]  Analysis of groundingdino/util/utils.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 72.50%]  Start the analysis of groundingdino/util/slio.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 72.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:42 [INFO]    [Progress: 72.50%]  Analysis of groundingdino/util/slio.py completed.
-2026-06-26 16:49:42 [INFO]    [Progress: 75.00%]  Start the analysis of groundingdino/util/visualizer.py.
-2026-06-26 16:49:42 [WARNING] [Progress: 75.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:43 [INFO]    [Progress: 75.00%]  Analysis of groundingdino/util/visualizer.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 77.50%]  Start the analysis of groundingdino/util/box_ops.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 77.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:43 [INFO]    [Progress: 77.50%]  Analysis of groundingdino/util/box_ops.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  Start the analysis of groundingdino/util/misc.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 80.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 134 ~ 134 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 192 ~ 192 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 404 ~ 404 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 406 ~ 406 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 408 ~ 408 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 427 ~ 427 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 431 ~ 431 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 505 ~ 507 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 506 ~ 506 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  line: 524 ~ 524 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 80.00%]  Analysis of groundingdino/util/misc.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 82.50%]  Start the analysis of groundingdino/config/GroundingDINO_SwinB_cfg.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 82.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
-2026-06-26 16:49:43 [INFO]    [Progress: 82.50%]  Analysis of groundingdino/config/GroundingDINO_SwinB_cfg.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 85.00%]  Start the analysis of groundingdino/config/__init__.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 85.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
-2026-06-26 16:49:43 [INFO]    [Progress: 85.00%]  Analysis of groundingdino/config/__init__.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 87.50%]  Start the analysis of groundingdino/config/GroundingDINO_SwinT_OGC.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 87.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
-2026-06-26 16:49:43 [INFO]    [Progress: 87.50%]  Analysis of groundingdino/config/GroundingDINO_SwinT_OGC.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 90.00%]  Start the analysis of demo/gradio_app.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 90.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:49:43 [INFO]    [Progress: 90.00%]  Analysis of demo/gradio_app.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 92.50%]  Start the analysis of demo/create_coco_dataset.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 92.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:49:43 [INFO]    [Progress: 92.50%]  Analysis of demo/create_coco_dataset.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  Start the analysis of demo/inference_on_a_image.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 95.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  line: 119 ~ 122 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 95.00%]  Analysis of demo/inference_on_a_image.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  Start the analysis of demo/test_ap_on_coco.py.
-2026-06-26 16:49:43 [WARNING] [Progress: 97.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 159 ~ 160 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 181 ~ 181 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  line: 188 ~ 189 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:49:43 [INFO]    [Progress: 97.50%]  Analysis of demo/test_ap_on_coco.py completed.
-2026-06-26 16:49:43 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-26 16:49:43 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is GroundingDINO_analysis.
+2026-06-26 16:54:16 [INFO]    Start to check input path...
+2026-06-26 16:54:16 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc.
+2026-06-26 16:54:16 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc.
+2026-06-26 16:54:16 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc/MsDeformAttn.
+2026-06-26 16:54:16 [WARNING] The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/csrc/MsDeformAttn.
+2026-06-26 16:54:16 [INFO]    PyTorch analysis start working now, please wait for a moment.
+2026-06-26 16:54:16 [INFO]    Analysis start...
+2026-06-26 16:54:16 [INFO]    [Progress:  0.00%]  Start the analysis of docker_test.py.
+2026-06-26 16:54:16 [WARNING] [Progress:  0.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress:  0.00%]  line: 6 ~ 6 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress:  0.00%]  Analysis of docker_test.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress:  2.50%]  Start the analysis of test.py.
+2026-06-26 16:54:16 [WARNING] [Progress:  2.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress:  2.50%]  Analysis of test.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress:  5.00%]  Start the analysis of setup.py.
+2026-06-26 16:54:16 [WARNING] [Progress:  5.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress:  5.00%]  Analysis of setup.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress:  7.50%]  Start the analysis of groundingdino/__init__.py.
+2026-06-26 16:54:16 [WARNING] [Progress:  7.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino.
+2026-06-26 16:54:16 [INFO]    [Progress:  7.50%]  Analysis of groundingdino/__init__.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 10.00%]  Start the analysis of groundingdino/models/__init__.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 10.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models.
+2026-06-26 16:54:16 [INFO]    [Progress: 10.00%]  Analysis of groundingdino/models/__init__.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 12.50%]  Start the analysis of groundingdino/models/registry.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 12.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models.
+2026-06-26 16:54:16 [INFO]    [Progress: 12.50%]  Analysis of groundingdino/models/registry.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 15.00%]  Start the analysis of groundingdino/models/GroundingDINO/__init__.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 15.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress: 15.00%]  Analysis of groundingdino/models/GroundingDINO/__init__.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 17.50%]  Start the analysis of groundingdino/models/GroundingDINO/bertwarper.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 17.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress: 17.50%]  line: 221 ~ 221 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 17.50%]  line: 273 ~ 273 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 17.50%]  Analysis of groundingdino/models/GroundingDINO/bertwarper.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  Start the analysis of groundingdino/models/GroundingDINO/ms_deform_attn.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 20.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [WARNING] [Progress: 20.00%]  line: 53 ~ 60 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-26 16:54:16 [WARNING] [Progress: 20.00%]  line: 80 ~ 88 Operation Type: UNSUPPORTED Message: User-defined CUDA Operator.
+2026-06-26 16:54:16 [WARNING] [Progress: 20.00%]  line: 118 ~ 120 Operation Type: UNSUPPORTED Message: NA
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  line: 187 ~ 187 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  line: 188 ~ 188 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  line: 189 ~ 189 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  line: 190 ~ 190 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 20.00%]  Analysis of groundingdino/models/GroundingDINO/ms_deform_attn.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  Start the analysis of groundingdino/models/GroundingDINO/fuse_modules.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 22.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 24 ~ 24 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 115 ~ 115 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 116 ~ 116 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 117 ~ 117 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 118 ~ 118 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 120 ~ 120 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  line: 121 ~ 121 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 22.50%]  Analysis of groundingdino/models/GroundingDINO/fuse_modules.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 25.00%]  Start the analysis of groundingdino/models/GroundingDINO/utils.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 25.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress: 25.00%]  line: 132 ~ 132 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 25.00%]  line: 179 ~ 179 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 25.00%]  Analysis of groundingdino/models/GroundingDINO/utils.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 27.50%]  Start the analysis of groundingdino/models/GroundingDINO/transformer_vanilla.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 27.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [WARNING] [Progress: 27.50%]  line: 83 ~ 83 Operation Type: UNSUPPORTED Message: NA
+2026-06-26 16:54:16 [INFO]    [Progress: 27.50%]  line: 85 ~ 85 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 27.50%]  line: 87 ~ 87 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 27.50%]  Analysis of groundingdino/models/GroundingDINO/transformer_vanilla.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  Start the analysis of groundingdino/models/GroundingDINO/groundingdino.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 30.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  line: 225 ~ 225 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  line: 248 ~ 250 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  line: 320 ~ 320 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  line: 321 ~ 321 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:16 [INFO]    [Progress: 30.00%]  Analysis of groundingdino/models/GroundingDINO/groundingdino.py completed.
+2026-06-26 16:54:16 [INFO]    [Progress: 32.50%]  Start the analysis of groundingdino/models/GroundingDINO/transformer.py.
+2026-06-26 16:54:16 [WARNING] [Progress: 32.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO.
+2026-06-26 16:54:17 [WARNING] [Progress: 32.50%]  line: 830 ~ 830 Operation Type: UNSUPPORTED Message: NA
+2026-06-26 16:54:17 [WARNING] [Progress: 32.50%]  line: 835 ~ 835 Operation Type: UNSUPPORTED Message: NA
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 165 ~ 165 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 209 ~ 209 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 177 ~ 177 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 763 ~ 763 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 766 ~ 766 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 840 ~ 840 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  line: 843 ~ 843 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 32.50%]  Analysis of groundingdino/models/GroundingDINO/transformer.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 35.00%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/__init__.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 35.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
+2026-06-26 16:54:17 [INFO]    [Progress: 35.00%]  Analysis of groundingdino/models/GroundingDINO/backbone/__init__.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/swin_transformer.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 37.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 33 ~ 33 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 35 ~ 35 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 126 ~ 126 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 128 ~ 128 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 311 ~ 311 Operation Type: SUGGESTION Message: torch.nn.Linear has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  line: 751 ~ 751 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 37.50%]  Analysis of groundingdino/models/GroundingDINO/backbone/swin_transformer.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 40.00%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/position_encoding.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 40.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
+2026-06-26 16:54:17 [INFO]    [Progress: 40.00%]  line: 141 ~ 141 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-26 16:54:17 [INFO]    [Progress: 40.00%]  line: 142 ~ 142 Operation Type: SUGGESTION Message: torch.nn.Embedding has a suggestion about precision
+2026-06-26 16:54:17 [INFO]    [Progress: 40.00%]  Analysis of groundingdino/models/GroundingDINO/backbone/position_encoding.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 42.50%]  Start the analysis of groundingdino/models/GroundingDINO/backbone/backbone.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 42.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/models/GroundingDINO/backbone.
+2026-06-26 16:54:17 [INFO]    [Progress: 42.50%]  line: 113 ~ 113 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 42.50%]  line: 157 ~ 157 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:17 [INFO]    [Progress: 42.50%]  Analysis of groundingdino/models/GroundingDINO/backbone/backbone.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 45.00%]  Start the analysis of groundingdino/datasets/__init__.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 45.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
+2026-06-26 16:54:17 [INFO]    [Progress: 45.00%]  Analysis of groundingdino/datasets/__init__.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 47.50%]  Start the analysis of groundingdino/datasets/transforms.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 47.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
+2026-06-26 16:54:17 [INFO]    [Progress: 47.50%]  Analysis of groundingdino/datasets/transforms.py completed.
+2026-06-26 16:54:17 [INFO]    [Progress: 50.00%]  Start the analysis of groundingdino/datasets/cocogrounding_eval.py.
+2026-06-26 16:54:17 [WARNING] [Progress: 50.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/datasets.
+2026-06-26 16:54:18 [INFO]    [Progress: 50.00%]  Analysis of groundingdino/datasets/cocogrounding_eval.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 52.50%]  Start the analysis of groundingdino/util/logger.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 52.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 52.50%]  Analysis of groundingdino/util/logger.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 55.00%]  Start the analysis of groundingdino/util/vl_utils.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 55.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 55.00%]  Analysis of groundingdino/util/vl_utils.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 57.50%]  Start the analysis of groundingdino/util/__init__.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 57.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 57.50%]  Analysis of groundingdino/util/__init__.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 60.00%]  Start the analysis of groundingdino/util/time_counter.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 60.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 60.00%]  Analysis of groundingdino/util/time_counter.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 62.50%]  Start the analysis of groundingdino/util/get_tokenlizer.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 62.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 62.50%]  Analysis of groundingdino/util/get_tokenlizer.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  Start the analysis of groundingdino/util/inference.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 65.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  line: 77 ~ 77 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  line: 78 ~ 78 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  line: 158 ~ 162 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  line: 190 ~ 190 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  line: 233 ~ 233 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 65.00%]  Analysis of groundingdino/util/inference.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 67.50%]  Start the analysis of groundingdino/util/slconfig.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 67.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 67.50%]  Analysis of groundingdino/util/slconfig.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  Start the analysis of groundingdino/util/utils.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 70.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  line: 162 ~ 162 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  line: 192 ~ 192 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  line: 485 ~ 485 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  line: 493 ~ 493 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  line: 595 ~ 595 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:18 [INFO]    [Progress: 70.00%]  Analysis of groundingdino/util/utils.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 72.50%]  Start the analysis of groundingdino/util/slio.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 72.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 72.50%]  Analysis of groundingdino/util/slio.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 75.00%]  Start the analysis of groundingdino/util/visualizer.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 75.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 75.00%]  Analysis of groundingdino/util/visualizer.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 77.50%]  Start the analysis of groundingdino/util/box_ops.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 77.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:18 [INFO]    [Progress: 77.50%]  Analysis of groundingdino/util/box_ops.py completed.
+2026-06-26 16:54:18 [INFO]    [Progress: 80.00%]  Start the analysis of groundingdino/util/misc.py.
+2026-06-26 16:54:18 [WARNING] [Progress: 80.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/util.
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 134 ~ 134 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 192 ~ 192 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 404 ~ 404 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 406 ~ 406 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 408 ~ 408 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 427 ~ 427 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 431 ~ 431 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 505 ~ 507 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 506 ~ 506 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  line: 524 ~ 524 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 80.00%]  Analysis of groundingdino/util/misc.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 82.50%]  Start the analysis of groundingdino/config/GroundingDINO_SwinB_cfg.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 82.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
+2026-06-26 16:54:19 [INFO]    [Progress: 82.50%]  Analysis of groundingdino/config/GroundingDINO_SwinB_cfg.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 85.00%]  Start the analysis of groundingdino/config/__init__.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 85.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
+2026-06-26 16:54:19 [INFO]    [Progress: 85.00%]  Analysis of groundingdino/config/__init__.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 87.50%]  Start the analysis of groundingdino/config/GroundingDINO_SwinT_OGC.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 87.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/groundingdino/config.
+2026-06-26 16:54:19 [INFO]    [Progress: 87.50%]  Analysis of groundingdino/config/GroundingDINO_SwinT_OGC.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 90.00%]  Start the analysis of demo/gradio_app.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 90.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:54:19 [INFO]    [Progress: 90.00%]  Analysis of demo/gradio_app.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 92.50%]  Start the analysis of demo/create_coco_dataset.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 92.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:54:19 [INFO]    [Progress: 92.50%]  Analysis of demo/create_coco_dataset.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 95.00%]  Start the analysis of demo/inference_on_a_image.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 95.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:54:19 [INFO]    [Progress: 95.00%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 95.00%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 95.00%]  line: 119 ~ 122 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 95.00%]  Analysis of demo/inference_on_a_image.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  Start the analysis of demo/test_ap_on_coco.py.
+2026-06-26 16:54:19 [WARNING] [Progress: 97.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  line: 159 ~ 160 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  line: 181 ~ 181 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  line: 188 ~ 189 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-26 16:54:19 [INFO]    [Progress: 97.50%]  Analysis of demo/test_ap_on_coco.py completed.
+2026-06-26 16:54:19 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-26 16:54:19 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is GroundingDINO_analysis.
 +----------------------------+------------+
 |           files            | statistics |
 +----------------------------+------------+
