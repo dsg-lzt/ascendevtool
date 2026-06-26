@@ -10,10 +10,11 @@
 cd AscendDevTool
 source ascenddevtool/bin/activate
 
-# 单次执行
-bash scripts/pipeline_run.sh 1 <模型名>     # 如: bash scripts/pipeline_run.sh 1 sam2
+# 单次执行（需指定推理脚本）
+ASCEND_INF_SCRIPT=<推理脚本> bash scripts/pipeline_run.sh 1 <模型名>
 
 # 或后台循环（自动检测 git 变更，最多10轮迭代调试）
+export ASCEND_INF_SCRIPT=<推理脚本>
 nohup bash scripts/pipeline_loop.sh <模型名> > ../pipeline_loop.log 2>&1 &
 ```
 
@@ -67,22 +68,14 @@ python migrate.py ../sam2 ../ascenddev_output/sam2_scan/scan_01_xxx/sam2_analysi
 
 ### 3. 推理测试
 
-```bash
-cd <迁移输出目录>
-# 使用 torch_npu 环境运行推理脚本
-/home/orange/miniconda3/envs/torch_npu/bin/python <推理脚本.py>
-```
-
-如需指定参数：
+推理脚本由用户通过环境变量指定（支持相对路径，自动映射到迁移输出目录）：
 
 ```bash
-/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
-  --output_dir <输出目录> \
-  --cad_path <CAD模型路径> \
-  --rgb_path <RGB图片路径> \
-  --depth_path <深度图路径> \
-  --cam_path <相机参数> \
-  --seg_path <分割结果>
+# 指定脚本路径（相对路径基于模型源码目录）
+ASCEND_INF_SCRIPT=<推理脚本.py> bash scripts/pipeline_run.sh 1 <模型名>
+
+# 或指定完整命令（可带参数）
+ASCEND_INF_CMD="python test.py --arg val" bash scripts/pipeline_run.sh 1 <模型名>
 ```
 
 ---
