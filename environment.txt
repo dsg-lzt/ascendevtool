@@ -1,4 +1,13 @@
-/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py   --output_dir ../Data/Example/outputs   --cad_path ../Data/Example/obj_000005.ply   --rgb_path ../Data/Example/rgb.png   --depth_path ../Data/Example/depth.png   --cam_path ../Data/Example/camera.json   --seg_path ../Data/Example/outputs/sam6d_results/detection_ism.json
+# 推理
+cd ../ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model
+
+/home/orange/miniconda3/envs/torch_npu/bin/python run_inference_custom.py \
+  --output_dir ../Data/Example/outputs \
+  --cad_path ../Data/Example/obj_000005.ply \
+  --rgb_path ../Data/Example/rgb.png \
+  --depth_path ../Data/Example/depth.png \
+  --cam_path ../Data/Example/camera.json \
+  --seg_path ../Data/Example/outputs/sam6d_results/detection_ism.json
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
@@ -8,42 +17,54 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 => creating model ...
+load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
+=> extracting templates ...
+[W629 10:43:26.993593932 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
+/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:84: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_furthest_point_sampling 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
+/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:103: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_gather_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
+=> loading input data ...
+=> running model ...
+[W629 10:43:32.939037587 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_linalg_det.result' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:180: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_ball_query 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_ball_query 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
+/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py:161: UserWarning: AscendDevTool: 算子 pointnet2._ext.ascend_group_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能
+  warnings.warn("AscendDevTool: 算子 pointnet2._ext.ascend_group_points 当前使用 PyTorch fallback，建议后续用 Ascend C 重写以提升性能")
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 59, in <module>
-    import ascend_pointnet2_ops as _ext
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py", line 38, in <module>
-    from mmcv.ops import gather_points as _mmcv_gather_points
-  File "/home/orange/.local/lib/python3.10/site-packages/mmcv/ops/__init__.py", line 2, in <module>
-    from .active_rotated_filter import active_rotated_filter
-  File "/home/orange/.local/lib/python3.10/site-packages/mmcv/ops/active_rotated_filter.py", line 10, in <module>
-    ext_module = ext_loader.load_ext(
-  File "/home/orange/.local/lib/python3.10/site-packages/mmcv/utils/ext_loader.py", line 13, in load_ext
-    ext = importlib.import_module('mmcv.' + name)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/importlib/__init__.py", line 126, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-ModuleNotFoundError: No module named 'mmcv._ext'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 299, in <module>
-    MODEL = importlib.import_module(cfg.model_name)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/importlib/__init__.py", line 126, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
-  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/pose_estimation_model.py", line 6, in <module>
-    from feature_extraction import ViTEncoder
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 10, in <module>
-    from model_utils import (
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/utils/model_utils.py", line 9, in <module>
-    from pointnet2_utils import (
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 62, in <module>
-    raise ImportError(
-ImportError: Could not import _ext module.
-Please see the setup instructions in the README: https://github.com/erikwijmans/Pointnet2_PyTorch/blob/master/README.rst
-[ERROR] 2026-06-29-10:31:54 (PID:354991, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 323, in <module>
+    out = model(input_data)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/pose_estimation_model.py", line 49, in forward
+    end_points = self.fine_point_matching(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/fine_point_matching.py", line 48, in forward
+    f1 = self.in_proj(f1) + self.PE(p1_)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/fine_point_matching.py", line 108, in forward
+    feat1 = self.group1(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 382, in forward
+    grouped_xyz = grouping_operation(xyz_trans, idx)  # (B, 3, npoint, nsample)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 265, in forward
+    return _ext.ascend_group_points(features, idx)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py", line 162, in ascend_group_points
+    return _mmcv_grouping_operation(xyz, idx)
+  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py", line 55, in _mmcv_grouping_operation
+    return xyz.view(B, C, -1)[:, :, idx.view(B, -1)].view(B, C, *idx.shape[1:])
+RuntimeError: shape '[6, 3, 2048, 32]' is invalid for input of size 7077888
+[ERROR] 2026-06-29-10:43:38 (PID:404984, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
