@@ -1,30 +1,30 @@
 === Pipeline Round 03 Summary ===
 Model: GroundingDINO
-Time: 2026-06-26 16:51:56
-Git commit: 79bb8bfdcb36b3c3fe1006f6fecbd9b3026af6f0
+Time: 2026-06-29 10:35:20
+Git commit: e9d9a97a378774a3977a3f364a8ed87ee5ad6fe2
 
 --- scan.log (tail 30) ---
-2026-06-26 16:51:54 [WARNING] [Progress: 90.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:51:54 [INFO]    [Progress: 90.00%]  Analysis of demo/gradio_app.py completed.
-2026-06-26 16:51:54 [INFO]    [Progress: 92.50%]  Start the analysis of demo/create_coco_dataset.py.
-2026-06-26 16:51:54 [WARNING] [Progress: 92.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:51:54 [INFO]    [Progress: 92.50%]  Analysis of demo/create_coco_dataset.py completed.
-2026-06-26 16:51:54 [INFO]    [Progress: 95.00%]  Start the analysis of demo/inference_on_a_image.py.
-2026-06-26 16:51:54 [WARNING] [Progress: 95.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:51:54 [INFO]    [Progress: 95.00%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:54 [INFO]    [Progress: 95.00%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:54 [INFO]    [Progress: 95.00%]  line: 119 ~ 122 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:54 [INFO]    [Progress: 95.00%]  Analysis of demo/inference_on_a_image.py completed.
-2026-06-26 16:51:54 [INFO]    [Progress: 97.50%]  Start the analysis of demo/test_ap_on_coco.py.
-2026-06-26 16:51:54 [WARNING] [Progress: 97.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  line: 159 ~ 160 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  line: 181 ~ 181 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  line: 188 ~ 189 Operation Type: SUGGESTION Message: to has a suggestion about performance
-2026-06-26 16:51:55 [INFO]    [Progress: 97.50%]  Analysis of demo/test_ap_on_coco.py completed.
-2026-06-26 16:51:55 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
-2026-06-26 16:51:55 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is GroundingDINO_analysis.
+2026-06-29 10:34:15 [WARNING] [Progress: 90.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-29 10:34:16 [INFO]    [Progress: 90.00%]  Analysis of demo/gradio_app.py completed.
+2026-06-29 10:34:16 [INFO]    [Progress: 92.50%]  Start the analysis of demo/create_coco_dataset.py.
+2026-06-29 10:34:16 [WARNING] [Progress: 92.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-29 10:34:16 [INFO]    [Progress: 92.50%]  Analysis of demo/create_coco_dataset.py completed.
+2026-06-29 10:34:16 [INFO]    [Progress: 95.00%]  Start the analysis of demo/inference_on_a_image.py.
+2026-06-29 10:34:16 [WARNING] [Progress: 95.00%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-29 10:34:16 [INFO]    [Progress: 95.00%]  line: 91 ~ 91 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 95.00%]  line: 92 ~ 92 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 95.00%]  line: 119 ~ 122 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 95.00%]  Analysis of demo/inference_on_a_image.py completed.
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  Start the analysis of demo/test_ap_on_coco.py.
+2026-06-29 10:34:16 [WARNING] [Progress: 97.50%]  The dir is writable by others: /home/orange/pipeline_tool/GroundingDINO/demo.
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  line: 104 ~ 104 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  line: 146 ~ 146 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  line: 159 ~ 160 Operation Type: SUGGESTION Message: torch.utils.data.DataLoader has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  line: 181 ~ 181 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  line: 188 ~ 189 Operation Type: SUGGESTION Message: to has a suggestion about performance
+2026-06-29 10:34:16 [INFO]    [Progress: 97.50%]  Analysis of demo/test_ap_on_coco.py completed.
+2026-06-29 10:34:16 [INFO]    [Progress:100.00%]  Analyse run succeeded, welcome to the next use.
+2026-06-29 10:34:16 [INFO]    The detailed transplant result files are in the output path you defined, the relative path is GroundingDINO_analysis.
 +----------------------------+------------+
 |           files            | statistics |
 +----------------------------+------------+
@@ -42,30 +42,59 @@ Git commit: 79bb8bfdcb36b3c3fe1006f6fecbd9b3026af6f0
   数学等价改写: 0
   需开发: 4
 已生成 8 个文件/脚手架
-<unknown>:3: SyntaxWarning: invalid escape sequence '\s'
-迁移完成: 89 处变更, 跳过 2 个文件 ({'ascend_pointnet2_ops.py', 'gorilla.py'})
+迁移完成: 89 处变更, 跳过 2 个文件 ({'gorilla.py', 'ascend_pointnet2_ops.py'})
 
 --- inference.log (tail 50) ---
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-[W626 14:06:52.831387535 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/storage.py:41: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
-  if self.device.type != 'cpu':
+
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/test.py", line 62, in <module>
-    predictor = SAM2ImagePredictor(build_sam2(config_file=model_cfg, ckpt_path=checkpoint,device=device))
-  File "/home/orange/pipeline_tool/ascenddev_output/sam2_NPU/sam2/build_sam.py", line 95, in build_sam2
-    model = model.to(device)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 58, in to
-    device, dtype, non_blocking, convert_to_format = torch._C._nn._parse_to(*args, **kwargs)
-RuntimeError: Expected one of cpu, cuda, ipu, xpu, mkldnn, opengl, opencl, ideep, hip, ve, fpga, maia, xla, lazy, vulkan, mps, meta, hpu, mtia, privateuseone device type at start of device string: gpu
-[ERROR] 2026-06-26-14:06:55 (PID:3210400, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/test.py", line 10, in <module>
+    model = load_model(model_config_path="/home/orange/Documents/Lingshu-1130/src/eai_perception/eai_perception/submodules/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py",model_checkpoint_path= "/home/orange/Documents/Lingshu-1130/src/eai_perception/eai_perception/weights/GroundingDINO/groundingdino_swint_ogc.pth",device = 'npu')
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/util/inference.py", line 45, in load_model
+    model = build_model(args)
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/models/__init__.py", line 17, in build_model
+    model = build_func(args)
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/models/GroundingDINO/groundingdino.py", line 390, in build_groundingdino
+    model = GroundingDINO(
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/models/GroundingDINO/groundingdino.py", line 109, in __init__
+    self.tokenizer = get_tokenlizer.get_tokenlizer(text_encoder_type)
+  File "/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/util/get_tokenlizer.py", line 19, in get_tokenlizer
+    tokenizer = AutoTokenizer.from_pretrained(text_encoder_type)
+  File "/home/orange/.local/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py", line 826, in from_pretrained
+    tokenizer_config = get_tokenizer_config(pretrained_model_name_or_path, **kwargs)
+  File "/home/orange/.local/lib/python3.10/site-packages/transformers/models/auto/tokenization_auto.py", line 658, in get_tokenizer_config
+    resolved_config_file = cached_file(
+  File "/home/orange/.local/lib/python3.10/site-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1077, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 306, in _request_wrapper
+    response = http_backoff(method=method, url=url, **params)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 326, in http_backoff
+    raise err
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 307, in http_backoff
+    response = session.request(method=method, url=url, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/sessions.py", line 592, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/sessions.py", line 706, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/requests/adapters.py", line 672, in send
+    raise ProxyError(e, request=request)
+requests.exceptions.ProxyError: (MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/tokenizer_config.json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 504 Gateway Time-out')))"), '(Request ID: 4056d593-11c6-415a-a8e8-cbb73998e59c)')
+[ERROR] 2026-06-29-10:35:19 (PID:365646, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
 
 --- status ---
-INFERENCE_SKIPPED
+INFERENCE_ERROR
