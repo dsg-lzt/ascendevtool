@@ -1,20 +1,41 @@
-python3 -c "
-import zipfile
-from huggingface_hub import hf_hub_download
+import torch, os, sys
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
-path = hf_hub_download(
-    'facebook/map-anything-benchmarking',
-    'eth3d/courtyard.zip',
-    repo_type='dataset',
-    local_dir='./data',
+from mapanything.models import MapAnything
+from mapanything.utils.image import load_images
+
+WEIGHTS_DIR = "./weights"
+IMAGE_DIR = "./test_images"
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Using device: {device}")
+
+model = MapAnything.from_pretrained(WEIGHTS_DIR, local_files_only=True).to(device)
+model.eval()
+
+views = load_images(IMAGE_DIR)
+print(f"Loaded {len(views)} views")
+
+predictions = model.infer(
+    views,
+    memory_efficient_inference=True,
+    minibatch_size=1,
+    use_amp=True,
+    amp_dtype="bf16",
+    apply_mask=True,
+    mask_edges=True,
 )
-with zipfile.ZipFile(path, 'r') as z:
-    z.extractall('./test_images')
 
-import shutil, os
-img_dir = './test_images/courtyard/images'
-for f in sorted(os.listdir(img_dir))[:8]:
-    shutil.copy(f'{img_dir}/{f}', './test_images/')
-shutil.rmtree('./test_images/courtyard')
-print('Done')
-"
+import numpy as np
+os.makedirs("./output", exist_ok=True)
+
+for i, pred in enumerate(predictions):
+    intr = pred["intrinsics"]
+    print(f"View {i}: pts3d={pred['pts3d'].shape}, depth_z={pred['depth_z'].shape}, "
+          f"fx={intr[0,0,0]:.2f} fy={intr[0,1,1]:.2f}")
+    np.save(f"./output/pts3d_{i}.npy", pred["pts3d"].cpu().numpy())
+    np.save(f"./output/depth_{i}.npy", pred["depth_z"].cpu().numpy())
+    np.save(f"./output/intrinsics_{i}.npy", intr.cpu().numpy())
+    np.save(f"./output/pose_{i}.npy", pred["camera_poses"].cpu().numpy())
+
+print(f"\nAll done! Results saved to ./output/")
