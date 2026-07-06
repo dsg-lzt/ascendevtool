@@ -1,34 +1,20 @@
 nohup: 忽略输入
-已经是最新的。
-[OP-LOOP] 10:31:09 算子: pointnet2__ext_furthest_point_sampling | 初始 commit: 516bfcf1bdc133134c56b5a586bcba9d8fe2c094
-[OP-LOOP] 10:31:09 ========================================
-[OP-LOOP] 10:31:09 首次启动，立即执行第 1/10 轮 (pointnet2__ext_furthest_point_sampling)
-[OP-LOOP] 10:31:09 执行 op_pipeline_run.sh pointnet2__ext_furthest_point_sampling...
-[OP pointnet2__ext_furthest_point_sampling R01] 10:31:09 1/4 编译算子...
-[OP pointnet2__ext_furthest_point_sampling R01] 10:31:09 ERROR: 编译失败，详见 build.log
-/home/orange/pipeline_tool/AscendDevTool/scripts/op_pipeline_run.sh: 行 73: _gen_summary: 未找到命令
-[OP-LOOP] 10:31:09 上传日志...
-[master 3388890] logs: op pipeline round 1 (pointnet2__ext_furthest_point_sampling) [auto]
- 2 files changed, 54 insertions(+)
- create mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/run_01/build.log
- create mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/run_01/status.txt
-[OP-LOOP] 10:35:52 ========================================
-[OP-LOOP] 10:35:52 检测到新提交，开始第 2/10 轮 (pointnet2__ext_furthest_point_sampling)
-[OP-LOOP] 10:35:52   3388890775236d627de3e7f6c9feb150e9d8e034 -> c90884db5e212f6bf128c9cc6f74066fd1ec93d4
-更新 3388890..c90884d
+更新 22b1fdb..8d79a4b
 Fast-forward
- .../pointnet2__ext_furthest_point_sampling.cpp     | 118 +++++++++++-------
- ...pointnet2__ext_furthest_point_sampling_tiling.h |  10 +-
- .../pointnet2__ext_furthest_point_sampling.cpp     | 135 ++++++++++++++++++++-
- .../test_pointnet2__ext_furthest_point_sampling.py |  55 +++++++++
- 4 files changed, 271 insertions(+), 47 deletions(-)
- create mode 100644 op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py
-[OP-LOOP] 10:35:52 执行 op_pipeline_run.sh pointnet2__ext_furthest_point_sampling...
-[OP pointnet2__ext_furthest_point_sampling R02] 10:35:52 1/4 编译算子...
-[OP pointnet2__ext_furthest_point_sampling R02] 10:35:53 ERROR: 编译失败，详见 build.log
-/home/orange/pipeline_tool/AscendDevTool/scripts/op_pipeline_run.sh: 行 73: _gen_summary: 未找到命令
-[OP-LOOP] 10:35:53 上传日志...
-[master 1051eb3] logs: op pipeline round 2 (pointnet2__ext_furthest_point_sampling) [auto]
- 2 files changed, 54 insertions(+)
- create mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/run_02/build.log
- create mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/run_02/status.txt
+ .../pointnet2__ext_furthest_point_sampling.json    | 19 +++++++++---------
+ .../pointnet2__ext_furthest_point_sampling.cpp     | 23 +++++++++++++---------
+ .../pointnet2__ext_furthest_point_sampling.cpp     | 19 ++++++------------
+ .../test_pointnet2__ext_furthest_point_sampling.py |  3 +--
+ 4 files changed, 31 insertions(+), 33 deletions(-)
+[OP-LOOP] 11:14:50 算子: pointnet2__ext_furthest_point_sampling | 初始 commit: 8d79a4ba4a051a576993f3765d213f72b1061726
+[OP-LOOP] 11:14:50 ========================================
+[OP-LOOP] 11:14:50 首次启动，立即执行第 1/10 轮 (pointnet2__ext_furthest_point_sampling)
+[OP-LOOP] 11:14:50 执行 op_pipeline_run.sh pointnet2__ext_furthest_point_sampling...
+[OP pointnet2__ext_furthest_point_sampling R01] 11:14:50 1/4 编译算子...
+[OP pointnet2__ext_furthest_point_sampling R01] 11:14:50 已清理编译缓存
+[OP pointnet2__ext_furthest_point_sampling R01] 11:14:54 ERROR: 编译失败，详见 build.log
+/home/orange/pipeline_tool/AscendDevTool/scripts/op_pipeline_run.sh: 行 76: _gen_summary: 未找到命令
+[OP-LOOP] 11:14:54 上传日志...
+[master 4cbf7c6] logs: op pipeline round 1 (pointnet2__ext_furthest_point_sampling) [auto]
+ 2 files changed, 75 insertions(+), 21 deletions(-)
+ delete mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/loop_status.txt
