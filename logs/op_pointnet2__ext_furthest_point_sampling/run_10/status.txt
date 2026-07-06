@@ -1,0 +1,2 @@
+BUILD_FAILED
+BUILD_ERROR: 编译失败，详见 build.log
