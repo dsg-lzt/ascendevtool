@@ -56,6 +56,19 @@ fi
 
 # ---- 1. 编译 ----
 log "1/4 编译算子..."
+
+# 修正 CMakePresets.json 中可能残留的本地 CANN 路径
+PRESET_FILE=$(find "$OP_SRC_DIR" -name "CMakePresets.json" 2>/dev/null | head -1)
+if [ -f "$PRESET_FILE" ]; then
+    REMOTE_CANN=$(for d in "/usr/local/Ascend/ascend-toolkit/latest" "/usr/local/Ascend/cann/latest" "$HOME/Ascend/ascend-toolkit/latest"; do
+        [ -d "$d" ] && echo "$d" && break
+    done)
+    if [ -n "$REMOTE_CANN" ]; then
+        sed -i "s|\"ASCEND_CANN_PACKAGE_PATH\"[[:space:]]*:[[:space:]]*\"[^\"]*\"|\"ASCEND_CANN_PACKAGE_PATH\":\"${REMOTE_CANN}\"|g" "$PRESET_FILE"
+        log "已修正 CANN 路径: $REMOTE_CANN"
+    fi
+fi
+
 (
     cd "$TOOL_DIR"
     source ascenddevtool/bin/activate
