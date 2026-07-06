@@ -1,12 +1,12 @@
 === Op Pipeline Round 03 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 18:06:35
+Time: 2026-07-06 18:31:26
 
 --- build.log (tail 20) ---
-[ 58%] Built target cust_tf_parsers
-[ 83%] Built target cust_op_proto
-[ 83%] Built target gen_version_info
-[100%] Built target cust_opapi
+[ 75%] Built target npu_supported_ops
+[ 91%] Built target cust_optiling
+[100%] Built target ops_info_gen_ascend310p
+[100%] Built target gen_version_info
 [100%] Built target optiling_compat
 Run CPack packaging tool...
 CPack: Create package using External
