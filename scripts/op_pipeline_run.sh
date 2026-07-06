@@ -81,24 +81,24 @@ log "1/4 编译算子..."
             rm -f "$OP_SRC_DIR/build_out/Makefile" 2>/dev/null
             cd "$OP_SRC_DIR" && cmake -B build_out -S . 2>/dev/null
             make -C build_out -j$(nproc) > "$LOG_DIR/build.log" 2>&1 || {
-                echo "BUILD_FAILED" >> "$LOG_DIR/status.txt"
+                echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
                 fail "make 失败"
             }
-            echo "BUILD_OK" >> "$LOG_DIR/status.txt"
+            echo "BUILD_OK" > "$LOG_DIR/status.txt"
         else
             python "$TOOL_DIR/op_builder/op_manager.py" build "$OP_NAME" > "$LOG_DIR/build.log" 2>&1
         fi
     fi
     BUILD_EXIT=$?
     if [ $BUILD_EXIT -ne 0 ]; then
-        echo "BUILD_FAILED" >> "$LOG_DIR/status.txt"
+        echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
         fail "编译失败，详见 build.log"
     else
-        echo "BUILD_OK" >> "$LOG_DIR/status.txt"
+        echo "BUILD_OK" > "$LOG_DIR/status.txt"
         log "编译成功"
     fi
 )
-if grep -q "BUILD_FAILED" "$LOG_DIR/status.txt" 2>/dev/null; then
+if tail -1 "$LOG_DIR/status.txt" 2>/dev/null | grep -q "BUILD_FAILED"; then
     _gen_summary
     exit 1
 fi
