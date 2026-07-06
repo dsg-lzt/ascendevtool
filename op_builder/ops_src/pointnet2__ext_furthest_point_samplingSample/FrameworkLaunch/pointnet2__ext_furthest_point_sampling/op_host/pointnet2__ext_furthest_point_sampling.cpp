@@ -5,12 +5,17 @@
 namespace optiling {
 static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     pointnet2__ext_furthest_point_samplingTilingData tiling;
+    constexpr int ATTR_NPOINT = 0;
+
+    auto attrs = context->GetAttrs();
+    int32_t M_raw = *(attrs->GetAttrPointer<int32_t>(ATTR_NPOINT));
+    uint32_t M = static_cast<uint32_t>(M_raw);
 
     const gert::StorageShape* xyz_shape = context->GetInputShape(0);
     uint32_t B = xyz_shape->GetStorageShape().GetDim(0);
     uint32_t N = xyz_shape->GetStorageShape().GetDim(1);
-    uint32_t M = 256;
     if (M > N) M = N;
+    if (M == 0) M = 1;
 
     tiling.set_B(B);
     tiling.set_N(N);
@@ -24,6 +29,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
 
     uint32_t core_size = B / usedCoreNum;
     uint32_t core_remain = B % usedCoreNum;
+
     uint32_t block_size = 128;
     if (block_size > N) block_size = N;
 
@@ -44,7 +50,11 @@ namespace ge {
 static ge::graphStatus InferShape(gert::InferShapeContext* context) {
     const gert::Shape* xyz_shape = context->GetInputShape(0);
     uint32_t B = xyz_shape->GetDim(0);
-    uint32_t M = 256;
+    auto attrs = context->GetAttrs();
+    int32_t M_raw = *(attrs->GetAttrPointer<int32_t>(0));
+    uint32_t M = static_cast<uint32_t>(M_raw);
+    if (M == 0) M = 1;
+
     gert::Shape* y_shape = context->GetOutputShape(0);
     y_shape->SetDimNum(2);
     y_shape->SetDim(0, B);
@@ -64,9 +74,10 @@ public:
             .UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y0")
             .ParamType(REQUIRED)
-            .DataType({ge::DT_FLOAT})
+            .DataType({ge::DT_FLOAT, ge::DT_FLOAT16})
             .Format({ge::FORMAT_ND})
             .UnknownShapeFormat({ge::FORMAT_ND});
+        this->Attr("npoint").Int();
 
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);

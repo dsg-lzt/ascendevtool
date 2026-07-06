@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """FPS Ascend C operator test"""
 import torch
-import numpy as np
 
 def cpu_fps(xyz, npoint):
     B, N, _ = xyz.shape
@@ -26,7 +25,7 @@ def test_fps_op():
         ref = cpu_fps(xyz.cpu(), M)
 
         try:
-            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npt)
+            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npoint=M)
             out = out.long()
             ok = True
         except Exception as e:
