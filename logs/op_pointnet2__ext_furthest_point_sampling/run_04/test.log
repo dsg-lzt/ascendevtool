@@ -7,6 +7,7 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  B=1 N=256 M=32: OP fail - '_OpNamespace' 'pointnet2__ext_furthest_point_sampling' object has no attribute 'pointnet2__ext_furthest_point_sampling'
+  B=1 N=256 M=32: OP not found in torch.ops
+  Available npu ops: ['__doc__', '__loader__', '__name__', '__package__', '__spec__', '_amp_foreach_non_finite_check', '_conv_depthwise2d_backward', '_dir', '_dropout_with_byte_mask', '_dropout_with_byte_mask_backward']...
 
 FAILED
