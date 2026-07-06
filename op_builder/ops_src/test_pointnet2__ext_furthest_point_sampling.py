@@ -49,6 +49,10 @@ TORCH_LIBRARY(pointnet2_fps_ops, m) {
 def test():
     import torch_npu
 
+    # Ensure ninja is available
+    import subprocess, sys
+    subprocess.run([sys.executable, '-m', 'pip', 'install', 'ninja', '-q'], capture_output=True)
+    
     # Compile inline (no sys.path, no extra includes needed)
     print("  Compiling inline...")
     mod = load_inline(
