@@ -58,30 +58,33 @@ fi
 log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
-    # 清理上次编译缓存
     BUILD_OUT=$(find "$OP_SRC_DIR" -maxdepth 2 -name "build_out" -type d 2>/dev/null | head -1)
-    [ -d "$BUILD_OUT" ] && rm -rf "$BUILD_OUT" && log "已清理编译缓存"
+    [ -d "$BUILD_OUT" ] && rm -rf "$BUILD_OUT"
     source ascenddevtool/bin/activate
     cd "$OP_SRC_DIR"
 
-    # 直接 cmake 生成，不依赖 build.sh
-    cmake -B build_out -S . > "$LOG_DIR/build.log" 2>&1 || true
-    # 如果源目录有手写 aclnn 文件，替换自动生成的损坏版本
+    # 用 build.sh 生成 autogen 文件（允许失败）
+    bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
+
+    # 如果源目录有手写 aclnn 文件，替换自动生成的有缺陷版本并重新编译
     if [ -f "$OP_SRC_DIR/aclnn_fps.cpp" ]; then
         AUTO_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
         if [ -n "$AUTO_CPP" ]; then
-            cp "$OP_SRC_DIR/aclnn_fps.cpp" "$AUTO_CPP" && log "已替换 aclnn cpp"
+            cp "$OP_SRC_DIR/aclnn_fps.cpp" "$AUTO_CPP"
+            [ -f "$OP_SRC_DIR/aclnn_header.h" ] && {
+                AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
+                [ -n "$AUTO_H" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
+            }
+            log "已替换 aclnn 文件，重新编译..."
+            rm -f "$OP_SRC_DIR/build_out/Makefile" 2>/dev/null
+            cmake -S . -B build_out >> "$LOG_DIR/build.log" 2>&1 || true
+            cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || {
+                echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
+                fail "make 失败"
+            }
         fi
-        [ -f "$OP_SRC_DIR/aclnn_header.h" ] && {
-            AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
-            [ -n "$AUTO_H" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
-        }
     fi
-    # 编译
-    make -C build_out -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || {
-        echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-        fail "make 失败"
-    }
+
     echo "BUILD_OK" > "$LOG_DIR/status.txt"
     log "编译成功"
 )
