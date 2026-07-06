@@ -6,22 +6,33 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-=> creating model ...
-load pre-trained checkpoint from: checkpoints/mae_pretrain_vit_base.pth
-[W625 17:01:50.390210055 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
-=> extracting templates ...
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/run_inference_custom.py", line 278, in <module>
-    all_tem_pts, all_tem_feat = model.feature_extraction.get_obj_feats(all_tem, all_tem_pts, all_tem_choose)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/model/feature_extraction.py", line 182, in get_obj_feats
-    return sample_pts_feats(tem_pts, tem_feat, npoint)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/../Pose_Estimation_Model/utils/model_utils.py", line 60, in sample_pts_feats
-    pts = gather_operation(pts.transpose(1,2).contiguous(), sample_idx)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
-    return super().apply(*args, **kwargs)  # type: ignore[misc]
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/model/pointnet2/pointnet2_utils.py", line 108, in forward
-    return _ext.ascend_gather_points(features, idx)
-  File "/home/orange/pipeline_tool/ascenddev_output/SAM-6D_NPU/SAM-6D/Pose_Estimation_Model/ascend_pointnet2_ops.py", line 35, in ascend_gather_points
-    _, num_points, nsamples = idx.size()
-ValueError: not enough values to unpack (expected 3, got 2)
-[ERROR] 2026-06-25-17:01:52 (PID:2315338, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/home/orange/pipeline_tool/ascenddev_output/GroundingDINO_NPU/groundingdino/models/GroundingDINO/ms_deform_attn.py:33: UserWarning: Failed to load custom C++ ops. Running on CPU mode Only!
+  warnings.warn("Failed to load custom C++ ops. Running on CPU mode Only!")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+final text_encoder_type: bert-base-uncased
+开始 GroundingDINO GPU 性能测试（共 5 次迭代）...
+[W706 09:57:02.276311044 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
+/home/orange/.local/lib/python3.10/site-packages/transformers/modeling_utils.py:1060: FutureWarning: The `device` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:745: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.5 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/checkpoint.py:87: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:745: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.5 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/checkpoint.py:87: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/home/orange/.local/lib/python3.10/site-packages/transformers/modeling_utils.py:1060: FutureWarning: The `device` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+第 01 次推理耗时: 614.04 ms
+第 02 次推理耗时: 616.66 ms
+第 03 次推理耗时: 614.65 ms
+第 04 次推理耗时: 620.34 ms
+第 05 次推理耗时: 620.11 ms
+------------------------------
+GroundingDINO 平均推理耗时: 617.16 ms
+预估 FPS: 1.62
+------------------------------
