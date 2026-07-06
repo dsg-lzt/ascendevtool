@@ -1,0 +1,2 @@
+========== 3. VERIFY: pointnet2__ext_furthest_point_sampling ==========
+[WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
