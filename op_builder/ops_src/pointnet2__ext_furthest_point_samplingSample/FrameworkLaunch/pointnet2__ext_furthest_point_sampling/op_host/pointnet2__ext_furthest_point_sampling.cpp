@@ -7,44 +7,29 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     pointnet2__ext_furthest_point_samplingTilingData tiling;
 
     const gert::StorageShape* xyz_shape = context->GetInputShape(0);
-    const gert::StorageShape* npoint_shape = context->GetInputShape(1);
-
     uint32_t B = xyz_shape->GetStorageShape().GetDim(0);
     uint32_t N = xyz_shape->GetStorageShape().GetDim(1);
-    uint32_t M = 0;
-    {
-        const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
-        if (npt_data != nullptr) {
-            M = *reinterpret_cast<const uint32_t*>(npt_data);
-        }
-    }
-    if (M == 0) M = 256;
-    if (M > N) M = N;
 
+    uint32_t M = 256;
     tiling.set_B(B);
     tiling.set_N(N);
     tiling.set_M(M);
     tiling.set_totalLength(B * M);
 
     auto platform = platform_ascendc::PlatformAscendC(context->GetPlatformInfo());
-    uint32_t ubSize = platform.GetCoreMemSize().GetUB();
-    uint32_t typeSize = 4;  // float32
-    uint32_t maxPointsPerCore = (ubSize / 2) / (3 * typeSize + typeSize);
-    if (maxPointsPerCore < 128) maxPointsPerCore = 128;
-    if (maxPointsPerCore > N) maxPointsPerCore = N;
+    auto coreNumAiv = platform.GetCoreNumAiv();
 
-    uint32_t tileNumPerCore = (N + maxPointsPerCore - 1) / maxPointsPerCore;
-    uint32_t pointsPerTile = maxPointsPerCore;
-
-    auto aivNum = platform.GetCoreNumAiv();
-    uint32_t usedCoreNum = (B < aivNum) ? B : aivNum;
+    uint32_t usedCoreNum = (B < coreNumAiv) ? B : coreNumAiv;
     if (usedCoreNum == 0) usedCoreNum = 1;
 
     uint32_t core_size = B / usedCoreNum;
     uint32_t core_remain = B % usedCoreNum;
 
-    tiling.set_tileNum(tileNumPerCore);
-    tiling.set_block_size(pointsPerTile);
+    uint32_t block_size = 128;
+    if (block_size > N) block_size = N;
+
+    tiling.set_tileNum((N + block_size - 1) / block_size);
+    tiling.set_block_size(block_size);
     tiling.set_core_size(core_size);
     tiling.set_core_remain(core_remain);
     tiling.set_usedCoreNum(usedCoreNum);
@@ -60,13 +45,7 @@ namespace ge {
 static ge::graphStatus InferShape(gert::InferShapeContext* context) {
     const gert::Shape* xyz_shape = context->GetInputShape(0);
     uint32_t B = xyz_shape->GetDim(0);
-    uint32_t M = 0;
-    const gert::StorageShape* npt_shape = context->GetInputShape(1);
-    const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
-    if (npt_data != nullptr) {
-        M = *reinterpret_cast<const uint32_t*>(npt_data);
-    }
-    if (M == 0) M = 256;
+    uint32_t M = 256;
     gert::Shape* y_shape = context->GetOutputShape(0);
     y_shape->SetDimNum(2);
     y_shape->SetDim(0, B);
