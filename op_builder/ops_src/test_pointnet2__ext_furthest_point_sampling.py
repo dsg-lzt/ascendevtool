@@ -20,50 +20,41 @@ def cpu_fps(xyz, npoint):
 
 def test_fps_op():
     import torch_npu
-    # Try all possible registration methods
-    op_name = 'pointnet2__ext_furthest_point_sampling'
+    ns = torch.ops.pointnet2__ext_furthest_point_sampling
+    avail = [k for k in dir(ns) if not k.startswith('_')]
+    print(f"  Available functions: {avail}")
+    
+    # Find any function in this namespace
     op_func = None
-    
-    # Method 1: torch.ops.pointnet2__ext_furthest_point_sampling
-    try:
-        ns = getattr(torch.ops, op_name, None)
-        if ns and hasattr(ns, op_name):
-            op_func = getattr(ns, op_name)
-    except Exception:
-        pass
-    
-    # Method 2: torch_npu.npu_ops  
-    if not op_func and hasattr(torch_npu, 'npu_ops'):
-        for attr in dir(torch_npu.npu_ops):
-            if 'furthest' in attr.lower() or 'fps' in attr.lower():
-                op_func = getattr(torch_npu.npu_ops, attr)
-                break
+    for fn_name in avail:
+        obj = getattr(ns, fn_name)
+        if callable(getattr(obj, 'op', None)) or hasattr(obj, '__call__'):
+            op_func = getattr(ns, fn_name)
+            print(f"  Using: {fn_name}")
+            break
+    if op_func is None and avail:
+        op_func = getattr(ns, avail[0])
+        print(f"  Trying first: {avail[0]}")
 
-    # Method 3: ctypes call to ACLNN
     if not op_func:
-        import ctypes
-        try:
-            lib = ctypes.CDLL('libcust_opapi.so')
-            if hasattr(lib, 'aclnn'+op_name.replace('__','_')):
-                op_func = getattr(lib, 'aclnn'+op_name.replace('__','_'))
-        except Exception:
-            pass
-
-    if op_func is None:
-        print("OP not found via any method. Checking dirs...")
-        print(f"  torch.ops keys: {[k for k in dir(torch.ops) if 'point' in k.lower() or 'furthest' in k.lower() or 'fps' in k.lower()]}")
+        print("  No callable found")
         return False
 
     for B, N, M in [(1, 256, 32)]:
         xyz = torch.randn(B, N, 3, dtype=torch.float32).npu()
         ref = cpu_fps(xyz.cpu(), M)
         try:
-            out = op_func(xyz, M)
-            out = out.long()
+            out = op_func(xyz, M).long()
             ok = torch.equal(ref.long(), out.cpu().long())
             print(f"  B={B} N={N} M={M}: {'PASS' if ok else 'FAIL'}")
         except Exception as e:
             print(f"  B={B} N={N} M={M}: OP fail - {e}")
+            # Try with different args
+            try:
+                out = op_func(xyz, npoint=M).long()
+                print(f"    retry with npoint=: {'PASS' if torch.equal(ref.long(), out.cpu().long()) else 'FAIL'}")
+            except Exception as e2:
+                print(f"    retry fail: {e2}")
             return False
     return True
 
