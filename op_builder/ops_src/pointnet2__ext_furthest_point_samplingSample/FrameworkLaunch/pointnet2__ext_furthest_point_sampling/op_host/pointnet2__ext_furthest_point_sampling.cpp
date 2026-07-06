@@ -65,7 +65,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
 
     size_t *workspaces = context->GetWorkspaceSizes(1);
-    workspaces[0] = B * N * dataTypeLength;
+    workspaces[0] = 0;
 
     return ge::GRAPH_SUCCESS;
 }
