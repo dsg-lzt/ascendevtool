@@ -62,41 +62,28 @@ log "1/4 编译算子..."
     BUILD_OUT=$(find "$OP_SRC_DIR" -maxdepth 2 -name "build_out" -type d 2>/dev/null | head -1)
     [ -d "$BUILD_OUT" ] && rm -rf "$BUILD_OUT" && log "已清理编译缓存"
     source ascenddevtool/bin/activate
-    # 两步编译：先 cmake 生成，再替换损坏的 aclnn，最后 make
     cd "$OP_SRC_DIR"
-    if grep -q "aclnn_fps" "$OP_SRC_DIR/build_out/autogen/"*.cpp 2>/dev/null; then
-        # 已有我们的替换文件，直接编译
-        python "$TOOL_DIR/op_builder/op_manager.py" build "$OP_NAME" > "$LOG_DIR/build.log" 2>&1
-    else
-        # 第一次：用 build.sh 生成框架，然后替换损坏文件
-        bash build.sh 2>"$LOG_DIR/build.log" || true
-        ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
-        if [ -n "$ACLNN_CPP" ] && [ -f "$OP_SRC_DIR/aclnn_fps.cpp" ]; then
-            cp "$OP_SRC_DIR/aclnn_fps.cpp" "$ACLNN_CPP"
-            [ -f "$OP_SRC_DIR/aclnn_header.h" ] && {
-                ACLNN_H=$(echo "$ACLNN_CPP" | sed 's/\.cpp$/\.h/')
-                cp "$OP_SRC_DIR/aclnn_header.h" "$ACLNN_H"
-            }
-            log "已替换损坏的 aclnn 文件"
-            rm -f "$OP_SRC_DIR/build_out/Makefile" 2>/dev/null
-            cd "$OP_SRC_DIR" && cmake -B build_out -S . 2>/dev/null
-            make -C build_out -j$(nproc) > "$LOG_DIR/build.log" 2>&1 || {
-                echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-                fail "make 失败"
-            }
-            echo "BUILD_OK" > "$LOG_DIR/status.txt"
-        else
-            python "$TOOL_DIR/op_builder/op_manager.py" build "$OP_NAME" > "$LOG_DIR/build.log" 2>&1
+
+    # 直接 cmake 生成，不依赖 build.sh
+    cmake -B build_out -S . > "$LOG_DIR/build.log" 2>&1 || true
+    # 如果源目录有手写 aclnn 文件，替换自动生成的损坏版本
+    if [ -f "$OP_SRC_DIR/aclnn_fps.cpp" ]; then
+        AUTO_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
+        if [ -n "$AUTO_CPP" ]; then
+            cp "$OP_SRC_DIR/aclnn_fps.cpp" "$AUTO_CPP" && log "已替换 aclnn cpp"
         fi
+        [ -f "$OP_SRC_DIR/aclnn_header.h" ] && {
+            AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
+            [ -n "$AUTO_H" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
+        }
     fi
-    BUILD_EXIT=$?
-    if [ $BUILD_EXIT -ne 0 ]; then
+    # 编译
+    make -C build_out -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || {
         echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-        fail "编译失败，详见 build.log"
-    else
-        echo "BUILD_OK" > "$LOG_DIR/status.txt"
-        log "编译成功"
-    fi
+        fail "make 失败"
+    }
+    echo "BUILD_OK" > "$LOG_DIR/status.txt"
+    log "编译成功"
 )
 if tail -1 "$LOG_DIR/status.txt" 2>/dev/null | grep -q "BUILD_FAILED"; then
     _gen_summary
