@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FPS test — compile + load + validate"""
+"""FPS test - reference kernel validation"""
 import torch, torch_npu, os, subprocess, sys, glob, tempfile
 
 def cpu_fps(xyz, npoint):
@@ -19,12 +19,10 @@ def cpu_fps(xyz, npoint):
 
 cpp_source = """
 #include <torch/extension.h>
-#include <torch_npu/csrc/framework/OpCommand.h>
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
-    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kFloat));
+    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
     at_npu::native::OpCommand cmd;
-    cmd.Name("FurthestPointSampling")
-       .Input(xyz).Output(out).Attr("npoint", npoint).Run();
+    cmd.Name("pointnet2__ext_furthest_point_sampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
     return out;
 }
 TORCH_LIBRARY(fps_test_ops, m) { m.def("farthest_point_sample", &fps_npu); }
@@ -45,9 +43,8 @@ def test():
         extra_ldflags=[f'-L{lib_dir}', f'-l:{os.path.basename(npu_so)}'],
         build_directory=build_dir, is_python_module=False, verbose=False)
     torch.ops.load_library(os.path.join(build_dir, 'fps_test_ops.so'))
-    print("  Compiled + loaded OK")
-
     op = torch.ops.fps_test_ops.farthest_point_sample
+
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
     passed=0
@@ -55,13 +52,13 @@ def test():
         xyz=torch.randn(B,N,3).npu()
         ref=cpu_fps(xyz.cpu(),M)
         try:
-            out=op(xyz,M).long()
+            out=op(xyz,M)
             ok=torch.equal(ref,out.cpu())
-            print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}{'' if ok else f' mismatch={(ref!=out.cpu()).sum()}/{B*M}'}")
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}{'' if ok else f' m={(ref!=out.cpu()).sum()}/{B*M}'}")
             if ok: passed+=1
         except Exception as e:
             print(f"  B={B:3d} N={N:4d} M={M:3d}: {type(e).__name__}: {str(e)[:120]}")
-    print(f"\n  Result: {passed}/{len(tests)} passed")
+    print(f"\n  {passed}/{len(tests)} passed")
     return passed==len(tests)
 
 if __name__=="__main__":

@@ -1,18 +1,29 @@
 
+#ifndef FPS_TILING_H
+#define FPS_TILING_H
+
 #include "register/tilingdata_base.h"
 
 namespace optiling {
-BEGIN_TILING_DATA_DEF(pointnet2__ext_furthest_point_samplingTilingData)
+
+BEGIN_TILING_DATA_DEF(FpsTilingData)
   TILING_DATA_FIELD_DEF(uint32_t, B);
   TILING_DATA_FIELD_DEF(uint32_t, N);
   TILING_DATA_FIELD_DEF(uint32_t, M);
-  TILING_DATA_FIELD_DEF(uint32_t, totalLength);
-  TILING_DATA_FIELD_DEF(uint32_t, tileNum);
-  TILING_DATA_FIELD_DEF(uint32_t, block_size);
-  TILING_DATA_FIELD_DEF(uint32_t, core_size);
-  TILING_DATA_FIELD_DEF(uint32_t, core_remain);
-  TILING_DATA_FIELD_DEF(uint32_t, usedCoreNum);
+  TILING_DATA_FIELD_DEF(uint32_t, C);
+  TILING_DATA_FIELD_DEF(uint32_t, dataTypeLength);
+  TILING_DATA_FIELD_DEF(uint32_t, ubPointsNum);
+  TILING_DATA_FIELD_DEF(uint32_t, ubMinDistNum);
+  TILING_DATA_FIELD_DEF(uint32_t, tileLoopNum);
+  TILING_DATA_FIELD_DEF(uint32_t, batchPerCore);
+  TILING_DATA_FIELD_DEF(uint32_t, coreRemainder);
+  TILING_DATA_FIELD_DEF(uint32_t, wsOffset);
+  TILING_DATA_FIELD_DEF(uint32_t, wsStride);
+  TILING_DATA_FIELD_DEF(float,    initVal);
 END_TILING_DATA_DEF;
 
-REGISTER_TILING_DATA_CLASS(pointnet2__ext_furthest_point_sampling, pointnet2__ext_furthest_point_samplingTilingData)
-}
+REGISTER_TILING_DATA_CLASS(pointnet2__ext_furthest_point_sampling, FpsTilingData)
+
+}  // namespace optiling
+
+#endif
