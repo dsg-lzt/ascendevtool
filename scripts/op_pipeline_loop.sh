@@ -12,7 +12,7 @@ if [ -z "$OP_NAME" ]; then
     echo "示例: bash op_pipeline_loop.sh BallQuery 10"
     exit 1
 fi
-MAX_ROUNDS="${2:-20}"
+MAX_ROUNDS="${2:-9999}"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then

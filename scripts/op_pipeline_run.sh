@@ -84,20 +84,21 @@ if old in src:
     ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_*.cpp" 2>/dev/null | head -1)
     if [ -n "$ACLNN_CPP" ]; then
         python3 -c "
-with open('$ACLNN_CPP','r') as f: src = f.read()
+src=open('$ACLNN_CPP').read()
 if 'socSupportInfo0' in src and 'OpSocSupportInfo socSupportInfo0' not in src:
-    support='''TensorDesc _id0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};
-TensorDesc _id0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};
-TensorDesc _od0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};
-TensorDesc _od0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};
-SupportInfo _l0_0={_id0_0,1,_od0_0,1};
-SupportInfo _l0_1={_id0_1,1,_od0_1,1};
+    s='''TensorDesc _i0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};
+TensorDesc _i0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};
+TensorDesc _o0_0[1]={{ge::DT_INT32,ge::FORMAT_ND}};
+TensorDesc _o0_1[1]={{ge::DT_INT32,ge::FORMAT_ND}};
+SupportInfo _l0_0={_i0_0,1,_o0_0,1};
+SupportInfo _l0_1={_i0_1,1,_o0_1,1};
 SupportInfo _s0[2]={_l0_0,_l0_1};
 OpSocSupportInfo socSupportInfo0={_s0,2};
 '''
-    src=src.replace('OpSocSupportInfo opSocSupportList',support+'\nOpSocSupportInfo opSocSupportList')
-    with open('$ACLNN_CPP','w') as f: f.write(src)
-" && log "已补 aclnn"
+    src=src.replace('OpSocSupportInfo opSocSupportList',s+'\nOpSocSupportInfo opSocSupportList')
+    open('$ACLNN_CPP','w').write(src)
+    print('patched')
+" && log "已补 aclnn" && cmake --build "$OP_SRC_DIR/build_out" --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
     fi
 
     # .run 是否生成
