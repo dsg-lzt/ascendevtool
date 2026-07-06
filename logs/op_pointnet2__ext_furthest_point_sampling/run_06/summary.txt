@@ -1,28 +1,28 @@
 === Op Pipeline Round 06 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 12:14:07
+Time: 2026-07-06 14:18:29
 
 --- build.log (tail 20) ---
-   51 |         aclnnStatus code = (expr);                           \
-      |                             ^~~~
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:75:74: note:   initializing argument 4 of ‘aclnnStatus {anonymous}::NnopbaseSetInputsAndOutputs(void*, aclTensor* const*, size_t, aclTensor* const*, size_t)’
-   75 |                                                 struct aclTensor *const *output, size_t outputNum);
-      |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:52:21: error: ‘ACLNN_SUCCESS’ was not declared in this scope; did you mean ‘ACL_SUCCESS’?
-   52 |         if (code != ACLNN_SUCCESS) {                         \
-      |                     ^~~~~~~~~~~~~
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:96:5: note: in expansion of macro ‘NNOPBASE_ASSERT_OK_RETVAL’
-   96 |     NNOPBASE_ASSERT_OK_RETVAL(NnopbaseSetInputsAndOutputs(nnopExecutor, &x, 1, &out, 1));
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:99:12: error: ‘ACLNN_SUCCESS’ was not declared in this scope; did you mean ‘ACL_SUCCESS’?
-   99 |     return ACLNN_SUCCESS;
-      |            ^~~~~~~~~~~~~
-      |            ACL_SUCCESS
-gmake[2]: *** [op_host/CMakeFiles/cust_opapi.dir/build.make:76：op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o] 错误 1
-gmake[1]: *** [CMakeFiles/Makefile2:294：op_host/CMakeFiles/cust_opapi.dir/all] 错误 2
-gmake: *** [Makefile:156：all] 错误 2
-========== 4. INSTALL (归库): pointnet2__ext_furthest_point_sampling ==========
-[ERROR] 找不到安装包 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/*.run！请确认编译成功。
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:58 (file):
+  file INSTALL cannot find
+  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/ascend310p":
+  No such file or directory.
+Call Stack (most recent call first):
+  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/cmake_install.cmake:57 (include)
+
+
+CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:62 (file):
+  file INSTALL cannot find
+  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/config":
+  No such file or directory.
+Call Stack (most recent call first):
+  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/cmake_install.cmake:57 (include)
+
+
+CPack Error: Error when generating package: opp
+gmake: *** [Makefile:71：package] 错误 1
 
 --- verify.log (tail 20) ---
 ========== 3. VERIFY: pointnet2__ext_furthest_point_sampling ==========
@@ -38,14 +38,14 @@ gmake: *** [Makefile:156：all] 错误 2
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  B=1 N=256 M=32: OP fail - '_OpNamespace' 'pointnet2__ext_furthest_point_sampling' object has no attribute 'pointnet2__ext_furthest_point_sampling'
+  Available functions: ['name']
+  Trying first: name
+  B=1 N=256 M=32: OP fail - 'str' object is not callable
+    retry fail: 'str' object is not callable
 
 FAILED
 
 --- status ---
-BUILD_FAILED
-BUILD_ERROR: 编译失败，未生成 .run 包
+BUILD_OK
 VERIFY_OK
-INSTALL_FAILED
-BUILD_ERROR: 安装失败
 TEST_ERROR
