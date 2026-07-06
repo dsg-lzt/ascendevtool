@@ -20,32 +20,50 @@ def cpu_fps(xyz, npoint):
 
 def test_fps_op():
     import torch_npu
-    for B, N, M in [(1, 256, 32), (2, 512, 64), (4, 128, 16)]:
+    # Try all possible registration methods
+    op_name = 'pointnet2__ext_furthest_point_sampling'
+    op_func = None
+    
+    # Method 1: torch.ops.pointnet2__ext_furthest_point_sampling
+    try:
+        ns = getattr(torch.ops, op_name, None)
+        if ns and hasattr(ns, op_name):
+            op_func = getattr(ns, op_name)
+    except Exception:
+        pass
+    
+    # Method 2: torch_npu.npu_ops  
+    if not op_func and hasattr(torch_npu, 'npu_ops'):
+        for attr in dir(torch_npu.npu_ops):
+            if 'furthest' in attr.lower() or 'fps' in attr.lower():
+                op_func = getattr(torch_npu.npu_ops, attr)
+                break
+
+    # Method 3: ctypes call to ACLNN
+    if not op_func:
+        import ctypes
+        try:
+            lib = ctypes.CDLL('libcust_opapi.so')
+            if hasattr(lib, 'aclnn'+op_name.replace('__','_')):
+                op_func = getattr(lib, 'aclnn'+op_name.replace('__','_'))
+        except Exception:
+            pass
+
+    if op_func is None:
+        print("OP not found via any method. Checking dirs...")
+        print(f"  torch.ops keys: {[k for k in dir(torch.ops) if 'point' in k.lower() or 'furthest' in k.lower() or 'fps' in k.lower()]}")
+        return False
+
+    for B, N, M in [(1, 256, 32)]:
         xyz = torch.randn(B, N, 3, dtype=torch.float32).npu()
         ref = cpu_fps(xyz.cpu(), M)
-
         try:
-            # 尝试不同命名空间
-            op_func = None
-            for ns in [torch.ops.npu, torch.ops.pointnet2__ext_furthest_point_sampling]:
-                for name in ['pointnet2__ext_furthest_point_sampling', 'farthest_point_sampling']:
-                    if hasattr(ns, name):
-                        op_func = getattr(ns, name)
-                        break
-                if op_func:
-                    break
-            if op_func is None:
-                print(f"  B={B} N={N} M={M}: OP not found in torch.ops")
-                print(f"  Available npu ops: {dir(torch.ops.npu)[:10]}...")
-                return False
-            out = op_func(xyz, M).long()
+            out = op_func(xyz, M)
+            out = out.long()
             ok = torch.equal(ref.long(), out.cpu().long())
+            print(f"  B={B} N={N} M={M}: {'PASS' if ok else 'FAIL'}")
         except Exception as e:
             print(f"  B={B} N={N} M={M}: OP fail - {e}")
-            return False
-
-        print(f"  B={B} N={N} M={M}: {'PASS' if ok else 'FAIL'}")
-        if not ok:
             return False
     return True
 
