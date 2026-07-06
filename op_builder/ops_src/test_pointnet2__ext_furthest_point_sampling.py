@@ -24,7 +24,17 @@ def build_and_test():
 
     # Compile binding
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
+    # Find the operator source directory (where setup.py is)
+    op_dir = os.path.join(script_dir, 'pointnet2__ext_furthest_point_samplingSample')
+    if not os.path.isfile(os.path.join(op_dir, 'setup.py')):
+        # Try to find via glob
+        import glob
+        matches = glob.glob(os.path.join(script_dir, '*Sample'))
+        matches = [d for d in matches if 'furthest' in d.lower() or 'fps' in d.lower()]
+        if matches:
+            op_dir = matches[0]
+    print(f"  Building from: {op_dir}")
+    os.chdir(op_dir)
     print(">>> Compiling PyTorch binding...")
     ret = subprocess.run(
         [sys.executable, 'setup.py', 'build_ext', '--inplace'],
