@@ -37,13 +37,18 @@ fail() {
 # ---- 0. 检查算子工程 ----
 OP_SRC_DIR="$TOOL_DIR/op_builder/ops_src/${OP_NAME}Sample/FrameworkLaunch/${OP_NAME}"
 if [ ! -d "$OP_SRC_DIR" ]; then
-    # 名字可能不完全匹配，尝试模糊查找
-    MATCH=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 1 -type d -name "*${OP_NAME}*Sample" 2>/dev/null | head -1)
+    # 名字可能不完全匹配，尝试大小写不敏感的模糊查找
+    MATCH=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 1 -type d -iname "*${OP_NAME}*" 2>/dev/null | head -1)
     if [ -n "$MATCH" ]; then
         REAL_NAME=$(basename "$MATCH" | sed 's/Sample$//')
         OP_SRC_DIR="$MATCH/FrameworkLaunch/$REAL_NAME"
     fi
     if [ ! -d "$OP_SRC_DIR" ]; then
+        echo "可用的算子工程:"
+        find "$TOOL_DIR/op_builder/ops_src" -maxdepth 1 -type d -name "*Sample" 2>/dev/null | while read d; do
+            base=$(basename "$d" | sed 's/Sample$//')
+            echo "  $base"
+        done
         fail "未找到算子工程: op_builder/ops_src/${OP_NAME}Sample"
         exit 1
     fi
