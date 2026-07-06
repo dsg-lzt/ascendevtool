@@ -64,37 +64,28 @@ log "1/4 编译算子..."
     # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 在自动生成的 aclnn 文件中补缺失的 socSupportInfo 定义
+    # 补缺失的 socSupportInfo 定义
     ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
-    if [ -n "$ACLNN_CPP" ] && grep -q "socSupportInfo0.*not declared\|opSocSupportList.*socSupport" "$LOG_DIR/build.log" 2>/dev/null; then
-        # 在 OpSocSupportInfo opSocSupportList 行之前插入定义
+    if [ -n "$ACLNN_CPP" ]; then
         python3 -c "
-import re
-with open('$ACLNN_CPP', 'r') as f:
-    src = f.read()
-support = '''TensorDesc inputDesc0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc inputDesc0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-TensorDesc outputDesc0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc outputDesc0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-SupportInfo list0_0 = {inputDesc0_0, 1, outputDesc0_0, 1};
-SupportInfo list0_1 = {inputDesc0_1, 1, outputDesc0_1, 1};
-SupportInfo __supportInfo0[2] = {list0_0, list0_1};
-OpSocSupportInfo socSupportInfo0 = {__supportInfo0, 2};
-
-TensorDesc __inputDesc1_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc __inputDesc1_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-TensorDesc __outputDesc1_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc __outputDesc1_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-SupportInfo __list1_0 = {__inputDesc1_0, 1, __outputDesc1_0, 1};
-SupportInfo __list1_1 = {__inputDesc1_1, 1, __outputDesc1_1, 1};
-SupportInfo __supportInfo1[2] = {__list1_0, __list1_1};
-OpSocSupportInfo socSupportInfo1 = {__supportInfo1, 2};
+with open('$ACLNN_CPP', 'r') as f: src = f.read()
+# 在 OpSocSupportInfo opSocSupportList 之前插入定义
+if 'socSupportInfo0' not in src and 'OpSocSupportInfo' in src:
+    print('patching aclnn...')
+    support = '''TensorDesc _id0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc _id0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+TensorDesc _od0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc _od0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+SupportInfo _l0_0 = {_id0_0, 1, _od0_0, 1};
+SupportInfo _l0_1 = {_id0_1, 1, _od0_1, 1};
+SupportInfo _s0[2] = {_l0_0, _l0_1};
+OpSocSupportInfo socSupportInfo0 = {_s0, 2};
 '''
-src = src.replace('OpSocSupportInfo opSocSupportList', support + '\nOpSocSupportInfo opSocSupportList')
-with open('$ACLNN_CPP', 'w') as f:
-    f.write(src)
-print('patched')
-" && log "已补全 aclnn socSupport 定义"
+    src = src.replace('OpSocSupportInfo opSocSupportList', support + '\\nOpSocSupportInfo opSocSupportList')
+    with open('$ACLNN_CPP', 'w') as f: f.write(src)
+    print('done')
+"
+        # 用 cmake --build 直接编译（避免 cmake reconfigure 重新生成 autogen）
         cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
     fi
 
