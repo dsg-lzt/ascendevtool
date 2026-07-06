@@ -4,13 +4,6 @@ using namespace AscendC;
 
 constexpr int32_t BUFF_NUM = 2;
 constexpr int32_t COORD_DIM = 3;
-constexpr TILING_KEY_FP16 = 10000001;
-constexpr TILING_KEY_FP32 = 10000002;
-
-struct DistEntry {
-    float val;
-    int32_t idx;
-};
 
 template<typename T>
 class KernelFPS {
