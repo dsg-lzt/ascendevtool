@@ -1,71 +1,103 @@
-
 #include "pointnet2__ext_furthest_point_sampling_tiling.h"
 #include "register/op_def_registry.h"
-
+#include "tiling/platform/platform_ascendc.h"
 
 namespace optiling {
-static ge::graphStatus TilingFunc(gert::TilingContext* context)
-{
+static ge::graphStatus TilingFunc(gert::TilingContext* context) {
+    pointnet2__ext_furthest_point_samplingTilingData tiling;
 
-  pointnet2__ext_furthest_point_samplingTilingData tiling;
-  const gert::StorageShape* x1_shape = context->GetInputShape(0);
-  int32_t data_sz = 1;
-  for (int i = 0; i < x1_shape->GetStorageShape().GetDimNum(); i++)
-    data_sz *= x1_shape->GetStorageShape().GetDim(i);
-  tiling.set_size(data_sz);
-  context->SetBlockDim(8);
-  tiling.SaveToBuffer(context->GetRawTilingData()->GetData(), context->GetRawTilingData()->GetCapacity());
-  context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
+    const gert::StorageShape* xyz_shape = context->GetInputShape(0);
+    const gert::StorageShape* npoint_shape = context->GetInputShape(1);
 
-  return ge::GRAPH_SUCCESS;
+    uint32_t B = xyz_shape->GetStorageShape().GetDim(0);
+    uint32_t N = xyz_shape->GetStorageShape().GetDim(1);
+    uint32_t M = 0;
+    {
+        const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+        if (npt_data != nullptr) {
+            M = *reinterpret_cast<const uint32_t*>(npt_data);
+        }
+    }
+    if (M == 0) M = 256;
+    if (M > N) M = N;
+
+    tiling.set_B(B);
+    tiling.set_N(N);
+    tiling.set_M(M);
+    tiling.set_totalLength(B * M);
+
+    auto platform = platform_ascendc::PlatformAscendC(context->GetPlatformInfo());
+    uint32_t ubSize = platform.GetCoreMemSize().GetUB();
+    uint32_t typeSize = 4;  // float32
+    uint32_t maxPointsPerCore = (ubSize / 2) / (3 * typeSize + typeSize);
+    if (maxPointsPerCore < 128) maxPointsPerCore = 128;
+    if (maxPointsPerCore > N) maxPointsPerCore = N;
+
+    uint32_t tileNumPerCore = (N + maxPointsPerCore - 1) / maxPointsPerCore;
+    uint32_t pointsPerTile = maxPointsPerCore;
+
+    auto aivNum = platform.GetCoreNumAiv();
+    uint32_t usedCoreNum = (B < aivNum) ? B : aivNum;
+    if (usedCoreNum == 0) usedCoreNum = 1;
+
+    uint32_t core_size = B / usedCoreNum;
+    uint32_t core_remain = B % usedCoreNum;
+
+    tiling.set_tileNum(tileNumPerCore);
+    tiling.set_block_size(pointsPerTile);
+    tiling.set_core_size(core_size);
+    tiling.set_core_remain(core_remain);
+    tiling.set_usedCoreNum(usedCoreNum);
+
+    context->SetBlockDim(usedCoreNum);
+    tiling.SaveToBuffer(context->GetRawTilingData()->GetData(), context->GetRawTilingData()->GetCapacity());
+    context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
+    return ge::GRAPH_SUCCESS;
 }
 }
-
 
 namespace ge {
-static ge::graphStatus InferShape(gert::InferShapeContext* context)
-{
-    const gert::Shape* x1_shape = context->GetInputShape(0);
+static ge::graphStatus InferShape(gert::InferShapeContext* context) {
+    const gert::Shape* xyz_shape = context->GetInputShape(0);
+    uint32_t B = xyz_shape->GetDim(0);
+    uint32_t M = 0;
+    const gert::StorageShape* npt_shape = context->GetInputShape(1);
+    const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+    if (npt_data != nullptr) {
+        M = *reinterpret_cast<const uint32_t*>(npt_data);
+    }
+    if (M == 0) M = 256;
     gert::Shape* y_shape = context->GetOutputShape(0);
-    *y_shape = *x1_shape;
-    return GRAPH_SUCCESS;
-}
-static ge::graphStatus InferDataType(gert::InferDataTypeContext *context)
-{
-const auto inputDataType = context->GetInputDataType(0);
-context->SetOutputDataType(0, inputDataType);
-return ge::GRAPH_SUCCESS;
+    y_shape->SetDimNum(2);
+    y_shape->SetDim(0, B);
+    y_shape->SetDim(1, M);
+    return ge::GRAPH_SUCCESS;
 }
 }
-
 
 namespace ops {
 class pointnet2__ext_furthest_point_sampling : public OpDef {
 public:
-    explicit pointnet2__ext_furthest_point_sampling(const char* name) : OpDef(name)
-    {
+    explicit pointnet2__ext_furthest_point_sampling(const char* name) : OpDef(name) {
         this->Input("x0")
             .ParamType(REQUIRED)
-            .DataType({ge::DT_FLOAT16, ge::DT_FLOAT})
-            .Format({ge::FORMAT_ND, ge::FORMAT_ND})
-            .UnknownShapeFormat({ge::FORMAT_ND, ge::FORMAT_ND});
+            .DataType({ge::DT_FLOAT, ge::DT_FLOAT16})
+            .Format({ge::FORMAT_ND})
+            .UnknownShapeFormat({ge::FORMAT_ND});
         this->Input("x1")
             .ParamType(REQUIRED)
-            .DataType({ge::DT_FLOAT16, ge::DT_FLOAT})
-            .Format({ge::FORMAT_ND, ge::FORMAT_ND})
-            .UnknownShapeFormat({ge::FORMAT_ND, ge::FORMAT_ND});
+            .DataType({ge::DT_INT32, ge::DT_FLOAT, ge::DT_FLOAT16})
+            .Format({ge::FORMAT_ND})
+            .UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y0")
             .ParamType(REQUIRED)
-            .DataType({ge::DT_FLOAT16, ge::DT_FLOAT})
-            .Format({ge::FORMAT_ND, ge::FORMAT_ND})
-            .UnknownShapeFormat({ge::FORMAT_ND, ge::FORMAT_ND});
+            .DataType({ge::DT_INT32})
+            .Format({ge::FORMAT_ND})
+            .UnknownShapeFormat({ge::FORMAT_ND});
 
-        this->SetInferShape(ge::InferShape).SetInferDataType(ge::InferDataType);
-
-        this->AICore()
-            .SetTiling(optiling::TilingFunc);
+        this->SetInferShape(ge::InferShape);
+        this->AICore().SetTiling(optiling::TilingFunc);
         this->AICore().AddConfig("ascend310p");
-
     }
 };
 

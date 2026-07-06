@@ -3,7 +3,15 @@
 
 namespace optiling {
 BEGIN_TILING_DATA_DEF(pointnet2__ext_furthest_point_samplingTilingData)
-  TILING_DATA_FIELD_DEF(uint32_t, size);
+  TILING_DATA_FIELD_DEF(uint32_t, B);
+  TILING_DATA_FIELD_DEF(uint32_t, N);
+  TILING_DATA_FIELD_DEF(uint32_t, M);
+  TILING_DATA_FIELD_DEF(uint32_t, totalLength);
+  TILING_DATA_FIELD_DEF(uint32_t, tileNum);
+  TILING_DATA_FIELD_DEF(uint32_t, block_size);
+  TILING_DATA_FIELD_DEF(uint32_t, core_size);
+  TILING_DATA_FIELD_DEF(uint32_t, core_remain);
+  TILING_DATA_FIELD_DEF(uint32_t, usedCoreNum);
 END_TILING_DATA_DEF;
 
 REGISTER_TILING_DATA_CLASS(pointnet2__ext_furthest_point_sampling, pointnet2__ext_furthest_point_samplingTilingData)
