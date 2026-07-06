@@ -17,26 +17,28 @@ public:
         if (this->blockSize > N) this->blockSize = N;
         this->tileNum = (N + this->blockSize - 1) / this->blockSize;
 
-        this->xyzGm = (__gm__ float*)xyz_gm;
-        this->outGm = (__gm__ float*)out_gm;
+        xyzGm.SetGlobalBuffer((__gm__ float*)xyz_gm + batchOffset * N * 3, myBatches * N * 3);
+        outGm.SetGlobalBuffer((__gm__ float*)out_gm + batchOffset * M, myBatches * M);
 
         pipe.InitBuffer(inQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
+        pipe.InitBuffer(tmpBuf, this->blockSize * sizeof(float));
     }
 
     __aicore__ inline void Process() {
+        const uint32_t MAX_N = 2048;
+        float distArr[MAX_N];
+
         for (uint32_t b = 0; b < B; b++) {
-            float distArr[4096] __attribute__((aligned(64)));
-            uint32_t curN = (N < 4096) ? N : 4096;
+            uint32_t curN = (N < MAX_N) ? N : MAX_N;
             for (uint32_t i = 0; i < curN; i++) distArr[i] = 1e10f;
 
             uint32_t farthest = 0;
             for (uint32_t m = 0; m < M; m++) {
-                uint32_t gid = (batchOffset + b) * M + m;
-                outGm[gid] = (float)farthest;
+                outGm.SetValue(b * M + m, (float)farthest);
 
-                float cx = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 0];
-                float cy = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 1];
-                float cz = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 2];
+                float cx = xyzGm.GetValue(b * N * 3 + farthest * 3 + 0);
+                float cy = xyzGm.GetValue(b * N * 3 + farthest * 3 + 1);
+                float cz = xyzGm.GetValue(b * N * 3 + farthest * 3 + 2);
 
                 float maxD = -1e10f;
                 uint32_t maxIdx = 0;
@@ -47,7 +49,7 @@ public:
                     if (len == 0) continue;
 
                     auto inLocal = inQueue.AllocTensor<float>();
-                    DataCopy(inLocal, xyzGm + (batchOffset + b) * N * 3 + off * 3, len * 3);
+                    DataCopy(inLocal, xyzGm[b * N * 3 + off * 3], len * 3);
                     inQueue.EnQue(inLocal);
                     inLocal = inQueue.DeQue<float>();
 
@@ -73,8 +75,9 @@ public:
 private:
     TPipe pipe;
     TQue<QuePosition::VECIN, BUFFER_NUM> inQueue;
-    __gm__ float* xyzGm;
-    __gm__ float* outGm;
+    TBuf<QuePosition::VECCALC> tmpBuf;
+    GlobalTensor<float> xyzGm;
+    GlobalTensor<float> outGm;
     uint32_t B, N, M, blockSize, tileNum, batchOffset;
 };
 
