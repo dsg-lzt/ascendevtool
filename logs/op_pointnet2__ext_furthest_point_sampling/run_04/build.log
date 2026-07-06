@@ -105,3 +105,118 @@ gmake: *** [Makefile:156：all] 错误 2
 
 [RUN] >>> bash build.sh (cwd: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling)
 [ERROR] 执行失败: bash build.sh
+using ASCEND_HOME_PATH: /usr/local/Ascend/ascend-toolkit/latest
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/ascend-toolkit/latest"
+  ASCEND_COMPUTE_UNIT:STRING="ascend310p"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  ASCEND_PYTHON_EXECUTABLE:STRING="python3"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="True"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="True"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="customize"
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Opbuild generating sources
+opbuild ops info: 
+opbuild ops error: The soc version of op pointnet2__ext_furthest_point_sampling is not configured, at least one soc version must be configured.
+
+-- Opbuild generating sources - done
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_CROSS_PLATFORM_COMPILER
+
+
+-- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out
+mv: 对 '/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/ascend310p/*.json' 调用 stat 失败: 没有那个文件或目录
+gmake[3]: *** [op_kernel/CMakeFiles/ascendc_bin_ascend310p_gen_ops_config.dir/build.make:73：op_kernel/CMakeFiles/ascendc_bin_ascend310p_gen_ops_config] 错误 1
+gmake[2]: *** [CMakeFiles/Makefile2:397：op_kernel/CMakeFiles/ascendc_bin_ascend310p_gen_ops_config.dir/all] 错误 2
+gmake[1]: *** [CMakeFiles/Makefile2:378：op_kernel/CMakeFiles/binary.dir/rule] 错误 2
+gmake: *** [Makefile:293：binary] 错误 2
+[ 25%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/pointnet2__ext_furthest_point_sampling.cpp.o
+[ 25%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 41%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/pointnet2__ext_furthest_point_sampling.cpp.o
+[ 58%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o
+[ 58%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_pointnet2__ext_furthest_point_sampling_plugin.cc.o
+[ 66%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Built target gen_version_info
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 66%] Built target modify_vendor
+[ 66%] Built target npu_supported_ops
+[ 66%] Built target ops_info_gen_ascend310p
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp: In function ‘aclnnStatus aclnnpointnet2__ext_furthest_point_samplingGetWorkspaceSize(const aclTensor*, int64_t, const aclTensor*, uint64_t*, aclOpExecutor**)’:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:162:66: error: ‘supportList’ was not declared in this scope
+  162 |     NNOPBASE_ASSERT_OK_RETVAL(NnopbaseAddSupportList(*executor, &supportList, socSupportList, socSupportListLen));
+      |                                                                  ^~~~~~~~~~~
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:102:42: note: in definition of macro ‘NNOPBASE_ASSERT_OK_RETVAL’
+  102 |         const aclnnStatus _chk_stutus = (v);                            \
+      |                                          ^
+gmake[2]: *** [op_host/CMakeFiles/cust_opapi.dir/build.make:76：op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:293：op_host/CMakeFiles/cust_opapi.dir/all] 错误 2
+gmake[1]: *** 正在等待未完成的任务....
+[ 75%] Linking CXX shared library libcust_tf_parsers.so
+[ 75%] Built target cust_tf_parsers
+[ 83%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[ 83%] Built target cust_op_proto
+[ 91%] Linking CXX shared library libcust_opmaster_rt2.0.so
+[ 91%] Built target cust_optiling
+gmake: *** [Makefile:156：all] 错误 2
+-- Opbuild generating sources
+opbuild ops info: 
+opbuild ops error: The soc version of op pointnet2__ext_furthest_point_sampling is not configured, at least one soc version must be configured.
+
+-- Opbuild generating sources - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out
+Consolidate compiler generated dependencies of target cust_tf_parsers
+Consolidate compiler generated dependencies of target cust_opapi
+Consolidate compiler generated dependencies of target cust_optiling
+Consolidate compiler generated dependencies of target cust_op_proto
+[ 16%] Built target modify_vendor
+[ 25%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 25%] Built target npu_supported_ops
+[ 41%] Built target cust_tf_parsers
+[ 50%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o
+[ 66%] Built target cust_optiling
+[ 75%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 75%] Built target gen_version_info
+[ 75%] Built target optiling_compat
+[ 75%] Built target ops_info_gen_ascend310p
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp: In function ‘aclnnStatus aclnnpointnet2__ext_furthest_point_samplingGetWorkspaceSize(const aclTensor*, int64_t, const aclTensor*, uint64_t*, aclOpExecutor**)’:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:162:66: error: ‘supportList’ was not declared in this scope
+  162 |     NNOPBASE_ASSERT_OK_RETVAL(NnopbaseAddSupportList(*executor, &supportList, socSupportList, socSupportListLen));
+      |                                                                  ^~~~~~~~~~~
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:102:42: note: in definition of macro ‘NNOPBASE_ASSERT_OK_RETVAL’
+  102 |         const aclnnStatus _chk_stutus = (v);                            \
+      |                                          ^
+gmake[2]: *** [op_host/CMakeFiles/cust_opapi.dir/build.make:76：op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:293：op_host/CMakeFiles/cust_opapi.dir/all] 错误 2
+gmake[1]: *** 正在等待未完成的任务....
+[ 83%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[ 91%] Built target cust_op_proto
+gmake: *** [Makefile:156：all] 错误 2
+========== 4. INSTALL (归库): pointnet2__ext_furthest_point_sampling ==========
+[ERROR] 找不到安装包 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/*.run！请确认编译成功。
