@@ -1,102 +1,77 @@
 #include "kernel_operator.h"
 
 constexpr int32_t BUF_NUM = 2;
-constexpr int32_t COORD_DIM = 3;
 
-template <typename T>
-class KernelFPS {
-public:
-    __aicore__ inline KernelFPS() {}
+extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
+    GM_ADDR points, GM_ADDR sampled, GM_ADDR workspace, GM_ADDR tiling) {
+    GET_TILING_DATA(td, tiling);
+    if (!TILING_KEY_IS(0)) return;
+    
+    int32_t B = td.B, N = td.N, M = td.M;
+    if (M > N) M = N;
+    
+    __gm__ float* in = (__gm__ float*)points;
+    __gm__ int32_t* out = (__gm__ int32_t*)sampled;
 
-    __aicore__ inline void Init(
-        GM_ADDR pointsGm, GM_ADDR sampledGm, GM_ADDR wsGm,
-        uint32_t ubPN, uint32_t ubMDN,
-        uint32_t B, uint32_t N, uint32_t M,
-        uint32_t C, uint32_t batchPerCore,
-        uint32_t coreRem, uint32_t wsStride,
-        float initVal)
-    {
-        B_ = static_cast<int32_t>(B);
-        N_ = static_cast<int32_t>(N);
-        M_ = static_cast<int32_t>(M);
-        C_ = static_cast<int32_t>(C);
-        tileN_ = static_cast<int32_t>(ubPN);
-        initVal_ = static_cast<T>(initVal);
+    AscendC::TPipe pipe;
+    AscendC::TQue<AscendC::QuePosition::VECIN, BUF_NUM> qX, qY, qZ;
+    AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf, bufDist, bufTmp, bufSca;
+    
+    int32_t tileN = td.ubPointsNum;
+    if (tileN > N) tileN = N;
+    if (tileN < 64) tileN = 64;
+    
+    pipe.InitBuffer(qX, BUF_NUM, tileN * sizeof(float));
+    pipe.InitBuffer(qY, BUF_NUM, tileN * sizeof(float));
+    pipe.InitBuffer(qZ, BUF_NUM, tileN * sizeof(float));
+    pipe.InitBuffer(mdBuf, N * sizeof(float));
+    pipe.InitBuffer(bufDist, tileN * sizeof(float));
+    pipe.InitBuffer(bufTmp, tileN * sizeof(float));
+    pipe.InitBuffer(bufSca, tileN * sizeof(float));
 
-        inputGm_ = reinterpret_cast<__gm__ T*>(pointsGm);
-        outputGm_ = reinterpret_cast<__gm__ int32_t*>(sampledGm);
+    uint32_t batchStart = AscendC::GetBlockIdx() * td.batchPerCore;
+    uint32_t batchEnd = batchStart + td.batchPerCore;
+    if (batchStart >= (uint32_t)B) batchEnd = batchStart;
+    if (batchEnd > (uint32_t)B) batchEnd = B;
 
-        int32_t blockIdx = AscendC::GetBlockIdx();
-        if (static_cast<uint32_t>(blockIdx) < coreRem) {
-            batchStart_ = blockIdx * static_cast<int32_t>(batchPerCore + 1);
-            batchEnd_ = batchStart_ + static_cast<int32_t>(batchPerCore) + 1;
-        } else {
-            batchStart_ = static_cast<int32_t>(coreRem * (batchPerCore + 1) +
-                          (blockIdx - static_cast<int32_t>(coreRem)) * batchPerCore);
-            batchEnd_ = batchStart_ + static_cast<int32_t>(batchPerCore);
-        }
-        if (batchStart_ >= B_) batchEnd_ = batchStart_;
-        if (batchEnd_ > B_) batchEnd_ = B_;
-    }
+    for (uint32_t b = batchStart; b < batchEnd; b++) {
+        __gm__ float* batchIn = in + b * N * 3;
+        __gm__ int32_t* batchOut = out + b * M;
+        
+        AscendC::LocalTensor<float> mdAll = mdBuf.Get<float>();
+        for (int32_t i = 0; i < N; i++) mdAll.SetValue(i, td.initVal);
 
-    __aicore__ inline void Process() {
-        for (int32_t b = batchStart_; b < batchEnd_; ++b) {
-            ProcessBatch(b);
-        }
-    }
-
-private:
-    __aicore__ inline void ProcessBatch(int32_t batchIdx) {
-        __gm__ T* batchIn = inputGm_ + batchIdx * N_ * C_;
-        __gm__ int32_t* batchOut = outputGm_ + batchIdx * M_;
-
-        AscendC::TPipe pipe;
-        AscendC::TQue<AscendC::QuePosition::VECIN, BUF_NUM> qX, qY, qZ;
-        AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf, bufDist, bufTmp, bufSca;
-
-        pipe.InitBuffer(qX, BUF_NUM, tileN_ * sizeof(T));
-        pipe.InitBuffer(qY, BUF_NUM, tileN_ * sizeof(T));
-        pipe.InitBuffer(qZ, BUF_NUM, tileN_ * sizeof(T));
-        pipe.InitBuffer(mdBuf, N_ * sizeof(T));
-        pipe.InitBuffer(bufDist, tileN_ * sizeof(T));
-        pipe.InitBuffer(bufTmp, tileN_ * sizeof(T));
-        pipe.InitBuffer(bufSca, tileN_ * sizeof(T));
-
-        AscendC::LocalTensor<T> mdAll = mdBuf.Get<T>();
-        for (int32_t i = 0; i < N_; ++i) {
-            mdAll.SetValue(i, initVal_);
-        }
-
-        T selX = batchIn[0], selY = batchIn[1], selZ = batchIn[2];
         batchOut[0] = 0;
-        int32_t numTiles = (N_ + tileN_ - 1) / tileN_;
+        float selX = batchIn[0], selY = batchIn[1], selZ = batchIn[2];
+        int32_t numTiles = (N + tileN - 1) / tileN;
+        uint32_t selIdx = 0;
 
-        for (int32_t m = 1; m < M_; ++m) {
-            T globalMax = static_cast<T>(-65504.0);
+        for (int32_t m = 1; m < M; m++) {
+            float globalMax = -65504.0f;
             uint32_t globalIdx = 0;
 
-            for (int32_t t = 0; t < numTiles; ++t) {
-                int32_t tStart = t * tileN_;
-                int32_t curN = (tStart + tileN_ <= N_) ? tileN_ : (N_ - tStart);
+            for (int32_t t = 0; t < numTiles; t++) {
+                int32_t tStart = t * tileN;
+                int32_t curN = (tStart + tileN <= N) ? tileN : (N - tStart);
 
-                AscendC::LocalTensor<T> xLoc = qX.AllocTensor<T>();
-                AscendC::LocalTensor<T> yLoc = qY.AllocTensor<T>();
-                AscendC::LocalTensor<T> zLoc = qZ.AllocTensor<T>();
-
-                for (int32_t i = 0; i < curN; ++i) {
+                AscendC::LocalTensor<float> xTile = qX.AllocTensor<float>();
+                AscendC::LocalTensor<float> yTile = qY.AllocTensor<float>();
+                AscendC::LocalTensor<float> zTile = qZ.AllocTensor<float>();
+                
+                for (int32_t i = 0; i < curN; i++) {
                     int32_t gi = tStart + i;
-                    xLoc.SetValue(i, batchIn[gi * C_ + 0]);
-                    yLoc.SetValue(i, batchIn[gi * C_ + 1]);
-                    zLoc.SetValue(i, batchIn[gi * C_ + 2]);
+                    xTile.SetValue(i, batchIn[gi * 3 + 0]);
+                    yTile.SetValue(i, batchIn[gi * 3 + 1]);
+                    zTile.SetValue(i, batchIn[gi * 3 + 2]);
                 }
+                qX.EnQue(xTile); qY.EnQue(yTile); qZ.EnQue(zTile);
+                xTile = qX.DeQue<float>();
+                yTile = qY.DeQue<float>();
+                zTile = qZ.DeQue<float>();
 
-                qX.EnQue(xLoc); qY.EnQue(yLoc); qZ.EnQue(zLoc);
-                AscendC::LocalTensor<T> xTile = qX.DeQue<T>();
-                AscendC::LocalTensor<T> yTile = qY.DeQue<T>();
-                AscendC::LocalTensor<T> zTile = qZ.DeQue<T>();
-                AscendC::LocalTensor<T> dist = bufDist.Get<T>();
-                AscendC::LocalTensor<T> tmp = bufTmp.Get<T>();
-                AscendC::LocalTensor<T> sca = bufSca.Get<T>();
+                AscendC::LocalTensor<float> dist = bufDist.Get<float>();
+                AscendC::LocalTensor<float> tmp  = bufTmp.Get<float>();
+                AscendC::LocalTensor<float> sca  = bufSca.Get<float>();
 
                 AscendC::Duplicate(sca, selX, curN);
                 AscendC::Sub(dist, xTile, sca, curN);
@@ -112,50 +87,21 @@ private:
                 AscendC::Min(mdAll, mdAll, dist, curN);
 
                 float localMaxF = -65504.0f;
-                T localMax = static_cast<T>(-65504.0);
                 uint32_t localIdx = 0;
-                for (int32_t i = 0; i < curN; ++i) {
-                    T v = mdAll.GetValue(i);
-                    float fv = static_cast<float>(v);
-                    if (fv > localMaxF) { localMaxF = fv; localMax = v; localIdx = i; }
+                for (int32_t i = 0; i < curN; i++) {
+                    float fv = (float)mdAll.GetValue(i);
+                    if (fv > localMaxF) { localMaxF = fv; localIdx = i; }
                 }
-                if (localMaxF > static_cast<float>(globalMax)) {
-                    globalMax = localMax; globalIdx = tStart + localIdx;
-                }
+                if (localMaxF > globalMax) { globalMax = localMaxF; globalIdx = tStart + localIdx; }
 
                 qX.FreeTensor(xTile); qY.FreeTensor(yTile); qZ.FreeTensor(zTile);
             }
-
-            int32_t off = globalIdx * C_;
-            selX = batchIn[off + 0]; selY = batchIn[off + 1]; selZ = batchIn[off + 2];
-            batchOut[m] = static_cast<int32_t>(globalIdx);
-            mdAll.SetValue(globalIdx, static_cast<T>(0.0f));
+            selIdx = globalIdx;
+            selX = batchIn[globalIdx * 3 + 0];
+            selY = batchIn[globalIdx * 3 + 1];
+            selZ = batchIn[globalIdx * 3 + 2];
+            batchOut[m] = (int32_t)globalIdx;
+            mdAll.SetValue(globalIdx, 0.0f);
         }
-    }
-
-    int32_t B_, N_, M_, C_, tileN_;
-    T initVal_;
-    int32_t batchStart_, batchEnd_;
-    __gm__ T* inputGm_;
-    __gm__ int32_t* outputGm_;
-};
-
-extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
-    GM_ADDR points, GM_ADDR sampled, GM_ADDR workspace, GM_ADDR tiling) {
-    GET_TILING_DATA(tilingData, tiling);
-    if (TILING_KEY_IS(0)) {
-        KernelFPS<float> op;
-        op.Init(points, sampled, workspace, tilingData.ubPointsNum, tilingData.ubMinDistNum,
-                tilingData.B, tilingData.N, tilingData.M, tilingData.C,
-                tilingData.batchPerCore, tilingData.coreRemainder,
-                tilingData.wsStride, tilingData.initVal);
-        op.Process();
-    } else if (TILING_KEY_IS(1)) {
-        KernelFPS<half> op;
-        op.Init(points, sampled, workspace, tilingData.ubPointsNum, tilingData.ubMinDistNum,
-                tilingData.B, tilingData.N, tilingData.M, tilingData.C,
-                tilingData.batchPerCore, tilingData.coreRemainder,
-                tilingData.wsStride, tilingData.initVal);
-        op.Process();
     }
 }
