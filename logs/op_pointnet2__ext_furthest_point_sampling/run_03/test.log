@@ -7,6 +7,11 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  B=1 N=256 M=32: OP fail - '_OpNamespace' 'pointnet2__ext_furthest_point_sampling' object has no attribute 'pointnet2__ext_furthest_point_sampling'
-
-FAILED
+  Discovering torch_npu APIs...
+  torch_npu._C: module (4 attrs)
+    .get_autocast_dtype
+    .is_autocast_enabled
+    .set_autocast_dtype
+    .set_autocast_enabled
+  _C custom/op/run APIs: ['_NPUDeviceProperties', '_aclop_start_dump', '_aclop_stop_dump', '_flops_count', '_flops_count_init', '_npu_beginAllocateCurrentStreamToPool', '_npu_beginAllocateToPool', '_npu_customAllocator', '_npu_endAllocateCurrentStreamToPool', '_npu_getDeviceProperties', '_npu_getOption', '_npu_setOption', '_npu_set_run_yet_variable_to_false', '_npu_stopDevice']
+API discovery complete - test SKIPPED
