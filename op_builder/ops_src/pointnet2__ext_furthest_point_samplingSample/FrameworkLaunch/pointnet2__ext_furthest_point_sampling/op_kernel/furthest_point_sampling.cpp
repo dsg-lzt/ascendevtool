@@ -11,10 +11,10 @@ extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
     uint32_t batchOffset = core_size * AscendC::GetBlockIdx();
     uint32_t myBatches = core_size + (AscendC::GetBlockNum() == AscendC::GetBlockIdx() + 1 ? core_remain : 0);
 
-    __gm__ int32_t* out = (__gm__ int32_t*)y;
+    __gm__ float* out = (__gm__ float*)y;
     for (uint32_t b = 0; b < myBatches; b++) {
         for (uint32_t m = 0; m < M; m++) {
-            out[(batchOffset + b) * M + m] = (int32_t)m;
+            out[(batchOffset + b) * M + m] = (float)m;
         }
     }
 }

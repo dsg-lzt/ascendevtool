@@ -70,7 +70,7 @@ log "1/4 编译算子..."
 import re
 with open('$BIN_PARAM','r') as f: src=f.read()
 old='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.soc'
-new='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.input_dtype=[\"fp16,fp32\"]\n        self.output_dtype=[\"int32,int32\"]\n        self.input_fmt=[\"ND,ND\"]\n        self.output_fmt=[\"ND,ND\"]\n        self.input_name=[\"x_in__\"]\n        self.output_name=[\"y_out_\"]\n        self.input_type=[\"required\"]\n        self.output_type=[\"required\"]\n        self.soc'
+new='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.input_dtype=[\"float16,float32\"]\n        self.output_dtype=[\"float16,float32\"]\n        self.input_fmt=[\"ND,ND\"]\n        self.output_fmt=[\"ND,ND\"]\n        self.input_name=[\"x0_in__\"]\n        self.output_name=[\"y0_out_\"]\n        self.input_type=[\"required\"]\n        self.output_type=[\"required\"]\n        self.soc'
 if old in src:
     src=src.replace(old,new)
     with open('$BIN_PARAM','w') as f: f.write(src)

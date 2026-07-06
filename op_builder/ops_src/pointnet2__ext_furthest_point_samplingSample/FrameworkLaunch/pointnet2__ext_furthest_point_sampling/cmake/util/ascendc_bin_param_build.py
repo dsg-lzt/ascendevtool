@@ -32,12 +32,12 @@ class BinParamBuilder(opdesc_parser.OpDesc):
     def __init__(self: any, op_type: str):
         super().__init__(op_type)
         # Always override with known dtypes (op_build may fail to set)
-        self.input_dtype = ['fp16,fp32']
-        self.output_dtype = ['int32,int32']
+        self.input_dtype = ['float16,float32']
+        self.output_dtype = ['float16,float32']
         self.input_fmt = ['ND,ND']
         self.output_fmt = ['ND,ND']
-        self.input_name = ['x_in__']
-        self.output_name = ['y_out_']
+        self.input_name = ['x0_in__']
+        self.output_name = ['y0_out_']
         self.input_type = ['required']
         self.output_type = ['required']
         self.soc = ''

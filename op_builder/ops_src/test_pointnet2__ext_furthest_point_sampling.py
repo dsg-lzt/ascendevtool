@@ -21,7 +21,7 @@ cpp_source = """
 #include <torch/extension.h>
 #include <torch_npu/csrc/framework/OpCommand.h>
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
-    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
+    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kFloat));
     at_npu::native::OpCommand cmd;
     cmd.Name("FurthestPointSampling")
        .Input(xyz).Output(out).Attr("npoint", npoint).Run();
@@ -55,7 +55,7 @@ def test():
         xyz=torch.randn(B,N,3).npu()
         ref=cpu_fps(xyz.cpu(),M)
         try:
-            out=op(xyz,M)
+            out=op(xyz,M).long()
             ok=torch.equal(ref,out.cpu())
             print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}{'' if ok else f' mismatch={(ref!=out.cpu()).sum()}/{B*M}'}")
             if ok: passed+=1
