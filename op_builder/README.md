@@ -3,20 +3,84 @@
 ## 1. 概述
 
 Ascend C 是昇腾 NPU 面向算子开发的高级编程语言。本模块 (`op_builder`) 旨在规范因算子缺失或性能瓶颈而引发的底层自定义算子开发流程。
-通过标准化的工程目录与代码范式，保障异构计算资源的充分利用，并实现从 Device 侧内核开发到 PyTorch 前端映射的全链路系统化构建。
 
 ---
 
-## 2. 算子开发生命周期管理工具 (op_manager.py)
+## 2. 算子开发工作流（本地 ↔ 远程迭代调试）
+
+### 整体流程
+
+```
+本地开发                         远程 NPU 服务器
+────────                         ──────────────
+① 写 Ascend C kernel             
+   放到 op_builder/ops_src/      
+② 写测试脚本                     
+③ git push ──────────────────→   ④ op_pipeline_loop.sh 检测到变更
+                                 ├─ git pull
+                                 ├─ build (编译)
+                                 ├─ verify (精度验证)  
+                                 ├─ install (安装到 CANN)
+                                 ├─ 运行 ASCEND_OP_TEST_SCRIPT
+                                 └─ git push 日志
+⑤ git pull ←──────────────────
+⑥ 分析报错 → 改代码 → ①
+```
+
+### 远程启动循环
+
+```bash
+cd ~/pipeline_tool/AscendDevTool
+git pull
+
+# 指定测试脚本，启动算子开发循环
+export ASCEND_OP_TEST_SCRIPT=<测试脚本.py>
+nohup bash scripts/op_pipeline_loop.sh <算子名> > ../op_loop.log 2>&1 &
+
+# 示例
+export ASCEND_OP_TEST_SCRIPT=test_ball_query.py
+nohup bash scripts/op_pipeline_loop.sh BallQuery > ../op_loop.log 2>&1 &
+```
+
+### 本地开发步骤
+
+1. **写算子** — 参考 `op_builder/skill_docs/` 和 cannbot-skills，写 Ascend C kernel 代码到 `op_builder/ops_src/<OpName>Sample/FrameworkLaunch/<OpName>/`
+2. **写测试** — 写 Python 测试脚本测试编译后的算子，放 `op_builder/ops_src/` 下
+3. **git push** — 推送到 GitHub
+4. **等待日志** — `git pull` 后看 `logs/op_<算子名>/run_NN/summary.txt`
+5. **修改 → push → 循环** — 直到 `TEST_OK`
+
+### 日志结构
+
+```
+logs/op_BallQuery/
+├── run_01/
+│   ├── build.log       # 编译输出
+│   ├── verify.log      # 精度验证输出
+│   ├── test.log        # 测试脚本输出
+│   ├── status.txt      # 各阶段状态
+│   └── summary.txt     # 轮次摘要
+└── loop_status.txt      # 循环终止状态
+```
+
+### 算子入库
+
+测试通过后：
+1. 将算子写入 `patcher/local_op_lib/local_ops.csv`
+2. 在 `rewriter/op_database.py` 中将该算子的策略从"需开发"改为"可映射"
+
+---
+
+## 4. 算子开发生命周期管理工具 (op_manager.py)
 
 为了彻底打通 **"骨架生成 -> 交叉编译 -> ACLNN精度验证 -> 归入本地算子库"** 的闭环工作流，我们提供了统一的自动化管理工程脚本 `op_manager.py`。该脚本依托底层 `msopgen` 工具，为您屏蔽了复杂的 CMake 编译和 CANN 环境挂载细节。
 
-### 2.1 适用场景
+### 4.1 适用场景
 * 快速创建一个全新的 Ascend C 算子工程模板。
 * 交叉编译写好的算子，并在 NPU 上开展底层的数值精度与性能验证。
 * 一键将验证通过的算子打包为 `.run` 镜像，并归档至 `oplib/custom_opp_packages/` 供上层 PyTorch 框架中 `patcher` 动态加载。
 
-### 2.2 使用说明与命令参考
+### 4.2 使用说明与命令参考
 
 首先进入 `op_builder` 目录，确保有执行权限：
 ```bash
@@ -70,7 +134,7 @@ chmod +x op_manager.py
    ./op_manager.py pipeline BallQuery
    ```
 
-### 2.3 PyTorch 适配器与集成工具 (`create_op.py`)
+### 4.3 PyTorch 适配器与集成工具 (`create_op.py`)
 
 在底层 Ascend C 算子打包完成后，需要使用 `create_op.py` 辅助生成 PyTorch 的 C++ API 适配层绑定代码（Stub）：
 
@@ -82,16 +146,16 @@ python3 create_op.py --op_name ball_query --inputs "Tensor xyz, Tensor center_xy
 
 ---
 
-## 3. 标准开发工作流与异构并发模型
+## 4. 标准开发工作流与异构并发模型
 
 在 Ascend C 编程模型中，系统被抽象为双侧协同架构：
 
-### 3.1 Host 与 Device 协同机制
+### 4.1 Host 与 Device 协同机制
 
 * **Host（主机侧，通常即 CPU 端）**：承担控制面职责。主要负责模型张量 Shape 推导、内存分配、计算算子的 Tiling（数据切分策略）生成以及任务异步下发。
 * **Device（设备侧，即 NPU AI Core）**：承担数据面职责。接收 Host 侧调度的任务，执行核心张量计算（如 Vector 矢量计算与 Cube 矩阵计算）。
 
-### 3.2 内存层级与多阶流水线并行
+### 4.2 内存层级与多阶流水线并行
 
 AI Core 计算单元无法直接高效访问全局大内存（Global Memory）。必须通过异步机制将数据搬移至高速局部内存（Local Memory）。
 为掩盖数据 I/O 延迟，Ascend C 引入了 `TPipe` 及双缓冲（Double Buffer）机制，形成标准的三阶段流水线编程范式：
