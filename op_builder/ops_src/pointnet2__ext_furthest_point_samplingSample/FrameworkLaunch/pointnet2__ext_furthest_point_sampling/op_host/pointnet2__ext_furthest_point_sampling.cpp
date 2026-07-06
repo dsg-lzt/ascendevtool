@@ -59,7 +59,7 @@ public:
         this->Output("y0").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);
-        this->AICore().AddConfig("ascend310p");
+        this->AICore().AddConfig("ascend310p").AddConfig("ascend910b");
     }
 };
 
