@@ -2,8 +2,8 @@
 # ============================================================
 # op_pipeline_loop.sh — 算子开发 git 检测循环（最多10轮）
 # 用法: bash scripts/op_pipeline_loop.sh <op_name> [max_rounds]
-# 后台: export ASCEND_OP_TEST_SCRIPT=<测试脚本.py>
-#       nohup bash scripts/op_pipeline_loop.sh <op_name> > op_loop.log 2>&1 &
+# 后台: nohup bash scripts/op_pipeline_loop.sh <op_name> > op_loop.log 2>&1 &
+# 注: 测试脚本由本地生成并推送到 op_builder/ops_src/ 下，管道自动查找
 # ============================================================
 
 OP_NAME="${1}"

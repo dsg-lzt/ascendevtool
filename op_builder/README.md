@@ -6,49 +6,65 @@ Ascend C 是昇腾 NPU 面向算子开发的高级编程语言。本模块 (`op_
 
 ---
 
-## 2. 算子开发工作流（本地 ↔ 远程迭代调试）
+## 2. 算子开发工作流（本地生成 → 远程验证 → 迭代）
 
 ### 整体流程
 
 ```
-本地开发                         远程 NPU 服务器
-────────                         ──────────────
-① 写 Ascend C kernel             
-   放到 op_builder/ops_src/      
-② 写测试脚本                     
-③ git push ──────────────────→   ④ op_pipeline_loop.sh 检测到变更
-                                 ├─ git pull
-                                 ├─ build (编译)
-                                 ├─ verify (精度验证)  
-                                 ├─ install (安装到 CANN)
-                                 ├─ 运行 ASCEND_OP_TEST_SCRIPT
-                                 └─ git push 日志
-⑤ git pull ←──────────────────
-⑥ 分析报错 → 改代码 → ①
+本地开发（用 cannbot-skills 生成代码）        远程 NPU 服务器
+─────────────────────────────────          ──────────────
+① 生成算子代码:                               
+   - op_host / op_kernel (Ascend C)          
+   - 测试脚本 test_<op>.py                    
+   放到 op_builder/ops_src/<Op>Sample/        
+② git push ──────────────────────────→    ③ op_pipeline_loop.sh 检测到变更
+                                          ├─ git pull
+                                          ├─ build (编译算子)
+                                          ├─ verify (精度验证)  
+                                          ├─ install (安装到 CANN)
+                                          ├─ 运行 test_<op>.py
+                                          └─ git push 日志
+④ git pull 看日志 ←─────────────────────
+⑤ 分析报错 → 改代码 → git push → 循环
+⑥ TEST_OK → 入库
 ```
 
-### 远程启动循环
+### 远程启动（仅一次）
 
 ```bash
 cd ~/pipeline_tool/AscendDevTool
 git pull
 
-# 指定测试脚本，启动算子开发循环
-export ASCEND_OP_TEST_SCRIPT=<测试脚本.py>
+# 启动算子开发循环（测试脚本会自动从各算子目录查找）
 nohup bash scripts/op_pipeline_loop.sh <算子名> > ../op_loop.log 2>&1 &
-
-# 示例
-export ASCEND_OP_TEST_SCRIPT=test_ball_query.py
-nohup bash scripts/op_pipeline_loop.sh BallQuery > ../op_loop.log 2>&1 &
 ```
+
+远程什么也不用管，循环会一直跑，等本地推送代码。
 
 ### 本地开发步骤
 
-1. **写算子** — 参考 `op_builder/skill_docs/` 和 cannbot-skills，写 Ascend C kernel 代码到 `op_builder/ops_src/<OpName>Sample/FrameworkLaunch/<OpName>/`
-2. **写测试** — 写 Python 测试脚本测试编译后的算子，放 `op_builder/ops_src/` 下
-3. **git push** — 推送到 GitHub
-4. **等待日志** — `git pull` 后看 `logs/op_<算子名>/run_NN/summary.txt`
-5. **修改 → push → 循环** — 直到 `TEST_OK`
+1. **用 cannbot-skills 生成代码**：
+   - `op_host.cpp` — Host 侧 Tiling + 任务下发
+   - `op_kernel.cpp` — Device 侧核函数实现
+   - `test_<op>.py` — Python 测试脚本
+2. **放到正确位置**：
+   ```
+   op_builder/ops_src/<OpName>Sample/FrameworkLaunch/<OpName>/
+   ├── op_host/
+   │   └── op_host.cpp
+   ├── op_kernel/
+   │   └── op_kernel.cpp
+   └── op_builder/ops_src/test_<op>.py    ← 测试脚本放这里
+   ```
+3. **git push** → 远程自动编译+安装+测试
+4. **git pull** → 看 `logs/op_<算子名>/run_NN/summary.txt`
+5. **修改 → push → 循环** 直到 `TEST_OK`
+
+### 算子入库
+
+测试通过后：
+1. 将算子映射写入 `patcher/local_op_lib/local_ops.csv`
+2. 在 `rewriter/op_database.py` 中将策略从"需开发"改为"可映射"
 
 ### 日志结构
 

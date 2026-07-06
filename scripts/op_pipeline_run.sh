@@ -103,14 +103,19 @@ log "3/4 安装算子..."
 
 # ---- 4. 运行测试 ----
 log "4/4 运行测试..."
-if [ -n "$ASCEND_OP_TEST_SCRIPT" ]; then
-    TEST_PYTHON="${ASCEND_OP_TEST_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
-    # 支持相对路径（相对于 op_builder/ops_src）和绝对路径
-    if [[ "$ASCEND_OP_TEST_SCRIPT" == /* ]]; then
-        TEST_SCRIPT="$ASCEND_OP_TEST_SCRIPT"
-    else
-        TEST_SCRIPT="$TOOL_DIR/op_builder/ops_src/$ASCEND_OP_TEST_SCRIPT"
+# 测试脚本通过环境变量传入（也可让管道自动从算子目录查找）
+#   ASCEND_OP_TEST_SCRIPT — 测试脚本路径（相对 op_builder/ops_src/）
+#   ASCEND_OP_TEST_PYTHON — Python 解释器
+TEST_SCRIPT="${ASCEND_OP_TEST_SCRIPT:-}"
+if [ -z "$TEST_SCRIPT" ]; then
+    # 自动查找算子目录下的测试脚本
+    TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 -name "test_*.py" -path "*${OP_NAME}*" 2>/dev/null | head -1)
+    if [ -z "$TEST_SCRIPT" ]; then
+        TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 \( -name "test_*.py" -o -name "*_test.py" \) 2>/dev/null | head -1)
     fi
+fi
+if [ -n "$TEST_SCRIPT" ]; then
+    TEST_PYTHON="${ASCEND_OP_TEST_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     if [ -f "$TEST_SCRIPT" ]; then
         log "运行测试: $TEST_SCRIPT"
         cd "$(dirname "$TEST_SCRIPT")"
@@ -131,7 +136,7 @@ if [ -n "$ASCEND_OP_TEST_SCRIPT" ]; then
         echo "TEST_SKIPPED" >> "$LOG_DIR/status.txt"
     fi
 else
-    log "WARN: 未设置 ASCEND_OP_TEST_SCRIPT，跳过测试"
+    log "WARN: 未找到测试脚本，跳过测试"
     echo "TEST_SKIPPED" >> "$LOG_DIR/status.txt"
 fi
 
