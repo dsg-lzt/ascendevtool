@@ -29,6 +29,7 @@ Preset CMake variables:
 -- Opbuild generating sources
 opbuild ops info: 
 opbuild ops error: The dtype size of input[0] of op pointnet2__ext_furthest_point_sampling is 0.
+The dtype size of input[0] of op pointnet2__ext_furthest_point_sampling is 0.
 
 -- Opbuild generating sources - done
 -- Configuring done
@@ -40,8 +41,8 @@ CMake Warning:
 
 
 -- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out
-[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/pointnet2__ext_furthest_point_sampling.cpp.o
 [ 66%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/pointnet2__ext_furthest_point_sampling.cpp.o
 
 
 ==============check valid for ops info start==============
@@ -75,24 +76,28 @@ gmake[2]: *** [CMakeFiles/Makefile2:425：op_kernel/CMakeFiles/pointnet2__ext_fu
 gmake[1]: *** [CMakeFiles/Makefile2:379：op_kernel/CMakeFiles/binary.dir/rule] 错误 2
 gmake: *** [Makefile:293：binary] 错误 2
 Consolidate compiler generated dependencies of target cust_optiling
-[ 16%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o
-[ 41%] Built target ops_info_gen_ascend310p
-[ 41%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_pointnet2__ext_furthest_point_sampling_plugin.cc.o
-[ 41%] Generating scripts/install.sh, scripts/upgrade.sh
-[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/pointnet2__ext_furthest_point_sampling.cpp.o
-[ 50%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
-[ 58%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
-[ 58%] Built target gen_version_info
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 25%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 25%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_pointnet2__ext_furthest_point_sampling_plugin.cc.o
+[ 25%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/pointnet2__ext_furthest_point_sampling.cpp.o
+[ 33%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 41%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 50%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o
+[ 58%] Built target ops_info_gen_ascend310p
 [ 75%] Built target cust_optiling
+[ 75%] Built target gen_version_info
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
 [ 75%] Built target modify_vendor
 [ 75%] Built target optiling_compat
 [INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
 [ 75%] Built target npu_supported_ops
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:54:41: error: ‘socSupportInfo0’ was not declared in this scope; did you mean ‘OpSocSupportInfo’?
-   54 | OpSocSupportInfo opSocSupportList[1] = {socSupportInfo0};
+   54 | OpSocSupportInfo opSocSupportList[2] = {socSupportInfo0, socSupportInfo1};
       |                                         ^~~~~~~~~~~~~~~
       |                                         OpSocSupportInfo
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:54:58: error: ‘socSupportInfo1’ was not declared in this scope; did you mean ‘OpSocSupportInfo’?
+   54 | OpSocSupportInfo opSocSupportList[2] = {socSupportInfo0, socSupportInfo1};
+      |                                                          ^~~~~~~~~~~~~~~
+      |                                                          OpSocSupportInfo
 gmake[2]: *** [op_host/CMakeFiles/cust_opapi.dir/build.make:76：op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp.o] 错误 1
 gmake[1]: *** [CMakeFiles/Makefile2:294：op_host/CMakeFiles/cust_opapi.dir/all] 错误 2
 gmake[1]: *** 正在等待未完成的任务....
