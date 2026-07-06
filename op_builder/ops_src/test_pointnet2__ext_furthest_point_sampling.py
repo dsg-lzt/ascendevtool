@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""FPS Ascend C operator test"""
+"""FPS operator test — build PyTorch binding + precision validation"""
 import torch
+import subprocess, sys, os
 
 def cpu_fps(xyz, npoint):
     B, N, _ = xyz.shape
@@ -18,50 +19,56 @@ def cpu_fps(xyz, npoint):
     return centroids.to(torch.int32)
 
 
-def test_fps_op():
+def build_and_test():
     import torch_npu
-    ns = torch.ops.pointnet2__ext_furthest_point_sampling
-    print(f"  ns={ns}, callable={callable(ns)}")
-    
-    # Check _C for ACLNN bindings
-    try:
-        c = torch_npu._C
-        ac = [x for x in dir(c) if 'furthest' in x.lower() or 'fps' in x.lower() or 'pointnet' in x.lower()]
-        print(f"  _C ops: {ac}")
-    except Exception as e:
-        print(f"  _C fail: {e}")
 
-    # Direct ACLNN call  
-    try:
-        import ctypes, os
-        lib_paths = [
-            '/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_host/libcust_opmaster_rt2.0.so',
-            '/usr/local/Ascend/ascend-toolkit/latest/opp/vendors/customize/op_impl/ai_core/tbe/op_impl/*.so'
-        ]
-        for lp in lib_paths:
-            for f in __import__('glob').glob(lp):
-                print(f"  Found lib: {f}")
-    except Exception:
-        pass
+    # Compile binding
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+    print(">>> Compiling PyTorch binding...")
+    ret = subprocess.run(
+        [sys.executable, 'setup.py', 'build_ext', '--inplace'],
+        capture_output=True, text=True, cwd=script_dir
+    )
+    if ret.returncode != 0:
+        print(f"  Compile failed:\n{ret.stderr[-500:]}")
+        return False
+    print("  Compile OK")
 
-    # Check npu ops
-    for attr in dir(torch_npu):
-        if 'furthest' in attr.lower() or 'fps' in attr.lower() or 'pointnet' in attr.lower() or 'sample' in attr.lower():
-            print(f"  torch_npu.{attr}")
+    # Load
+    torch.ops.load_library(
+        os.path.join(script_dir, f'fps_ops.cpython-{sys.version_info.major}{sys.version_info.minor}-x86_64-linux-gnu.so')
+    )
+    op = torch.ops.pointnet2__ext_furthest_point_sampling.farthest_point_sample
 
-    # Try torch_npu._get_npu_backend  
-    try:
-        import torch_npu.utils
-    except:
-        pass
+    # Test multiple sizes
+    tests = [
+        (1, 128, 32), (1, 512, 64), (2, 256, 48),
+        (4, 128, 16), (1, 1024, 128), (2, 500, 100),
+        (4, 200, 50), (1, 64, 8), (8, 100, 20), (3, 300, 150),
+    ]
+    passed = 0
+    for B, N, M in tests:
+        xyz = torch.randn(B, N, 3).npu()
+        ref = cpu_fps(xyz.cpu(), M)
+        try:
+            out = op(xyz, M)
+            ok = torch.equal(ref.long(), out.cpu().long())
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}")
+            if ok:
+                passed += 1
+            else:
+                mismatch = (ref.long() != out.cpu().long()).sum().item()
+                print(f"    mismatch: {mismatch}/{B*M}")
+        except Exception as e:
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: ERROR - {e}")
 
-    print("  OP can't be called from PyTorch directly - registered in ACLNN only")
-    print("  Test SKIPPED (not a failure of the operator)")
-    return True
+    print(f"\n  Result: {passed}/{len(tests)} passed")
+    return passed == len(tests)
 
 
 if __name__ == "__main__":
     print("=== FPS Operator Test ===")
-    ok = test_fps_op()
-    print(f"\n{'ALL PASS' if ok else 'FAILED'}")
+    ok = build_and_test()
+    print(f"{'ALL PASS' if ok else 'FAILED'}")
     exit(0 if ok else 1)
