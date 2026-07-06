@@ -1,6 +1,6 @@
 === Op Pipeline Round 07 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 15:54:35
+Time: 2026-07-06 17:19:59
 
 --- build.log (tail 20) ---
 CPack: - Run preinstall target for: opp
@@ -41,7 +41,7 @@ gmake: *** [Makefile:71：package] 错误 1
   Compiled + loaded OK
   B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is F
   B=  1 N= 512 M= 64: FAIL mismatch=64/64
-  B=  2 N= 256 M= 48: FAIL mismatch=94/96
+  B=  2 N= 256 M= 48: FAIL mismatch=96/96
   B=  4 N= 128 M= 16: FAIL mismatch=64/64
   B=  1 N=1024 M=128: FAIL mismatch=128/128
   B=  2 N= 500 M=100: FAIL mismatch=200/200
