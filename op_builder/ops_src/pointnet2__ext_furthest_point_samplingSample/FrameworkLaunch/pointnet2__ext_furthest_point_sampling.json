@@ -6,7 +6,7 @@
       {
         "name": "x0",
         "param_type": "required",
-        "format": ["ND"],
+        "format": ["ND", "ND"],
         "type": ["fp16", "fp32"]
       }
     ],
