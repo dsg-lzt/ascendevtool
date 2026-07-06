@@ -1,133 +1,114 @@
 #include "kernel_operator.h"
 
 constexpr int32_t BUFFER_NUM = 2;
-typedef float DT;
 
 class KernelFPS {
 public:
-    __aicore__ inline void Init(GM_ADDR x0, GM_ADDR x1, GM_ADDR y0,
+    __aicore__ inline void Init(GM_ADDR xyz_gm, GM_ADDR idx_gm,
                                 uint32_t B, uint32_t N, uint32_t M,
                                 uint32_t block_size, uint32_t core_size,
                                 uint32_t core_remain) {
         uint32_t myBatches = core_size + (GetBlockNum() == GetBlockIdx() + 1 ? core_remain : 0);
-        uint32_t batchOffset = core_size * GetBlockIdx();
-
+        this->batchOffset = core_size * GetBlockIdx();
         this->B = myBatches;
         this->N = N;
         this->M = M;
         this->blockSize = block_size;
         if (this->blockSize > N) this->blockSize = N;
-        this->tileNum = (N + this->blockSize - 1) / this->blockSize;
+        this->GmStride = B * N * 3;
 
-        auto xyzGmAddr = (__gm__ DT *)x0 + batchOffset * N * 3;
-        auto idxGmAddr = (__gm__ int32_t *)y0 + batchOffset * M;
-
-        xyzGm.SetGlobalBuffer(xyzGmAddr, B * N * 3);
-        idxGm.SetGlobalBuffer(idxGmAddr, B * M);
-
-        pipe.InitBuffer(inQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(DT));
-        pipe.InitBuffer(outQueue, BUFFER_NUM, this->blockSize * sizeof(DT));
-        pipe.InitBuffer(distBuf, N * sizeof(DT));
-        pipe.InitBuffer(centroidBuf, sizeof(DT) * 3);
-        pipe.InitBuffer(tmpBuf1, this->blockSize * sizeof(DT));
-        pipe.InitBuffer(tmpBuf3, this->blockSize * 3 * sizeof(DT));
+        pipe.InitBuffer(inQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
+        pipe.InitBuffer(calQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
+        pipe.InitBuffer(distQueue, BUFFER_NUM, this->blockSize * sizeof(float));
+        pipe.InitBuffer(maskQueue, BUFFER_NUM, this->blockSize * sizeof(half));
     }
 
     __aicore__ inline void Process() {
+        auto* xyzGm = (__gm__ float*)x0;
+        auto* idxGm = (__gm__ int32_t*)x1;
+
         for (uint32_t b = 0; b < B; b++) {
-            ProcessOneBatch(b);
+            float distances[2048] __attribute__((aligned(32)));
+            for (uint32_t n = 0; n < N && n < 2048; n++) distances[n] = 1e10f;
+
+            uint32_t farthest = 0;
+            for (uint32_t m = 0; m < M; m++) {
+                idxGm[(batchOffset + b) * M + m] = farthest;
+
+                float cx = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 0];
+                float cy = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 1];
+                float cz = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 2];
+
+                UpdateDistances(xyzGm, distances, b, cx, cy, cz, N);
+                farthest = FindMaxIndex(distances, N);
+            }
         }
     }
 
 private:
-    __aicore__ inline void ProcessOneBatch(uint32_t b) {
-        auto dist = distBuf.Get<DT>();
-        Duplicate(dist, DT(1e10f), N);
+    __aicore__ inline void UpdateDistances(__gm__ float* xyzGm, float* dist, uint32_t b,
+                                           float cx, float cy, float cz, uint32_t N) {
+        for (uint32_t t = 0; t < tileNum; t++) {
+            uint32_t off = t * blockSize;
+            uint32_t len = (off + blockSize <= N) ? blockSize : (N - off);
+            if (len == 0) break;
 
-        int32_t farthest_i = 0;
-        DT farthest_coord[3];
+            auto inLocal = inQueue.AllocTensor<float>();
+            DataCopy(inLocal, xyzGm[(batchOffset + b) * N * 3 + off * 3], len * 3);
+            inQueue.EnQue(inLocal);
+            inLocal = inQueue.DeQue<float>();
 
-        for (uint32_t m = 0; m < M; m++) {
-            idxGm.SetValue(b * M + m, farthest_i);
+            auto calLocal = calQueue.AllocTensor<float>();
+            auto dLocal = distQueue.AllocTensor<float>();
+            auto mLocal = maskQueue.AllocTensor<half>();
 
-            farthest_coord[0] = xyzGm.GetValue(b * N * 3 + farthest_i * 3);
-            farthest_coord[1] = xyzGm.GetValue(b * N * 3 + farthest_i * 3 + 1);
-            farthest_coord[2] = xyzGm.GetValue(b * N * 3 + farthest_i * 3 + 2);
-
-            DT maxDist = -1.0f;
-            int32_t maxIdx = 0;
-
-            for (uint32_t t = 0; t < tileNum; t++) {
-                uint32_t offset = t * blockSize;
-                uint32_t length = (offset + blockSize <= N) ? blockSize : (N - offset);
-
-                auto inLocal = inQueue.AllocTensor<DT>();
-                DataCopy(inLocal, xyzGm[b * N * 3 + offset * 3], length * 3);
-                inQueue.EnQue(inLocal);
-                inLocal = inQueue.DeQue<DT>();
-
-                auto outLocal = outQueue.AllocTensor<DT>();
-                auto tmp1 = tmpBuf1.Get<DT>();
-                auto tmp3 = tmpBuf3.Get<DT>();
-
-                auto cent = centroidBuf.Get<DT>();
-                Duplicate(cent, farthest_coord[0], 3);
-                cent.SetValue(0, farthest_coord[0]);
-                cent.SetValue(1, farthest_coord[1]);
-                cent.SetValue(2, farthest_coord[2]);
-
-                Sub(tmp3, inLocal, cent, length * 3);
-                Mul(tmp3, tmp3, tmp3, length * 3);
-
-                for (uint32_t j = 0; j < length; j++) {
-                    DT s = tmp3.GetValue(j * 3) + tmp3.GetValue(j * 3 + 1) + tmp3.GetValue(j * 3 + 2);
-                    tmp1.SetValue(j, s);
-                }
-
-                for (uint32_t j = 0; j < length; j++) {
-                    DT oldDist = dist.GetValue(offset + j);
-                    DT newDist = tmp1.GetValue(j);
-                    if (newDist < oldDist) {
-                        dist.SetValue(offset + j, newDist);
-                    }
-                }
-
-                for (uint32_t j = 0; j < length; j++) {
-                    DT d = dist.GetValue(offset + j);
-                    if (d > maxDist) {
-                        maxDist = d;
-                        maxIdx = offset + j;
-                    }
-                }
-
-                outQueue.EnQue(outLocal);
-                outLocal = outQueue.DeQue<DT>();
-                outQueue.FreeTensor(outLocal);
-                inQueue.FreeTensor(inLocal);
+            for (uint32_t j = 0; j < len; j++) {
+                float dx = inLocal.GetValue(j * 3 + 0) - cx;
+                float dy = inLocal.GetValue(j * 3 + 1) - cy;
+                float dz = inLocal.GetValue(j * 3 + 2) - cz;
+                float nd = dx * dx + dy * dy + dz * dz;
+                if (nd < dist[off + j]) dist[off + j] = nd;
             }
 
-            farthest_i = maxIdx;
+            calQueue.EnQue(calLocal);
+            distQueue.EnQue(dLocal);
+            maskQueue.EnQue(mLocal);
+            calLocal = calQueue.DeQue<float>();
+            dLocal = distQueue.DeQue<float>();
+            mLocal = maskQueue.DeQue<half>();
+            calQueue.FreeTensor(calLocal);
+            distQueue.FreeTensor(dLocal);
+            maskQueue.FreeTensor(mLocal);
+            inQueue.FreeTensor(inLocal);
         }
+    }
+
+    __aicore__ inline uint32_t FindMaxIndex(float* dist, uint32_t N) {
+        float maxVal = -1e10f;
+        uint32_t maxIdx = 0;
+        for (uint32_t i = 0; i < N; i++) {
+            if (dist[i] > maxVal) {
+                maxVal = dist[i];
+                maxIdx = i;
+            }
+        }
+        return maxIdx;
     }
 
 private:
     TPipe pipe;
-    GlobalTensor<DT> xyzGm;
-    GlobalTensor<int32_t> idxGm;
     TQue<QuePosition::VECIN, BUFFER_NUM> inQueue;
-    TQue<QuePosition::VECOUT, BUFFER_NUM> outQueue;
-    TBuf<QuePosition::VECCALC> distBuf;
-    TBuf<QuePosition::VECCALC> centroidBuf;
-    TBuf<QuePosition::VECCALC> tmpBuf1;
-    TBuf<QuePosition::VECCALC> tmpBuf3;
-    uint32_t B, N, M, blockSize, tileNum;
+    TQue<QuePosition::VECOUT, BUFFER_NUM> calQueue;
+    TQue<QuePosition::VECOUT, BUFFER_NUM> distQueue;
+    TQue<QuePosition::VECOUT, BUFFER_NUM> maskQueue;
+    uint32_t B, N, M, blockSize, tileNum, batchOffset, GmStride;
 };
 
 extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
-    GM_ADDR x0, GM_ADDR x1, GM_ADDR y0, GM_ADDR workspace, GM_ADDR tiling) {
+    GM_ADDR x0, GM_ADDR x1, GM_ADDR workspace, GM_ADDR tiling) {
     GET_TILING_DATA(tiling_data, tiling);
     KernelFPS op;
-    op.Init(x0, x1, y0,
+    op.Init(x0, x1,
             tiling_data.B, tiling_data.N, tiling_data.M,
             tiling_data.block_size, tiling_data.core_size,
             tiling_data.core_remain);

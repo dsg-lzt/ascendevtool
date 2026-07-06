@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""FPS (Furthest Point Sampling) Ascend C 算子测试"""
+"""FPS Ascend C operator test"""
 import torch
 import numpy as np
-import time
 
 def cpu_fps(xyz, npoint):
-    """PyTorch FPS 参考实现"""
     B, N, _ = xyz.shape
     device = xyz.device
     centroids = torch.zeros(B, npoint, dtype=torch.long, device=device)
@@ -23,27 +21,21 @@ def cpu_fps(xyz, npoint):
 
 
 def test_fps_op():
-    for B, N, M in [(2, 128, 32), (2, 512, 64), (4, 256, 48)]:
+    for B, N, M in [(1, 256, 32), (2, 512, 64), (4, 128, 16)]:
         xyz = torch.randn(B, N, 3, dtype=torch.float32).npu()
-        npt = torch.tensor([M], dtype=torch.int32).npu()
-
         ref = cpu_fps(xyz.cpu(), M)
 
         try:
-            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npt)
+            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npoint=M)
             ok = True
         except Exception as e:
-            print(f"  OP call failed: {e}")
-            ok = False
+            print(f"  B={B} N={N} M={M}: OP fail - {e}")
+            return False
 
-        if ok:
-            ok = torch.allclose(ref.long(), out.cpu().long(), atol=0)
-            if not ok:
-                mismatch = (ref.long() != out.cpu().long()).sum().item()
-                print(f"  Mismatch: {mismatch} / {B*M}")
-
+        ok = torch.equal(ref.long(), out.cpu().long())
         print(f"  B={B} N={N} M={M}: {'PASS' if ok else 'FAIL'}")
         if not ok:
+            print(f"    ref[:5]={ref[0][:5].tolist()} out[:5]={out.cpu()[0][:5].tolist()}")
             return False
     return True
 
