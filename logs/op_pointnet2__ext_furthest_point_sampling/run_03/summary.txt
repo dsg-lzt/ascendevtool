@@ -1,0 +1,50 @@
+=== Op Pipeline Round 03 Summary ===
+Operator: pointnet2__ext_furthest_point_sampling
+Time: 2026-07-06 12:03:08
+
+--- build.log (tail 20) ---
+build ops lib info: 
+build ops lib error: In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:1:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling_tiling.h:2:10: fatal error: register/tilingdata_base.h: 没有那个文件或目录
+    2 | #include "register/tilingdata_base.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+CMake Error at cmake/func.cmake:29 (message):
+  opbuild run failed!
+Call Stack (most recent call first):
+  op_host/CMakeLists.txt:4 (opbuild)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/CMakeFiles/CMakeOutput.log".
+make: 进入目录“/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out”
+make: *** 没有指明目标并且找不到 makefile。 停止。
+make: 离开目录“/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out”
+========== 4. INSTALL (归库): pointnet2__ext_furthest_point_sampling ==========
+[ERROR] 找不到安装包 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/*.run！请确认编译成功。
+
+--- verify.log (tail 20) ---
+========== 3. VERIFY: pointnet2__ext_furthest_point_sampling ==========
+[WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
+
+--- test.log (tail 30) ---
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=== FPS Operator Test ===
+  B=1 N=256 M=32: OP fail - '_OpNamespace' 'pointnet2__ext_furthest_point_sampling' object has no attribute 'pointnet2__ext_furthest_point_sampling'
+
+FAILED
+
+--- status ---
+BUILD_OK
+VERIFY_OK
+INSTALL_FAILED
+BUILD_ERROR: 安装失败
+TEST_ERROR
