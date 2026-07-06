@@ -64,16 +64,38 @@ log "1/4 编译算子..."
     # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 如果源目录有手写 aclnn 文件，替换自动生成的有缺陷版本并增量编译
-    if [ -f "$OP_SRC_DIR/aclnn_fps.cpp" ]; then
-        AUTO_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
-        if [ -n "$AUTO_CPP" ]; then
-            cp "$OP_SRC_DIR/aclnn_fps.cpp" "$AUTO_CPP"
-            AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
-            [ -n "$AUTO_H" ] && [ -f "$OP_SRC_DIR/aclnn_header.h" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
-            log "已替换 aclnn 文件，增量编译..."
-            cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
-        fi
+    # 在自动生成的 aclnn 文件中补缺失的 socSupportInfo 定义
+    ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
+    if [ -n "$ACLNN_CPP" ] && grep -q "socSupportInfo0.*not declared\|opSocSupportList.*socSupport" "$LOG_DIR/build.log" 2>/dev/null; then
+        # 在 OpSocSupportInfo opSocSupportList 行之前插入定义
+        python3 -c "
+import re
+with open('$ACLNN_CPP', 'r') as f:
+    src = f.read()
+support = '''TensorDesc inputDesc0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc inputDesc0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+TensorDesc outputDesc0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc outputDesc0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+SupportInfo list0_0 = {inputDesc0_0, 1, outputDesc0_0, 1};
+SupportInfo list0_1 = {inputDesc0_1, 1, outputDesc0_1, 1};
+SupportInfo __supportInfo0[2] = {list0_0, list0_1};
+OpSocSupportInfo socSupportInfo0 = {__supportInfo0, 2};
+
+TensorDesc __inputDesc1_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc __inputDesc1_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+TensorDesc __outputDesc1_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+TensorDesc __outputDesc1_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
+SupportInfo __list1_0 = {__inputDesc1_0, 1, __outputDesc1_0, 1};
+SupportInfo __list1_1 = {__inputDesc1_1, 1, __outputDesc1_1, 1};
+SupportInfo __supportInfo1[2] = {__list1_0, __list1_1};
+OpSocSupportInfo socSupportInfo1 = {__supportInfo1, 2};
+'''
+src = src.replace('OpSocSupportInfo opSocSupportList', support + '\nOpSocSupportInfo opSocSupportList')
+with open('$ACLNN_CPP', 'w') as f:
+    f.write(src)
+print('patched')
+" && log "已补全 aclnn socSupport 定义"
+        cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
     fi
 
     # 检查 .run 包是否生成
