@@ -7,9 +7,10 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  Building from: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample
->>> Compiling PyTorch binding...
-  Compile failed:
-/home/orange/miniconda3/envs/torch_npu/bin/python: can't open file '/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/setup.py': [Errno 2] No such file or directory
-
-FAILED
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 90, in <module>
+    ok = test()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 23, in test
+    npu_include = os.path.join(os.path.dirname(torch_npu.__file__), 'include')
+UnboundLocalError: local variable 'torch_npu' referenced before assignment
+[ERROR] 2026-07-06-15:04:52 (PID:1019727, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
