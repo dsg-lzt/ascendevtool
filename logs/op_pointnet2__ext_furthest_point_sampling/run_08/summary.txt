@@ -1,6 +1,6 @@
 === Op Pipeline Round 08 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 14:30:17
+Time: 2026-07-06 15:01:21
 
 --- build.log (tail 20) ---
 CPack: - Run preinstall target for: opp
@@ -38,11 +38,26 @@ gmake: *** [Makefile:71：package] 错误 1
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
->>> Compiling PyTorch binding...
-  Compile failed:
-/home/orange/miniconda3/envs/torch_npu/bin/python: can't open file '/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/setup.py': [Errno 2] No such file or directory
-
-FAILED
+  torch_npu include: /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include
+  contents: ['torch_npu', 'third_party']
+  torch include: /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include
+  Compiling...
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 87, in <module>
+    ok = test()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 58, in test
+    mod = load_inline(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1723, in load_inline
+    return _jit_compile(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1823, in _jit_compile
+    return _import_module_from_library(name, build_directory, is_python_module)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2245, in _import_module_from_library
+    module = importlib.util.module_from_spec(spec)
+  File "<frozen importlib._bootstrap>", line 571, in module_from_spec
+  File "<frozen importlib._bootstrap_external>", line 1176, in create_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+ImportError: /home/orange/.cache/torch_extensions/py310_cpu/fps_test_ops/fps_test_ops.so: undefined symbol: _ZN6at_npu6native9OpCommand6OutputERN2at6TensorERKSsRKSt8optionalI9aclFormatES6_
+[ERROR] 2026-07-06-15:01:20 (PID:1005314, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
 
 --- status ---
 BUILD_OK
