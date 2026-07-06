@@ -6,7 +6,7 @@
       {
         "name": "x0",
         "param_type": "required",
-        "format": ["ND", "ND"],
+        "format": ["ND"],
         "type": ["fp16", "fp32"]
       }
     ],
@@ -16,6 +16,13 @@
         "param_type": "required",
         "format": ["ND", "ND"],
         "type": ["fp16", "fp32"]
+      }
+    ],
+    "attr": [
+      {
+        "name": "npoint",
+        "param_type": "required",
+        "type": "int"
       }
     ]
   }
