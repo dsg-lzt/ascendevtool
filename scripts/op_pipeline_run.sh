@@ -76,8 +76,6 @@ log "1/4 编译算子..."
                 [ -n "$AUTO_H" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
             }
             log "已替换 aclnn 文件，重新编译..."
-            rm -f "$OP_SRC_DIR/build_out/Makefile" 2>/dev/null
-            cmake -S . -B build_out >> "$LOG_DIR/build.log" 2>&1 || true
             cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || {
                 echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
                 fail "make 失败"
