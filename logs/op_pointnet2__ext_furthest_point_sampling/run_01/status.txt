@@ -1,2 +1,4 @@
 BUILD_FAILED
-BUILD_ERROR: 编译失败，详见 build.log
+BUILD_ERROR: make 失败
+BUILD_OK
+BUILD_OK
