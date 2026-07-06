@@ -1,0 +1,21 @@
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=== FPS Operator Test ===
+  Building from: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample
+>>> Compiling PyTorch binding...
+  Compile failed:
+utils/cpp_extension.py:529: UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja.. Falling back to using the slow distutils backend.
+  warnings.warn(msg.format('we could not find ninja.'))
+fps_binding.cpp:2:10: fatal error: torch_npu/csrc/core/npu/NPUStream.h: 没有那个文件或目录
+    2 | #include <torch_npu/csrc/core/npu/NPUStream.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+error: command '/usr/bin/gcc' failed with exit code 1
+
+FAILED
