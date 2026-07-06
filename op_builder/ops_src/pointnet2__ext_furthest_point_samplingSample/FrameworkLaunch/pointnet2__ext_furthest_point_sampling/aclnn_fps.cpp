@@ -38,7 +38,6 @@ OpSocSupportInfo socSupportInfo1 = {supportInfo1, 2};
 OpSocSupportInfo opSocSupportList[2] = {socSupportInfo0, socSupportInfo1};
 OpSupportList supportList = {opSocSupportList, 2};
 [[maybe_unused]] uint32_t NNOPBASE_pointnet2__ext_furthest_point_sampling = 0U;
-} // namespace
 
 extern void NnopbaseOpLogE(const aclnnStatus code, const char *const expr);
 
@@ -104,3 +103,5 @@ aclnnStatus aclnnpointnet2__ext_furthest_point_sampling(
     void *workspace, uint64_t workspaceSize, aclOpExecutor *executor, aclrtStream stream) {
     return NnopbaseLaunch(executor, workspace, workspaceSize, stream);
 }
+
+} // namespace
