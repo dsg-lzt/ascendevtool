@@ -4,7 +4,7 @@
 
 namespace optiling {
 static ge::graphStatus TilingFunc(gert::TilingContext* context) {
-    FpsCustomTilingData tiling;
+    pointnet2__ext_furthest_point_samplingTilingData tiling;
     constexpr int ATTR_NPOINT = 0;
     auto attrs = context->GetAttrs();
     int32_t M_raw = *(attrs->GetAttrPointer<int32_t>(ATTR_NPOINT));
@@ -57,16 +57,17 @@ static ge::graphStatus InferShape(gert::InferShapeContext* context) {
 }
 
 namespace ops {
-class FpsCustom : public OpDef {
+class FurthestPointSampling : public OpDef {
 public:
-    explicit FpsCustom(const char* name) : OpDef(name) {
-        this->Input("x0").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
-        this->Output("y0").ParamType(REQUIRED).DataType({ge::DT_INT32}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
+    explicit FurthestPointSampling(const char* name) : OpDef(name) {
+        this->Input("x").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
+        this->Input("tmp").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
+        this->Output("y").ParamType(REQUIRED).DataType({ge::DT_INT32}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->Attr("npoint").Int();
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);
         this->AICore().AddConfig("ascend310p");
     }
 };
-OP_ADD(FpsCustom);
+OP_ADD(FurthestPointSampling);
 }
