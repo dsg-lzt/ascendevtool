@@ -1,15 +1,15 @@
 === Op Pipeline Round 04 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 16:45:58
+Time: 2026-07-06 17:08:46
 
 --- build.log (tail 20) ---
-[ 58%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 58%] Generating scripts/install.sh, scripts/upgrade.sh
 [ 66%] Built target gen_version_info
 [ 75%] Built target cust_optiling
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 75%] Built target optiling_compat
 [ 75%] Built target modify_vendor
 [INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
-[ 75%] Built target optiling_compat
 [ 75%] Built target npu_supported_ops
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_pointnet2__ext_furthest_point_sampling.cpp:54:41: error: ‘socSupportInfo0’ was not declared in this scope; did you mean ‘OpSocSupportInfo’?
    54 | OpSocSupportInfo opSocSupportList[1] = {socSupportInfo0};
@@ -39,7 +39,7 @@ gmake: *** [Makefile:156：all] 错误 2
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
   Compiled + loaded OK
-  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is p
+  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is F
   B=  1 N= 512 M= 64: FAIL mismatch=64/64
   B=  2 N= 256 M= 48: FAIL mismatch=96/96
   B=  4 N= 128 M= 16: FAIL mismatch=64/64
