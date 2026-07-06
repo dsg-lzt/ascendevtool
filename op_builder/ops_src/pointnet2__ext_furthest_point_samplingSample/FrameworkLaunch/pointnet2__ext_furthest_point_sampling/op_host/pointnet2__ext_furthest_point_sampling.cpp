@@ -34,6 +34,13 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     tiling.set_usedCoreNum(usedCoreNum);
 
     context->SetBlockDim(usedCoreNum);
+    // 根据数据类型设置 tiling key (fp16=10000001, fp32=10000002)
+    auto input_desc = context->GetInputDesc(0);
+    if (input_desc.GetDataType() == ge::DT_FLOAT16) {
+        context->SetTilingKey(10000001);
+    } else {
+        context->SetTilingKey(10000002);
+    }
     tiling.SaveToBuffer(context->GetRawTilingData()->GetData(), context->GetRawTilingData()->GetCapacity());
     context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
     return ge::GRAPH_SUCCESS;
