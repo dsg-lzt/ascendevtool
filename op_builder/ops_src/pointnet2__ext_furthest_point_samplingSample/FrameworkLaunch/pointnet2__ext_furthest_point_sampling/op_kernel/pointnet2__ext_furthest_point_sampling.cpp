@@ -15,93 +15,74 @@ public:
         this->M = M;
         this->blockSize = block_size;
         if (this->blockSize > N) this->blockSize = N;
-        this->GmStride = B * N * 3;
+        this->tileNum = (N + this->blockSize - 1) / this->blockSize;
+
+        this->xyzGm = (__gm__ float*)xyz_gm;
+        this->idxGm = (__gm__ int32_t*)idx_gm;
 
         pipe.InitBuffer(inQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
-        pipe.InitBuffer(calQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
-        pipe.InitBuffer(distQueue, BUFFER_NUM, this->blockSize * sizeof(float));
-        pipe.InitBuffer(maskQueue, BUFFER_NUM, this->blockSize * sizeof(half));
+        pipe.InitBuffer(resQueue, BUFFER_NUM, this->blockSize * sizeof(float));
     }
 
     __aicore__ inline void Process() {
-        auto* xyzGm = (__gm__ float*)x0;
-        auto* idxGm = (__gm__ int32_t*)x1;
-
         for (uint32_t b = 0; b < B; b++) {
-            float distances[2048] __attribute__((aligned(32)));
-            for (uint32_t n = 0; n < N && n < 2048; n++) distances[n] = 1e10f;
+            float distArr[4096] __attribute__((aligned(64)));
+            uint32_t curN = (N < 4096) ? N : 4096;
+            for (uint32_t i = 0; i < curN; i++) distArr[i] = 1e10f;
 
             uint32_t farthest = 0;
             for (uint32_t m = 0; m < M; m++) {
-                idxGm[(batchOffset + b) * M + m] = farthest;
+                uint32_t gid = (batchOffset + b) * M + m;
+                idxGm[gid] = farthest;
 
                 float cx = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 0];
                 float cy = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 1];
                 float cz = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 2];
 
-                UpdateDistances(xyzGm, distances, b, cx, cy, cz, N);
-                farthest = FindMaxIndex(distances, N);
+                float maxD = -1e10f;
+                uint32_t maxIdx = 0;
+
+                for (uint32_t t = 0; t < tileNum; t++) {
+                    uint32_t off = t * blockSize;
+                    uint32_t len = (off + blockSize <= curN) ? blockSize : (curN - off);
+                    if (len == 0) continue;
+
+                    auto inLocal = inQueue.AllocTensor<float>();
+                    DataCopy(inLocal, xyzGm + (batchOffset + b) * N * 3 + off * 3, len * 3);
+                    inQueue.EnQue(inLocal);
+                    inLocal = inQueue.DeQue<float>();
+
+                    auto rLocal = resQueue.AllocTensor<float>();
+
+                    for (uint32_t j = 0; j < len; j++) {
+                        float dx = inLocal.GetValue(j * 3 + 0) - cx;
+                        float dy = inLocal.GetValue(j * 3 + 1) - cy;
+                        float dz = inLocal.GetValue(j * 3 + 2) - cz;
+                        float nd = dx * dx + dy * dy + dz * dz;
+                        if (nd < distArr[off + j]) distArr[off + j] = nd;
+                        if (distArr[off + j] > maxD) {
+                            maxD = distArr[off + j];
+                            maxIdx = off + j;
+                        }
+                    }
+
+                    resQueue.EnQue(rLocal);
+                    rLocal = resQueue.DeQue<float>();
+                    resQueue.FreeTensor(rLocal);
+                    inQueue.FreeTensor(inLocal);
+                }
+                farthest = maxIdx;
             }
         }
-    }
-
-private:
-    __aicore__ inline void UpdateDistances(__gm__ float* xyzGm, float* dist, uint32_t b,
-                                           float cx, float cy, float cz, uint32_t N) {
-        for (uint32_t t = 0; t < tileNum; t++) {
-            uint32_t off = t * blockSize;
-            uint32_t len = (off + blockSize <= N) ? blockSize : (N - off);
-            if (len == 0) break;
-
-            auto inLocal = inQueue.AllocTensor<float>();
-            DataCopy(inLocal, xyzGm[(batchOffset + b) * N * 3 + off * 3], len * 3);
-            inQueue.EnQue(inLocal);
-            inLocal = inQueue.DeQue<float>();
-
-            auto calLocal = calQueue.AllocTensor<float>();
-            auto dLocal = distQueue.AllocTensor<float>();
-            auto mLocal = maskQueue.AllocTensor<half>();
-
-            for (uint32_t j = 0; j < len; j++) {
-                float dx = inLocal.GetValue(j * 3 + 0) - cx;
-                float dy = inLocal.GetValue(j * 3 + 1) - cy;
-                float dz = inLocal.GetValue(j * 3 + 2) - cz;
-                float nd = dx * dx + dy * dy + dz * dz;
-                if (nd < dist[off + j]) dist[off + j] = nd;
-            }
-
-            calQueue.EnQue(calLocal);
-            distQueue.EnQue(dLocal);
-            maskQueue.EnQue(mLocal);
-            calLocal = calQueue.DeQue<float>();
-            dLocal = distQueue.DeQue<float>();
-            mLocal = maskQueue.DeQue<half>();
-            calQueue.FreeTensor(calLocal);
-            distQueue.FreeTensor(dLocal);
-            maskQueue.FreeTensor(mLocal);
-            inQueue.FreeTensor(inLocal);
-        }
-    }
-
-    __aicore__ inline uint32_t FindMaxIndex(float* dist, uint32_t N) {
-        float maxVal = -1e10f;
-        uint32_t maxIdx = 0;
-        for (uint32_t i = 0; i < N; i++) {
-            if (dist[i] > maxVal) {
-                maxVal = dist[i];
-                maxIdx = i;
-            }
-        }
-        return maxIdx;
     }
 
 private:
     TPipe pipe;
     TQue<QuePosition::VECIN, BUFFER_NUM> inQueue;
-    TQue<QuePosition::VECOUT, BUFFER_NUM> calQueue;
-    TQue<QuePosition::VECOUT, BUFFER_NUM> distQueue;
-    TQue<QuePosition::VECOUT, BUFFER_NUM> maskQueue;
-    uint32_t B, N, M, blockSize, tileNum, batchOffset, GmStride;
+    TQue<QuePosition::VECOUT, BUFFER_NUM> resQueue;
+    __gm__ float* xyzGm;
+    __gm__ int32_t* idxGm;
+    uint32_t B, N, M, blockSize, tileNum, batchOffset;
 };
 
 extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(

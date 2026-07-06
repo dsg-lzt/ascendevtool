@@ -58,6 +58,9 @@ fi
 log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
+    # 清理上次编译缓存
+    BUILD_OUT=$(find "$OP_SRC_DIR" -maxdepth 2 -name "build_out" -type d 2>/dev/null | head -1)
+    [ -d "$BUILD_OUT" ] && rm -rf "$BUILD_OUT" && log "已清理编译缓存"
     source ascenddevtool/bin/activate
     python op_builder/op_manager.py build "$OP_NAME" > "$LOG_DIR/build.log" 2>&1
     BUILD_EXIT=$?
