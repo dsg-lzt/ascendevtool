@@ -1,6 +1,6 @@
 === Op Pipeline Round 07 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 14:20:57
+Time: 2026-07-06 14:58:11
 
 --- build.log (tail 20) ---
 CPack: - Run preinstall target for: opp
@@ -29,26 +29,38 @@ gmake: *** [Makefile:71：package] 错误 1
 [WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
 
 --- test.log (tail 30) ---
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-=== FPS Operator Test ===
-  ns=<module 'torch.ops.pointnet2__ext_furthest_point_sampling' from 'torch.ops'>, callable=False
-  _C ops: []
-  Found lib: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_host/libcust_opmaster_rt2.0.so
-  torch_npu.npu_sub_sample
-  torch_npu.npu_top_k_top_p_sample
-  OP can't be called from PyTorch directly - registered in ACLNN only
-  Test SKIPPED (not a failure of the operator)
+    subprocess.run(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
 
-ALL PASS
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 88, in <module>
+    ok = test()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 58, in test
+    mod = load_inline(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1723, in load_inline
+    return _jit_compile(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'fps_test_ops': [1/2] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=fps_test_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/TH -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/THC -isystem /home/orange/miniconda3/envs/torch_npu/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -c /home/orange/.cache/torch_extensions/py310_cpu/fps_test_ops/main.cpp -o main.o 
+FAILED: [code=1] main.o 
+c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=fps_test_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/TH -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/THC -isystem /home/orange/miniconda3/envs/torch_npu/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -c /home/orange/.cache/torch_extensions/py310_cpu/fps_test_ops/main.cpp -o main.o 
+/home/orange/.cache/torch_extensions/py310_cpu/fps_test_ops/main.cpp: In function ‘void pybind11_init_fps_test_ops(pybind11::module_&)’:
+/home/orange/.cache/torch_extensions/py310_cpu/fps_test_ops/main.cpp:23:60: error: ‘farthest_point_sample’ was not declared in this scope
+   23 | m.def("farthest_point_sample", torch::wrap_pybind_function(farthest_point_sample), "farthest_point_sample");
+      |                                                            ^~~~~~~~~~~~~~~~~~~~~
+ninja: build stopped: subcommand failed.
+
+[ERROR] 2026-07-06-14:58:10 (PID:993208, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
 
 --- status ---
 BUILD_OK
 VERIFY_OK
-TEST_OK
+TEST_ERROR
