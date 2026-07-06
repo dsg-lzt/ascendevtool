@@ -10,7 +10,6 @@ public:
                                 uint32_t blockSize,
                                 uint32_t coreSize, uint32_t coreRemain) {
         uint32_t blockIdx = AscendC::GetBlockIdx();
-        uint32_t blockNum = AscendC::GetBlockNum();
 
         if (blockIdx < coreRemain) {
             batchBegin = blockIdx * (coreSize + 1);
@@ -32,15 +31,13 @@ public:
 
         uint32_t padded = (this->blockSize * 3 + 31) / 32 * 32;
         pipe.InitBuffer(inQueue, BUFFER_NUM, padded * sizeof(float));
-        pipe.InitBuffer(calcBuf, this->blockSize * 3 * sizeof(float));
     }
 
     __aicore__ inline void Process() {
         if (myBatches == 0) return;
 
-        float distArr[2048];
-
         for (uint32_t b = batchBegin; b < batchEnd; b++) {
+            float distArr[2048];
             uint32_t curN = (N < 2048) ? N : 2048;
             for (uint32_t i = 0; i < curN; i++) distArr[i] = 1e10f;
 
@@ -57,8 +54,8 @@ public:
                 uint32_t tileNum = (curN + blockSize - 1) / blockSize;
 
                 for (uint32_t t = 0; t < tileNum; t++) {
-                    CopyIn(b, t);
-                    Compute(cx, cy, cz, &maxD, &maxIdx, &distArr[0]);
+                    CopyIn(b, t, curN);
+                    Compute(cx, cy, cz, &maxD, &maxIdx, distArr, t);
                 }
                 farthest = maxIdx;
             }
@@ -66,9 +63,8 @@ public:
     }
 
 private:
-    __aicore__ inline void CopyIn(uint32_t b, uint32_t tileIdx) {
+    __aicore__ inline void CopyIn(uint32_t b, uint32_t tileIdx, uint32_t curN) {
         uint32_t off = tileIdx * blockSize;
-        uint32_t curN = (N < 2048) ? N : 2048;
         uint32_t len = (off + blockSize <= curN) ? blockSize : (curN - off);
         if (len == 0) return;
 
@@ -79,23 +75,19 @@ private:
     }
 
     __aicore__ inline void Compute(float cx, float cy, float cz,
-                                    float* maxD, int32_t* maxIdx, float* distArr) {
+                                    float* maxD, int32_t* maxIdx, float* distArr, uint32_t tileIdx) {
         auto xLocal = inQueue.DeQue<float>();
-        uint32_t off = 0;
         uint32_t curN = (N < 2048) ? N : 2048;
-        uint32_t tileIdx = 0;
+        uint32_t off = tileIdx * blockSize;
         uint32_t len = (off + blockSize <= curN) ? blockSize : (curN - off);
 
-        AscendC::LocalTensor<float> cBuf = calcBuf.Get<float>(len * 3);
         for (uint32_t j = 0; j < len; j++) {
             float dx = xLocal.GetValue(j * 3 + 0) - cx;
             float dy = xLocal.GetValue(j * 3 + 1) - cy;
             float dz = xLocal.GetValue(j * 3 + 2) - cz;
             float nd = dx * dx + dy * dy + dz * dz;
-
-            uint32_t gIdx = off + j;
-            if (nd < distArr[gIdx]) distArr[gIdx] = nd;
-            if (distArr[gIdx] > *maxD) { *maxD = distArr[gIdx]; *maxIdx = gIdx; }
+            if (nd < distArr[off + j]) distArr[off + j] = nd;
+            if (distArr[off + j] > *maxD) { *maxD = distArr[off + j]; *maxIdx = off + j; }
         }
         inQueue.FreeTensor(xLocal);
     }
@@ -103,7 +95,6 @@ private:
 private:
     AscendC::TPipe pipe;
     AscendC::TQue<AscendC::QuePosition::VECIN, BUFFER_NUM> inQueue;
-    AscendC::TBuf<AscendC::QuePosition::VECCALC> calcBuf;
     AscendC::GlobalTensor<float> xGm;
     AscendC::GlobalTensor<int32_t> yGm;
 
@@ -111,7 +102,7 @@ private:
     uint32_t batchBegin, batchEnd, myBatches;
 };
 
-extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
+extern "C" __global__ __aicore__ void furthest_point_sampling(
     GM_ADDR x, GM_ADDR y, GM_ADDR workspace, GM_ADDR tiling) {
     GET_TILING_DATA(tilingData, tiling);
 

@@ -4,7 +4,7 @@
 
 namespace optiling {
 static ge::graphStatus TilingFunc(gert::TilingContext* context) {
-    pointnet2__ext_furthest_point_samplingTilingData tiling;
+    FpsCustomTilingData tiling;
     constexpr int ATTR_NPOINT = 0;
     auto attrs = context->GetAttrs();
     int32_t M_raw = *(attrs->GetAttrPointer<int32_t>(ATTR_NPOINT));
@@ -58,9 +58,9 @@ static ge::graphStatus InferShape(gert::InferShapeContext* context) {
 }
 
 namespace ops {
-class pointnet2__ext_furthest_point_sampling : public OpDef {
+class FurthestPointSampling : public OpDef {
 public:
-    explicit pointnet2__ext_furthest_point_sampling(const char* name) : OpDef(name) {
+    explicit FurthestPointSampling(const char* name) : OpDef(name) {
         this->Input("x").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y").ParamType(REQUIRED).DataType({ge::DT_INT32}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->Attr("npoint").Int();
@@ -69,5 +69,5 @@ public:
         this->AICore().AddConfig("ascend310p");
     }
 };
-OP_ADD(pointnet2__ext_furthest_point_sampling);
+OP_ADD(FurthestPointSampling);
 }
