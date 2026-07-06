@@ -57,12 +57,34 @@ TORCH_LIBRARY(fps_test_ops, m) {
 
     print("  Compiling...")
     import torch_npu
-    lib_dir = os.path.dirname(torch_npu.__file__)
+    npu_dir = os.path.dirname(torch_npu.__file__)
+    npu_include = os.path.join(npu_dir, 'include')
+    
+    # Find actual torch_npu .so
+    import glob
+    npu_so = None
+    for pattern in [f'{npu_dir}/lib/*.so', f'{npu_dir}/../torch_npu.libs/*.so']:
+        for f in glob.glob(pattern):
+            if 'torch_npu' in os.path.basename(f):
+                npu_so = f
+                break
+        if npu_so: break
+    if npu_so is None:
+        # Find in npu_dir recursively
+        for f in glob.glob(f'{npu_dir}/**/*.so', recursive=True):
+            if 'torch_npu' in os.path.basename(f):
+                npu_so = f
+                break
+    print(f"  npu_so: {npu_so}")
+    print(f"  libs in npu_dir: {os.listdir(npu_dir)}")
+    
+    lib_dir = os.path.dirname(npu_so) if npu_so else npu_dir
+    
     mod = load_inline(
         name='fps_test_ops',
         cpp_sources=[cpp_source],
         extra_include_paths=[npu_include],
-        extra_ldflags=[f'-L{lib_dir}', '-ltorch_npu'],
+        extra_ldflags=[f'-L{lib_dir}', f'-l:{os.path.basename(npu_so)}' if npu_so else '-ltorch_npu'],
         verbose=False,
     )
     print("  Compiled OK")
