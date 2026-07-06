@@ -61,7 +61,6 @@ class FurthestPointSampling : public OpDef {
 public:
     explicit FurthestPointSampling(const char* name) : OpDef(name) {
         this->Input("x").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
-        this->Input("tmp").ParamType(REQUIRED).DataType({ge::DT_FLOAT16, ge::DT_FLOAT}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y").ParamType(REQUIRED).DataType({ge::DT_INT32}).Format({ge::FORMAT_ND}).UnknownShapeFormat({ge::FORMAT_ND});
         this->Attr("npoint").Int();
         this->SetInferShape(ge::InferShape);

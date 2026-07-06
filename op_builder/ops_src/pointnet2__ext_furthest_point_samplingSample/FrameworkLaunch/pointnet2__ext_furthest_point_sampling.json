@@ -8,12 +8,6 @@
                 "param_type": "required",
                 "format": ["ND","ND"],
                 "type": ["fp16","fp32"]
-            },
-            {
-                "name": "tmp",
-                "param_type": "required",
-                "format": ["ND","ND"],
-                "type": ["fp16","fp32"]
             }
         ],
         "output_desc": [
