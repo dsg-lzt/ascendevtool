@@ -4,7 +4,7 @@
 
 namespace optiling {
 static ge::graphStatus TilingFunc(gert::TilingContext* context) {
-    pointnet2__ext_furthest_point_samplingTilingData tiling;
+    FpsCustomTilingData tiling;
     constexpr int ATTR_NPOINT = 0;
     auto attrs = context->GetAttrs();
     int32_t M_raw = *(attrs->GetAttrPointer<int32_t>(ATTR_NPOINT));
