@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""FPS test — find correct torch_npu custom op API"""
-import torch
+"""FPS test — compile + register via torch.utils.cpp_extension.load_inline"""
+import torch, torch_npu, os, subprocess, sys
 
 def cpu_fps(xyz, npoint):
     B, N, _ = xyz.shape
@@ -18,37 +18,73 @@ def cpu_fps(xyz, npoint):
     return centroids.to(torch.int32)
 
 
-def discover_api():
-    import torch_npu
+def test():
+    # Find torch_npu include directory
+    npu_include = os.path.join(os.path.dirname(torch_npu.__file__), 'include')
+    print(f"  torch_npu include: {npu_include}")
+    print(f"  contents: {os.listdir(npu_include) if os.path.isdir(npu_include) else 'NOT FOUND'}")
 
-    # Find all torch_npu attributes containing 'op' or 'run' or 'custom' or 'npu'
-    for k in sorted(dir(torch_npu)):
-        if any(w in k.lower() for w in ['op', 'run', 'custom', 'npu', 'function', 'contrib']):
-            obj = getattr(torch_npu, k)
-            if isinstance(obj, type):
-                print(f"  torch_npu.{k}: class")
-            elif callable(obj):
-                print(f"  torch_npu.{k}: function")
-            else:
-                print(f"  torch_npu.{k}: {type(obj).__name__}")
+    # Find torch include
+    torch_include = os.path.join(os.path.dirname(torch.__file__), 'include')
+    print(f"  torch include: {torch_include}")
 
-    # Check submodules
-    for sub in ['_C', 'contrib', 'npu_ops']:
-        mod = getattr(torch_npu, sub, None)
-        if mod is None: continue
-        items = [k for k in dir(mod) if not k.startswith('_')]
-        print(f"\n  torch_npu.{sub} [{len(items)} items]: {items[:30]}")
+    # Ninja should already be installed
+    subprocess.run([sys.executable, '-m', 'pip', 'install', 'ninja', '-q'], capture_output=True)
 
-    # Check the torch.ops namespace for our operator
-    ns = torch.ops.pointnet2__ext_furthest_point_sampling
-    print(f"\n  torch.ops.pointnet2__ext_furthest_point_sampling:")
-    print(f"    type: {type(ns)}")
-    print(f"    dict: {ns.__dict__ if hasattr(ns, '__dict__') else 'N/A'}")
+    from torch.utils.cpp_extension import load_inline
 
-    print("\n  Op built + installed in CANN. Needs proper PyTorch binding.")
-    exit(0)
+    cpp_source = """
+#include <torch/extension.h>
+#include <torch_npu/csrc/framework/OpCommand.h>
+#include <torch_npu/csrc/core/npu/NPUStream.h>
+
+at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
+    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kFloat));
+    auto cmd = at_npu::native::OpCommand();
+    cmd.Name("pointnet2__ext_furthest_point_sampling")
+       .Input(xyz)
+       .Output(out)
+       .Attr("npoint", npoint)
+       .Run();
+    return out;
+}
+
+TORCH_LIBRARY(fps_test_ops, m) {
+    m.def("farthest_point_sample", &fps_npu);
+}
+"""
+
+    print("  Compiling...")
+    mod = load_inline(
+        name='fps_test_ops',
+        cpp_sources=[cpp_source],
+        functions=['farthest_point_sample'],
+        extra_include_paths=[npu_include],
+        verbose=False,
+    )
+    print("  Compiled OK")
+
+    op = torch.ops.fps_test_ops.farthest_point_sample
+
+    tests = [(1, 128, 32), (1, 512, 64), (2, 256, 48), (4, 128, 16),
+             (1, 1024, 128), (2, 500, 100), (4, 200, 50), (1, 64, 8)]
+    passed = 0
+    for B, N, M in tests:
+        xyz = torch.randn(B, N, 3).npu()
+        ref = cpu_fps(xyz.cpu(), M)
+        try:
+            out = op(xyz, M).long()
+            ok = torch.equal(ref, out.cpu())
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}")
+            if ok: passed += 1
+        except Exception as e:
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: {type(e).__name__}: {str(e)[:120]}")
+    print(f"\n  Result: {passed}/{len(tests)} passed")
+    return passed == len(tests)
 
 
 if __name__ == "__main__":
     print("=== FPS Operator Test ===")
-    discover_api()
+    ok = test()
+    print(f"{'ALL PASS' if ok else 'FAILED'}")
+    exit(0 if ok else 1)
