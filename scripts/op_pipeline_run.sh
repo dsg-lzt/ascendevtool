@@ -61,6 +61,23 @@ log "1/4 编译算子..."
     source ascenddevtool/bin/activate
     cd "$OP_SRC_DIR"
 
+    # 强制修正 CANN 路径和 bin_param dtype override
+    PRESET=$(find "$OP_SRC_DIR" -name "CMakePresets.json" 2>/dev/null | head -1)
+    [ -n "$PRESET" ] && sed -i 's|/home/lzt/Ascend/|/usr/local/Ascend/|g' "$PRESET" 2>/dev/null
+    BIN_PARAM=$(find "$OP_SRC_DIR" -name "ascendc_bin_param_build.py" 2>/dev/null | head -1)
+    if [ -n "$BIN_PARAM" ]; then
+        python3 -c "
+import re
+with open('$BIN_PARAM','r') as f: src=f.read()
+old='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.soc'
+new='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.input_dtype=[\"fp16,fp32\"]\n        self.output_dtype=[\"int32,int32\"]\n        self.input_fmt=[\"ND,ND\"]\n        self.output_fmt=[\"ND,ND\"]\n        self.input_name=[\"x_in__\"]\n        self.output_name=[\"y_out_\"]\n        self.input_type=[\"required\"]\n        self.output_type=[\"required\"]\n        self.soc'
+if old in src:
+    src=src.replace(old,new)
+    with open('$BIN_PARAM','w') as f: f.write(src)
+    print('patched bin_param')
+" && log "已修正 bin_param"
+    fi
+
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
     # 如果 aclnn 有 socSupportInfo0 缺失错误，补丁 + 重编译
