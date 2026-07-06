@@ -38,7 +38,7 @@ def build_and_test():
     print(">>> Compiling PyTorch binding...")
     ret = subprocess.run(
         [sys.executable, 'setup.py', 'build_ext', '--inplace'],
-        capture_output=True, text=True, cwd=script_dir
+        capture_output=True, text=True,
     )
     if ret.returncode != 0:
         print(f"  Compile failed:\n{ret.stderr[-500:]}")
