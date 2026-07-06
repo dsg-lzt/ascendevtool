@@ -55,10 +55,13 @@ TORCH_LIBRARY(fps_test_ops, m) {
 """
 
     print("  Compiling...")
+    import torch_npu
+    lib_dir = os.path.dirname(torch_npu.__file__)
     mod = load_inline(
         name='fps_test_ops',
         cpp_sources=[cpp_source],
         extra_include_paths=[npu_include],
+        extra_ldflags=[f'-L{lib_dir}', '-ltorch_npu'],
         verbose=False,
     )
     print("  Compiled OK")
