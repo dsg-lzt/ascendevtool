@@ -11,11 +11,12 @@ extern "C" __global__ __aicore__ void fps_custom(
     uint32_t myBatches = core_size + (GetBlockNum() == GetBlockIdx() + 1 ? core_remain : 0);
     uint32_t batchOffset = core_size * GetBlockIdx();
 
-    __gm__ float* outGm = (__gm__ float*)out + batchOffset * M;
+    __gm__ int32_t* outGm = (__gm__ int32_t*)out + batchOffset * M;
+    __gm__ float* xyzGm = (__gm__ float*)xyz + batchOffset * tiling_data.N * 3;
 
     for (uint32_t b = 0; b < myBatches; b++) {
         for (uint32_t m = 0; m < M; m++) {
-            outGm[b * M + m] = (float)m;
+            outGm[b * M + m] = (int32_t)m;
         }
     }
 }

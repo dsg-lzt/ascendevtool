@@ -14,8 +14,8 @@
       {
         "name": "y0",
         "param_type": "required",
-        "format": ["ND", "ND"],
-        "type": ["fp16", "fp32"]
+        "format": ["ND"],
+        "type": ["int32"]
       }
     ],
     "attr": [
