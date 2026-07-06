@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""FPS operator test — build PyTorch binding + precision validation"""
+"""FPS test — use torch_npu OpCommand via TORCH_LIBRARY"""
 import torch
-import subprocess, sys, os
 
 def cpu_fps(xyz, npoint):
     B, N, _ = xyz.shape
@@ -19,66 +18,45 @@ def cpu_fps(xyz, npoint):
     return centroids.to(torch.int32)
 
 
-def build_and_test():
+def run_npu_fps(xyz, npoint):
     import torch_npu
+    from torch_npu.contrib.function import npu_function
+    from torch_npu.framework import OpCommand as op_cmd
+    
+    out = torch.empty(xyz.size(0), npoint, dtype=torch.float32, device=xyz.device)
+    cmd = op_cmd()
+    cmd.Name("pointnet2__ext_furthest_point_sampling")
+    cmd.Input(xyz)
+    cmd.Output(out)
+    cmd.Attr("npoint", int(npoint))
+    cmd.Run()
+    return out.long()
 
-    # Compile binding
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Find the operator source directory (where setup.py is)
-    op_dir = os.path.join(script_dir, 'pointnet2__ext_furthest_point_samplingSample')
-    if not os.path.isfile(os.path.join(op_dir, 'setup.py')):
-        # Try to find via glob
-        import glob
-        matches = glob.glob(os.path.join(script_dir, '*Sample'))
-        matches = [d for d in matches if 'furthest' in d.lower() or 'fps' in d.lower()]
-        if matches:
-            op_dir = matches[0]
-    print(f"  Building from: {op_dir}")
-    os.chdir(op_dir)
-    print(">>> Compiling PyTorch binding...")
-    ret = subprocess.run(
-        [sys.executable, 'setup.py', 'build_ext', '--inplace'],
-        capture_output=True, text=True,
-    )
-    if ret.returncode != 0:
-        print(f"  Compile failed:\n{ret.stderr[-500:]}")
-        return False
-    print("  Compile OK")
 
-    # Load
-    torch.ops.load_library(
-        os.path.join(script_dir, f'fps_ops.cpython-{sys.version_info.major}{sys.version_info.minor}-x86_64-linux-gnu.so')
-    )
-    op = torch.ops.pointnet2__ext_furthest_point_sampling.farthest_point_sample
-
-    # Test multiple sizes
-    tests = [
-        (1, 128, 32), (1, 512, 64), (2, 256, 48),
-        (4, 128, 16), (1, 1024, 128), (2, 500, 100),
-        (4, 200, 50), (1, 64, 8), (8, 100, 20), (3, 300, 150),
-    ]
+def test():
+    import torch_npu
+    tests = [(1, 128, 32), (1, 512, 64), (2, 256, 48),
+             (4, 128, 16), (1, 1024, 128), (2, 500, 100),
+             (4, 200, 50), (1, 64, 8), (8, 100, 20), (3, 300, 150)]
     passed = 0
     for B, N, M in tests:
         xyz = torch.randn(B, N, 3).npu()
         ref = cpu_fps(xyz.cpu(), M)
         try:
-            out = op(xyz, M)
-            ok = torch.equal(ref.long(), out.cpu().long())
+            out = run_npu_fps(xyz, M)
+            ok = torch.equal(ref, out.cpu())
             print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}")
-            if ok:
-                passed += 1
+            if ok: passed += 1
             else:
-                mismatch = (ref.long() != out.cpu().long()).sum().item()
+                mismatch = (ref != out.cpu()).sum().item()
                 print(f"    mismatch: {mismatch}/{B*M}")
         except Exception as e:
-            print(f"  B={B:3d} N={N:4d} M={M:3d}: ERROR - {e}")
-
+            print(f"  B={B:3d} N={N:4d} M={M:3d}: {type(e).__name__}: {str(e)[:100]}")
     print(f"\n  Result: {passed}/{len(tests)} passed")
     return passed == len(tests)
 
-
 if __name__ == "__main__":
     print("=== FPS Operator Test ===")
-    ok = build_and_test()
+    ok = test()
     print(f"{'ALL PASS' if ok else 'FAILED'}")
     exit(0 if ok else 1)
