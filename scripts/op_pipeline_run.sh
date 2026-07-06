@@ -64,15 +64,14 @@ log "1/4 编译算子..."
     # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 补缺失的 socSupportInfo 定义
+    # 补缺失的 socSupportInfo 定义（如果自动生成的文件引用但未定义）
     ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
     if [ -n "$ACLNN_CPP" ]; then
         python3 -c "
-with open('$ACLNN_CPP', 'r') as f: src = f.read()
-# 在 OpSocSupportInfo opSocSupportList 之前插入定义
-if 'socSupportInfo0' not in src and 'OpSocSupportInfo' in src:
+with open('$ACLNN_CPP','r') as f: src = f.read()
+if 'socSupportInfo0' in src and 'OpSocSupportInfo socSupportInfo0' not in src:
     print('patching aclnn...')
-    support = '''TensorDesc _id0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
+    support='''TensorDesc _id0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
 TensorDesc _id0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
 TensorDesc _od0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
 TensorDesc _od0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
@@ -81,12 +80,19 @@ SupportInfo _l0_1 = {_id0_1, 1, _od0_1, 1};
 SupportInfo _s0[2] = {_l0_0, _l0_1};
 OpSocSupportInfo socSupportInfo0 = {_s0, 2};
 '''
-    src = src.replace('OpSocSupportInfo opSocSupportList', support + '\\nOpSocSupportInfo opSocSupportList')
-    with open('$ACLNN_CPP', 'w') as f: f.write(src)
-    print('done')
+    src = src.replace('OpSocSupportInfo opSocSupportList', support + '\nOpSocSupportInfo opSocSupportList')
+    with open('$ACLNN_CPP','w') as f: f.write(src)
+    print('patched')
+else:
+    print('no patch needed')
 "
-        # 用 cmake --build 直接编译（避免 cmake reconfigure 重新生成 autogen）
-        cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
+        # 用 make 直接编译（不用 cmake --build 避免重新配置覆盖补丁）
+        if make -C "$OP_SRC_DIR/build_out" -j$(nproc) package >> "$LOG_DIR/build.log" 2>&1; then
+            log "增量编译成功"
+        else
+            log "WARN: 增量编译失败，尝试 cmake --build"
+            cmake --build "$OP_SRC_DIR/build_out" --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
+        fi
     fi
 
     # 检查 .run 包是否生成
