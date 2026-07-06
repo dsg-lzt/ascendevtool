@@ -1,6 +1,6 @@
 [
     {
-        "op": "FurthestPointSampling",
+        "op": "pointnet2__ext_furthest_point_sampling",
         "language":"cpp",
         "input_desc": [
             {

@@ -102,7 +102,7 @@ private:
     uint32_t batchBegin, batchEnd, myBatches;
 };
 
-extern "C" __global__ __aicore__ void furthest_point_sampling(
+extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
     GM_ADDR x, GM_ADDR y, GM_ADDR workspace, GM_ADDR tiling) {
     GET_TILING_DATA(tilingData, tiling);
 
