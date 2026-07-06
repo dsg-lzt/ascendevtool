@@ -58,35 +58,33 @@ fi
 log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
-    BUILD_OUT=$(find "$OP_SRC_DIR" -maxdepth 2 -name "build_out" -type d 2>/dev/null | head -1)
-    [ -d "$BUILD_OUT" ] && rm -rf "$BUILD_OUT"
     source ascenddevtool/bin/activate
     cd "$OP_SRC_DIR"
 
-    # 用 build.sh 生成 autogen 文件（允许失败）
+    # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 如果源目录有手写 aclnn 文件，替换自动生成的有缺陷版本并重新编译
+    # 如果源目录有手写 aclnn 文件，替换自动生成的有缺陷版本并增量编译
     if [ -f "$OP_SRC_DIR/aclnn_fps.cpp" ]; then
         AUTO_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
         if [ -n "$AUTO_CPP" ]; then
             cp "$OP_SRC_DIR/aclnn_fps.cpp" "$AUTO_CPP"
-            [ -f "$OP_SRC_DIR/aclnn_header.h" ] && {
-                AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
-                [ -n "$AUTO_H" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
-            }
-            log "已替换 aclnn 文件，重新编译..."
-            rm -f "$OP_SRC_DIR/build_out/Makefile" 2>/dev/null
-            cmake -S . -B build_out >> "$LOG_DIR/build.log" 2>&1 || true
-            cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || {
-                echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-                fail "make 失败"
-            }
+            AUTO_H=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.h" 2>/dev/null | head -1)
+            [ -n "$AUTO_H" ] && [ -f "$OP_SRC_DIR/aclnn_header.h" ] && cp "$OP_SRC_DIR/aclnn_header.h" "$AUTO_H"
+            log "已替换 aclnn 文件，增量编译..."
+            cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
         fi
     fi
 
-    echo "BUILD_OK" > "$LOG_DIR/status.txt"
-    log "编译成功"
+    # 检查 .run 包是否生成
+    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
+    if [ -n "$RUN_FILE" ]; then
+        echo "BUILD_OK" > "$LOG_DIR/status.txt"
+        log "编译成功，生成 $RUN_FILE"
+    else
+        echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
+        fail "编译失败，未生成 .run 包"
+    fi
 )
 if tail -1 "$LOG_DIR/status.txt" 2>/dev/null | grep -q "BUILD_FAILED"; then
     _gen_summary
