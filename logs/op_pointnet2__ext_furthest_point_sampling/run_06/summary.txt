@@ -1,6 +1,6 @@
 === Op Pipeline Round 06 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 14:18:29
+Time: 2026-07-06 14:55:02
 
 --- build.log (tail 20) ---
 CPack: - Run preinstall target for: opp
@@ -29,23 +29,38 @@ gmake: *** [Makefile:71：package] 错误 1
 [WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
 
 --- test.log (tail 30) ---
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-=== FPS Operator Test ===
-  Available functions: ['name']
-  Trying first: name
-  B=1 N=256 M=32: OP fail - 'str' object is not callable
-    retry fail: 'str' object is not callable
+  torch_npu.npu_softmax_cross_entropy_with_logits_backward: function
+  torch_npu.npu_sort_v2: function
+  torch_npu.npu_stride_add: function
+  torch_npu.npu_stride_copy: function
+  torch_npu.npu_sub_sample: function
+  torch_npu.npu_swiglu: function
+  torch_npu.npu_swiglu_backward: function
+  torch_npu.npu_swiglu_quant: function
+  torch_npu.npu_top_k_top_p: function
+  torch_npu.npu_top_k_top_p_sample: function
+  torch_npu.npu_trans_quant_param: function
+  torch_npu.npu_transpose: function
+  torch_npu.npu_transpose_batchmatmul: function
+  torch_npu.npu_view_copy: function
+  torch_npu.npu_weight_quant_batchmatmul: function
+  torch_npu.npu_yolo_boxes_encode: function
+  torch_npu.op_plugin: module
+  torch_npu.optim: module
+  torch_npu.public_npu_functions: list
+  torch_npu.torch_npu: module
 
-FAILED
+  torch_npu._C [4 items]: ['get_autocast_dtype', 'is_autocast_enabled', 'set_autocast_dtype', 'set_autocast_enabled']
+
+  torch_npu.contrib [42 items]: ['BiLSTM', 'ChannelShuffle', 'DCNv2', 'FastBatchNorm1d', 'FastBatchNorm2d', 'FastBatchNorm3d', 'FastSyncBatchNorm', 'Focus', 'FusedColorJitter', 'LabelSmoothingCrossEntropy', 'LinearA8W8Quant', 'LinearQuant', 'LinearWeightQuant', 'Mish', 'ModulatedDeformConv', 'MultiheadAttention', 'NpuCachedDropout', 'NpuDropPath', 'NpuFairseqDropout', 'PSROIPool', 'Prefetcher', 'ROIAlign', 'SiLU', 'Swish', 'function', 'matmul_transpose', 'module', 'npu_batched_multiclass_nms', 'npu_bbox_coder_decode_xywh2xyxy', 'npu_bbox_coder_encode_xyxy2xywh']
+
+  torch.ops.pointnet2__ext_furthest_point_sampling:
+    type: <class 'torch._ops._OpNamespace'>
+    dict: {'__name__': 'torch.ops.pointnet2__ext_furthest_point_sampling', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, 'name': 'pointnet2__ext_furthest_point_sampling', '_dir': []}
+
+  Op built + installed in CANN. Needs proper PyTorch binding.
 
 --- status ---
 BUILD_OK
 VERIFY_OK
-TEST_ERROR
+TEST_OK
