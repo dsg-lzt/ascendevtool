@@ -36,6 +36,10 @@ class BinParamBuilder(opdesc_parser.OpDesc):
         self.output_dtype = ['int32,int32']
         self.input_fmt = ['ND,ND']
         self.output_fmt = ['ND,ND']
+        self.input_name = ['x_in__']
+        self.output_name = ['y_out_']
+        self.input_type = ['required']
+        self.output_type = ['required']
         self.soc = ''
         self.out_path = ''
         self.tiling_keys = set()
