@@ -1,6 +1,6 @@
 [
   {
-    "op": "pointnet2__ext_furthest_point_sampling",
+    "op": "FpsCustom",
     "language": "cpp",
     "input_desc": [
       {

@@ -23,7 +23,7 @@ cpp_source = """
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
     auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kFloat));
     at_npu::native::OpCommand cmd;
-    cmd.Name("pointnet2__ext_furthest_point_sampling")
+    cmd.Name("FpsCustom")
        .Input(xyz).Output(out).Attr("npoint", npoint).Run();
     return out;
 }

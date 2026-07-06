@@ -64,8 +64,8 @@ log "1/4 编译算子..."
     # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 补缺失的 socSupportInfo 定义（如果自动生成的文件引用但未定义）
-    ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_${OP_NAME}.cpp" 2>/dev/null | head -1)
+    # 补缺失的 socSupportInfo 定义
+    ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_*.cpp" 2>/dev/null | head -1)
     if [ -n "$ACLNN_CPP" ]; then
         python3 -c "
 with open('$ACLNN_CPP','r') as f: src = f.read()
