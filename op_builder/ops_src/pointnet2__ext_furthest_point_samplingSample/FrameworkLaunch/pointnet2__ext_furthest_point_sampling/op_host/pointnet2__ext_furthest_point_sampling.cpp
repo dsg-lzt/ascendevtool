@@ -5,12 +5,12 @@
 namespace optiling {
 static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     pointnet2__ext_furthest_point_samplingTilingData tiling;
-    constexpr uint32_t DEFAULT_M = 256;
 
     const gert::StorageShape* xyz_shape = context->GetInputShape(0);
     uint32_t B = xyz_shape->GetStorageShape().GetDim(0);
     uint32_t N = xyz_shape->GetStorageShape().GetDim(1);
-    uint32_t M = DEFAULT_M;
+    uint32_t M = 256;
+    if (M > N) M = N;
 
     tiling.set_B(B);
     tiling.set_N(N);
@@ -45,7 +45,6 @@ static ge::graphStatus InferShape(gert::InferShapeContext* context) {
     const gert::Shape* xyz_shape = context->GetInputShape(0);
     uint32_t B = xyz_shape->GetDim(0);
     uint32_t M = 256;
-
     gert::Shape* y_shape = context->GetOutputShape(0);
     y_shape->SetDimNum(2);
     y_shape->SetDim(0, B);
@@ -61,11 +60,6 @@ public:
         this->Input("x0")
             .ParamType(REQUIRED)
             .DataType({ge::DT_FLOAT, ge::DT_FLOAT16})
-            .Format({ge::FORMAT_ND})
-            .UnknownShapeFormat({ge::FORMAT_ND});
-        this->Input("npoint")
-            .ParamType(REQUIRED)
-            .DataType({ge::DT_INT32})
             .Format({ge::FORMAT_ND})
             .UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y0")

@@ -85,13 +85,12 @@ private:
     uint32_t B, N, M, blockSize, tileNum, batchOffset;
 };
 
-extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
-    GM_ADDR x0, GM_ADDR x1, GM_ADDR workspace, GM_ADDR tiling) {
-    GET_TILING_DATA(tiling_data, tiling);
-    KernelFPS op;
-    op.Init(x0, x1,
-            tiling_data.B, tiling_data.N, tiling_data.M,
-            tiling_data.block_size, tiling_data.core_size,
-            tiling_data.core_remain);
-    op.Process();
-}
+    extern "C" __global__ __aicore__ void pointnet2__ext_furthest_point_sampling(
+        GM_ADDR x0, GM_ADDR x1, GM_ADDR workspace, GM_ADDR tiling) {
+        GET_TILING_DATA(tiling_data, tiling);
+        KernelFPS op;
+        op.Init(x0, x1, tiling_data.B, tiling_data.N, tiling_data.M,
+                tiling_data.block_size, tiling_data.core_size,
+                tiling_data.core_remain);
+        op.Process();
+    }
