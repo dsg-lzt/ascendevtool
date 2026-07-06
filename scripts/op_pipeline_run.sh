@@ -61,48 +61,36 @@ log "1/4 编译算子..."
     source ascenddevtool/bin/activate
     cd "$OP_SRC_DIR"
 
-    # 用 build.sh 编译（允许失败，autogen 文件会保留在 build_out）
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # 补缺失的 socSupportInfo 定义
+    # 如果 aclnn 有 socSupportInfo0 缺失错误，补丁 + 重编译
     ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_*.cpp" 2>/dev/null | head -1)
     if [ -n "$ACLNN_CPP" ]; then
         python3 -c "
 with open('$ACLNN_CPP','r') as f: src = f.read()
 if 'socSupportInfo0' in src and 'OpSocSupportInfo socSupportInfo0' not in src:
-    print('patching aclnn...')
-    support='''TensorDesc _id0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc _id0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-TensorDesc _od0_0[1] = {{ge::DT_FLOAT, ge::FORMAT_ND}};
-TensorDesc _od0_1[1] = {{ge::DT_FLOAT16, ge::FORMAT_ND}};
-SupportInfo _l0_0 = {_id0_0, 1, _od0_0, 1};
-SupportInfo _l0_1 = {_id0_1, 1, _od0_1, 1};
-SupportInfo _s0[2] = {_l0_0, _l0_1};
-OpSocSupportInfo socSupportInfo0 = {_s0, 2};
+    support='''TensorDesc _id0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};
+TensorDesc _id0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};
+TensorDesc _od0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};
+TensorDesc _od0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};
+SupportInfo _l0_0={_id0_0,1,_od0_0,1};
+SupportInfo _l0_1={_id0_1,1,_od0_1,1};
+SupportInfo _s0[2]={_l0_0,_l0_1};
+OpSocSupportInfo socSupportInfo0={_s0,2};
 '''
-    src = src.replace('OpSocSupportInfo opSocSupportList', support + '\nOpSocSupportInfo opSocSupportList')
+    src=src.replace('OpSocSupportInfo opSocSupportList',support+'\nOpSocSupportInfo opSocSupportList')
     with open('$ACLNN_CPP','w') as f: f.write(src)
-    print('patched')
-else:
-    print('no patch needed')
-"
-        # 用 make 直接编译（不用 cmake --build 避免重新配置覆盖补丁）
-        if make -C "$OP_SRC_DIR/build_out" -j$(nproc) package >> "$LOG_DIR/build.log" 2>&1; then
-            log "增量编译成功"
-        else
-            log "WARN: 增量编译失败，尝试 cmake --build"
-            cmake --build "$OP_SRC_DIR/build_out" --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
-        fi
+" && log "已补 aclnn"
     fi
 
-    # 检查 .run 包是否生成
+    # .run 是否生成
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
         echo "BUILD_OK" > "$LOG_DIR/status.txt"
-        log "编译成功，生成 $RUN_FILE"
+        log "编译成功"
     else
         echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-        fail "编译失败，未生成 .run 包"
+        fail ".run 包未生成"
     fi
 )
 if tail -1 "$LOG_DIR/status.txt" 2>/dev/null | grep -q "BUILD_FAILED"; then
