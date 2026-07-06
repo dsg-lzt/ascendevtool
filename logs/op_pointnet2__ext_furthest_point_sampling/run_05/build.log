@@ -1,0 +1,116 @@
+using ASCEND_HOME_PATH: /usr/local/Ascend/ascend-toolkit/latest
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/ascend-toolkit/latest"
+  ASCEND_COMPUTE_UNIT:STRING="ascend310p"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  ASCEND_PYTHON_EXECUTABLE:STRING="python3"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="True"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="True"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="customize"
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Opbuild generating sources
+build ops lib info: 
+build ops lib error: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp: In function ‘ge::graphStatus optiling::TilingFunc(gert::TilingContext*)’:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:16:70: error: no matching function for call to ‘gert::Tensor::GetData() const’
+   16 |         const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/infer_shape_context.h:14,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_impl_registry.h:18,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def.h:16,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def_registry.h:13,
+                 from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:2:
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:59:12: note: candidate: ‘template<class T> const T* gert::Tensor::GetData() const’
+   59 |   const T *GetData() const {
+      |            ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:59:12: note:   template argument deduction/substitution failed:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:16:70: note:   couldn’t deduce template parameter ‘T’
+   16 |         const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/infer_shape_context.h:14,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_impl_registry.h:18,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def.h:16,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def_registry.h:13,
+                 from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:2:
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:68:8: note: candidate: ‘template<class T> T* gert::Tensor::GetData()’
+   68 |   auto GetData() -> T* {
+      |        ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:68:8: note:   template argument deduction/substitution failed:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:16:70: note:   couldn’t deduce template parameter ‘T’
+   16 |         const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:30:46: error: no matching function for call to ‘platform_ascendc::PlatformAscendC::GetCoreMemSize()’
+   30 |     uint32_t ubSize = platform.GetCoreMemSize().GetUB();
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:3:
+/usr/local/Ascend/ascend-toolkit/latest/include/tiling/platform/platform_ascendc.h:129:10: note: candidate: ‘void platform_ascendc::PlatformAscendC::GetCoreMemSize(const platform_ascendc::CoreMemType&, uint64_t&) const’
+  129 |     void GetCoreMemSize(const CoreMemType &memType, uint64_t &size) const;
+      |          ^~~~~~~~~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/include/tiling/platform/platform_ascendc.h:129:10: note:   candidate expects 2 arguments, 0 provided
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp: In function ‘ge::graphStatus ge::InferShape(gert::InferShapeContext*)’:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:64:65: error: cannot convert ‘const gert::Shape*’ to ‘const gert::StorageShape*’ in initialization
+   64 |     const gert::StorageShape* npt_shape = context->GetInputShape(1);
+      |                                           ~~~~~~~~~~~~~~~~~~~~~~^~~
+      |                                                                 |
+      |                                                                 const gert::Shape*
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:65:66: error: no matching function for call to ‘gert::Tensor::GetData() const’
+   65 |     const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/infer_shape_context.h:14,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_impl_registry.h:18,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def.h:16,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def_registry.h:13,
+                 from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:2:
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:59:12: note: candidate: ‘template<class T> const T* gert::Tensor::GetData() const’
+   59 |   const T *GetData() const {
+      |            ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:59:12: note:   template argument deduction/substitution failed:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:65:66: note:   couldn’t deduce template parameter ‘T’
+   65 |     const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/infer_shape_context.h:14,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_impl_registry.h:18,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def.h:16,
+                 from /usr/local/Ascend/ascend-toolkit/latest/include/register/op_def_registry.h:13,
+                 from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:2:
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:68:8: note: candidate: ‘template<class T> T* gert::Tensor::GetData()’
+   68 |   auto GetData() -> T* {
+      |        ^~~~~~~
+/usr/local/Ascend/ascend-toolkit/latest/include/exe_graph/runtime/tensor.h:68:8: note:   template argument deduction/substitution failed:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/op_host/pointnet2__ext_furthest_point_sampling.cpp:65:66: note:   couldn’t deduce template parameter ‘T’
+   65 |     const uint8_t* npt_data = context->GetInputTensor(1)->GetData();
+      |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+
+CMake Error at cmake/func.cmake:29 (message):
+  opbuild run failed!
+Call Stack (most recent call first):
+  op_host/CMakeLists.txt:4 (opbuild)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/CMakeFiles/CMakeOutput.log".
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
+========== 2. BUILD: pointnet2__ext_furthest_point_sampling ==========
+
+[RUN] >>> bash build.sh (cwd: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling)
+[ERROR] 执行失败: bash build.sh
