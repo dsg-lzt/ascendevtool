@@ -7,37 +7,17 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  torch_npu include: /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include
-  contents: ['torch_npu', 'third_party']
-  torch include: /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include
-  Compiling...
-Traceback (most recent call last):
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
-    subprocess.run(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/subprocess.py", line 526, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+  Compiled + loaded OK
+  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is F
+  B=  1 N= 512 M= 64: FAIL mismatch=64/64
+  B=  2 N= 256 M= 48: FAIL mismatch=96/96
+  B=  4 N= 128 M= 16: FAIL mismatch=64/64
+  B=  1 N=1024 M=128: FAIL mismatch=128/128
+  B=  2 N= 500 M=100: FAIL mismatch=200/200
+  B=  4 N= 200 M= 50: FAIL mismatch=200/200
+  B=  1 N=  64 M=  8: FAIL mismatch=8/8
+  B=  8 N= 100 M= 20: FAIL mismatch=160/160
+  B=  3 N= 300 M=150: FAIL mismatch=450/450
 
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 91, in <module>
-    ok = test()
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 61, in test
-    mod = load_inline(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1723, in load_inline
-    return _jit_compile(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
-    _write_ninja_file_and_build_library(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
-    _run_ninja_build(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
-    raise RuntimeError(message) from e
-RuntimeError: Error building extension 'fps_test_ops': [1/1] c++ main.o -shared -L/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu -ltorch_npu -L/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/lib -lc10 -ltorch_cpu -ltorch -ltorch_python -o fps_test_ops.so
-FAILED: [code=1] fps_test_ops.so 
-c++ main.o -shared -L/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu -ltorch_npu -L/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/lib -lc10 -ltorch_cpu -ltorch -ltorch_python -o fps_test_ops.so
-/usr/bin/ld: 找不到 -ltorch_npu: 没有那个文件或目录
-collect2: error: ld returned 1 exit status
-ninja: build stopped: subcommand failed.
-
-[ERROR] 2026-07-06-15:07:53 (PID:1031372, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  Result: 0/10 passed
+FAILED
