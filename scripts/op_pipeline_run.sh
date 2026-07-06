@@ -61,7 +61,10 @@ log "1/4 编译算子..."
     source ascenddevtool/bin/activate
     cd "$OP_SRC_DIR"
 
-    # 强制修正 CANN 路径和 bin_param dtype override
+    # 设置 CANN 构建环境
+    [ -f /usr/local/Ascend/ascend-toolkit/latest/bin/setenv.bash ] && source /usr/local/Ascend/ascend-toolkit/latest/bin/setenv.bash
+
+    # 强制修正 CMakePresets CANN 路径
     PRESET=$(find "$OP_SRC_DIR" -name "CMakePresets.json" 2>/dev/null | head -1)
     [ -n "$PRESET" ] && sed -i 's|/home/lzt/Ascend/|/usr/local/Ascend/|g' "$PRESET" 2>/dev/null
     BIN_PARAM=$(find "$OP_SRC_DIR" -name "ascendc_bin_param_build.py" 2>/dev/null | head -1)
