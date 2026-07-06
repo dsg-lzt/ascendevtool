@@ -65,6 +65,7 @@ public:
         this->Attr("npoint").Int();
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);
+        this->AICore().AddConfig("ascend310p");
     }
 };
 OP_ADD(pointnet2__ext_furthest_point_sampling);
