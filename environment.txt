@@ -1,20 +1,47 @@
-nohup: 忽略输入
-更新 22b1fdb..8d79a4b
-Fast-forward
- .../pointnet2__ext_furthest_point_sampling.json    | 19 +++++++++---------
- .../pointnet2__ext_furthest_point_sampling.cpp     | 23 +++++++++++++---------
- .../pointnet2__ext_furthest_point_sampling.cpp     | 19 ++++++------------
- .../test_pointnet2__ext_furthest_point_sampling.py |  3 +--
- 4 files changed, 31 insertions(+), 33 deletions(-)
-[OP-LOOP] 11:14:50 算子: pointnet2__ext_furthest_point_sampling | 初始 commit: 8d79a4ba4a051a576993f3765d213f72b1061726
-[OP-LOOP] 11:14:50 ========================================
-[OP-LOOP] 11:14:50 首次启动，立即执行第 1/10 轮 (pointnet2__ext_furthest_point_sampling)
-[OP-LOOP] 11:14:50 执行 op_pipeline_run.sh pointnet2__ext_furthest_point_sampling...
-[OP pointnet2__ext_furthest_point_sampling R01] 11:14:50 1/4 编译算子...
-[OP pointnet2__ext_furthest_point_sampling R01] 11:14:50 已清理编译缓存
-[OP pointnet2__ext_furthest_point_sampling R01] 11:14:54 ERROR: 编译失败，详见 build.log
-/home/orange/pipeline_tool/AscendDevTool/scripts/op_pipeline_run.sh: 行 76: _gen_summary: 未找到命令
-[OP-LOOP] 11:14:54 上传日志...
-[master 4cbf7c6] logs: op pipeline round 1 (pointnet2__ext_furthest_point_sampling) [auto]
- 2 files changed, 75 insertions(+), 21 deletions(-)
- delete mode 100644 logs/op_pointnet2__ext_furthest_point_sampling/loop_status.txt
+[
+    {
+        "op": "FurthestPointSampling",
+        "language":"cpp",
+        "input_desc": [
+            {
+                "name": "x",
+                "param_type": "required",
+                "format": [
+                    "ND","ND"
+                ],
+                "type": [
+                    "fp16","fp32"
+                ]
+            },
+            {
+                "name": "tmp",
+                "param_type": "required",
+                "format": [
+                    "ND","ND"
+                ],
+                "type": [
+                    "fp16","fp32"
+                ]
+            }
+        ],
+        "output_desc": [
+            {
+                "name": "y",
+                "param_type": "required",
+                "format": [
+                    "ND","ND"
+                ],
+                "type": [
+                    "int32","int32"
+                ]
+            }
+        ],
+        "attr":[
+            {
+                "name": "npoint",
+                "param_type": "required",
+                "type": "int"
+            }
+        ]
+    }
+]
