@@ -31,15 +31,11 @@ class ParamInfo(NamedTuple):
 class BinParamBuilder(opdesc_parser.OpDesc):
     def __init__(self: any, op_type: str):
         super().__init__(op_type)
-        # Fix: if op_build failed to determine dtype, provide fallback
-        if not self.input_dtype:
-            self.input_dtype = ['fp16,fp32']
-        if not self.output_dtype:
-            self.output_dtype = ['fp16,fp32']
-        if not self.input_fmt:
-            self.input_fmt = ['ND,ND']
-        if not self.output_fmt:
-            self.output_fmt = ['ND,ND']
+        # Always override with known dtypes (op_build may fail to set)
+        self.input_dtype = ['fp16,fp32', 'fp16,fp32']
+        self.output_dtype = ['int32,int32']
+        self.input_fmt = ['ND,ND', 'ND,ND']
+        self.output_fmt = ['ND,ND']
         self.soc = ''
         self.out_path = ''
         self.tiling_keys = set()
