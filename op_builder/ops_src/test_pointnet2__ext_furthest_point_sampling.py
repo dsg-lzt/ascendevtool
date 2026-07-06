@@ -19,6 +19,7 @@ def cpu_fps(xyz, npoint):
 
 
 def test():
+    import torch_npu
     # Find torch_npu include directory
     npu_include = os.path.join(os.path.dirname(torch_npu.__file__), 'include')
     print(f"  torch_npu include: {npu_include}")
