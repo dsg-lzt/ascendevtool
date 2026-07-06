@@ -6,7 +6,7 @@
       {
         "name": "x0",
         "param_type": "required",
-        "format": ["ND"],
+        "format": ["ND", "ND"],
         "type": ["float16", "float32"]
       },
       {
@@ -21,7 +21,7 @@
         "name": "y0",
         "param_type": "required",
         "format": ["ND"],
-        "type": ["int32"]
+        "type": ["float32"]
       }
     ]
   }

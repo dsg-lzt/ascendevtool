@@ -18,7 +18,7 @@ public:
         this->tileNum = (N + this->blockSize - 1) / this->blockSize;
 
         this->xyzGm = (__gm__ float*)xyz_gm;
-        this->idxGm = (__gm__ int32_t*)idx_gm;
+        this->idxGm = (__gm__ float*)idx_gm;
 
         pipe.InitBuffer(inQueue, BUFFER_NUM, this->blockSize * 3 * sizeof(float));
         pipe.InitBuffer(resQueue, BUFFER_NUM, this->blockSize * sizeof(float));
@@ -33,7 +33,7 @@ public:
             uint32_t farthest = 0;
             for (uint32_t m = 0; m < M; m++) {
                 uint32_t gid = (batchOffset + b) * M + m;
-                idxGm[gid] = farthest;
+                idxGm[gid] = (float)farthest;
 
                 float cx = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 0];
                 float cy = xyzGm[(batchOffset + b) * N * 3 + farthest * 3 + 1];
@@ -81,7 +81,7 @@ private:
     TQue<QuePosition::VECIN, BUFFER_NUM> inQueue;
     TQue<QuePosition::VECOUT, BUFFER_NUM> resQueue;
     __gm__ float* xyzGm;
-    __gm__ int32_t* idxGm;
+    __gm__ float* idxGm;
     uint32_t B, N, M, blockSize, tileNum, batchOffset;
 };
 

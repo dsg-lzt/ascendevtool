@@ -70,7 +70,7 @@ public:
             .UnknownShapeFormat({ge::FORMAT_ND});
         this->Output("y0")
             .ParamType(REQUIRED)
-            .DataType({ge::DT_INT32})
+            .DataType({ge::DT_FLOAT})
             .Format({ge::FORMAT_ND})
             .UnknownShapeFormat({ge::FORMAT_ND});
 

@@ -26,7 +26,8 @@ def test_fps_op():
         ref = cpu_fps(xyz.cpu(), M)
 
         try:
-            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npoint=M)
+            out = torch.ops.pointnet2__ext_furthest_point_sampling.pointnet2__ext_furthest_point_sampling(xyz, npt)
+            out = out.long()
             ok = True
         except Exception as e:
             print(f"  B={B} N={N} M={M}: OP fail - {e}")
