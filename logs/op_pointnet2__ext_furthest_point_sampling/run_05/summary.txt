@@ -1,28 +1,28 @@
 === Op Pipeline Round 05 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 15:33:56
+Time: 2026-07-06 16:49:21
 
 --- build.log (tail 20) ---
-CPack: - Run preinstall target for: opp
-CPack: - Install project: opp []
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:58 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/ascend310p":
-  No such file or directory.
-Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/cmake_install.cmake:57 (include)
-
-
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:62 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/config":
-  No such file or directory.
-Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/cmake_install.cmake:57 (include)
-
-
-CPack Error: Error when generating package: opp
-gmake: *** [Makefile:71：package] 错误 1
+[ 58%] Built target ops_info_gen_ascend310p
+[ 75%] Built target cust_optiling
+[ 75%] Built target gen_version_info
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 75%] Built target modify_vendor
+[ 75%] Built target optiling_compat
+[INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 75%] Built target npu_supported_ops
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/autogen/aclnn_furthest_point_sampling.cpp:54:41: error: ‘socSupportInfo0’ was not declared in this scope; did you mean ‘OpSocSupportInfo’?
+   54 | OpSocSupportInfo opSocSupportList[1] = {socSupportInfo0};
+      |                                         ^~~~~~~~~~~~~~~
+      |                                         OpSocSupportInfo
+gmake[2]: *** [op_host/CMakeFiles/cust_opapi.dir/build.make:76：op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:294：op_host/CMakeFiles/cust_opapi.dir/all] 错误 2
+gmake[1]: *** 正在等待未完成的任务....
+[ 83%] Linking CXX shared library libcust_tf_parsers.so
+[ 83%] Built target cust_tf_parsers
+[ 91%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[ 91%] Built target cust_op_proto
+gmake: *** [Makefile:156：all] 错误 2
 
 --- verify.log (tail 20) ---
 ========== 3. VERIFY: pointnet2__ext_furthest_point_sampling ==========
@@ -39,9 +39,9 @@ gmake: *** [Makefile:71：package] 错误 1
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
   Compiled + loaded OK
-  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is p
+  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is F
   B=  1 N= 512 M= 64: FAIL mismatch=64/64
-  B=  2 N= 256 M= 48: FAIL mismatch=94/96
+  B=  2 N= 256 M= 48: FAIL mismatch=96/96
   B=  4 N= 128 M= 16: FAIL mismatch=64/64
   B=  1 N=1024 M=128: FAIL mismatch=128/128
   B=  2 N= 500 M=100: FAIL mismatch=200/200
@@ -54,6 +54,8 @@ gmake: *** [Makefile:71：package] 错误 1
 FAILED
 
 --- status ---
-BUILD_OK
+BUILD_FAILED
+BUILD_ERROR: .run 包未生成
 VERIFY_OK
+INSTALL_FAILED
 TEST_ERROR
