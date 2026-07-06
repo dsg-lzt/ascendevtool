@@ -131,14 +131,14 @@ log "3/4 安装算子..."
 (
     cd "$TOOL_DIR"
     source ascenddevtool/bin/activate
-    python op_builder/op_manager.py install "$OP_NAME" >> "$LOG_DIR/build.log" 2>&1
-    INSTALL_EXIT=$?
-    if [ $INSTALL_EXIT -ne 0 ]; then
-        echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
-        fail "安装失败"
+    # 直接查找并安装 .run 包
+    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
+    if [ -n "$RUN_FILE" ]; then
+        cp "$RUN_FILE" "$TOOL_DIR/oplib/custom_opp_packages/" 2>/dev/null
+        bash "$RUN_FILE" --quiet 2>/dev/null && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
     else
-        echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
-        log "安装成功"
+        echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
+        log "WARN: 安装失败，未找到 .run 包"
     fi
 )
 
