@@ -7,6 +7,8 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  B=1 N=256 M=32: OP fail - '_OpNamespace' 'pointnet2__ext_furthest_point_sampling' object has no attribute 'pointnet2__ext_furthest_point_sampling'
+>>> Compiling PyTorch binding...
+  Compile failed:
+/home/orange/miniconda3/envs/torch_npu/bin/python: can't open file '/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/setup.py': [Errno 2] No such file or directory
 
 FAILED
