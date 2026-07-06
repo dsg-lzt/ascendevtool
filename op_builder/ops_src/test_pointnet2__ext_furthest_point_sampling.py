@@ -58,7 +58,6 @@ TORCH_LIBRARY(fps_test_ops, m) {
     mod = load_inline(
         name='fps_test_ops',
         cpp_sources=[cpp_source],
-        functions=['farthest_point_sample'],
         extra_include_paths=[npu_include],
         verbose=False,
     )
