@@ -1,59 +1,49 @@
-nohup: 忽略输入
-Merge made by the 'ort' strategy.
- scripts/op_pipeline_run.sh | 43 +------------------------------------------
- 1 file changed, 1 insertion(+), 42 deletions(-)
-[OP-LOOP] 11:19:15 算子: FurthestPointSampling | 初始 commit: 3efcae50ff7d65bffd9678bbbcf910456df1aade
-[OP-LOOP] 11:19:15 ========================================
-[OP-LOOP] 11:19:15 首次启动，立即执行第 1/9999 轮 (FurthestPointSampling)
-[OP-LOOP] 11:19:15 执行 op_pipeline_run.sh FurthestPointSampling...
-[OP FurthestPointSampling R01] 11:19:15 1/4 编译算子...
-[OP FurthestPointSampling R01] 11:19:20 编译成功
-[OP FurthestPointSampling R01] 11:19:20 2/4 精度验证...
-[OP FurthestPointSampling R01] 11:19:20 精度验证通过
-[OP FurthestPointSampling R01] 11:19:20 3/4 安装算子...
-[OP FurthestPointSampling R01] 11:19:21 4/4 运行测试...
-[OP FurthestPointSampling R01] 11:19:21 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
-[OP FurthestPointSampling R01] 11:19:49 ❌ 测试失败
-[OP FurthestPointSampling R01] 11:19:49 完成
-[OP-LOOP] 11:19:49 上传日志...
-[master b287b95] logs: op pipeline round 1 (FurthestPointSampling) [auto]
- 2 files changed, 116 insertions(+), 6 deletions(-)
-[OP-LOOP] 11:21:41 ========================================
-[OP-LOOP] 11:21:41 检测到新提交，开始第 2/9999 轮 (FurthestPointSampling)
-[OP-LOOP] 11:21:41   b287b95cc4969338f71bf0aaa50f39576aa8bc0f -> ac7f1d0aa6fc62040cf6ddeca2d89e4ea06567a5
-更新 b287b95..ac7f1d0
-Fast-forward
- scripts/op_pipeline_run.sh | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-[OP-LOOP] 11:21:43 执行 op_pipeline_run.sh FurthestPointSampling...
-[OP FurthestPointSampling R02] 11:21:44 1/4 编译算子...
-[OP FurthestPointSampling R02] 11:21:49 编译成功
-[OP FurthestPointSampling R02] 11:21:49 2/4 精度验证...
-[OP FurthestPointSampling R02] 11:21:49 精度验证通过
-[OP FurthestPointSampling R02] 11:21:49 3/4 安装算子...
-[OP FurthestPointSampling R02] 11:21:50 4/4 运行测试...
-[OP FurthestPointSampling R02] 11:21:50 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
-[OP FurthestPointSampling R02] 11:22:19 ❌ 测试失败
-[OP FurthestPointSampling R02] 11:22:19 完成
-[OP-LOOP] 11:22:19 上传日志...
-[master c71aa4b] logs: op pipeline round 2 (FurthestPointSampling) [auto]
- 2 files changed, 115 insertions(+), 5 deletions(-)
-[OP-LOOP] 11:24:32 ========================================
-[OP-LOOP] 11:24:32 检测到新提交，开始第 3/9999 轮 (FurthestPointSampling)
-[OP-LOOP] 11:24:32   c71aa4b6b8929b0308459bad22879e82eb83cdf1 -> 647fbdb0aee953e36654cdc06b4bb08fd7e05af8
-更新 c71aa4b..647fbdb
-[OP-LOOP] 11:24:33 WARN: git pull 失败
-[OP-LOOP] 11:24:33 执行 op_pipeline_run.sh FurthestPointSampling...
-[OP FurthestPointSampling R03] 11:24:33 1/4 编译算子...
-[OP FurthestPointSampling R03] 11:24:37 编译成功
-[OP FurthestPointSampling R03] 11:24:37 2/4 精度验证...
-[OP FurthestPointSampling R03] 11:24:38 精度验证通过
-[OP FurthestPointSampling R03] 11:24:38 3/4 安装算子...
-[OP FurthestPointSampling R03] 11:24:38 4/4 运行测试...
-[OP FurthestPointSampling R03] 11:24:38 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
-[OP FurthestPointSampling R03] 11:25:05 ❌ 测试失败
-[OP FurthestPointSampling R03] 11:25:05 完成
-[OP-LOOP] 11:25:05 上传日志...
-[master d421488] logs: op pipeline round 3 (FurthestPointSampling) [auto]
- 3 files changed, 142 insertions(+), 36 deletions(-)
-[OP-LOOP] 11:25:06 WARN: git push 失败
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ bash build.sh 
+using ASCEND_HOME_PATH: /usr/local/Ascend/ascend-toolkit/latest
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/home/lzt/Ascend/ascend-toolkit/latest"
+  ASCEND_COMPUTE_UNIT:STRING="ascend310p"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  ASCEND_PYTHON_EXECUTABLE:STRING="/home/orange/miniconda3/envs/torch_npu/bin/python3"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="True"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="True"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="customize"
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Opbuild generating sources
+build ops lib info: 
+build ops lib error: In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_host/furthest_point_sampling.cpp:2:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_host/furthest_point_sampling_tiling.h:2:10: fatal error: register/tilingdata_base.h: 没有那个文件或目录
+    2 | #include "register/tilingdata_base.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+CMake Error at cmake/func.cmake:29 (message):
+  opbuild run failed!
+Call Stack (most recent call first):
+  op_host/CMakeLists.txt:4 (opbuild)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/CMakeFiles/CMakeOutput.log".
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
