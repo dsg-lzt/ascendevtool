@@ -37,6 +37,8 @@ fi
 
 cd "$TOOL_DIR"
 export no_proxy=github.com
+# 继承用户交互 shell 的代理配置
+source ~/.bashrc 2>/dev/null || true
 git config http.lowSpeedLimit 1000 2>/dev/null || true
 git config http.lowSpeedTime 30 2>/dev/null || true
 git config http.sslVerify false 2>/dev/null || true
