@@ -26,6 +26,8 @@ LAST_COMMIT_FILE="$PIPELINE_ROOT/.op_pipeline_last_commit_${OP_NAME}"
 
 round=0
 mkdir -p "$LOG_ROOT"
+LOOP_LOG="$LOG_ROOT/loop.log"
+: > "$LOOP_LOG"   # 清空上次的循环日志
 rm -rf "$LOG_ROOT"/run_*
 rm -f "$LOG_ROOT/loop_status.txt" 2>/dev/null
 
@@ -45,7 +47,7 @@ git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Op Pipeline Bot" 2>/dev/null || true
 
 log() {
-    echo "[OP-LOOP] $(date '+%H:%M:%S') $*"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') $*" | tee -a "$LOOP_LOG"
 }
 
 retry_git() {
@@ -103,8 +105,6 @@ while [ $round -lt $MAX_ROUNDS ]; do
 
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null || true
-    cp "$PIPELINE_ROOT/op_loop.log" "$LOG_ROOT/op_loop.log" 2>/dev/null || true
-    git add "$LOG_ROOT/op_loop.log" 2>/dev/null || true
     git commit -m "logs: op pipeline round $round ($OP_NAME) [auto]" 2>/dev/null || log "WARN: 无日志变更"
     retry_git git pull --rebase origin master || true
     if retry_git git push origin master; then
