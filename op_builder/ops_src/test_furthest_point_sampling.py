@@ -23,10 +23,10 @@ cpp_source = """
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
     auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
     at_npu::native::OpCommand cmd;
-    cmd.Name("pointnet2__ext_furthest_point_sampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
+    cmd.Name("FurthestPointSampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
     return out;
 }
-TORCH_LIBRARY(fps_test_ops, m) { m.def("farthest_point_sample", &fps_npu); }
+TORCH_LIBRARY(fps_ops, m) { m.def("farthest_point_sample", &fps_npu); }
 """
 
 def test():
@@ -39,12 +39,12 @@ def test():
 
     from torch.utils.cpp_extension import load_inline
     build_dir = tempfile.mkdtemp()
-    load_inline(name='fps_test_ops', cpp_sources=[cpp_source],
+    load_inline(name='fps_ops', cpp_sources=[cpp_source],
         extra_include_paths=[npu_inc],
         extra_ldflags=[f'-L{lib_dir}', f'-l:{os.path.basename(npu_so)}'],
         build_directory=build_dir, is_python_module=False, verbose=False)
-    torch.ops.load_library(os.path.join(build_dir, 'fps_test_ops.so'))
-    op = torch.ops.fps_test_ops.farthest_point_sample
+    torch.ops.load_library(os.path.join(build_dir, 'fps_ops.so'))
+    op = torch.ops.fps_ops.farthest_point_sample
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
