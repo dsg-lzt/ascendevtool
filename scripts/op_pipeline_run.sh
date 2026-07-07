@@ -60,52 +60,11 @@ log "1/4 编译算子..."
     cd "$TOOL_DIR"
     source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null
     conda activate torch_npu 2>/dev/null || true
+    export ASCEND_PYTHON_EXECUTABLE=$(which python3)
     cd "$OP_SRC_DIR"
-
-    # 设置 CANN 构建环境
-    [ -f /usr/local/Ascend/ascend-toolkit/latest/bin/setenv.bash ] && source /usr/local/Ascend/ascend-toolkit/latest/bin/setenv.bash
-
-    # 强制修正 CMakePresets CANN 路径
-    PRESET=$(find "$OP_SRC_DIR" -name "CMakePresets.json" 2>/dev/null | head -1)
-    [ -n "$PRESET" ] && sed -i 's|/home/lzt/Ascend/|/usr/local/Ascend/|g' "$PRESET" 2>/dev/null
-    BIN_PARAM=$(find "$OP_SRC_DIR" -name "ascendc_bin_param_build.py" 2>/dev/null | head -1)
-    if [ -n "$BIN_PARAM" ]; then
-        python3 -c "
-import re
-with open('$BIN_PARAM','r') as f: src=f.read()
-old='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.soc'
-new='def __init__(self: any, op_type: str):\n        super().__init__(op_type)\n        self.input_dtype=[\"float16,float32\"]\n        self.output_dtype=[\"int32,int32\"]\n        self.input_fmt=[\"ND,ND\"]\n        self.output_fmt=[\"ND,ND\"]\n        self.input_name=[\"x0_in__\"]\n        self.output_name=[\"y0_out_\"]\n        self.input_type=[\"required\"]\n        self.output_type=[\"required\"]\n        self.soc'
-if old in src:
-    src=src.replace(old,new)
-    with open('$BIN_PARAM','w') as f: f.write(src)
-    print('patched bin_param')
-" && log "已修正 bin_param"
-    fi
 
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
-    # ACLNN 补丁 + 重编译
-    ACLNN_CPP=$(find "$OP_SRC_DIR/build_out/autogen" -name "aclnn_*.cpp" 2>/dev/null | head -1)
-    if [ -n "$ACLNN_CPP" ]; then
-        python3 -c "
-src=open('$ACLNN_CPP').read()
-if 'socSupportInfo0' in src and 'OpSocSupportInfo socSupportInfo0' not in src:
-    patch='TensorDesc _i0_0[1]={{ge::DT_FLOAT,ge::FORMAT_ND}};'
-    patch+='\nTensorDesc _i0_1[1]={{ge::DT_FLOAT16,ge::FORMAT_ND}};'
-    patch+='\nTensorDesc _o0_0[1]={{ge::DT_INT32,ge::FORMAT_ND}};'
-    patch+='\nTensorDesc _o0_1[1]={{ge::DT_INT32,ge::FORMAT_ND}};'
-    patch+='\nSupportInfo _l0_0={_i0_0,1,_o0_0,1};'
-    patch+='\nSupportInfo _l0_1={_i0_1,1,_o0_1,1};'
-    patch+='\nSupportInfo _s0[2]={_l0_0,_l0_1};'
-    patch+='\nOpSocSupportInfo socSupportInfo0={_s0,2};'
-    src=src.replace('OpSocSupportInfo opSocSupportList',patch+'\nOpSocSupportInfo opSocSupportList')
-    open('$ACLNN_CPP','w').write(src)
-    print('ACLNN patched')
-" && log "aclnn patched"
-        cmake --build "$OP_SRC_DIR/build_out" --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
-    fi
-
-    # .run 是否生成
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
         echo "BUILD_OK" > "$LOG_DIR/status.txt"
