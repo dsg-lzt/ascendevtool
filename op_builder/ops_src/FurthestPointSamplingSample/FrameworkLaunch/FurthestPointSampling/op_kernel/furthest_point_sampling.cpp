@@ -15,8 +15,8 @@ public:
         if (tileN_ > N_) tileN_ = N_;
         if (tileN_ < 64) tileN_ = 64;
 
-        inGm.SetGlobalBuffer(reinterpret_cast<__gm__ T*>(p), B_ * N_ * COORD_DIM);
-        outGm.SetGlobalBuffer(reinterpret_cast<__gm__ int32_t*>(s), B_ * M_);
+        inGm = reinterpret_cast<__gm__ T*>(p);
+        outGm = reinterpret_cast<__gm__ int32_t*>(s);
 
         uint32_t bi = AscendC::GetBlockIdx();
         if (bi < crem) { start_ = bi * (bpc + 1); end_ = start_ + bpc + 1; }
@@ -34,16 +34,14 @@ public:
 
 private:
     __aicore__ inline void ProcessBatch(uint32_t b) {
+        __gm__ T* batchIn = inGm + b * N_ * COORD_DIM;
+        __gm__ int32_t* batchOut = outGm + b * M_;
+
         AscendC::LocalTensor<T> mdAll = md.Get<T>();
         for (uint32_t i = 0; i < N_; i++) mdAll.SetValue(i, initVal_);
 
-        uint64_t bo = (uint64_t)b * N_ * COORD_DIM;
-        AscendC::LocalTensor<T> cBuf = qX.AllocTensor<T>();
-        AscendC::DataCopy(cBuf, inGm[bo], COORD_DIM);
-        qX.EnQue(cBuf);
-        cBuf = qX.DeQue<T>();
-        T cx = cBuf.GetValue(0), cy = cBuf.GetValue(1), cz = cBuf.GetValue(2);
-        outGm.SetValue(b * M_, 0);
+        T selX = batchIn[0], selY = batchIn[1], selZ = batchIn[2];
+        batchOut[0] = 0;
 
         int32_t nTiles = (N_ + tileN_ - 1) / tileN_;
         for (int32_t m = 1; m < (int32_t)M_; m++) {
@@ -55,19 +53,20 @@ private:
                 int32_t cN = (ts + (int32_t)tileN_ <= (int32_t)N_) ? tileN_ : (N_ - ts);
                 if (cN <= 0) continue;
 
-                uint64_t off = bo + ts * COORD_DIM;
                 AscendC::LocalTensor<T> xTile = qX.AllocTensor<T>();
-                AscendC::DataCopy(xTile, inGm[off], cN * COORD_DIM);
+                for (int32_t i = 0; i < cN; i++) {
+                    int32_t gi = ts + i;
+                    xTile.SetValue(i, batchIn[gi * COORD_DIM + 0]);
+                }
                 qX.EnQue(xTile);
                 xTile = qX.DeQue<T>();
 
                 float lM = -65504.0f;
                 uint32_t lI = 0;
                 for (int32_t i = 0; i < cN; i++) {
-                    float dx = (float)xTile.GetValue(i * COORD_DIM) - (float)cx;
-                    float dy = (float)xTile.GetValue(i * COORD_DIM + 1) - (float)cy;
-                    float dz = (float)xTile.GetValue(i * COORD_DIM + 2) - (float)cz;
-                    float nd = dx * dx + dy * dy + dz * dz;
+                    float dx = (float)xTile.GetValue(i) - (float)selX;
+                    T ndT = (T)(dx * dx);
+                    float nd = (float)ndT;
                     float od = (float)mdAll.GetValue(ts + i);
                     if (nd < od) mdAll.SetValue(ts + i, (T)nd);
                     float cd = (float)mdAll.GetValue(ts + i);
@@ -77,13 +76,9 @@ private:
                 qX.FreeTensor(xTile);
             }
 
-            outGm.SetValue(b * M_ + m, (int32_t)gIdx);
-            uint64_t co = bo + gIdx * COORD_DIM;
-            cBuf = qX.AllocTensor<T>();
-            AscendC::DataCopy(cBuf, inGm[co], COORD_DIM);
-            qX.EnQue(cBuf);
-            cBuf = qX.DeQue<T>();
-            cx = cBuf.GetValue(0); cy = cBuf.GetValue(1); cz = cBuf.GetValue(2);
+            batchOut[m] = (int32_t)gIdx;
+            int32_t off = gIdx * COORD_DIM;
+            selX = batchIn[off + 0]; selY = batchIn[off + 1]; selZ = batchIn[off + 2];
             mdAll.SetValue(gIdx, (T)0.0f);
         }
     }
@@ -91,8 +86,8 @@ private:
     AscendC::TPipe pipe;
     AscendC::TQue<AscendC::QuePosition::VECIN, BUF_NUM> qX;
     AscendC::TBuf<AscendC::QuePosition::VECCALC> md;
-    AscendC::GlobalTensor<T> inGm;
-    AscendC::GlobalTensor<int32_t> outGm;
+    __gm__ T* inGm;
+    __gm__ int32_t* outGm;
     uint32_t B_, N_, M_, tileN_, start_, end_;
     T initVal_;
 };
