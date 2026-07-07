@@ -1,6 +1,3 @@
-grep "ASCEND_PYTHON\|ASCEND_CANN" ~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/CMakePresets.json
-                "ASCEND_CANN_PACKAGE_PATH": {
-                "ASCEND_PYTHON_EXECUTABLE": {
 (torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ bash build.sh 
 using ASCEND_HOME_PATH: /usr/local/Ascend/ascend-toolkit/latest
 Preset CMake variables:
@@ -41,7 +38,7 @@ CMake Warning:
 
 
 -- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out
-[ 66%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 33%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
 [ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
 
 
@@ -55,14 +52,14 @@ Compile op info cfg successfully.
 [100%] Built target cust_optiling
 [ascend310p] Generating FurthestPointSampling_14e9b7d9c770f53a59688f714391821d ...
 [ascend310p] Generating FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327 ...
-[ERROR] TBE(1812039,python3):2026-07-07-11:39:33.776.356 [op_compile_info_check.py:31][check_op_optional_paramtype] Op[type=FurthestPointSampling] invalid input nums[2], which should be equal to input nums[1] in op store.
-[ERROR] TBE(1812039,python3):2026-07-07-11:39:33.776.372 [op_compile_info_check.py:67][check_op_compilation_json] Invalid json file content[/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/bin_param/FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327_param.json].
+[ERROR] TBE(1850959,python3):2026-07-07-11:49:34.860.836 [op_compile_info_check.py:31][check_op_optional_paramtype] Op[type=FurthestPointSampling] invalid input nums[2], which should be equal to input nums[1] in op store.
+[ERROR] TBE(1850959,python3):2026-07-07-11:49:34.860.908 [op_compile_info_check.py:67][check_op_compilation_json] Invalid json file content[/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/bin_param/FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327_param.json].
 Opc tool start working now, please wait for a moment.
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327.json not generated!
 make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:5：furthest_point_sampling1] 错误 1
 make[4]: *** 正在等待未完成的任务....
-[ERROR] TBE(1812041,python3):2026-07-07-11:39:33.776.339 [op_compile_info_check.py:31][check_op_optional_paramtype] Op[type=FurthestPointSampling] invalid input nums[2], which should be equal to input nums[1] in op store.
-[ERROR] TBE(1812041,python3):2026-07-07-11:39:33.776.362 [op_compile_info_check.py:67][check_op_compilation_json] Invalid json file content[/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/bin_param/FurthestPointSampling_14e9b7d9c770f53a59688f714391821d_param.json].
+[ERROR] TBE(1850957,python3):2026-07-07-11:49:34.949.090 [op_compile_info_check.py:31][check_op_optional_paramtype] Op[type=FurthestPointSampling] invalid input nums[2], which should be equal to input nums[1] in op store.
+[ERROR] TBE(1850957,python3):2026-07-07-11:49:34.949.141 [op_compile_info_check.py:67][check_op_compilation_json] Invalid json file content[/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/bin_param/FurthestPointSampling_14e9b7d9c770f53a59688f714391821d_param.json].
 Opc tool start working now, please wait for a moment.
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_14e9b7d9c770f53a59688f714391821d.json not generated!
 make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:3：furthest_point_sampling0] 错误 1
@@ -77,23 +74,23 @@ gmake[2]: *** [CMakeFiles/Makefile2:425：op_kernel/CMakeFiles/FurthestPointSamp
 gmake[1]: *** [CMakeFiles/Makefile2:379：op_kernel/CMakeFiles/binary.dir/rule] 错误 2
 gmake: *** [Makefile:293：binary] 错误 2
 Consolidate compiler generated dependencies of target cust_optiling
-[ 33%] Generating scripts/install.sh, scripts/upgrade.sh
-[ 33%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
-[ 33%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
-[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
-[ 50%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
-[ 58%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
-[ 58%] Built target ops_info_gen_ascend310p
-[ 75%] Built target cust_optiling
+[  8%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
+[ 25%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 25%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
+[ 33%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 58%] Built target cust_optiling
+[ 75%] Built target ops_info_gen_ascend310p
+[ 75%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
 [ 75%] Built target gen_version_info
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
-[ 75%] Built target optiling_compat
 [ 75%] Built target modify_vendor
+[ 75%] Built target optiling_compat
 [INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
 [ 75%] Built target npu_supported_ops
 [ 83%] Linking CXX shared library libcust_opapi.so
-[ 83%] Built target cust_opapi
 [ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_opapi
 [ 91%] Built target cust_tf_parsers
 [100%] Linking CXX shared library libcust_opsproto_rt2.0.so
 [100%] Built target cust_op_proto
