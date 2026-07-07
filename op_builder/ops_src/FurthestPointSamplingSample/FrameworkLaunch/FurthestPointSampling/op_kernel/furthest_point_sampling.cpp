@@ -24,7 +24,7 @@ public:
         if (start_ >= B_) end_ = start_;
         if (end_ > B_) end_ = B_;
 
-        pipe.InitBuffer(qX, BUF_NUM, tileN_ * sizeof(T));
+        pipe.InitBuffer(qX, tileN_ * sizeof(T));
         pipe.InitBuffer(md, N_ * sizeof(T));
     }
 
@@ -53,13 +53,11 @@ private:
                 int32_t cN = (ts + (int32_t)tileN_ <= (int32_t)N_) ? tileN_ : (N_ - ts);
                 if (cN <= 0) continue;
 
-                AscendC::LocalTensor<T> xTile = qX.AllocTensor<T>();
+                AscendC::LocalTensor<T> xTile = qX.Get<T>();
                 for (int32_t i = 0; i < cN; i++) {
                     int32_t gi = ts + i;
                     xTile.SetValue(i, batchIn[gi * COORD_DIM + 0]);
                 }
-                qX.EnQue(xTile);
-                xTile = qX.DeQue<T>();
 
                 float lM = -65504.0f;
                 uint32_t lI = 0;
@@ -75,7 +73,6 @@ private:
                     if (cd > lM) { lM = cd; lI = i; }
                 }
                 if (lM > gMax) { gMax = lM; gIdx = ts + lI; }
-                qX.FreeTensor(xTile);
             }
 
             batchOut[m] = (int32_t)gIdx;
@@ -86,7 +83,7 @@ private:
     }
 
     AscendC::TPipe pipe;
-    AscendC::TQue<AscendC::QuePosition::VECIN, BUF_NUM> qX;
+    AscendC::TBuf<AscendC::QuePosition::VECCALC> qX;
     AscendC::TBuf<AscendC::QuePosition::VECCALC> md;
     __gm__ T* inGm;
     __gm__ int32_t* outGm;
