@@ -107,8 +107,10 @@ log "3/4 安装算子..."
     # 直接查找并安装 .run 包
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
-        cp "$RUN_FILE" "$TOOL_DIR/oplib/custom_opp_packages/" 2>/dev/null
-        bash "$RUN_FILE" --quiet >> "$LOG_DIR/install.log" 2>&1 && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
+        CUSTOM_PATH="$TOOL_DIR/oplib/custom_opp_packages"
+        cp "$RUN_FILE" "$CUSTOM_PATH/" 2>/dev/null
+        export ASCEND_CUSTOM_OPP_PATH="$CUSTOM_PATH"
+        bash "$RUN_FILE" --quiet --install-path "$CUSTOM_PATH" >> "$LOG_DIR/install.log" 2>&1 && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
     else
         echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
         log "WARN: 安装失败，未找到 .run 包"
