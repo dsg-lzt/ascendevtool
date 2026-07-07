@@ -100,7 +100,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
     fi
 
     log "执行 op_pipeline_run.sh $OP_NAME..."
-    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME"
+    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME" 2>&1 | tee -a "$LOOP_LOG"
     PIPELINE_EXIT=$?
 
     log "上传日志..."
