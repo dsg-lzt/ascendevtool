@@ -58,9 +58,8 @@ fi
 log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
-    source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null
-    conda activate torch_npu 2>/dev/null || true
-    export ASCEND_PYTHON_EXECUTABLE=$(which python3)
+    export PATH=/home/orange/miniconda3/envs/torch_npu/bin:$PATH
+    export ASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3
     cd "$OP_SRC_DIR"
 
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
