@@ -1,10 +1,10 @@
 === Op Pipeline Round 01 Summary ===
 Operator: FurthestPointSampling
-Time: 2026-07-07 11:37:36
+Time: 2026-07-07 11:49:20
 
 --- build.log (tail 20) ---
-[ 83%] Built target cust_opapi
 [ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_opapi
 [ 91%] Built target cust_tf_parsers
 [100%] Linking CXX shared library libcust_opsproto_rt2.0.so
 [100%] Built target cust_op_proto
