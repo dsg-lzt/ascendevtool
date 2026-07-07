@@ -1,3 +1,22 @@
-[OP-LOOP] 14:22:30 WARN: git pull 失败
-[OP-LOOP] 14:22:30 WARN: 检测到本地未提交修改，强制 reset
-[OP-LOOP] 14:23:08 WARN: git push 失败
+[OP-LOOP] 14:45:54 WARN: git pull 失败
+[OP-LOOP] 14:45:54 WARN: 检测到本地未提交修改，强制 reset
+[OP-LOOP] 14:45:54 执行 op_pipeline_run.sh FurthestPointSampling...
+[OP FurthestPointSampling R11] 14:45:54 1/4 编译算子...
+[OP FurthestPointSampling R11] 14:46:04 编译成功
+[OP FurthestPointSampling R11] 14:46:04 2/4 精度验证...
+[OP FurthestPointSampling R11] 14:46:04 精度验证通过
+[OP FurthestPointSampling R11] 14:46:04 3/4 安装算子...
+[OP FurthestPointSampling R11] 14:46:04 4/4 运行测试...
+[OP FurthestPointSampling R11] 14:46:04 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
+[OP FurthestPointSampling R11] 14:46:32 ❌ 测试失败
+[OP FurthestPointSampling R11] 14:46:32 完成
+[OP-LOOP] 14:46:32 上传日志...
+[master f5f35d0] logs: op pipeline round 11 (FurthestPointSampling) [auto]
+ 6 files changed, 241 insertions(+)
+ create mode 100644 logs/op_FurthestPointSampling/run_11/build.log
+ create mode 100644 logs/op_FurthestPointSampling/run_11/install.log
+ create mode 100644 logs/op_FurthestPointSampling/run_11/status.txt
+ create mode 100644 logs/op_FurthestPointSampling/run_11/summary.txt
+ create mode 100644 logs/op_FurthestPointSampling/run_11/test.log
+ create mode 100644 logs/op_FurthestPointSampling/run_11/verify.log
+[OP-LOOP] 14:46:33 WARN: git push 失败
