@@ -7,7 +7,7 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-..  B=  1 N= 128 M= 32: PASS
+  B=  1 N= 128 M= 32: PASS
   B=  1 N= 512 M= 64: PASS
   B=  2 N= 256 M= 48: PASS
   B=  4 N= 128 M= 16: PASS
