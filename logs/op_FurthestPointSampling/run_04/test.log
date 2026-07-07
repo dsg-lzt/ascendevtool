@@ -7,16 +7,16 @@
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 === FPS Operator Test ===
-  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is F
-  B=  1 N= 512 M= 64: FAIL m=64/64
-  B=  2 N= 256 M= 48: FAIL m=96/96
-  B=  4 N= 128 M= 16: FAIL m=64/64
-  B=  1 N=1024 M=128: FAIL m=128/128
-  B=  2 N= 500 M=100: FAIL m=200/200
-  B=  4 N= 200 M= 50: FAIL m=200/200
-  B=  1 N=  64 M=  8: FAIL m=8/8
-  B=  8 N= 100 M= 20: FAIL m=160/160
-  B=  3 N= 300 M=150: FAIL m=450/450
+  B=  1 N= 128 M= 32: PASS
+  B=  1 N= 512 M= 64: PASS
+  B=  2 N= 256 M= 48: PASS
+  B=  4 N= 128 M= 16: PASS
+  B=  1 N=1024 M=128: PASS
+  B=  2 N= 500 M=100: PASS
+  B=  4 N= 200 M= 50: PASS
+  B=  1 N=  64 M=  8: PASS
+  B=  8 N= 100 M= 20: FAIL m=16/160
+  B=  3 N= 300 M=150: PASS
 
-  0/10 passed
+  9/10 passed
 FAILED
