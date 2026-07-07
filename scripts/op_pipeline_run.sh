@@ -58,7 +58,8 @@ fi
 log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
-    source ascenddevtool/bin/activate
+    source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null
+    conda activate torch_npu 2>/dev/null || true
     cd "$OP_SRC_DIR"
 
     # 设置 CANN 构建环境
@@ -123,7 +124,7 @@ fi
 log "2/4 精度验证..."
 (
     cd "$TOOL_DIR"
-    source ascenddevtool/bin/activate
+    source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null; conda activate torch_npu 2>/dev/null || true
     python op_builder/op_manager.py verify "$OP_NAME" > "$LOG_DIR/verify.log" 2>&1
     VERIFY_EXIT=$?
     if [ $VERIFY_EXIT -ne 0 ]; then
@@ -139,7 +140,7 @@ log "2/4 精度验证..."
 log "3/4 安装算子..."
 (
     cd "$TOOL_DIR"
-    source ascenddevtool/bin/activate
+    source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null; conda activate torch_npu 2>/dev/null || true
     # 直接查找并安装 .run 包
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
