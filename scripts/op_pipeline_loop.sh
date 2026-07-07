@@ -26,6 +26,7 @@ LAST_COMMIT_FILE="$PIPELINE_ROOT/.op_pipeline_last_commit_${OP_NAME}"
 
 round=0
 mkdir -p "$LOG_ROOT"
+rm -rf "$LOG_ROOT"/run_*
 rm -f "$LOG_ROOT/loop_status.txt" 2>/dev/null
 
 # GIT_TOKEN 配置

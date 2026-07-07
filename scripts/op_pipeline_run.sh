@@ -22,6 +22,7 @@ fi
 TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
 LOG_DIR="$TOOL_DIR/logs/op_${OP_NAME}/run_$ROUND"
 
+rm -rf "$LOG_DIR"
 mkdir -p "$LOG_DIR"
 : > "$LOG_DIR/status.txt"
 
@@ -66,7 +67,7 @@ log "1/4 编译算子..."
     rm -rf build_out
     sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
 
-    bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
+    bash build.sh > "$LOG_DIR/build.log" 2>&1 || true
 
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
