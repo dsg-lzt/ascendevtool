@@ -55,8 +55,20 @@ def test():
         ref=cpu_fps(xyz.cpu(),M)
         try:
             out=op(xyz,M)
-            ok=torch.equal(ref,out.cpu())
-            print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}{'' if ok else f' m={(ref!=out.cpu()).sum()}/{B*M}'}")
+            out_cpu = out.cpu()
+            ok=torch.equal(ref,out_cpu)
+            if not ok:
+                diff = (ref != out_cpu)
+                total_wrong = diff.sum().item()
+                # per-batch breakdown
+                per_batch = diff.sum(dim=1).tolist()
+                # first mismatch detail
+                mismatch_idx = diff.nonzero(as_tuple=False)
+                detail = ""
+                if mismatch_idx.shape[0] > 0:
+                    first = mismatch_idx[0].tolist()
+                    detail = f" 1st_mismatch: batch={first[0]} idx={first[1]} ref={ref[first[0],first[1]].item()} out={out_cpu[first[0],first[1]].item()}"
+                print(f"  B={B:3d} N={N:4d} M={M:3d}: {'PASS' if ok else 'FAIL'}{'' if ok else f' m={total_wrong}/{B*M} per_batch={per_batch}{detail}'}")
             if ok: passed+=1
         except Exception as e:
             print(f"  B={B:3d} N={N:4d} M={M:3d}: {type(e).__name__}: {str(e)[:120]}")
