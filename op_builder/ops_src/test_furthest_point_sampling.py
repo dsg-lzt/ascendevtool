@@ -31,6 +31,7 @@ TORCH_LIBRARY(fps_ops, m) { m.def("farthest_point_sample", &fps_npu); }
 
 def test():
     subprocess.run([sys.executable,'-m','pip','install','ninja','-q'], capture_output=True)
+    os.environ['PATH'] = os.path.dirname(sys.executable) + ':' + os.environ.get('PATH','')
     npu_dir = os.path.dirname(torch_npu.__file__)
     npu_inc = os.path.join(npu_dir, 'include')
     npu_so = glob.glob(f'{npu_dir}/lib/libtorch_npu.so')
