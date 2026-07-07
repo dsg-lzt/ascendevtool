@@ -43,7 +43,7 @@
                 },
                 "ASCEND_PYTHON_EXECUTABLE": {
                     "type": "STRING",
-                    "value": "python3"
+                    "value": "/home/orange/miniconda3/envs/torch_npu/bin/python3"
                 },
                 "CMAKE_INSTALL_PREFIX": {
                     "type": "PATH",
