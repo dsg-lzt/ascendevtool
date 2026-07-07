@@ -1,1 +1,4 @@
-BUILD_ERROR: 未找到算子工程: op_builder/ops_src/FurthestPointSamplingSample
+BUILD_OK
+VERIFY_OK
+TEST_ERROR
+DONE

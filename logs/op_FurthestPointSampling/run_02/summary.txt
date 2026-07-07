@@ -1,0 +1,60 @@
+=== Op Pipeline Round 02 Summary ===
+Operator: FurthestPointSampling
+Time: 2026-07-07 10:41:01
+
+--- build.log (tail 20) ---
+[ 66%] Built target cust_op_proto
+[ 83%] Built target cust_opapi
+[100%] Built target cust_optiling
+[100%] Built target gen_version_info
+[100%] Built target optiling_compat
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
+  file INSTALL cannot find
+  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
+  No such file or directory.
+Call Stack (most recent call first):
+  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
+
+
+CPack Error: Error when generating package: opp
+gmake: *** [Makefile:71：package] 错误 1
+
+--- verify.log (tail 20) ---
+========== 3. VERIFY: FurthestPointSampling ==========
+[WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
+
+--- test.log (tail 30) ---
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=== FPS Operator Test ===
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 67, in <module>
+    ok=test()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 42, in test
+    load_inline(name='fps_test_ops', cpp_sources=[cpp_source],
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1723, in load_inline
+    return _jit_compile(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1888, in _write_ninja_file_and_build_library
+    verify_ninja_availability()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1945, in verify_ninja_availability
+    raise RuntimeError("Ninja is required to load C++ extensions")
+RuntimeError: Ninja is required to load C++ extensions
+[ERROR] 2026-07-07-10:41:00 (PID:1554516, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+
+--- status ---
+BUILD_OK
+VERIFY_OK
+TEST_ERROR
