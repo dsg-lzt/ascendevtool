@@ -22,7 +22,6 @@ rm -rf "$LOG_ROOT"/run_*
 
 cd "$TOOL_DIR"
 export GIT_MERGE_AUTOEDIT=no
-export no_proxy=github.com
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Op Pipeline Bot" 2>/dev/null || true
 
