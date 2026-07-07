@@ -43,6 +43,11 @@ private:
         T selX = batchIn[0], selY = batchIn[1], selZ = batchIn[2];
         batchOut[0] = 0;
 
+        if (b == 0) {
+            AscendC::PRINTF("B=%u N=%u M=%u tileN=%u start=%u end=%u\n",
+                   B_, N_, M_, tileN_, start_, end_);
+        }
+
         int32_t nTiles = (N_ + tileN_ - 1) / tileN_;
         for (int32_t m = 1; m < (int32_t)M_; m++) {
             float gMax = -65504.0f;
@@ -82,6 +87,10 @@ private:
             int32_t off = gIdx * COORD_DIM;
             selX = batchIn[off + 0]; selY = batchIn[off + 1]; selZ = batchIn[off + 2];
             mdAll.SetValue(gIdx, (T)0.0f);
+
+            if (b == 0) {
+                AscendC::PRINTF("  m=%d idx=%u gMax=%.6f\n", (int)m, gIdx, (double)gMax);
+            }
         }
     }
 
