@@ -1,22 +1,33 @@
-[OP-LOOP] 14:45:54 WARN: git pull 失败
-[OP-LOOP] 14:45:54 WARN: 检测到本地未提交修改，强制 reset
-[OP-LOOP] 14:45:54 执行 op_pipeline_run.sh FurthestPointSampling...
-[OP FurthestPointSampling R11] 14:45:54 1/4 编译算子...
-[OP FurthestPointSampling R11] 14:46:04 编译成功
-[OP FurthestPointSampling R11] 14:46:04 2/4 精度验证...
-[OP FurthestPointSampling R11] 14:46:04 精度验证通过
-[OP FurthestPointSampling R11] 14:46:04 3/4 安装算子...
-[OP FurthestPointSampling R11] 14:46:04 4/4 运行测试...
-[OP FurthestPointSampling R11] 14:46:04 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
-[OP FurthestPointSampling R11] 14:46:32 ❌ 测试失败
-[OP FurthestPointSampling R11] 14:46:32 完成
-[OP-LOOP] 14:46:32 上传日志...
-[master f5f35d0] logs: op pipeline round 11 (FurthestPointSampling) [auto]
- 6 files changed, 241 insertions(+)
- create mode 100644 logs/op_FurthestPointSampling/run_11/build.log
- create mode 100644 logs/op_FurthestPointSampling/run_11/install.log
- create mode 100644 logs/op_FurthestPointSampling/run_11/status.txt
- create mode 100644 logs/op_FurthestPointSampling/run_11/summary.txt
- create mode 100644 logs/op_FurthestPointSampling/run_11/test.log
- create mode 100644 logs/op_FurthestPointSampling/run_11/verify.log
-[OP-LOOP] 14:46:33 WARN: git push 失败
+nohup: 忽略输入
+来自 https://github.com/dsg-lzt/ascendevtool
+ * branch            master     -> FETCH_HEAD
+   ba85984..050ae0b  master     -> origin/master
+Merge made by the 'ort' strategy.
+ scripts/op_pipeline_loop.sh | 4 ++++
+ 1 file changed, 4 insertions(+)
+[OP-LOOP] 15:37:22 算子: FurthestPointSampling | 初始 commit: 5251714b8ebbdbf3f4d02b473734818beebb7a14
+[OP-LOOP] 15:37:22 ========================================
+[OP-LOOP] 15:37:22 首次启动，立即执行第 1/9999 轮 (FurthestPointSampling)
+[OP-LOOP] 15:37:22 执行 op_pipeline_run.sh FurthestPointSampling...
+[OP FurthestPointSampling R01] 15:37:22 1/4 编译算子...
+[OP FurthestPointSampling R01] 15:37:31 编译成功
+[OP FurthestPointSampling R01] 15:37:31 2/4 精度验证...
+[OP FurthestPointSampling R01] 15:37:32 精度验证通过
+[OP FurthestPointSampling R01] 15:37:32 3/4 安装算子...
+[OP FurthestPointSampling R01] 15:37:32 安装成功
+[OP FurthestPointSampling R01] 15:37:32 4/4 运行测试...
+[OP FurthestPointSampling R01] 15:37:32 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
+[OP FurthestPointSampling R01] 15:37:59 ❌ 测试失败
+[OP FurthestPointSampling R01] 15:37:59 完成
+[OP-LOOP] 15:37:59 上传日志...
+[master 74b7472] logs: op pipeline round 1 (FurthestPointSampling) [auto]
+ 3 files changed, 56 insertions(+), 56 deletions(-)
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 15:37:59 WARN: retry 1/3: git
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 15:38:04 WARN: retry 2/3: git
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 15:38:14 WARN: retry 3/3: git
