@@ -1,1 +1,22 @@
-cd ~/pipeline_tool/AscendDevTool && git checkout -- op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/cmake/util/ascendc_bin_param_build.py && git pull
+[OP FurthestPointSampling R01] 10:39:49 1/4 编译算子...
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/op_impl/custom/ is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/op_proto/custom/ is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: / is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: / is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/framework/custom/ is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/op_impl/custom/ is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/op_proto/custom/ is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: / is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: / is empty
+find: ‘/usr/local/Ascend/ascend-toolkit/latest/opp/test-ops/script’: 权限不够
+[INFO]: /usr/local/Ascend/ascend-toolkit/latest/opp/framework/custom/ is empty
+patched bin_param
