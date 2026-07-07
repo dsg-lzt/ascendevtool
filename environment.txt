@@ -1,2 +1,29 @@
-git checkout -- op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_bin_param_build.py
+(base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ git checkout -- op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_bin_param_build.py
 git pull
+Merge made by the 'ort' strategy.
+ environment.txt | 32 ++------------------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
+(base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ git status
+位于分支 master
+您的分支领先 'origin/master' 共 4 个提交。
+  （使用 "git push" 来发布您的本地提交）
+
+未跟踪的文件:
+  （使用 "git add <文件>..." 以包含要提交的内容）
+        .scan_tool_user
+        op_builder/_groundingdino__C_ms_deform_attn_backward_gen.json
+        op_builder/_groundingdino__C_ms_deform_attn_forward_gen.json
+        op_builder/_sam2__C_get_connected_componnets_gen.json
+        op_builder/_sim3solve_solve_system_gen.json
+        op_builder/_torch_cdist_gen.json
+        op_builder/_torch_compile_gen.json
+        op_builder/_torch_cuda_get_device_capability_gen.json
+        op_builder/_torch_linalg_lstsq_gen.json
+        op_builder/_torch_nn_MaxPool2d_gen.json
+        op_builder/_torch_nn_MultiheadAttention_gen.json
+        op_builder/_torch_nn_functional_grid_sample_gen.json
+        op_builder/_torch_nn_utils_clip_grad_norm__gen.json
+        op_builder/ops_src/fusion_result.json
+        op_builder/ops_src/ge_check_op.json
+
+提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
