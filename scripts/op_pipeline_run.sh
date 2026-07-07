@@ -59,7 +59,9 @@ log "1/4 编译算子..."
 (
     cd "$TOOL_DIR"
     export PATH=/home/orange/miniconda3/envs/torch_npu/bin:$PATH
+    export PYTHONPATH=/home/orange/miniconda3/envs/torch_npu/lib/python3.9/site-packages:$PYTHONPATH
     export ASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3
+    python3 -m pip install decorator -q 2>/dev/null || true
     cd "$OP_SRC_DIR"
     rm -rf build_out
     sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
