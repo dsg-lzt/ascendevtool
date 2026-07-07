@@ -1,33 +1,19 @@
-nohup: 忽略输入
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 16:01:39 WARN: retry 1/3: git pull --rebase origin master
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 16:01:44 WARN: retry 2/3: git pull --rebase origin master
+error: 不能变基式拉取：您有未暂存的变更。
+error: 请提交或贮藏它们。
+[OP-LOOP] 16:01:54 WARN: retry 3/3: git pull --rebase origin master
+To https://github.com/dsg-lzt/ascendevtool.git
+   123485b..9101c49  master -> master
+fatal: 无法访问 'https://github.com/dsg-lzt/ascendevtool.git/'：Received HTTP code 504 from proxy after CONNECT
+[OP-LOOP] 16:02:23 WARN: retry 1/3: git fetch origin master
+fatal: 无法访问 'https://github.com/dsg-lzt/ascendevtool.git/'：Received HTTP code 504 from proxy after CONNECT
+[OP-LOOP] 16:02:34 WARN: retry 2/3: git fetch origin master
 来自 https://github.com/dsg-lzt/ascendevtool
  * branch            master     -> FETCH_HEAD
-   ba85984..050ae0b  master     -> origin/master
-Merge made by the 'ort' strategy.
- scripts/op_pipeline_loop.sh | 4 ++++
- 1 file changed, 4 insertions(+)
-[OP-LOOP] 15:37:22 算子: FurthestPointSampling | 初始 commit: 5251714b8ebbdbf3f4d02b473734818beebb7a14
-[OP-LOOP] 15:37:22 ========================================
-[OP-LOOP] 15:37:22 首次启动，立即执行第 1/9999 轮 (FurthestPointSampling)
-[OP-LOOP] 15:37:22 执行 op_pipeline_run.sh FurthestPointSampling...
-[OP FurthestPointSampling R01] 15:37:22 1/4 编译算子...
-[OP FurthestPointSampling R01] 15:37:31 编译成功
-[OP FurthestPointSampling R01] 15:37:31 2/4 精度验证...
-[OP FurthestPointSampling R01] 15:37:32 精度验证通过
-[OP FurthestPointSampling R01] 15:37:32 3/4 安装算子...
-[OP FurthestPointSampling R01] 15:37:32 安装成功
-[OP FurthestPointSampling R01] 15:37:32 4/4 运行测试...
-[OP FurthestPointSampling R01] 15:37:32 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py
-[OP FurthestPointSampling R01] 15:37:59 ❌ 测试失败
-[OP FurthestPointSampling R01] 15:37:59 完成
-[OP-LOOP] 15:37:59 上传日志...
-[master 74b7472] logs: op pipeline round 1 (FurthestPointSampling) [auto]
- 3 files changed, 56 insertions(+), 56 deletions(-)
-error: 不能变基式拉取：您有未暂存的变更。
-error: 请提交或贮藏它们。
-[OP-LOOP] 15:37:59 WARN: retry 1/3: git
-error: 不能变基式拉取：您有未暂存的变更。
-error: 请提交或贮藏它们。
-[OP-LOOP] 15:38:04 WARN: retry 2/3: git
-error: 不能变基式拉取：您有未暂存的变更。
-error: 请提交或贮藏它们。
-[OP-LOOP] 15:38:14 WARN: retry 3/3: git
+fatal: 无法访问 'https://github.com/dsg-lzt/ascendevtool.git/'：Received HTTP code 504 from proxy after CONNECT
+[OP-LOOP] 16:03:21 WARN: retry 1/3: git fetch origin master
