@@ -31,7 +31,7 @@ log() {
 }
 
 git checkout -- .
-git pull origin master 2>/dev/null || log "WARN: 初始 git pull 失败"
+timeout 30 git pull origin master 2>/dev/null || log "WARN: 初始 git pull 失败"
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
 log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT"
@@ -43,7 +43,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         round=1
         log "=== 第 1/$MAX_ROUNDS 轮 ($OP_NAME) ==="
     else
-        git fetch origin master 2>/dev/null
+        timeout 30 git fetch origin master 2>/dev/null || true
         CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
         LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
 
@@ -56,7 +56,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "=== 第 $round/$MAX_ROUNDS 轮 ($OP_NAME) ==="
 
         git checkout -- .
-        git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+        timeout 30 git pull origin master 2>/dev/null || log "WARN: git pull 失败"
         echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
 
