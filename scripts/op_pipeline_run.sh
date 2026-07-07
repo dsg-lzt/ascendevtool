@@ -60,6 +60,7 @@ log "1/4 编译算子..."
     cd "$TOOL_DIR"
     source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null
     conda activate torch_npu 2>/dev/null || true
+    export ASCEND_PYTHON_EXECUTABLE=$(which python3)
     cd "$OP_SRC_DIR"
 
     # 设置 CANN 构建环境
