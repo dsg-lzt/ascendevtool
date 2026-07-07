@@ -4,7 +4,6 @@ Preset CMake variables:
   ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/ascend-toolkit/latest"
   ASCEND_COMPUTE_UNIT:STRING="ascend310p"
   ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
-  ASCEND_PYTHON_EXECUTABLE:STRING="python3"
   CMAKE_BUILD_TYPE:STRING="Release"
   CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
   CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out"
@@ -37,8 +36,8 @@ CMake Warning:
 
 
 -- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out
-[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
 [ 66%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
 
 
 ==============check valid for ops info start==============
@@ -49,100 +48,46 @@ Compile op info cfg successfully.
 [ 66%] Built target ops_info_gen_ascend310p
 [100%] Linking CXX shared library libcust_opmaster_rt2.0.so
 [100%] Built target cust_optiling
-[ascend310p] Generating FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327 ...
-[ascend310p] Generating FurthestPointSampling_14e9b7d9c770f53a59688f714391821d ...
-/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:867: SyntaxWarning: invalid escape sequence '\L'
-  if not dirpath.find("AppData\Local\Temp"):
-/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:867: SyntaxWarning: invalid escape sequence '\L'
-  if not dirpath.find("AppData\Local\Temp"):
-Traceback (most recent call last):
-Traceback (most recent call last):
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/opc.py", line 25, in <module>
-    from tbe.common.utils import log as logger
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/__init__.py", line 44, in <module>
-    import tvm
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/__init__.py", line 41, in <module>
-    from .runtime import cce_runtime
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/runtime/cce_runtime.py", line 29, in <module>
-    from ..contrib import ccec
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/contrib/ccec.py", line 26, in <module>
-    from tvm.driver.cce_build_module import time_statistics
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/driver/__init__.py", line 18, in <module>
-    from .build_module import lower, build
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/driver/build_module.py", line 31, in <module>
-    from tvm.te import tensor
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/__init__.py", line 42, in <module>
-    from . import hybrid
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/__init__.py", line 36, in <module>
-    from .module import HybridModule
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/module.py", line 29, in <module>
-    from .parser import source_to_op
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/parser.py", line 41, in <module>
-    from . import calls
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/calls.py", line 23, in <module>
-    from tvm.target import Target
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/target/__init__.py", line 78, in <module>
-    from .generic_func import GenericFunc
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/target/generic_func.py", line 22, in <module>
-    from decorator import decorate
-ModuleNotFoundError: No module named 'decorator'
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/opc.py", line 25, in <module>
-    from tbe.common.utils import log as logger
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/__init__.py", line 44, in <module>
-    import tvm
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/__init__.py", line 41, in <module>
-    from .runtime import cce_runtime
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/runtime/cce_runtime.py", line 29, in <module>
-    from ..contrib import ccec
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/contrib/ccec.py", line 26, in <module>
-    from tvm.driver.cce_build_module import time_statistics
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/driver/__init__.py", line 18, in <module>
-    from .build_module import lower, build
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/driver/build_module.py", line 31, in <module>
-    from tvm.te import tensor
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/__init__.py", line 42, in <module>
-    from . import hybrid
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/__init__.py", line 36, in <module>
-    from .module import HybridModule
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/module.py", line 29, in <module>
-    from .parser import source_to_op
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/parser.py", line 41, in <module>
-    from . import calls
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/te/hybrid/calls.py", line 23, in <module>
-    from tvm.target import Target
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/target/__init__.py", line 78, in <module>
-    from .generic_func import GenericFunc
-  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tvm/target/generic_func.py", line 22, in <module>
-    from decorator import decorate
-ModuleNotFoundError: No module named 'decorator'
-
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_14e9b7d9c770f53a59688f714391821d.json not generated!
-
-/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_cd247bad07ccdbda1f30ae178fe9a327.json not generated!
-make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:3：furthest_point_sampling0] 错误 1
-make[4]: *** 正在等待未完成的任务....
-make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:5：furthest_point_sampling1] 错误 1
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_compile_kernel.py", line 219, in <module>
-    kernel_builder.ascendc_build()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_compile_kernel.py", line 162, in ascendc_build
-    raise RuntimeError('Kernel Compilation Error: OpType {} Kernel File {}!'.format(
-        self.op_type, self.op_cpp_file))
-RuntimeError: Kernel Compilation Error: OpType FurthestPointSampling Kernel File /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp!
-gmake[3]: *** [op_kernel/CMakeFiles/FurthestPointSampling_ascend310p.dir/build.make:70：op_kernel/CMakeFiles/FurthestPointSampling_ascend310p] 错误 1
-gmake[2]: *** [CMakeFiles/Makefile2:425：op_kernel/CMakeFiles/FurthestPointSampling_ascend310p.dir/all] 错误 2
-gmake[1]: *** [CMakeFiles/Makefile2:379：op_kernel/CMakeFiles/binary.dir/rule] 错误 2
-gmake: *** [Makefile:293：binary] 错误 2
+[ascend310p] Generating FurthestPointSampling_367044ccab2f7a8e163132f56338a8dd ...
+[ascend310p] Generating FurthestPointSampling_b481547e47b6086e653b76257b94eb98 ...
+[INFO] RUNTIME(2538648,python3):2026-07-07-14:28:04.372.140 [task_fail_callback_data_manager.cc:58] 2538648 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2538648,python3):2026-07-07-14:28:04.389.425 [msprof_callback_impl.cpp:359] >>> (tid:2538648) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2538648,python3):2026-07-07-14:28:04.389.493 [msprof_callback_impl.cpp:366] >>> (tid:2538648) Started to register profiling hash id callback.
+[INFO] PROFILING(2538648,python3):2026-07-07-14:28:04.389.496 [prof_atls_plugin.cpp:115] (tid:2538648) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2538648,python3):2026-07-07-14:28:04.389.499 [msprof_callback_impl.cpp:373] >>> (tid:2538648) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2538648,python3):2026-07-07-14:28:04.389.500 [prof_atls_plugin.cpp:115] (tid:2538648) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2538648,python3):2026-07-07-14:28:04.389.503 [msprof_callback_impl.cpp:380] >>> (tid:2538648) Started to register profiling typeId callback.
+[INFO] PROFILING(2538648,python3):2026-07-07-14:28:04.389.504 [prof_atls_plugin.cpp:115] (tid:2538648) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2538648,python3):2026-07-07-14:28:04.428.160 [prof_atls_plugin.cpp:215] (tid:2538648) Module[61] register callback of ctrl handle.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(2538648,python3):2026-07-07-14:28:05.782.214 [task_fail_callback_data_manager.cc:63] 2538648 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2538648,python3):2026-07-07-14:28:05.937.867 [stacktrace_signal.c:194](tid:2538648) unregister all signal handlers, can not capture signal.
+[ascend310p] Generating FurthestPointSampling_b481547e47b6086e653b76257b94eb98 Done
+[INFO] RUNTIME(2538649,python3):2026-07-07-14:28:04.398.352 [task_fail_callback_data_manager.cc:58] 2538649 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2538649,python3):2026-07-07-14:28:04.416.519 [msprof_callback_impl.cpp:359] >>> (tid:2538649) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2538649,python3):2026-07-07-14:28:04.416.593 [msprof_callback_impl.cpp:366] >>> (tid:2538649) Started to register profiling hash id callback.
+[INFO] PROFILING(2538649,python3):2026-07-07-14:28:04.416.597 [prof_atls_plugin.cpp:115] (tid:2538649) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2538649,python3):2026-07-07-14:28:04.416.599 [msprof_callback_impl.cpp:373] >>> (tid:2538649) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2538649,python3):2026-07-07-14:28:04.416.601 [prof_atls_plugin.cpp:115] (tid:2538649) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2538649,python3):2026-07-07-14:28:04.416.602 [msprof_callback_impl.cpp:380] >>> (tid:2538649) Started to register profiling typeId callback.
+[INFO] PROFILING(2538649,python3):2026-07-07-14:28:04.416.604 [prof_atls_plugin.cpp:115] (tid:2538649) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2538649,python3):2026-07-07-14:28:04.451.432 [prof_atls_plugin.cpp:215] (tid:2538649) Module[61] register callback of ctrl handle.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(2538649,python3):2026-07-07-14:28:05.840.525 [task_fail_callback_data_manager.cc:63] 2538649 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2538649,python3):2026-07-07-14:28:06.002.388 [stacktrace_signal.c:194](tid:2538649) unregister all signal handlers, can not capture signal.
+[ascend310p] Generating FurthestPointSampling_367044ccab2f7a8e163132f56338a8dd Done
+[100%] Built target FurthestPointSampling_ascend310p
+[100%] Built target ascendc_bin_ascend310p_gen_ops_config
+[100%] Built target binary
 Consolidate compiler generated dependencies of target cust_optiling
-[ 25%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
+[ 25%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
 [ 25%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
-[ 25%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
-[ 41%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
-[ 41%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
-[ 50%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 25%] Built target ops_info_gen_ascend310p
+[ 41%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
+[ 50%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
 [ 66%] Built target cust_optiling
-[ 75%] Built target ops_info_gen_ascend310p
+[ 75%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
 [ 75%] Built target gen_version_info
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
 [ 75%] Built target optiling_compat
@@ -160,37 +105,36 @@ CPack: Create package using External
 CPack: Install projects
 CPack: - Run preinstall target for: opp
 CPack: - Install project: opp []
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
-  No such file or directory.
-Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
+CPack: Create package
 
+About to compress 752 KB of data...
+Adding files to archive named "custom_opp_ubuntu_x86_64.run"...
+./help.info
+./install.sh
+./packages/vendors/customize/framework/tensorflow/libcust_tf_parsers.so
+./packages/vendors/customize/framework/tensorflow/npu_supported_ops.json
+./packages/vendors/customize/op_api/include/aclnn_furthest_point_sampling.h
+./packages/vendors/customize/op_api/lib/libcust_opapi.so
+./packages/vendors/customize/op_impl/ai_core/tbe/config/ascend310p/aic-ascend310p-ops-info.json
+./packages/vendors/customize/op_impl/ai_core/tbe/customize_impl/dynamic/furthest_point_sampling.cpp
+./packages/vendors/customize/op_impl/ai_core/tbe/customize_impl/dynamic/furthest_point_sampling.py
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_367044ccab2f7a8e163132f56338a8dd.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_367044ccab2f7a8e163132f56338a8dd.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_b481547e47b6086e653b76257b94eb98.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_b481547e47b6086e653b76257b94eb98.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/binary_info_config.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/furthest_point_sampling.json
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/lib/linux/x86_64/libcust_opmaster_rt2.0.so
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/liboptiling.so
+./packages/vendors/customize/op_proto/inc/op_proto.h
+./packages/vendors/customize/op_proto/lib/linux/x86_64/libcust_opsproto_rt2.0.so
+./packages/vendors/customize/version.info
+./upgrade.sh
+CRC: 11280452
+SHA256: 268e774b1a6e217b8d1cc18fed4dd77a379ac19de34ae50e290c079224e4797d
+Skipping md5sum at user request
 
-CPack Error: Error when generating package: opp
-gmake: *** [Makefile:71：package] 错误 1
-[ 41%] Built target npu_supported_ops
-[ 16%] Built target ops_info_gen_ascend310p
-[ 41%] Built target cust_opapi
-[ 66%] Built target cust_op_proto
-[ 83%] Built target cust_tf_parsers
-[ 91%] Built target modify_vendor
-[100%] Built target cust_optiling
-[100%] Built target gen_version_info
-[100%] Built target optiling_compat
-Run CPack packaging tool...
-CPack: Create package using External
-CPack: Install projects
-CPack: - Run preinstall target for: opp
-CPack: - Install project: opp []
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
-  No such file or directory.
-Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
-
-
-CPack Error: Error when generating package: opp
-gmake: *** [Makefile:71：package] 错误 1
+Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
+Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
