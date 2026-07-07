@@ -24,7 +24,7 @@ public:
         if (start_ >= B_) end_ = start_;
         if (end_ > B_) end_ = B_;
 
-        pipe.InitBuffer(qX, BUF_NUM, tileN_ * sizeof(T));
+        pipe.InitBuffer(qX, BUF_NUM, tileN_ * COORD_DIM * sizeof(T));
         pipe.InitBuffer(md, N_ * sizeof(T));
     }
 
@@ -56,7 +56,9 @@ private:
                 AscendC::LocalTensor<T> xTile = qX.AllocTensor<T>();
                 for (int32_t i = 0; i < cN; i++) {
                     int32_t gi = ts + i;
-                    xTile.SetValue(i, batchIn[gi * COORD_DIM + 0]);
+                    xTile.SetValue(i * COORD_DIM + 0, batchIn[gi * COORD_DIM + 0]);
+                    xTile.SetValue(i * COORD_DIM + 1, batchIn[gi * COORD_DIM + 1]);
+                    xTile.SetValue(i * COORD_DIM + 2, batchIn[gi * COORD_DIM + 2]);
                 }
                 qX.EnQue(xTile);
                 xTile = qX.DeQue<T>();
@@ -64,9 +66,10 @@ private:
                 float lM = -65504.0f;
                 uint32_t lI = 0;
                 for (int32_t i = 0; i < cN; i++) {
-                    float dx = (float)xTile.GetValue(i) - (float)selX;
-                    T ndT = (T)(dx * dx);
-                    float nd = (float)ndT;
+                    float dx = (float)xTile.GetValue(i * COORD_DIM + 0) - (float)selX;
+                    float dy = (float)xTile.GetValue(i * COORD_DIM + 1) - (float)selY;
+                    float dz = (float)xTile.GetValue(i * COORD_DIM + 2) - (float)selZ;
+                    float nd = dx * dx + dy * dy + dz * dz;
                     float od = (float)mdAll.GetValue(ts + i);
                     if (nd < od) mdAll.SetValue(ts + i, (T)nd);
                     float cd = (float)mdAll.GetValue(ts + i);
