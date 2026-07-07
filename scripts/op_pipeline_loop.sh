@@ -36,10 +36,9 @@ if [ -n "$GIT_TOKEN" ]; then
 fi
 
 cd "$TOOL_DIR"
-export GIT_SSL_NO_VERIFY=1
-unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
-git config --unset http.proxy 2>/dev/null || true
-git config --unset https.proxy 2>/dev/null || true
+export no_proxy=github.com
+git config http.lowSpeedLimit 1000 2>/dev/null || true
+git config http.lowSpeedTime 30 2>/dev/null || true
 git config http.sslVerify false 2>/dev/null || true
 git config pull.rebase false 2>/dev/null || true
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
@@ -53,7 +52,7 @@ log() {
 
 # 拉取初始状态
 git checkout -- .
-git pull origin master || log "WARN: 初始 git pull 失败"
+timeout 30 git pull origin master || log "WARN: 初始 git pull 失败"
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
 log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT"
@@ -66,7 +65,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "========================================"
         log "首次启动，执行第 1/$MAX_ROUNDS 轮 ($OP_NAME)"
     else
-        git fetch origin master || { sleep 30; continue; }
+        git fetch origin master 2>/dev/null || true
         CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
         LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
 
@@ -80,7 +79,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "检测到新提交，第 $round/$MAX_ROUNDS 轮 ($OP_NAME)"
 
         git checkout -- .
-        git pull origin master || log "WARN: git pull 失败"
+        timeout 30 git pull origin master || log "WARN: git pull 失败"
         echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
 
@@ -95,8 +94,8 @@ while [ $round -lt $MAX_ROUNDS ]; do
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null
     git commit -m "logs: op pipeline round $round ($OP_NAME)" || true
-    git pull --rebase origin master || true
-    git push origin master || log "WARN: git push 失败"
+    timeout 30 git pull --rebase origin master || true
+    timeout 30 git push origin master || log "WARN: git push 失败"
 
     git fetch origin master 2>/dev/null || true
     CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
@@ -108,8 +107,8 @@ while [ $round -lt $MAX_ROUNDS ]; do
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
         git add "$LOG_ROOT/" 2>/dev/null
         git commit -m "logs: OP SUCCESS round $round ($OP_NAME)" || true
-        git pull --rebase origin master || true
-        git push origin master || true
+        timeout 30 git pull --rebase origin master || true
+        timeout 30 git push origin master || true
         exit 0
     fi
 
@@ -120,5 +119,5 @@ log "达到最大轮次 $MAX_ROUNDS，退出"
 echo "OP_PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
 git add "$LOG_ROOT/" 2>/dev/null
 git commit -m "logs: OP MAX ROUNDS reached ($OP_NAME)" || true
-git pull --rebase origin master || true
-git push origin master || true
+timeout 30 git pull --rebase origin master || true
+timeout 30 git push origin master || true
