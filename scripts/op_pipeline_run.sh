@@ -61,8 +61,8 @@ log "1/4 编译算子..."
     export PATH=/home/orange/miniconda3/envs/torch_npu/bin:$PATH
     export ASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3
     cd "$OP_SRC_DIR"
-    sed -i 's|"value": "python3"|"value": "/home/orange/miniconda3/envs/torch_npu/bin/python3"|g' CMakePresets.json
     rm -rf build_out
+    sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
 
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
