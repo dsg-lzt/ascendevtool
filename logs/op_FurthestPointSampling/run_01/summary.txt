@@ -1,13 +1,13 @@
 === Op Pipeline Round 01 Summary ===
 Operator: FurthestPointSampling
-Time: 2026-07-07 11:12:06
+Time: 2026-07-07 11:19:49
 
 --- build.log (tail 20) ---
-[ 58%] Built target npu_supported_ops
-[ 83%] Built target cust_op_proto
-[ 83%] Built target gen_version_info
-[100%] Built target cust_opapi
-[100%] Built target optiling_compat
+[ 83%] Built target cust_opapi
+[ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_tf_parsers
+[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[100%] Built target cust_op_proto
 Run CPack packaging tool...
 CPack: Create package using External
 CPack: Install projects
