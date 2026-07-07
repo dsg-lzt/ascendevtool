@@ -37,6 +37,9 @@ fi
 
 cd "$TOOL_DIR"
 export GIT_SSL_NO_VERIFY=1
+unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
+git config --unset http.proxy 2>/dev/null || true
+git config --unset https.proxy 2>/dev/null || true
 git config http.sslVerify false 2>/dev/null || true
 git config pull.rebase false 2>/dev/null || true
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
