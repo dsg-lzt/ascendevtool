@@ -46,8 +46,12 @@ git config pull.rebase false 2>/dev/null || true
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Op Pipeline Bot" 2>/dev/null || true
 
+# 之后所有输出同步写入 loop.log
+exec 2>&1
+exec > >(tee -a "$LOOP_LOG")
+
 log() {
-    echo "[OP-LOOP] $(date '+%H:%M:%S') $*" | tee -a "$LOOP_LOG"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') $*"
 }
 
 retry_git() {
@@ -100,7 +104,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
     fi
 
     log "执行 op_pipeline_run.sh $OP_NAME..."
-    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME" 2>&1 | tee -a "$LOOP_LOG"
+    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME" 2>&1
     PIPELINE_EXIT=$?
 
     log "上传日志..."
