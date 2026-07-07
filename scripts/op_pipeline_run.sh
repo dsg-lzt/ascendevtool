@@ -61,6 +61,7 @@ log "1/4 编译算子..."
     export PATH=/home/orange/miniconda3/envs/torch_npu/bin:$PATH
     export ASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3
     cd "$OP_SRC_DIR"
+    rm -rf build_out
 
     bash build.sh >> "$LOG_DIR/build.log" 2>&1 || true
 
