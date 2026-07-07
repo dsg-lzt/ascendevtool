@@ -44,10 +44,20 @@ log() {
     echo "[OP-LOOP] $(date '+%H:%M:%S') $*"
 }
 
+retry_git() {
+    local max_retry=3 delay=5
+    for i in $(seq 1 $max_retry); do
+        if "$@" 2>&1; then return 0; fi
+        log "WARN: retry $i/$max_retry: $1"
+        sleep $((delay * i))
+    done
+    return 1
+}
+
 # 拉取初始状态
 cd "$TOOL_DIR"
-git checkout -- . 2>/dev/null  # 清理可能的本地改动
-git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+git checkout -- . 2>/dev/null
+retry_git git pull origin master || log "WARN: 初始 git pull 失败"
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
 log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT"
@@ -60,7 +70,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "========================================"
         log "首次启动，立即执行第 1/$MAX_ROUNDS 轮 ($OP_NAME)"
     else
-        git fetch origin master 2>/dev/null
+        retry_git git fetch origin master || { sleep 60; continue; }
         CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
         LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
 
@@ -74,7 +84,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "检测到新提交，开始第 $round/$MAX_ROUNDS 轮 ($OP_NAME)"
         log "  $LAST_COMMIT -> $CURRENT_REMOTE"
 
-        git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+        retry_git git pull origin master || log "WARN: git pull 失败，跳过本轮"
         # 检查是否有本地未提交修改（可能导致之后 pull 失败）
         if ! git diff --quiet 2>/dev/null; then
             log "WARN: 检测到本地未提交修改，强制 reset"
@@ -90,12 +100,15 @@ while [ $round -lt $MAX_ROUNDS ]; do
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null || true
     git commit -m "logs: op pipeline round $round ($OP_NAME) [auto]" 2>/dev/null || log "WARN: 无日志变更"
-    git pull --rebase origin master 2>/dev/null || true
-    git push origin master 2>/dev/null || log "WARN: git push 失败"
-
-    git fetch origin master 2>/dev/null
-    CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
-    echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
+    retry_git git pull --rebase origin master || true
+    if retry_git git push origin master; then
+        git fetch origin master 2>/dev/null
+        CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
+        echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
+    else
+        log "WARN: git push 失败，下轮重试"
+        git fetch origin master 2>/dev/null || true
+    fi
 
     STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
     if tail -1 "$STATUS_FILE" 2>/dev/null | grep -q "^TEST_OK$"; then
@@ -104,7 +117,8 @@ while [ $round -lt $MAX_ROUNDS ]; do
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
         git add "$LOG_ROOT/" 2>/dev/null || true
         git commit -m "logs: OP PIPELINE SUCCESS at round $round ($OP_NAME)" 2>/dev/null || true
-        git push origin master 2>/dev/null || true
+        retry_git git pull --rebase origin master || true
+        retry_git git push origin master || true
         exit 0
     fi
 
@@ -117,4 +131,5 @@ log "达到最大轮次 $MAX_ROUNDS，退出循环"
 echo "OP_PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
 git add "$LOG_ROOT/" 2>/dev/null || true
 git commit -m "logs: OP MAX ROUNDS reached ($OP_NAME) [auto]" 2>/dev/null || true
-git push origin master 2>/dev/null || true
+retry_git git pull --rebase origin master || true
+retry_git git push origin master || true
