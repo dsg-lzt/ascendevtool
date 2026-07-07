@@ -1,28 +1,28 @@
 === Op Pipeline Round 01 Summary ===
 Operator: FurthestPointSampling
-Time: 2026-07-07 11:19:49
+Time: 2026-07-07 11:29:31
 
 --- build.log (tail 20) ---
-[ 83%] Built target cust_opapi
-[ 91%] Linking CXX shared library libcust_tf_parsers.so
-[ 91%] Built target cust_tf_parsers
-[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
-[100%] Built target cust_op_proto
-Run CPack packaging tool...
-CPack: Create package using External
-CPack: Install projects
-CPack: - Run preinstall target for: opp
-CPack: - Install project: opp []
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
-  No such file or directory.
+-- Opbuild generating sources
+build ops lib info: 
+build ops lib error: In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_host/furthest_point_sampling.cpp:2:
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_host/furthest_point_sampling_tiling.h:2:10: fatal error: register/tilingdata_base.h: 没有那个文件或目录
+    2 | #include "register/tilingdata_base.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+CMake Error at cmake/func.cmake:29 (message):
+  opbuild run failed!
 Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
+  op_host/CMakeLists.txt:4 (opbuild)
 
 
-CPack Error: Error when generating package: opp
-gmake: *** [Makefile:71：package] 错误 1
+-- Configuring incomplete, errors occurred!
+See also "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/CMakeFiles/CMakeOutput.log".
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
+gmake: Makefile: 没有那个文件或目录
+gmake: *** 没有规则可制作目标“Makefile”。 停止。
 
 --- verify.log (tail 20) ---
 ========== 3. VERIFY: FurthestPointSampling ==========
@@ -53,6 +53,8 @@ gmake: *** [Makefile:71：package] 错误 1
 FAILED
 
 --- status ---
-BUILD_OK
+BUILD_FAILED
+BUILD_ERROR: .run 包未生成
 VERIFY_OK
+INSTALL_FAILED
 TEST_ERROR
