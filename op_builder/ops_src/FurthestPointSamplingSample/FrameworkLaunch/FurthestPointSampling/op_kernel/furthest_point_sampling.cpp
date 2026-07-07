@@ -57,6 +57,11 @@ private:
         uint32_t selIdx = 0;
         int32_t nTiles = (N_ + tileN_ - 1) / tileN_;
 
+        if (b == 0) {
+            AscendC::PRINTF("[FPS] B=%u N=%u M=%u tileN=%u start=%u end=%u\n",
+                B_, N_, M_, tileN_, start_, end_);
+        }
+
         for (int32_t m = 1; m < (int32_t)M_; m++) {
             T globalMax = (T)(-65504.0);
             uint32_t globalIdx = 0;
@@ -125,6 +130,10 @@ private:
             selX = batchIn[off + 0]; selY = batchIn[off + 1]; selZ = batchIn[off + 2];
             batchOut[m] = (int32_t)selIdx;
             mdAll.SetValue(selIdx, (T)0.0f);
+
+            if (b == 0) {
+                AscendC::PRINTF("[FPS] b=0 m=%d sel=%u\n", m, selIdx);
+            }
         }
     }
 
