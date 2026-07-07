@@ -1,18 +1,18 @@
 === Op Pipeline Round 09 Summary ===
 Operator: pointnet2__ext_furthest_point_sampling
-Time: 2026-07-06 17:35:27
+Time: 2026-07-07 10:19:58
 
 --- build.log (tail 20) ---
+[ 66%] Built target npu_supported_ops
+[ 91%] Built target cust_optiling
+[100%] Built target cust_opapi
+[100%] Built target gen_version_info
+[100%] Built target optiling_compat
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
 CPack: - Run preinstall target for: opp
 CPack: - Install project: opp []
-CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:58 (file):
-  file INSTALL cannot find
-  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/ascend310p":
-  No such file or directory.
-Call Stack (most recent call first):
-  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/cmake_install.cmake:57 (include)
-
-
 CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/cmake_install.cmake:62 (file):
   file INSTALL cannot find
   "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/pointnet2__ext_furthest_point_sampling/build_out/op_kernel/binary/config":
@@ -29,36 +29,28 @@ gmake: *** [Makefile:71：package] 错误 1
 [WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/pointnet2__ext_furthest_point_samplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
 
 --- test.log (tail 30) ---
-subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+=== FPS Operator Test ===
+  B=  1 N= 128 M= 32: RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is p
+  B=  1 N= 512 M= 64: FAIL m=64/64
+  B=  2 N= 256 M= 48: FAIL m=96/96
+  B=  4 N= 128 M= 16: FAIL m=64/64
+  B=  1 N=1024 M=128: FAIL m=128/128
+  B=  2 N= 500 M=100: FAIL m=200/200
+  B=  4 N= 200 M= 50: FAIL m=200/200
+  B=  1 N=  64 M=  8: FAIL m=8/8
+  B=  8 N= 100 M= 20: FAIL m=160/160
+  B=  3 N= 300 M=150: FAIL m=450/450
 
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 66, in <module>
-    ok=test()
-  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_pointnet2__ext_furthest_point_sampling.py", line 41, in test
-    load_inline(name='fps_test_ops', cpp_sources=[cpp_source],
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1723, in load_inline
-    return _jit_compile(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
-    _write_ninja_file_and_build_library(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
-    _run_ninja_build(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
-    raise RuntimeError(message) from e
-RuntimeError: Error building extension 'fps_test_ops': [1/2] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=fps_test_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/TH -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/THC -isystem /home/orange/miniconda3/envs/torch_npu/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -c /tmp/tmpo_85hf0q/main.cpp -o main.o 
-FAILED: [code=1] main.o 
-c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=fps_test_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/TH -isystem /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/include/THC -isystem /home/orange/miniconda3/envs/torch_npu/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -c /tmp/tmpo_85hf0q/main.cpp -o main.o 
-/tmp/tmpo_85hf0q/main.cpp: In function ‘at::Tensor fps_npu(const at::Tensor&, int64_t)’:
-/tmp/tmpo_85hf0q/main.cpp:6:5: error: ‘at_npu’ has not been declared
-    6 |     at_npu::native::OpCommand cmd;
-      |     ^~~~~~
-/tmp/tmpo_85hf0q/main.cpp:7:5: error: ‘cmd’ was not declared in this scope
-    7 |     cmd.Name("pointnet2__ext_furthest_point_sampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
-      |     ^~~
-ninja: build stopped: subcommand failed.
-
-[ERROR] 2026-07-06-17:35:26 (PID:1686985, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  0/10 passed
+FAILED
 
 --- status ---
 BUILD_OK
