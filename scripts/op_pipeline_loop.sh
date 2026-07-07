@@ -45,6 +45,7 @@ log() {
 
 # 拉取初始状态
 cd "$TOOL_DIR"
+git checkout -- . 2>/dev/null  # 清理可能的本地改动
 git pull origin master 2>/dev/null || log "WARN: git pull 失败"
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
@@ -73,6 +74,11 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "  $LAST_COMMIT -> $CURRENT_REMOTE"
 
         git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+        # 检查是否有本地未提交修改（可能导致之后 pull 失败）
+        if ! git diff --quiet 2>/dev/null; then
+            log "WARN: 检测到本地未提交修改，强制 reset"
+            git checkout -- . 2>/dev/null
+        fi
         echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
 
