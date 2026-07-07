@@ -9,6 +9,7 @@ public:
                                 uint32_t B, uint32_t N, uint32_t M,
                                 uint32_t tileN, uint32_t bpc, uint32_t crem, float iv) {
         B_ = B; N_ = N; M_ = M;
+        inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
 
         uint32_t bi = AscendC::GetBlockIdx();
@@ -26,6 +27,8 @@ public:
     }
 
 private:
+    AscendC::TPipe pipe;
+    __gm__ T* inGm;
     __gm__ int32_t* outGm;
     uint32_t B_, N_, M_, start_, end_;
 };
