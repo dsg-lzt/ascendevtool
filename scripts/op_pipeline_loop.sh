@@ -31,14 +31,14 @@ log() {
     echo "[OP-LOOP] $(date '+%H:%M:%S') $*" >> "$LOOP_LOG"
 }
 
-# 简单重试：失败就停5秒再试，最多3次
-git_pull()  { for i in 1 2 3; do git pull  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
-git_fetch() { for i in 1 2 3; do git fetch origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
-git_push()  { for i in 1 2 3; do git push  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+# 重试最多3次，单次超时30秒
+git_pull()  { for i in 1 2 3; do timeout 30 git pull  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+git_fetch() { for i in 1 2 3; do timeout 30 git fetch origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+git_push()  { for i in 1 2 3; do timeout 30 git push  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
 git_rebase_push() {
     for i in 1 2 3; do
-        git pull --rebase origin master 2>/dev/null
-        git push origin master 2>/dev/null && return 0
+        timeout 30 git pull --rebase origin master 2>/dev/null
+        timeout 30 git push origin master 2>/dev/null && return 0
         sleep 5
     done
     return 1
