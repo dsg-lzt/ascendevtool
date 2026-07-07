@@ -1,6 +1,6 @@
 === Op Pipeline Round 05 Summary ===
 Operator: FurthestPointSampling
-Time: 2026-07-07 10:50:02
+Time: 2026-07-07 14:04:52
 
 --- build.log (tail 20) ---
 [ 83%] Built target cust_tf_parsers
@@ -53,6 +53,8 @@ gmake: *** [Makefile:71：package] 错误 1
 FAILED
 
 --- status ---
-BUILD_OK
+BUILD_FAILED
+BUILD_ERROR: .run 包未生成
 VERIFY_OK
+INSTALL_FAILED
 TEST_ERROR

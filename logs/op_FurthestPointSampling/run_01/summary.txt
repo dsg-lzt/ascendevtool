@@ -1,6 +1,6 @@
 === Op Pipeline Round 01 Summary ===
 Operator: FurthestPointSampling
-Time: 2026-07-07 12:05:41
+Time: 2026-07-07 14:05:00
 
 --- build.log (tail 20) ---
 ./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_367044ccab2f7a8e163132f56338a8dd.json
@@ -15,8 +15,8 @@ Time: 2026-07-07 12:05:41
 ./packages/vendors/customize/op_proto/lib/linux/x86_64/libcust_opsproto_rt2.0.so
 ./packages/vendors/customize/version.info
 ./upgrade.sh
-CRC: 3761852996
-SHA256: bd33d79aed6cf13c7e49c5c9e2155f24a0a8d6f335cdbf56ffaee11ab2a6cac2
+CRC: 526313322
+SHA256: bb0d7091ece33c2b7d2661ffa752ff40469f7702646081113d2b11267b4905ec
 Skipping md5sum at user request
 
 Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
