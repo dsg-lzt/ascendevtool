@@ -89,6 +89,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null || true
     git commit -m "logs: op pipeline round $round ($OP_NAME) [auto]" 2>/dev/null || log "WARN: 无日志变更"
+    git pull --rebase origin master 2>/dev/null || true
     git push origin master 2>/dev/null || log "WARN: git push 失败"
 
     git fetch origin master 2>/dev/null
