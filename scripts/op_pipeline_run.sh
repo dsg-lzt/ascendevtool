@@ -68,6 +68,7 @@ log "1/4 编译算子..."
     sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
 
     bash build.sh > "$LOG_DIR/build.log" 2>&1 || true
+    git checkout -- build.sh   # 撤销 sed 修改，避免 git push 冲突
 
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
@@ -123,10 +124,13 @@ log "3/4 安装算子..."
 
 # ---- 4. 运行测试 ----
 log "4/4 运行测试..."
-# 测试脚本通过环境变量传入（也可让管道自动从算子目录查找）
-#   ASCEND_OP_TEST_SCRIPT — 测试脚本路径（相对 op_builder/ops_src/）
-#   ASCEND_OP_TEST_PYTHON — Python 解释器
 TEST_SCRIPT="${ASCEND_OP_TEST_SCRIPT:-}"
+CUSTOM_OPP="$TOOL_DIR/oplib/custom_opp_packages"
+SET_ENV="$CUSTOM_OPP/vendors/customize/bin/set_env.bash"
+if [ -f "$SET_ENV" ]; then
+    source "$SET_ENV" 2>/dev/null || true
+    log "已设置自定义算子路径: $CUSTOM_OPP"
+fi
 if [ -z "$TEST_SCRIPT" ]; then
     # 自动查找算子目录下的测试脚本
     TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 -name "test_*.py" -path "*${OP_NAME}*" 2>/dev/null | head -1)

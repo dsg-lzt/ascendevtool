@@ -52,7 +52,7 @@ retry_git() {
     local max_retry=3 delay=5
     for i in $(seq 1 $max_retry); do
         if "$@" 2>&1; then return 0; fi
-        log "WARN: retry $i/$max_retry: $1"
+        log "WARN: retry $i/$max_retry: $*"
         sleep $((delay * i))
     done
     return 1
@@ -103,6 +103,8 @@ while [ $round -lt $MAX_ROUNDS ]; do
 
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null || true
+    cp "$PIPELINE_ROOT/op_loop.log" "$LOG_ROOT/op_loop.log" 2>/dev/null || true
+    git add "$LOG_ROOT/op_loop.log" 2>/dev/null || true
     git commit -m "logs: op pipeline round $round ($OP_NAME) [auto]" 2>/dev/null || log "WARN: 无日志变更"
     retry_git git pull --rebase origin master || true
     if retry_git git push origin master; then
