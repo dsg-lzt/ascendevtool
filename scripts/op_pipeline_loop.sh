@@ -31,8 +31,21 @@ log() {
     echo "[OP-LOOP] $(date '+%H:%M:%S') $*" >> "$LOOP_LOG"
 }
 
+# 简单重试：失败就停5秒再试，最多3次
+git_pull()  { for i in 1 2 3; do git pull  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+git_fetch() { for i in 1 2 3; do git fetch origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+git_push()  { for i in 1 2 3; do git push  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+git_rebase_push() {
+    for i in 1 2 3; do
+        git pull --rebase origin master 2>/dev/null
+        git push origin master 2>/dev/null && return 0
+        sleep 5
+    done
+    return 1
+}
+
 git checkout -- .
-timeout 30 git pull origin master 2>/dev/null || log "WARN: 初始 git pull 失败"
+git_pull || log "WARN: 初始 git pull 失败"
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
 log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT"
@@ -44,7 +57,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         round=1
         log "=== 第 1/$MAX_ROUNDS 轮 ($OP_NAME) ==="
     else
-        timeout 30 git fetch origin master 2>/dev/null || true
+        git_fetch
         CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
         LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
 
@@ -57,7 +70,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         log "=== 第 $round/$MAX_ROUNDS 轮 ($OP_NAME) ==="
 
         git checkout -- .
-        timeout 30 git pull origin master 2>/dev/null || log "WARN: git pull 失败"
+        git_pull || log "WARN: git pull 失败"
         echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
 
@@ -70,10 +83,9 @@ while [ $round -lt $MAX_ROUNDS ]; do
     log "上传日志..."
     git add "$LOG_ROOT/" 2>/dev/null
     git commit -m "logs: op pipeline round $round ($OP_NAME)" 2>/dev/null || true
-    git pull --rebase origin master 2>/dev/null || true
-    git push origin master 2>/dev/null || log "WARN: git push 失败"
+    git_rebase_push || log "WARN: git push 失败"
 
-    git fetch origin master 2>/dev/null
+    git_fetch
     CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
     echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
 
@@ -83,8 +95,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
         git add "$LOG_ROOT/" 2>/dev/null
         git commit -m "logs: OP SUCCESS round $round ($OP_NAME)" 2>/dev/null || true
-        git pull --rebase origin master 2>/dev/null || true
-        git push origin master 2>/dev/null || true
+        git_rebase_push || true
         exit 0
     fi
 
@@ -95,5 +106,4 @@ log "达到最大轮次 $MAX_ROUNDS"
 echo "OP_PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
 git add "$LOG_ROOT/" 2>/dev/null
 git commit -m "logs: OP MAX ROUNDS ($OP_NAME)" 2>/dev/null || true
-git pull --rebase origin master 2>/dev/null || true
-git push origin master 2>/dev/null || true
+git_rebase_push || true
