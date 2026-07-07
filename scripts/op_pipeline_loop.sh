@@ -36,6 +36,10 @@ if [ -n "$GIT_TOKEN" ]; then
 fi
 
 cd "$TOOL_DIR"
+export GIT_SSL_NO_VERIFY=1
+export GIT_HTTP_LOW_SPEED_LIMIT=1000
+export GIT_HTTP_LOW_SPEED_TIME=30
+git config http.sslVerify false 2>/dev/null || true
 git config pull.rebase false 2>/dev/null || true
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Op Pipeline Bot" 2>/dev/null || true
