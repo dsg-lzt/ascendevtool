@@ -69,7 +69,7 @@ log "1/4 编译算子..."
 
     bash build.sh > "$LOG_DIR/build.log" 2>&1 || true
 
-    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
+    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
         echo "BUILD_OK" > "$LOG_DIR/status.txt"
         log "编译成功"
@@ -105,7 +105,7 @@ log "3/4 安装算子..."
     cd "$TOOL_DIR"
     source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null; conda activate torch_npu 2>/dev/null || true
     # 直接查找并安装 .run 包
-    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -name "*.run" 2>/dev/null | head -1)
+    RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
         cp "$RUN_FILE" "$TOOL_DIR/oplib/custom_opp_packages/" 2>/dev/null
         bash "$RUN_FILE" --quiet >> "$LOG_DIR/install.log" 2>&1 && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
