@@ -1,5 +1,4 @@
 #include "kernel_operator.h"
-#include "furthest_point_sampling_tiling.h"
 
 constexpr int32_t COORD_DIM = 3;
 
@@ -11,7 +10,7 @@ public:
     __aicore__ inline void Init(GM_ADDR p, GM_ADDR s,
                                 uint32_t B, uint32_t N, uint32_t M,
                                 uint32_t tileN, uint32_t bpc, uint32_t crem, float iv) {
-        B_ = B; N_ = N; M_ = M; initVal_ = (T)iv;
+        B_ = B; cn_ = N; M_ = M; initVal_ = (T)iv;
         inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
 
@@ -25,14 +24,15 @@ public:
     __aicore__ inline void Process() {
         AscendC::TPipe pipe;
         AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf;
-        pipe.InitBuffer(mdBuf, N_ * sizeof(T));
+        const uint32_t N = cn_;
+        pipe.InitBuffer(mdBuf, N * sizeof(T));
         AscendC::LocalTensor<T> md = mdBuf.Get<T>();
 
         for (uint32_t b = start_; b < end_; b++) {
-            __gm__ T* bi = inGm + b * N_ * COORD_DIM;
+            __gm__ T* bi = inGm + b * N * COORD_DIM;
             __gm__ int32_t* bo = outGm + b * M_;
 
-            for (uint32_t i = 0; i < N_; i++) md.SetValue(i, initVal_);
+            for (uint32_t i = 0; i < N; i++) md.SetValue(i, initVal_);
 
             T sx = bi[0], sy = bi[1], sz = bi[2];
             bo[0] = 0;
@@ -41,7 +41,7 @@ public:
                 float gMax = -1e38f;
                 uint32_t gIdx = 0;
 
-                for (uint32_t i = 0; i < N_; i++) {
+                for (uint32_t i = 0; i < N; i++) {
                     uint32_t idx3 = i * COORD_DIM;
                     float dx = (float)bi[idx3 + 0] - (float)sx;
                     float dy = (float)bi[idx3 + 1] - (float)sy;
@@ -54,9 +54,8 @@ public:
                     if (cd > gMax) { gMax = cd; gIdx = i; }
                 }
 
-                if (gIdx >= N_) gIdx = 0;
-                uint32_t selIdx = gIdx;
-                if (selIdx >= N_) selIdx = 0;
+                // gIdx 必须 < N，如有异常就设0
+                uint32_t selIdx = (gIdx < N) ? gIdx : 0;
 
                 uint32_t off = selIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
@@ -69,7 +68,7 @@ public:
 private:
     __gm__ T* inGm;
     __gm__ int32_t* outGm;
-    uint32_t B_, N_, M_, start_, end_;
+    uint32_t B_, M_, start_, end_, cn_;
     T initVal_;
 };
 
