@@ -28,8 +28,6 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     plat.GetCoreMemSize(platform_ascendc::CoreMemType::UB, ubSize);
     uint32_t coreNum = plat.GetCoreNum();
     if (coreNum == 0) coreNum = 1;
-    if (coreNum > (uint32_t)B) coreNum = (uint32_t)B;
-    if (coreNum < 1) coreNum = 1;
 
     uint64_t ubElm = ubSize / dtLen;
     uint32_t tileN = (ubElm - N) / 9;
