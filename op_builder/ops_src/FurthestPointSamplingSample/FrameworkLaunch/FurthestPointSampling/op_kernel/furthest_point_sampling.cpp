@@ -126,6 +126,7 @@ private:
             }
 
             selIdx = globalIdx;
+            if (selIdx >= N_) { selIdx = 0; }
             int32_t off = selIdx * COORD_DIM;
             selX = batchIn[off + 0]; selY = batchIn[off + 1]; selZ = batchIn[off + 2];
             batchOut[m] = (int32_t)selIdx;
