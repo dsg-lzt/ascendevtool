@@ -1,0 +1,1102 @@
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:34.105.655 [task_fail_callback_data_manager.cc:58] 876308 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:34.113.361 [msprof_callback_impl.cpp:359] >>> (tid:876308) Started to register profiling ctrl callback.
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:34.113.464 [msprof_callback_impl.cpp:366] >>> (tid:876308) Started to register profiling hash id callback.
+[INFO] PROFILING(876308,python):2026-07-08-15:15:34.113.474 [prof_atls_plugin.cpp:115] (tid:876308) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:34.113.478 [msprof_callback_impl.cpp:373] >>> (tid:876308) Started to register profiling enable host freq callback.
+[INFO] PROFILING(876308,python):2026-07-08-15:15:34.113.482 [prof_atls_plugin.cpp:115] (tid:876308) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:34.113.486 [msprof_callback_impl.cpp:380] >>> (tid:876308) Started to register profiling typeId callback.
+[INFO] PROFILING(876308,python):2026-07-08-15:15:34.113.489 [prof_atls_plugin.cpp:115] (tid:876308) RegisterProfileCallback, callback type is 6
+[INFO] HCCL(876308,python):2026-07-08-15:15:34.150.886 [adapter_rts.cc:2817] [876308][adapter_rts.cc][CallBackInitRts] g_deviceType [7] g_deviceLogicId [-1] g_devicePhyId [-1]
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+[INFO] PROFILING(876308,python):2026-07-08-15:15:35.010.183 [prof_atls_plugin.cpp:215] (tid:876308) Module[61] register callback of ctrl handle.
+=== FPS Operator Test ===
+[INFO] PROFILING(876308,python):2026-07-08-15:15:45.805.738 [prof_atls_plugin.cpp:215] (tid:876308) Module[45] register callback of ctrl handle.
+[INFO] GE(876308,python):2026-07-08-15:15:45.943.241 [op_tiling_manager.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpTilingManager::LoadSo is [137438] micro seconds.
+[INFO] PROFILING(876308,python):2026-07-08-15:15:45.964.151 [prof_atls_plugin.cpp:215] (tid:876308) Module[6] register callback of ctrl handle.
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.265.047 [runtime_keeper.cc:137] 876308 GetLibRuntimeSoName: CHIP_TYPE_ENTRY size is 3
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.266.379 [runtime_keeper.cc:171] 876308 CreateRuntimeImpl: Open libruntime_v100.so successfully
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.266.407 [runtime.cc:5662] 876308 GetVisibleDevices: ASCEND_RT_VISIBLE_DEVICES param was not set
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.168 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[4] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.177 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[6] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.182 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[5] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.196 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[0] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.200 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[1] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.204 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[8] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.208 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[2] package worker was created successfully
+[INFO] TDT(876308,python):2026-07-08-15:15:46.267.211 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:876308] Register[3] package worker was created successfully
+[INFO] PROFILING(876308,python):2026-07-08-15:15:46.267.230 [prof_atls_plugin.cpp:215] (tid:876308) Module[7] register callback of ctrl handle.
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.267.242 [task_fail_callback_data_manager.cc:51] 876308 RegTaskFailCallback: register TaskFailCallback finish, name:GeErrorTracking.
+[INFO] IDEDD(876308,python):2026-07-08-15:15:46.267.420 [adx_dump_record.cpp:644][tid:877334] start dump thread, remote dump record temp path : /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/.
+[INFO] DRV(876308,python):2026-07-08-15:15:46.267.628 [drv_log_user.c:638][ascend][curpid:876308,877335][drv][hdc][share_log_read_in_single_module]Server create success.(dev_id=0; fid=0; service_type="service_dump"; pid=876308)
+[INFO] DRV(876308,python):2026-07-08-15:15:46.267.739 [drv_log_user.c:638][ascend][curpid:876308,877335][drv][hdc][share_log_read_in_single_module]Server create success.(dev_id=1; fid=0; service_type="service_dump"; pid=876308)
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.268.651 [task_fail_callback_data_manager.cc:51] 876308 RegTaskFailCallback: register TaskFailCallback finish, name:AdumpException.
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.268.689 [acl_resource_manager.cpp:133]876308 GetRuntimeV2Env: runtime v2 flag : model flag = 1, singleOp flag = 1
+[INFO] PROFILING(876308,python):2026-07-08-15:15:46.268.866 [prof_atls_plugin.cpp:215] (tid:876308) Module[48] register callback of ctrl handle.
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:46.268.903 [msprof_callback_impl.cpp:111] >>> (tid:876308) MsprofCtrlCallback called, type: 255
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:46.268.979 [ai_drv_dev_api.cpp:333] >>> (tid:876308) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.041 [acl.cpp:229]876308 GetAllPackageVersion: Version of runtime package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.061 [acl.cpp:229]876308 GetAllPackageVersion: Version of runtime package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.080 [acl.cpp:229]876308 GetAllPackageVersion: Version of compiler package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.098 [acl.cpp:229]876308 GetAllPackageVersion: Version of hccl package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.117 [acl.cpp:229]876308 GetAllPackageVersion: Version of toolkit package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.134 [acl.cpp:229]876308 GetAllPackageVersion: Version of opp package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.153 [acl.cpp:229]876308 GetAllPackageVersion: Version of opp_kernel package is 8.3.RC1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:46.269.177 [acl.cpp:229]876308 GetAllPackageVersion: Version of driver package is 24.1.rc4.b999
+[INFO] GE(876308,python):2026-07-08-15:15:46.269.768 [ge_api.cc:220][status:INIT]876308 GEInitializeImpl:GEInitialize start
+[INFO] GE(876308,python):2026-07-08-15:15:46.269.777 [ge_api.cc:234]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::GEAPICheckSupportedGlobalOptions is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:46.271.664 [ge_api.cc:245]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::CheckOptionsValid is [20] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:46.272.294 [ge_api.cc:259]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::ManagerInitialize is [1] micro seconds.
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:46.406.069 [msprof_callback_impl.cpp:111] >>> (tid:876308) MsprofCtrlCallback called, type: 255
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:46.406.089 [ai_drv_dev_api.cpp:333] >>> (tid:876308) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] GE(876308,python):2026-07-08-15:15:46.406.120 [ge_api.cc:278]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::InitProfiling is [61] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:46.425.859 [ge_api.cc:287]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::InitPreparation is [19553] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:46.425.883 [gelib.cc:93]876308 Initialize:[GEPERFTRACE] GE Init Start
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:46.476.562 [api_c_soc.cc:103] 876308 rtSetSocVersion: soc version is Ascend310P1, type=4, soc type=12
+[INFO] ATRACE(876308,python):2026-07-08-15:15:46.526.603 [tracer_mgr_operate.c:66](tid:876308) create object GE_Init_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:46.526.670 [tracer_mgr_operate.c:66](tid:876308) create object GE_Compile_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:46.526.715 [tracer_mgr_operate.c:66](tid:876308) create object AutoFuse_Backend_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] GE(876308,python):2026-07-08-15:15:46.526.804 [gelib.cc:311]876308 SystemInitialize:Infer init GELib success, device id :-1 
+[INFO] ATRACE(876308,python):2026-07-08-15:15:46.531.493 [atrace_client_core.c:160](tid:876308) start to receive device[0] trace log.
+[INFO] TDT(876308,python):2026-07-08-15:15:46.531.539 [client_manager.cpp:491][GetClientRunMode][tid:876308] runningMode:0
+[INFO] TDT(876308,python):2026-07-08-15:15:46.531.551 [client_manager.cpp:133][GetInstance][tid:876308] [ClientManager] Current mode:1
+[INFO] TDT(876308,python):2026-07-08-15:15:46.531.567 [process_mode_base.cpp:152][GetLogLevel][tid:876308] [TsdClient] get ASCEND_GLOBAL_LOG_LEVEL [] ASCEND_GLOBAL_EVENT_ENABLE [] ASCEND_MODULE_LOG_LEVEL []
+[INFO] TDT(876308,python):2026-07-08-15:15:46.531.651 [process_mode_manager.cpp:79][OpenProcess][tid:876308] [ProcessModeManager] enter into open process deviceId[0] rankSize[0]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.531.904 [client_manager.cpp:289][CheckPackageExistsOnce][tid:876308] [TsdClient][deviceId=0] set package path[/usr/local/Ascend/ascend-toolkit/latest/opp/Ascend310P/aicpu/], package name[Ascend310P-aicpu_syskernels.tar.gz], packageType[0]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.150 [client_manager.cpp:289][CheckPackageExistsOnce][tid:876308] [TsdClient][deviceId=0] set package path[/usr/local/Ascend/ascend-toolkit/latest/opp/Ascend310P/aicpu/], package name[Ascend310P-aicpu_extend_syskernels.tar.gz], packageType[1]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.289 [client_manager.cpp:278][CheckPackageExistsOnce][tid:876308] [TsdClient][deviceId=0] pkg size[0] in path[/usr/local/Ascend/ascend-toolkit/latest/opp/built-in/] must be only one, skip send package, packageType[6]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.330 [process_mode_manager.cpp:466][InitTsdClient][tid:876308] [TsdClient] deviceId[0] begin to init hdc client
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.522 [version_verify.cpp:37][SetVersionInfo][tid:876308] VersionVerify: send client version to server
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.529 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:35, features:{check before send aicpu package}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.540 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:37, features:{check before send open qs message}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.532.544 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:64, features:{get check code retry}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.083 [version_verify.cpp:69][PeerVersionCheck][tid:876308] VersionVerify: Check client version info, server[1230], client[1230]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.090 [version_verify.cpp:90][ParseVersionInfo][tid:876308] VersionVerify: pass client version info success
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.093 [hdc_client.cpp:273][CheckHdcConnection][tid:876308] Service[2] create hdc successfully.
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.103 [version_verify.cpp:123][SpecialFeatureCheck][tid:876308] VersionVerify: new type[35], supported
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.118 [process_mode_manager.cpp:693][GetDeviceCheckCodeOnce][tid:876308] [TsdClient][deviceId=0] [sessionId=1] wait package info respond
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.348 [version_verify.cpp:123][SpecialFeatureCheck][tid:876308] VersionVerify: new type[64], supported
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.414 [process_mode_manager.cpp:419][SendAICPUPackage][tid:876308] [TsdClient][deviceId_=0] the checksum of host package[52464693] is same to device[52464693], skip send package.
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.420 [process_mode_manager.cpp:1821][SendCommonPackage][tid:876308] [TsdClient][deviceId_=0] package is not existed, skip send, packageType[6]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.424 [process_mode_manager.cpp:1935][LoadDriverExtendPkg][tid:876308] device not driver extend pkg skip send
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.429 [process_mode_manager.cpp:466][InitTsdClient][tid:876308] [TsdClient] deviceId[0] begin to init hdc client
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.516 [version_verify.cpp:37][SetVersionInfo][tid:876308] VersionVerify: send client version to server
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.521 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:35, features:{check before send aicpu package}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.524 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:37, features:{check before send open qs message}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.534.528 [version_verify.cpp:53][SetVersionInfo][tid:876308] send feature_info:{msg_type:64, features:{get check code retry}}
+[INFO] TDT(876308,python):2026-07-08-15:15:46.535.975 [version_verify.cpp:69][PeerVersionCheck][tid:876308] VersionVerify: Check client version info, server[1230], client[1230]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.535.984 [version_verify.cpp:90][ParseVersionInfo][tid:876308] VersionVerify: pass client version info success
+[INFO] TDT(876308,python):2026-07-08-15:15:46.535.991 [hdc_client.cpp:273][CheckHdcConnection][tid:876308] Service[2] create hdc successfully.
+[INFO] TDT(876308,python):2026-07-08-15:15:46.536.002 [process_mode_manager.cpp:521][ConstructOpenMsg][tid:876308] [TsdClient] tsd get process sign successfully, procpid[876308] signSize[48]
+[INFO] TDT(876308,python):2026-07-08-15:15:46.536.011 [version_verify.cpp:115][SpecialFeatureCheck][tid:876308] VersionVerify: previous type[6], supported
+[INFO] TDT(876308,python):2026-07-08-15:15:46.536.034 [process_mode_manager.cpp:98][OpenProcess][tid:876308] [ProcessModeManager] deviceId[0] sessionId[1] rankSize[0], wait subprocess start respond
+[INFO] TDT(876308,python):2026-07-08-15:15:47.031.729 [stub_process_mode_nowin.cpp:62][ProcessQueueForMdc][tid:876308] [TsdClient] it is unnecessary for current mode[0] to grant queue auth to aicpusd
+[INFO] TDT(876308,python):2026-07-08-15:15:47.031.788 [stub_process_mode_nowin.cpp:101][OpenInHost][tid:876308] enter into OpenInHost deviceid[0]
+[INFO] TDT(876308,python):2026-07-08-15:15:47.031.818 [stub_process_mode_nowin.cpp:105][OpenInHost][tid:876308] host cpu does not support
+[INFO] TDT(876308,python):2026-07-08-15:15:47.031.828 [process_mode_manager.cpp:121][OpenProcess][tid:876308] [TsdClient][deviceId=0] [sessionId=1] start hccp and computer process success
+[INFO] DRV(876308,python):2026-07-08-15:15:47.031.865 [devmm_svm.c:99][ascend][curpid:876308,876308][drv][devmm][devmm_setup_device]DrvMemDeviceOpen. (devid=0)
+[INFO] DRV(876308,python):2026-07-08-15:15:47.032.518 [devmm_virt_interface.c:394][ascend][curpid:876308,876308][drv][devmm][devmm_ioctl_init_process]Init_process details. (hostpid=876308)
+[INFO] DRV(876308,python):2026-07-08-15:15:47.032.927 [drv_log_user.c:638][ascend][curpid:876308,876308][drv][devmm][share_log_read_in_single_module]Setup device succeeded. (logical_devid=0; devid=0; vfid=0; hostpid=876308; devpid=2473)
+[INFO] DRV(876308,python):2026-07-08-15:15:47.032.933 [devmm_svm.c:84][ascend][curpid:876308,876308][drv][devmm][devmm_set_device_info]Device info. (devid=0; dvpp_size=17179869184; support_bar_mem=1; support_dev_read_only=0; support_dev_mem_map_host=0; support_bar_huge_mem=1; is_alloced_by_malloc=0; host_rw_dev_ro=1; double_pgtable_offset=17592186044416)
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:47.033.380 [raw_device.cc:406] 876308 Init: isAddrFlat:0
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:47.033.397 [engine.cc:80] 876308 Engine: Constructor.
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:47.033.403 [direct_hwts_engine.cc:56] 876308 DirectHwtsEngine: Constructor.
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:47.090.642 [npu_driver.cc:6691] 877383 GetDeviceStatus: GetDeviceStatus status=1.
+[INFO] ATRACE(876308,python):2026-07-08-15:15:47.106.140 [tracer_mgr_operate.c:66](tid:876308) create object RUNTIME_ATRACE_DEV0_TS0 successfully, exitSave(false), noLock(false).
+[INFO] TDT(876308,python):2026-07-08-15:15:47.106.163 [client_manager.cpp:202][SetProfilingCallback][tid:876308] [TsdClient] set profiling callback successfully
+[INFO] GE(876308,python):2026-07-08-15:15:47.109.438 [process_node_engine_manager.cc:63]876308 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[HOST_CPU] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.109.454 [process_node_engine_manager.cc:63]876308 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[NPU] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.109.459 [process_node_engine_manager.cc:63]876308 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[UDF] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.118 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[AIcoreEngine] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.128 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_HCCL] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.133 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.137 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_ASCEND] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.140 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_ASCEND_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.144 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.147 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_DVPP] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.161 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_GE_LOCAL] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.165 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_HOST_CPU] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.168 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_RTS] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.171 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_RTS_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.175 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DSAEngine] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.178 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[VectorEngine] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.110.181 [dnnengine_manager.cc:129]876308 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[ffts_plus] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:47.111.008 [op_tiling_manager.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpTilingManager::LoadSo is [549] micro seconds.
+[INFO] ATRACE(876308,python):2026-07-08-15:15:47.249.474 [tracer_mgr_operate.c:66](tid:876308) create object FE_Global_Trace successfully, exitSave(false), noLock(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:47.249.534 [tracer_mgr_operate.c:66](tid:876308) create object FE_Statistics_Trace successfully, exitSave(false), noLock(false).
+[INFO] TUNE(876308,python):2026-07-08-15:15:47.251.215 [cann_kb_pyfunc_mgr.cpp:72][CANNKB][Tid:876308]"CannKbPyfuncMgr: Enter PyObjectInit, reference_ is 0!"
+[INFO] TUNE(876308,python):2026-07-08-15:15:47.251.233 [handle_manager.cpp:115][CANNKB][Tid:876308]"Start to run init functions to load dynamic python lib!"
+[INFO] TUNE(876308,python):2026-07-08-15:15:47.251.267 [handle_manager.cpp:407][CANNKB][Tid:876308]"Init functions of loading dynamic python lib end!"
+[INFO] TUNE(876308,python):2026-07-08-15:15:47.251.270 [cann_kb_pyfunc_mgr.cpp:24][CANNKB][Tid:876308]"CANN_KB_Py has already been initialized."
+[INFO] TUNE(876308,python):2026-07-08-15:15:47.875.390 [cann_kb_pyfunc_mgr.cpp:117][CANNKB][Tid:876308]"CannKbPyfuncMgr: Run PyObjectInit successfully!"
+[INFO] HCCL(876308,python):2026-07-08-15:15:48.580.418 [plugin_manager.cc:45] [876308]hcom running normal mode.
+[INFO] HCCL(876308,python):2026-07-08-15:15:48.580.741 [hcom_common.cc:235] [876308][HcomTopoInfoFuncInstall] size of groupRankNumMap is 0
+[INFO] GE(876308,python):2026-07-08-15:15:48.581.388 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[AIcoreEngine] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.581.658 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[DNN_VM_GE_LOCAL_OP_STORE] is [97] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.610.624 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[DNN_VM_HOST_CPU_OP_STORE] is [28836] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.610.890 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[DNN_VM_RTS_FFTS_PLUS_OP_STORE] is [15] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.611.101 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[DNN_VM_RTS_OP_STORE] is [62] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.611.247 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[VectorEngine] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:48.691.501 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[aicpu_ascend_kernel] is [80105] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.032.981 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[aicpu_tf_kernel] is [341218] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.033.642 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[dvpp_ops_kernel] is [407] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.033.801 [ops_kernel_manager.cc:155]876308 InitOpKernelInfoStores:[GEPERFTRACE] The time cost of InitOpKernelInfoStores::Initialize[ops_kernel_info_hccl] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.033.928 [graph_builder.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpsKernelManager::InitOpKernelInfoStores is [452543] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.036.108 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[AIcoreEngine] is [2052] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.036.833 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[DNN_VM_GE_LOCAL_OP_STORE] is [45] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.037.089 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[DNN_VM_HOST_CPU_OP_STORE] is [58] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.037.264 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[DNN_VM_RTS_FFTS_PLUS_OP_STORE] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.037.406 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[DNN_VM_RTS_OP_STORE] is [18] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.037.583 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[VectorEngine] is [45] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.037.857 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[aicpu_ascend_kernel] is [149] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.038.505 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[aicpu_tf_kernel] is [401] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.038.957 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[dvpp_ops_kernel] is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.039.137 [ops_kernel_manager.cc:176]876308 InitOpsKernelInfo:[GEPERFTRACE] The time cost of InitOpsKernelInfo::GetAllOpsKernelInfo[ops_kernel_info_hccl] is [47] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.039.543 [graph_builder.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpsKernelManager::InitOpsKernelInfo is [5492] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.332.228 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[AIcoreEngine] is [290576] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.333.163 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[DNN_VM_HOST_CPU_OPTIMIZER] is [772] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.333.346 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[DNN_VM_RTS_FFTS_PLUS_GRAPH_OPTIMIZER_STORE] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.333.490 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[DNN_VM_RTS_GRAPH_OPTIMIZER_STORE] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.340.287 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[VectorEngine] is [6667] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.341.871 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[aicpu_ascend_optimizer] is [1324] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.091 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[aicpu_tf_optimizer] is [2977] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.346 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[dvpp_graph_optimizer] is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.469 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[ge_local_graph_optimizer] is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.592 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[hccl_alltoallvc_fusion_optimizer] is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.713 [ops_kernel_manager.cc:251]876308 InitGraphOptimizers:[GEPERFTRACE] The time cost of InitGraphOptimizers::Initialize[hccl_graph_optimizer] is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.823 [graph_builder.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpsKernelManager::InitGraphOptimizers is [304182] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.345.949 [graph_builder.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpsKernelManager::ClassifyGraphOptimizers is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.347.361 [proto_util.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of ReadProtoFromText::/usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/lib64/plugin/opskernel/optimizer_priority.pbtxt is [1186] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.347.594 [graph_builder.cc:109]876308 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpsKernelManager::InitGraphOptimizerPriority is [1524] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.389.933 [ge_api.cc:292]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::GELibInitialize is [2964049] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.390.193 [ge_api.cc:307]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of InnerInitialize::SessionManagerInitialize is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.390.302 [ge_api.cc:323]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GeExecutor::Initialize is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.390.424 [ge_api.cc:326]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of InitializeExecutionRuntime is [18] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.390.527 [ge_api.cc:332][status:STOP]876308 GEInitializeImpl:GEInitialize finished
+[INFO] GE(876308,python):2026-07-08-15:15:49.390.632 [ge_api.cc:333]876308 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::All is [3120864] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.634.651 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:49.634.678 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 0, graph id 0, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:49.635.656 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.635.838 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.640.685 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.640.716 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [73] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.173 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.187 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.194 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.199 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [247] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.204 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.209 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.214 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [7] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.219 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.224 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [7] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.229 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.242 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [516] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.278 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [13] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.286 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.297 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.304 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.394 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.401 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.406 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.411 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.429 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.434 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.439 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.445 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.450 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.455 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.460 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.465 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.470 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.475 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.480 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.485 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.641.524 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [215] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.790 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.822 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.828 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.833 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.838 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.842 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.847 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.851 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.856 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.861 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.866 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.883 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [7] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.889 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.894 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [8] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.898 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.903 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.908 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [106] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:49.655.916 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.656.132 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:49.657.487 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [781] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.657.508 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [18] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:49.657.514 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [11] micro seconds.
+[INFO] ATRACE(876308,python):2026-07-08-15:15:49.658.204 [tracer_mgr_operate.c:66](tid:877677) create object FE_CompileTd_0 successfully, exitSave(false), noLock(false).
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.391 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [11] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.418 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [30] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.423 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.427 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.430 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [6] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.529 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.686.548 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.130 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.195 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.523 [block_mem_assigner.cc:4119]878185 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.524 [block_mem_assigner.cc:4119]878184 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.663 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_0 memoffset[3072], memtype[2], theory_min[3072], zero_copy[2560], total_size[3072], no_reuse[2560], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:55.687.815 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [15] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.335 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [511] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.343 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [546] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.395 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.438 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1247] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.461 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.667 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.675 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:55.688.681 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:55.689.020 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 6273.430926 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:55.689.479 [scalable_config.cc:74]877574 ScalableConfig:device total max size: 93961293824, page_mem_size_total_threshold: 89263229132, uncacheable_size_threshold: 34359738368
+[INFO] RUNTIME(876308,python):2026-07-08-15:15:55.705.875 [task_fail_callback_data_manager.cc:51] 877574 RegTaskFailCallback: register TaskFailCallback finish, name:_DEFAULT_MODEL_NAME_.
+[INFO] GE(876308,python):2026-07-08-15:15:55.835.986 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:55.836.013 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 1, graph id 1, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:55.836.403 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.836.543 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.107 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.119 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [25] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.372 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.381 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.387 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.391 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [156] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.395 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.406 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.409 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.412 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.416 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.419 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.426 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [302] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.445 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.450 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.455 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.459 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.516 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.520 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.523 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.527 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.530 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.533 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.537 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.540 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.543 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.546 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.549 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.553 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.556 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.563 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.566 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.570 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.844.590 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [127] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.716 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.729 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.734 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.738 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.741 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.744 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.748 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.751 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.754 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.758 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.761 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.764 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.768 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.771 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.774 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.778 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.781 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [49] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.785 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.852.883 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [0] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.853.857 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [421] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.853.872 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [17] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.853.876 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.594 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [10] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.613 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [18] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.619 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.624 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.628 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [5] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.723 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.858.744 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.226 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.283 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.595 [block_mem_assigner.cc:4119]878262 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.598 [block_mem_assigner.cc:4119]878261 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.801 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_1 memoffset[7680], memtype[2], theory_min[7680], zero_copy[7168], total_size[7680], no_reuse[7168], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:55.859.938 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.470 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [522] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.478 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [550] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.537 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.587 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1309] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.605 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.806 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.813 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:55.860.828 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:55.861.158 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 151.846528 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:55.989.635 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:55.989.659 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 2, graph id 2, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:55.990.021 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.990.134 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.990.872 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.990.883 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.117 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.126 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.130 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.134 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [147] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.138 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.155 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.158 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.162 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.165 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.168 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.176 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [287] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.195 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.201 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.206 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.210 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.271 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.286 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.290 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.293 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.296 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.299 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.303 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.306 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.309 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.312 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.316 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.319 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.322 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.325 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.328 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.332 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.991.354 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [141] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.785 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.801 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.805 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.809 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.813 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.816 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.819 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.822 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.833 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.836 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.840 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.843 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.846 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.849 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.853 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.856 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.859 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [51] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.864 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:55.999.960 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.000.556 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [203] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.000.567 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [13] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.000.571 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [9] micro seconds.
+[INFO] ATRACE(876308,python):2026-07-08-15:15:56.001.100 [tracer_mgr_operate.c:66](tid:878315) create object FE_CompileTd_2 successfully, exitSave(false), noLock(false).
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.693 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [8] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.707 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [19] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.712 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.716 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.719 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [5] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.797 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.005.812 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.302 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.354 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.638 [block_mem_assigner.cc:4119]878349 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.641 [block_mem_assigner.cc:4119]878350 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.760 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_2 memoffset[7680], memtype[2], theory_min[7680], zero_copy[7168], total_size[7680], no_reuse[7168], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.006.882 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.257 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [366] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.263 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [392] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.311 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.351 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1000] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.367 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.551 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.558 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.007.563 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.007.876 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 140.983230 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:56.149.147 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:56.149.171 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 3, graph id 3, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:56.149.512 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.149.631 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.422 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.434 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [24] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.691 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.700 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.705 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.712 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [157] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.723 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.727 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.730 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.733 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.737 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.740 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.748 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [309] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.768 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.773 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.777 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.781 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.837 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.842 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.845 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.848 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.853 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.857 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.860 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.863 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.867 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.870 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.873 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.877 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.884 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.887 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.890 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.894 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.150.914 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [129] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.357 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.372 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.377 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.381 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.384 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.387 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.390 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.394 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.397 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.400 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.404 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.407 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.410 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.414 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.417 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.420 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.423 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [50] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.428 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.159.533 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.160.426 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [489] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.160.440 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [19] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.160.445 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [6] micro seconds.
+[INFO] ATRACE(876308,python):2026-07-08-15:15:56.160.927 [tracer_mgr_operate.c:66](tid:878380) create object FE_CompileTd_6 successfully, exitSave(false), noLock(false).
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.683 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [14] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.710 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [31] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.720 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.729 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [4] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.736 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [4] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.871 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.165.902 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.166.564 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.166.623 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.166.910 [block_mem_assigner.cc:4119]878432 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.166.931 [block_mem_assigner.cc:4119]878433 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.167.107 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_3 memoffset[7680], memtype[2], theory_min[7680], zero_copy[7168], total_size[7680], no_reuse[7168], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.167.252 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [11] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.167.903 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [640] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.167.911 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [670] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.167.975 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.168.033 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1414] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.168.061 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.168.275 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.168.283 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.168.289 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.168.648 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 157.423947 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:56.316.094 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:56.316.120 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 4, graph id 4, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:56.316.513 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.316.642 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.396 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.408 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.670 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.679 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.684 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.689 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [158] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.694 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.698 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.703 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.708 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.712 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.717 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.726 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [311] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.749 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.756 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.762 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.778 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.846 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.851 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.855 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.860 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.864 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.869 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.873 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.878 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.883 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.887 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.892 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.896 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.901 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.905 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.910 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.914 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.317.939 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [157] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.343 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.366 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.371 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.376 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.380 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.383 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.403 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.407 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.412 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.416 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.421 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.425 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.430 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.434 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.438 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.443 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.447 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [66] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.454 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.326.600 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.327.510 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [412] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.327.521 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [26] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.327.526 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.333.856 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [16] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.333.887 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [37] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.333.898 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.333.908 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [4] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.333.918 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [10] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.334.111 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.334.152 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.334.740 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.334.806 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.335.152 [block_mem_assigner.cc:4119]878541 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.335.154 [block_mem_assigner.cc:4119]878540 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.335.308 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_4 memoffset[13824], memtype[2], theory_min[13824], zero_copy[13312], total_size[13824], no_reuse[13312], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.335.478 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [16] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.230 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [742] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.238 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [776] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.315 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [14] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.385 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1587] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.410 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.763 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.771 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.336.779 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.337.253 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 162.416394 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:56.515.603 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:56.515.630 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 5, graph id 5, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:56.516.119 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.516.323 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.227 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.238 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.481 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.490 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.504 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.508 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [153] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.511 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.515 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.518 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.521 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.525 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.528 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.535 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [292] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.553 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.559 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.563 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.567 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.620 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.625 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.628 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.631 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.635 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.638 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.641 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.645 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.648 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.651 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.654 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.662 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.665 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.668 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.672 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.675 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.517.694 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [123] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.525.978 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.525.997 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.001 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.005 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.009 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.012 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.015 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.018 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.022 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.025 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.028 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.031 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.035 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.038 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.041 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.044 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.047 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [47] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.061 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.526.160 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [0] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.527.005 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [419] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.527.019 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.527.024 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.531.975 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [14] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.007 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [32] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.017 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.036 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [3] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.046 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [6] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.182 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.212 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.700 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.532.754 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.026 [block_mem_assigner.cc:4119]878626 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.029 [block_mem_assigner.cc:4119]878625 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.151 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_5 memoffset[13312], memtype[2], theory_min[13312], zero_copy[12800], total_size[13312], no_reuse[12800], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.280 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [11] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.804 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [515] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.811 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [542] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.861 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.905 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1155] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.533.923 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.534.131 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.534.139 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.534.145 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.534.481 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 181.415872 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:56.671.214 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:56.671.241 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 6, graph id 6, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:56.671.614 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.671.736 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.547 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.559 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.805 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.814 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.818 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.822 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [158] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.825 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.829 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.832 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.835 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.839 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.842 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.849 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [285] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.868 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.873 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.877 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.889 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.944 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.948 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.952 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.956 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.960 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.963 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.966 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.970 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.973 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.976 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.979 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.982 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.986 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.989 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.992 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.672.995 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.673.015 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [122] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.532 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.548 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.553 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.556 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.561 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.565 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.575 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.578 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.581 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.585 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.588 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.591 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.594 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.598 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.601 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.604 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.607 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [48] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.612 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.681.712 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.682.562 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [347] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.682.574 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [15] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.682.579 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.830 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [11] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.854 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [22] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.860 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.864 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.869 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [6] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.965 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.687.984 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.688.569 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.688.630 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [2] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.688.948 [block_mem_assigner.cc:4119]878703 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.688.950 [block_mem_assigner.cc:4119]878702 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.087 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_6 memoffset[10752], memtype[2], theory_min[10752], zero_copy[10240], total_size[10752], no_reuse[10240], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.238 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [13] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.662 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [414] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.671 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [445] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.732 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.786 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1160] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.689.806 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.690.034 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.690.042 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.690.048 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.690.464 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 145.257057 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:56.874.273 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:56.874.293 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 7, graph id 7, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:56.874.635 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.874.753 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.508 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.519 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [22] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.767 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.776 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.786 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.790 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [156] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.794 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.797 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.800 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.803 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.807 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.810 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.817 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [293] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.835 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.840 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.845 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.849 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.904 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.908 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.911 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.914 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.917 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.921 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.924 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.927 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.930 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.934 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.937 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.944 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.948 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.951 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.954 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.957 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.875.977 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [125] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.606 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.625 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.629 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.633 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.636 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.640 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.643 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.646 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.649 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.653 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.656 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.659 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.662 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.666 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.669 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.672 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.675 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [63] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.688 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.884.792 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.885.535 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [397] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.885.545 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [23] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.885.550 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.141 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [11] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.165 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [23] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.170 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.175 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [3] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.180 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [5] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.277 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.296 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.822 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [5] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.891.881 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.180 [block_mem_assigner.cc:4119]878794 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.180 [block_mem_assigner.cc:4119]878793 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.310 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_7 memoffset[2048], memtype[2], theory_min[2048], zero_copy[1536], total_size[2048], no_reuse[1536], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.448 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.861 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [403] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.868 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [432] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.928 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.892.980 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1104] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:56.893.155 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:56.893.362 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:56.893.370 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:56.893.376 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:56.893.737 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 200.366267 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:57.034.140 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:57.034.171 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 8, graph id 8, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:57.034.625 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.034.822 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.035.775 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.035.786 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [26] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.152 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.162 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.168 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.172 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [226] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.177 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.182 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.186 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [7] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.191 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.196 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.200 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.211 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [417] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.236 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.244 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.251 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.270 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.349 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.354 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.359 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.364 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.368 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.373 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.377 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.382 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.387 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.391 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.396 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.400 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.405 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.410 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.414 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.419 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.036.447 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [172] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.799 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.826 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.832 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.836 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.840 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.844 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.864 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.868 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.872 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.877 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.881 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.886 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.890 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.895 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.899 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.903 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.907 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [65] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.046.914 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.047.068 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.048.072 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [431] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.048.085 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [21] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.048.091 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [8] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.483 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [9] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.502 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [19] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.508 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.513 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.517 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [5] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.611 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.053.631 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.115 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.167 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.457 [block_mem_assigner.cc:4119]878894 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.463 [block_mem_assigner.cc:4119]878893 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.607 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_8 memoffset[10752], memtype[2], theory_min[10752], zero_copy[10240], total_size[10752], no_reuse[10240], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:57.054.766 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [14] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.292 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [515] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.299 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [547] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.361 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [12] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.418 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1256] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.438 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.695 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.702 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:57.055.707 [model_introduction.cc:371]877574 Data:model io_info size:228
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.056.055 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 159.262684 millisecond
+[INFO] GE(876308,python):2026-07-08-15:15:57.199.961 [graph_var_manager.cc:1544]877574 SetAllMemoryMaxValue:The graph_mem_max_size is 27917287424 and the var_mem_max_size is 5368709120
+[INFO] GE(876308,python):2026-07-08-15:15:57.199.988 [graph_manager.cc:1180]877574 PreRun:PreRun start: graph node size 3, session id 9, graph id 9, graph name online.
+[INFO] GE(876308,python):2026-07-08-15:15:57.200.350 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ForPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.200.466 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitVariableIntoSubgraphPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.222 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.233 [graph_prepare.cc:2083]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::ProcessBeforeInfershape is [22] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.472 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.481 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.494 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.498 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferShapePass is [152] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.501 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [6] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.505 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SplitShapeNPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.508 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.511 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.515 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.518 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of InferValueRangePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.525 [graph_prepare.cc:2084]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::FormatAndShapeProcess is [287] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.543 [graph_prepare.cc:2087]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::CtrlFlowPreProcess is [7] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.548 [graph_prepare.cc:2088]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::multibatch::GetDynamicOutputShape is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.553 [graph_prepare.cc:2089]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::InsertAippOpUtil::Instance().UpdateDataNodeByAipp is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.557 [graph_prepare.cc:2090]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::SaveOriginalGraphToOmModel is [1] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.610 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.615 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.618 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PrintOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.621 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of NoUseReshapeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.624 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DropOutPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.628 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssertPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.631 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnchangedTransposeRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.634 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UnusedConstPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.637 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of StopGradientPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.641 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PreventGradientPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.644 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of PlaceholderWithDefaultPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.651 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SnapshotPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.654 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of GuaranteeConstPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.658 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of VarIsInitializedOpPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.661 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ParallelConcatStartOpPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.664 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.201.683 [graph_prepare.cc:2091]877574 PrepareDynShape:[GEPERFTRACE] The time cost of Prepare::PrepareOptimize is [123] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.032 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of EnterPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.048 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AddNPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.052 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchDeadBranchElimination is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.056 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of SwitchLogicRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.060 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of MergePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.063 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CastRemovePass is [4] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.066 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransposeTransDataPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.070 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.073 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpSymmetryEliminationPass is [1] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.076 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of TransOpNearbyAllreduceFusionPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.080 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReplaceWithEmptyConstPass is [3] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.083 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionComputePass is [2] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.086 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantClipPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.090 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [5] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.093 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.096 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of UselessControlOutRemovePass is [0] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.100 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of Dim1TransposeToSqueezePass is [50] micro seconds, call count is [3]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.112 [graph_manager.cc:3088]877574 OptimizeStage1:[GEPERFTRACE] The time cost of extern constant folding is [0] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.210 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of IdentityPass is [2] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.210.989 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of AIcoreEngine::CheckSupported is [393] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.211.000 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_GE_LOCAL_OP_STORE::CheckSupported is [18] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.211.004 [dnnengine_manager.cc:224]877574 LogCheckSupportCost:The time cost of DNN_VM_RTS_OP_STORE::CheckSupported is [15] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.251 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ConstantFoldingPass is [15] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.278 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of ReshapeRemovePass is [34] micro seconds, call count is [6]
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.287 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of CondRemovePass is [1] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.296 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of AssignRemovePass is [4] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.304 [base_pass.cc:336]877574 Run:[GEPERFTRACE] The time cost of DimensionAdjustPass is [6] micro seconds, call count is [5]
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.393 [graph_manager.cc:3289]877574 OptimizeStage2:[GEPERFTRACE] The time cost of BufferPoolMemoryPass::pass_manager.Run is [4] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.409 [graph_manager.cc:3301]877574 OptimizeStage2:[GEPERFTRACE] The time cost of ConcatNotaskPass::concat_no_task_manager.Run is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.857 [graph_manager.cc:3326]877574 MemConflictProc:[GEPERFTRACE] The time cost of SetFftsPlusAttrPass::last_passes.Run is [6] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.216.914 [graph_mem_assigner.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphMemoryAssigner::AssignVarMemory is [3] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.188 [block_mem_assigner.cc:4119]878971 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.189 [block_mem_assigner.cc:4119]878970 AssignMemoryWithReuse:Reuse memory open, memory_priority_mode is false.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.314 [graph_mem_assigner.cc:2521]877574 SetInputOffset:[IMAS]AfterAssignMemory : online_9 memoffset[12288], memtype[2], theory_min[12288], zero_copy[11776], total_size[12288], no_reuse[11776], streams[1], topo_mode[DFS], mop[], io_reuse[0:0], alloc_mode[], smp[0]
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.448 [task_generator.cc:750]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::PrepareForGenerateTask is [10] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.828 [task_generator.cc:759]877574 GenerateTask:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTaskForNodes is [370] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.835 [task_generator.cc:986]877574 GetTaskInfo:[GEPERFTRACE] The time cost of TaskGenerator::GenerateTask is [398] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.893 [task_generator.cc:1069]877574 GenModelTaskDef:[GEPERFTRACE] The time cost of TaskGenerator::AddModelTaskToModel is [9] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.945 [graph_builder.cc:109]877574 ~FuncPerfScope:[GEPERFTRACE] The time cost of GraphBuilder::Build is [1036] micro seconds.
+[INFO] GE(876308,python):2026-07-08-15:15:57.217.974 [graph_manager.cc:1219]877574 PreRun:[GEPERFTRACE] GE PreRun End
+[INFO] GE(876308,python):2026-07-08-15:15:57.218.172 [model_introduction.cc:241]877574 ConstructDynamicInfo:there is no case, no dynamic info
+[INFO] GE(876308,python):2026-07-08-15:15:57.218.180 [model_introduction.cc:299]877574 ConstructNameOrder:there is no case, no data name order info.
+[INFO] GE(876308,python):2026-07-08-15:15:57.218.186 [model_introduction.cc:371]877574 Data:model io_info size:230
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.218.530 [op_compiler.cpp:356]877574 CompileOp: To compile op: FurthestPointSampling, compile time is 153.859924 millisecond
+  B=  8 N= 100 M= 20: FAIL m=16/160 per_batch=[0, 0, 8, 0, 0, 8, 0, 0] 1st_mismatch: batch=2 idx=0 ref=0 out=40
+
+  9/10 passed
+FAILED
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.277 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_MALLOC_FREE, applyTotal = 1, applySucc = 1, releaseTotal = 1, releaseSucc = 1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.312 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_MALLOC_FREE_HOST, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.324 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_CONTEXT, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.333 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_SET_RESET_DEVICE, applyTotal = 2, applySucc = 2, releaseTotal = 1, releaseSucc = 1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.347 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_EVENT, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.355 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_STREAM, applyTotal = 2, applySucc = 2, releaseTotal = 1, releaseSucc = 1
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.364 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_DVPP_MALLOC_FREE, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.373 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_RECORD_RESET_EVENT, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.381 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DATA_BUFFER, applyTotal = 20, applySucc = 20, releaseTotal = 20, releaseSucc = 20
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.390 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_TENSOR_DESC, applyTotal = 20, applySucc = 20, releaseTotal = 20, releaseSucc = 20
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.399 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.407 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DATASET, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.415 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_LOAD_UNLOAD_MODEL, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.424 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_AIPP, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.445 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_ATTR, applyTotal = 10, applySucc = 10, releaseTotal = 10, releaseSucc = 10
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.454 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_HANDLE, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.462 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_CHANNEL_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.471 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_PIC_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.479 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_ROI_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.493 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_RESIZE_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.502 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_JPEGE_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.510 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VDEC_CHANNEL_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.518 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VENC_CHANNEL_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.527 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_STREAM_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.535 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VDEC_FRAME_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.544 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VENC_FRAME_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.552 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_CHANNEL, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.562 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VDEC_CHANNEL, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.574 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_VENC_CHANNEL, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.584 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_DVPP_BATCH_PIC_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.595 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_GROUP_INFO, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.616 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_PROF_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.628 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_PROF_SUB_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.636 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_MODEL_CONFIG, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.645 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_QUEUE_ID, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.658 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_QUEUE_ATTR, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.667 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_QUEUE_ROUTE, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.675 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_QUEUE_ROUTE_LIST, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.684 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_QUEUE_ROUTE_QUERY, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.692 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_MBUF, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.700 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_GRAPH_DUMP_OPTION, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.708 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_ALLOCATOR_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.717 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_CREATE_DESTROY_ALLOCATOR_BINARY_DESC, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.725 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_RESERVE_RELEASE_MEMORY_ADDRESS, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.733 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_MALLOC_FREE_PHYSICAL_MEMORY, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.742 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_MAP_UNMAP_MEMORY, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[INFO] ASCENDCL(876308,python):2026-07-08-15:15:57.984.750 [resource_statistics.cpp:113]876308 TraverseStatistics: The ResourceType:ACL_STATISTICS_LOAD_UNLOAD_BINARY, applyTotal = 0, applySucc = 0, releaseTotal = 0, releaseSucc = 0
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:57.984.763 [msprof_callback_impl.cpp:111] >>> (tid:876308) MsprofCtrlCallback called, type: 3
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:57.984.773 [ai_drv_dev_api.cpp:333] >>> (tid:876308) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] GE(876308,python):2026-07-08-15:15:57.984.849 [ge_api.cc:387][status:INIT]876308 GEFinalize:GEFinalize start
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:57.984.863 [msprof_callback_impl.cpp:111] >>> (tid:876308) MsprofCtrlCallback called, type: 3
+[EVENT] PROFILING(876308,python):2026-07-08-15:15:57.984.871 [ai_drv_dev_api.cpp:333] >>> (tid:876308) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] GE(876308,python):2026-07-08-15:15:57.989.829 [execution_runtime.cc:75]876308 FinalizeExecutionRuntime:Execution runtime finalize begin.
+[INFO] GE(876308,python):2026-07-08-15:15:57.989.848 [execution_runtime.cc:87]876308 FinalizeExecutionRuntime:Execution runtime finalized.
+[INFO] TUNE(876308,python):2026-07-08-15:15:58.111.082 [cann_kb_pyfunc_mgr.cpp:127][CANNKB][Tid:876308]"CannKbPyfuncMgr: enter PyObjectDeinit function, reference_[1]"
+[INFO] TUNE(876308,python):2026-07-08-15:15:58.111.120 [cann_kb_pyfunc_mgr.cpp:138][CANNKB][Tid:876308]"CannKbPyfuncMgr: PyObjectDeinit function end successfully!"
+[INFO] ATRACE(876308,python):2026-07-08-15:15:58.113.361 [tracer_mgr_operate.c:248](tid:876308) destroy object FE_Global_Trace, exitSave(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:58.113.374 [tracer_mgr_operate.c:248](tid:876308) destroy object FE_Statistics_Trace, exitSave(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:58.113.755 [tracer_mgr_operate.c:248](tid:876308) destroy object FE_CompileTd_0, exitSave(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:58.113.774 [tracer_mgr_operate.c:248](tid:876308) destroy object FE_CompileTd_2, exitSave(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:15:58.113.783 [tracer_mgr_operate.c:248](tid:876308) destroy object FE_CompileTd_6, exitSave(false).
+[INFO] GE(876308,python):2026-07-08-15:15:58.114.361 [gelib.cc:328]876308 SystemFinalize:Infer finalize GELib success.
+[INFO] GE(876308,python):2026-07-08-15:15:58.131.188 [ge_api.cc:428][status:STOP]876308 GEFinalize:GEFinalize finished
+[INFO] DRV(876308,python):2026-07-08-15:15:58.631.686 [drv_log_user.c:638][ascend][curpid:876308,876308][drv][hdc][share_log_read_in_single_module]Server destroy success.(dev_id=0; fid=0; service="service_dump"; pid=876308)
+[INFO] DRV(876308,python):2026-07-08-15:15:58.631.740 [drv_log_user.c:638][ascend][curpid:876308,876308][drv][hdc][share_log_read_in_single_module]Server destroy success.(dev_id=1; fid=0; service="service_dump"; pid=876308)
+[INFO] ATRACE(876308,python):2026-07-08-15:16:02.549.166 [tracer_mgr_operate.c:66](tid:876308) create object GE_Compile_Trace1 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(876308,python):2026-07-08-15:16:02.549.532 [tracer_mgr_operate.c:248](tid:876308) destroy object AutoFuse_Backend_Trace0, exitSave(true).
+[INFO] RUNTIME(876308,python):2026-07-08-15:16:02.805.398 [runtime.cc:1793] 876308 ~Runtime: deconstruct runtime
+[INFO] RUNTIME(876308,python):2026-07-08-15:16:02.805.429 [runtime.cc:1880] 876308 WaitMonitorExit: wait monitor success, used count=0.
+[INFO] ATRACE(876308,python):2026-07-08-15:16:02.807.241 [tracer_mgr_operate.c:248](tid:876308) destroy object RUNTIME_ATRACE_DEV0_TS0, exitSave(false).
+[INFO] RUNTIME(876308,python):2026-07-08-15:16:02.831.452 [direct_hwts_engine.cc:72] 876308 ~DirectHwtsEngine: Destructor.
+[INFO] RUNTIME(876308,python):2026-07-08-15:16:02.831.520 [engine.cc:86] 876308 ~Engine: Destructor.
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.699 [devmm_svm.c:2025][ascend][curpid:876308,876308][drv][devmm][drvMemDeviceClose]DrvMemDeviceClose. (devid=0)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.708 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]HOST_MEM Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=11341824; alloc_cnt=3; free_cnt=3)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.714 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]HOST_MEM Cached_size:12582912Bytes
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.731 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=192512; alloc_cnt=12; free_cnt=12)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.736 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Mem stats (Bytes). (module_name=GE; module_id=45; current_alloced_size=0; alloced_peak_size=1048576; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.740 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.744 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=1048576; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.749 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.753 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=2101248; alloc_cnt=2; free_cnt=2)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.757 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Cached_size:4194304Bytes
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.760 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=16777216; alloc_cnt=4; free_cnt=4)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.764 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=APP; module_id=33; current_alloced_size=0; alloced_peak_size=2097152; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.768 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=GE; module_id=45; current_alloced_size=0; alloced_peak_size=2097152; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.771 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Cached_size:20971520Bytes
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.776 [svm_mem_statistics.c:136][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_P2P_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=4194304; alloc_cnt=2; free_cnt=2)
+[INFO] DRV(876308,python):2026-07-08-15:16:02.831.779 [svm_mem_statistics.c:146][ascend][curpid:876308,876308][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_P2P_HBM dev0 Cached_size:4194304Bytes
+[INFO] RUNTIME(876308,python):2026-07-08-15:16:02.948.440 [task_fail_callback_data_manager.cc:63] 876308 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(876308,python):2026-07-08-15:16:03.013.804 [stacktrace_signal.c:194](tid:876308) unregister all signal handlers, can not capture signal.
+[INFO] ATRACE(876308,python):2026-07-08-15:16:05.146.139 [atrace_client_core.c:127](tid:877379) atrace receive thread exited, devId=0.
