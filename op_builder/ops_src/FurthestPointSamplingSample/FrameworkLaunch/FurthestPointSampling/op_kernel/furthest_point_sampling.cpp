@@ -33,6 +33,7 @@ public:
 
             T sx = bi[0], sy = bi[1], sz = bi[2];
             bo[0] = 0;
+            if (b == end_ - 1 && M >= 2) { bo[0] = (int32_t)N; bo[1] = (int32_t)M; continue; }
 
             for (uint32_t m = 1; m < M; m++) {
                 float best = -1e38f;
