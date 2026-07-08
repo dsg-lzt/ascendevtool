@@ -15,6 +15,9 @@ public:
         if (tileN_ > N_) tileN_ = N_;
         if (tileN_ < 64) tileN_ = 64;
 
+        // 向量操作需要对齐填充，buffer 加 64 元素余量防止越界
+        uint32_t bufN = tileN_ + 64;
+
         inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
 
@@ -41,13 +44,13 @@ private:
         AscendC::TBuf<AscendC::QuePosition::VECCALC> bufTmp;
         AscendC::TBuf<AscendC::QuePosition::VECCALC> bufSca;
 
-        pipe.InitBuffer(qX, BUF_NUM, tileN_ * sizeof(T));
-        pipe.InitBuffer(qY, BUF_NUM, tileN_ * sizeof(T));
-        pipe.InitBuffer(qZ, BUF_NUM, tileN_ * sizeof(T));
+        pipe.InitBuffer(qX, BUF_NUM, bufN * sizeof(T));
+        pipe.InitBuffer(qY, BUF_NUM, bufN * sizeof(T));
+        pipe.InitBuffer(qZ, BUF_NUM, bufN * sizeof(T));
         pipe.InitBuffer(mdBuf,   N_ * sizeof(T));
-        pipe.InitBuffer(bufDist, tileN_ * sizeof(T));
-        pipe.InitBuffer(bufTmp,  tileN_ * sizeof(T));
-        pipe.InitBuffer(bufSca,  tileN_ * sizeof(T));
+        pipe.InitBuffer(bufDist, bufN * sizeof(T));
+        pipe.InitBuffer(bufTmp,  bufN * sizeof(T));
+        pipe.InitBuffer(bufSca,  bufN * sizeof(T));
 
         AscendC::LocalTensor<T> mdAll = mdBuf.Get<T>();
         for (uint32_t i = 0; i < N_; i++) mdAll.SetValue(i, initVal_);

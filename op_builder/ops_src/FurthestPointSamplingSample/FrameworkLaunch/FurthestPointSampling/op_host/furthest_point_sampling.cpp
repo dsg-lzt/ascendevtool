@@ -30,7 +30,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     if (coreNum == 0) coreNum = 1;
 
     uint64_t ubElm = ubSize / dtLen;
-    uint32_t tileN = (ubElm - N) / 9;
+    uint32_t tileN = (ubElm - N - 576) / 9;
     if (tileN > (uint32_t)N) tileN = N;
     if (tileN < 64) tileN = 64;
     uint32_t nTiles = (N + tileN - 1) / tileN;
