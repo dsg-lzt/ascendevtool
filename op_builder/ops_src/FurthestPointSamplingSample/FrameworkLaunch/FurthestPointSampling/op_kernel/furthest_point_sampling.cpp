@@ -38,8 +38,8 @@ public:
             bo[0] = 0;
 
             for (int32_t m = 1; m < (int32_t)M_; m++) {
-                float gMax = -1e38f;
-                uint32_t gIdx = 0;
+                float selMax = -1e38f;
+                uint32_t selIdx = 0;
 
                 for (uint32_t i = 0; i < N; i++) {
                     uint32_t idx3 = i * COORD_DIM;
@@ -51,11 +51,8 @@ public:
                     float od = (float)md.GetValue(i);
                     if (nd < od) md.SetValue(i, (T)nd);
                     float cd = (float)md.GetValue(i);
-                    if (cd > gMax) { gMax = cd; gIdx = i; }
+                    if (cd > selMax) { selMax = cd; selIdx = i; }
                 }
-
-                // gIdx 必须 < N，如有异常就设0
-                uint32_t selIdx = (gIdx < N) ? gIdx : 0;
 
                 uint32_t off = selIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
