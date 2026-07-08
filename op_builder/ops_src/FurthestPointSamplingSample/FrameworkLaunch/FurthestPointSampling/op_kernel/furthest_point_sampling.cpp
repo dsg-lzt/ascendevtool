@@ -57,7 +57,7 @@ public:
 
                 uint32_t off = selIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
-                bo[m] = (int32_t)selIdx;
+                bo[m] = (int32_t)selIdx + 1000;
                 md.SetValue(selIdx, (T)0.0f);
             }
         }
