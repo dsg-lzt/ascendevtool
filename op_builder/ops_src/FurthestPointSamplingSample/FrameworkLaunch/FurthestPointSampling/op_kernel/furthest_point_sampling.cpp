@@ -20,23 +20,25 @@ public:
     __aicore__ inline void Process() {
         AscendC::TPipe pipe;
         AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf;
-        pipe.InitBuffer(mdBuf, N_ * sizeof(T));
+        const uint32_t N = N_;  // snapshot N, prevent weird optimization
+        const uint32_t M = M_;
+        pipe.InitBuffer(mdBuf, N * sizeof(T));
         AscendC::LocalTensor<T> md = mdBuf.Get<T>();
 
         for (uint32_t b = start_; b < end_; b++) {
-            __gm__ T* bi = inGm + b * N_ * COORD_DIM;
-            __gm__ int32_t* bo = outGm + b * M_;
+            __gm__ T* bi = inGm + b * N * COORD_DIM;
+            __gm__ int32_t* bo = outGm + b * M;
 
-            for (uint32_t i = 0; i < N_; i++) md.SetValue(i, initVal_);
+            for (uint32_t i = 0; i < N; i++) md.SetValue(i, initVal_);
 
             T sx = bi[0], sy = bi[1], sz = bi[2];
             bo[0] = 0;
 
-            for (uint32_t m = 1; m < M_; m++) {
+            for (uint32_t m = 1; m < M; m++) {
                 float best = -1e38f;
                 uint32_t bestIdx = 0;
 
-                for (uint32_t i = 0; i < N_; i++) {
+                for (uint32_t i = 0; i < N; i++) {
                     uint32_t idx3 = i * COORD_DIM;
                     float dx = (float)bi[idx3 + 0] - (float)sx;
                     float dy = (float)bi[idx3 + 1] - (float)sy;
@@ -49,10 +51,12 @@ public:
                     if (cd > best) { best = cd; bestIdx = i; }
                 }
 
-                uint32_t off = bestIdx * COORD_DIM;
+                uint32_t safeIdx = bestIdx;
+                if (safeIdx >= N) safeIdx = 0;
+                uint32_t off = safeIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
-                bo[m] = (int32_t)bestIdx;
-                md.SetValue(bestIdx, (T)0.0f);
+                bo[m] = (int32_t)safeIdx;
+                md.SetValue(safeIdx, (T)0.0f);
             }
         }
     }
