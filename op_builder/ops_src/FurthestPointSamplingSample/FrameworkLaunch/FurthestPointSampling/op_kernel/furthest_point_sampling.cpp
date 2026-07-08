@@ -36,7 +36,9 @@ public:
     }
 
     __aicore__ inline void Process() {
-        for (int32_t b = start_; b < end_; ++b) ProcessBatch(b);
+        // each core processes at most 1 batch to avoid UB reuse issues
+        if (start_ >= end_) return;
+        ProcessBatch(start_);
     }
 
 private:
