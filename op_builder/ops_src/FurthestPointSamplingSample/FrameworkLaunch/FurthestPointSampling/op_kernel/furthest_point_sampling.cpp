@@ -43,9 +43,10 @@ public:
                 uint32_t gIdx = 0;
 
                 for (uint32_t i = 0; i < N_; i++) {
-                    float dx = (float)bi[i * COORD_DIM + 0] - (float)sx;
-                    float dy = (float)bi[i * COORD_DIM + 1] - (float)sy;
-                    float dz = (float)bi[i * COORD_DIM + 2] - (float)sz;
+                    uint32_t idx3 = i * COORD_DIM;
+                    float dx = (float)bi[idx3 + 0] - (float)sx;
+                    float dy = (float)bi[idx3 + 1] - (float)sy;
+                    float dz = (float)bi[idx3 + 2] - (float)sz;
                     float nd = dx * dx + dy * dy + dz * dz;
 
                     float od = (float)md.GetValue(i);
@@ -58,6 +59,7 @@ public:
                 if (gIdx >= N_) gIdx = 0;
 
                 selIdx = gIdx;
+                if (selIdx >= N_) selIdx = 0;
                 uint32_t off = selIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
                 bo[m] = (int32_t)selIdx;
