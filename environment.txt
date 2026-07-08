@@ -1,14 +1,1 @@
-/home/orange/miniconda3/envs/torch_npu/bin/python op_builder/ops_src/test_furthest_point_sampling.py
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-=== FPS Operator Test ===
-  B=  8 N= 100 M= 20: FAIL m=16/160 per_batch=[0, 8, 0, 0, 0, 0, 8, 0] 1st_mismatch: batch=1 idx=12 ref=27 out=154
-
-  9/10 passed
-FAILED
+grep -c "TQue\|AscendC::Min\|pure scalar" op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
