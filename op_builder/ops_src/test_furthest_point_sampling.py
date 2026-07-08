@@ -19,11 +19,28 @@ def cpu_fps(xyz, npoint):
 
 cpp_source = """
 #include <torch/extension.h>
+#include <torch_npu/csrc/core/npu/NPUStream.h>
 #include <torch_npu/csrc/framework/OpCommand.h>
+#include "aclnn_furthest_point_sampling.h"
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
     auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
-    at_npu::native::OpCommand cmd;
-    cmd.Name("FurthestPointSampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
+    auto input_acl = aclCreateTensor(
+        const_cast<void*>(reinterpret_cast<const void*>(xyz.data_ptr())),
+        xyz.sizes().data(), xyz.ndimension(), ACL_FLOAT, nullptr);
+    auto out_acl = aclCreateTensor(
+        const_cast<void*>(reinterpret_cast<const void*>(out.data_ptr())),
+        out.sizes().data(), out.ndimension(), ACL_INT32, nullptr);
+    
+    uint64_t wsSize = 0;
+    aclOpExecutor* executor = nullptr;
+    aclnnFurthestPointSamplingGetWorkspaceSize(input_acl, npoint, out_acl, &wsSize, &executor);
+    
+    auto ws = at::empty({static_cast<int64_t>(wsSize)}, xyz.options().dtype(at::kByte));
+    auto stream = c10::npu::getCurrentNPUStream();
+    aclnnFurthestPointSampling(ws.data_ptr(), wsSize, executor, stream.stream());
+    
+    aclDestroyTensor(input_acl);
+    aclDestroyTensor(out_acl);
     return out;
 }
 TORCH_LIBRARY(fps_ops, m) { m.def("farthest_point_sample", &fps_npu); }
