@@ -1,4 +1,5 @@
 #include "kernel_operator.h"
+#include "furthest_point_sampling_tiling.h"
 
 constexpr int32_t COORD_DIM = 3;
 
@@ -11,7 +12,6 @@ public:
                                 uint32_t B, uint32_t N, uint32_t M,
                                 uint32_t tileN, uint32_t bpc, uint32_t crem, float iv) {
         B_ = B; N_ = N; M_ = M; initVal_ = (T)iv;
-
         inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
 
@@ -36,7 +36,6 @@ public:
 
             T sx = bi[0], sy = bi[1], sz = bi[2];
             bo[0] = 0;
-            uint32_t selIdx = 0;
 
             for (int32_t m = 1; m < (int32_t)M_; m++) {
                 float gMax = -1e38f;
@@ -51,15 +50,14 @@ public:
 
                     float od = (float)md.GetValue(i);
                     if (nd < od) md.SetValue(i, (T)nd);
-
                     float cd = (float)md.GetValue(i);
                     if (cd > gMax) { gMax = cd; gIdx = i; }
                 }
 
                 if (gIdx >= N_) gIdx = 0;
-
-                selIdx = gIdx;
+                uint32_t selIdx = gIdx;
                 if (selIdx >= N_) selIdx = 0;
+
                 uint32_t off = selIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
                 bo[m] = (int32_t)selIdx;
