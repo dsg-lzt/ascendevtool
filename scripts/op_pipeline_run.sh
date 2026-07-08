@@ -124,6 +124,7 @@ log "3/4 安装算子..."
 
 # ---- 4. 运行测试 ----
 log "4/4 运行测试..."
+export ASCEND_SLOG_PRINT_TO_STDOUT=1
 TEST_SCRIPT="${ASCEND_OP_TEST_SCRIPT:-}"
 CUSTOM_OPP="$TOOL_DIR/oplib/custom_opp_packages"
 SET_ENV="$CUSTOM_OPP/vendors/customize/bin/set_env.bash"
