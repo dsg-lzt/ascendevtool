@@ -25,19 +25,20 @@ public:
         AscendC::TPipe pipe;
         AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf;
         const uint32_t N = cn_;
+        const uint32_t M = M_;
         pipe.InitBuffer(mdBuf, N * sizeof(T));
         AscendC::LocalTensor<T> md = mdBuf.Get<T>();
 
         for (uint32_t b = start_; b < end_; b++) {
             __gm__ T* bi = inGm + b * N * COORD_DIM;
-            __gm__ int32_t* bo = outGm + b * M_;
+            __gm__ int32_t* bo = outGm + b * M;
 
             for (uint32_t i = 0; i < N; i++) md.SetValue(i, initVal_);
 
             T sx = bi[0], sy = bi[1], sz = bi[2];
             bo[0] = 0;
 
-            for (int32_t m = 1; m < (int32_t)M_; m++) {
+            for (int32_t m = 1; m < (int32_t)M; m++) {
                 float selMax = -1e38f;
                 uint32_t selIdx = 0;
 
