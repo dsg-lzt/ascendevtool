@@ -110,6 +110,8 @@ log "3/4 安装算子..."
     if [ -n "$RUN_FILE" ]; then
         CUSTOM_PATH="$TOOL_DIR/oplib/custom_opp_packages"
         rm -rf "$CUSTOM_PATH" && mkdir -p "$CUSTOM_PATH"
+        # try to uninstall old operator first
+        if [ -f "$CUSTOM_PATH/install.sh" ]; then cd "$CUSTOM_PATH" && bash install.sh --uninstall >> "$LOG_DIR/install.log" 2>&1 || true; fi
         bash "$RUN_FILE" --extract="$CUSTOM_PATH" --quiet >> "$LOG_DIR/install.log" 2>&1
         if [ -f "$CUSTOM_PATH/install.sh" ]; then
             cd "$CUSTOM_PATH" && bash install.sh --quiet --install-path="$CUSTOM_PATH" >> "$LOG_DIR/install.log" 2>&1 && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt" && cd "$TOOL_DIR"
