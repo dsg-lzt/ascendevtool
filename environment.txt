@@ -1,1 +1,9 @@
-grep -c "TQue\|AscendC::Min\|pure scalar" op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
+rm -rf build_out && bash build.sh
+RUN=$(find build_out -maxdepth 1 -name "*.run" -type f | head -1)
+rm -rf /home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages && mkdir -p /home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages
+bash "$RUN" --extract=/home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages --quiet
+cd /home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages && bash install.sh --quiet --install-path=$(pwd)
+cd /home/orange/pipeline_tool/AscendDevTool
+source /home/orange/miniconda3/etc/profile.d/conda.sh && conda activate torch_npu
+source oplib/custom_opp_packages/vendors/customize/bin/set_env.bash
+/home/orange/miniconda3/envs/torch_npu/bin/python op_builder/ops_src/test_furthest_point_sampling.py
