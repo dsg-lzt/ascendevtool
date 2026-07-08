@@ -47,13 +47,15 @@ def test():
     torch.ops.load_library(os.path.join(build_dir, 'fps_ops.so'))
     op = torch.ops.fps_ops.farthest_point_sample
 
-    tests = [(1,128,32),(5,100,20),(8,100,20),(3,300,150)]
+    tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
+             (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
     passed=0
     for B,N,M in tests:
         xyz=torch.randn(B,N,3).npu()
         ref=cpu_fps(xyz.cpu(),M)
         try:
             out=op(xyz,M)
+            torch.npu.synchronize()
             out_cpu = out.cpu()
             ok=torch.equal(ref,out_cpu)
             if not ok:
