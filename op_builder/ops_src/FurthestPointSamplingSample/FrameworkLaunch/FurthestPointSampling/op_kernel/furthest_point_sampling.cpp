@@ -1,5 +1,4 @@
 #include "kernel_operator.h"
-#include "furthest_point_sampling_tiling.h"
 
 constexpr int32_t COORD_DIM = 3;
 
