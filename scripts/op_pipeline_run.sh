@@ -65,6 +65,7 @@ log "1/4 编译算子..."
     python3 -m pip install decorator -q 2>/dev/null || true
     cd "$OP_SRC_DIR"
     rm -rf build_out
+    rm -rf ~/.cache/ascend* ~/.ascend* /tmp/ascendc_* 2>/dev/null || true
     sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
 
     bash build.sh > "$LOG_DIR/build.log" 2>&1 || true
