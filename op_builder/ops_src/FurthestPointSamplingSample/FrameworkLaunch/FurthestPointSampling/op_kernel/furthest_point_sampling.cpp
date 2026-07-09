@@ -15,6 +15,8 @@ public:
         inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
         start_ = 0; end_ = B_;
+        volatile uint32_t marker_r39 = 39;  // force recompile
+        (void)marker_r39;
     }
 
     __aicore__ inline void Process() {
