@@ -1,17 +1,12 @@
-(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ grep "bestIdx + 1000" /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
-                uint32_t safeIdx = bestIdx + 1000;  // FORCE CHANGE
-(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
-rm -rf build_out && bash build.sh 2>&1 | tail -10
-./packages/vendors/customize/version.info
-./upgrade.sh
-CRC: 2182085747
-SHA256: 615f36c284fc56043ff644cb8b9a924612b306b804826462aed1c0a823c5f4b7
-Skipping md5sum at user request
+# 搜所有地方有没有缓存
+find /tmp ~/.cache /var/tmp -name "FurthestPointSampling*" 2>/dev/null
+find /tmp ~/.cache /var/tmp -name "*ascendc*cache*" 2>/dev/null
 
-Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
-Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
-CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
-CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
-(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ find build_out -name "FurthestPointSampling_*.o" -exec strings {} \; | grep -c bestIdx
-0
-(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ 
+# 全删后重编
+cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
+rm -rf build_out
+find /tmp ~/.cache -name "FurthestPointSampling*" -delete 2>/dev/null
+bash build.sh 2>&1 | tail -5
+
+# 再查
+find build_out -name "*.o" | xargs strings 2>/dev/null | grep -c bestIdx
