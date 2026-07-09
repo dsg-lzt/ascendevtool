@@ -32,7 +32,7 @@ TORCH_LIBRARY(fps_ops, m) { m.def("farthest_point_sample", &fps_npu); }
 def test():
     CUSTOM_OPP = '/home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages'
     os.environ['ASCEND_CUSTOM_OPP_PATH'] = CUSTOM_OPP
-    os.environ['ASCEND_OPP_PATH'] = CUSTOM_OPP
+    # do NOT set ASCEND_OPP_PATH — it replaces all system ops
     
     subprocess.run([sys.executable,'-m','pip','install','ninja','-q'], capture_output=True)
     os.environ['PATH'] = os.path.dirname(sys.executable) + ':' + os.environ.get('PATH','')
