@@ -1,1 +1,1 @@
-grep "FORCE REBUILD" /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
+strings /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_*.o | grep -i "force\|safeIdx\|bestIdx\|run_33"
