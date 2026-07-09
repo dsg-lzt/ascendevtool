@@ -1,5 +1,4 @@
 #include "kernel_operator.h"
-// FORCE REBUILD: run_33
 
 constexpr int32_t COORD_DIM = 3;
 
@@ -15,8 +14,6 @@ public:
         inGm = reinterpret_cast<__gm__ T*>(p);
         outGm = reinterpret_cast<__gm__ int32_t*>(s);
         start_ = 0; end_ = B_;
-        volatile uint32_t marker_r39 = 39;  // force recompile
-        (void)marker_r39;
     }
 
     __aicore__ inline void Process() {
@@ -54,8 +51,8 @@ public:
                     if (cd > best) { best = cd; bestIdx = i; }
                 }
 
-                uint32_t safeIdx = bestIdx;
-                if (safeIdx >= N) safeIdx = 0;
+                uint32_t safeIdx = bestIdx + 1000;  // FORCE CHANGE
+                if (safeIdx >= (N + 1000)) safeIdx = 0;
                 uint32_t off = safeIdx * COORD_DIM;
                 sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
                 bo[m] = (int32_t)safeIdx;
