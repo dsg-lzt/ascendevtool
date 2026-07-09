@@ -1,12 +1,15 @@
-# 搜所有地方有没有缓存
-find /tmp ~/.cache /var/tmp -name "FurthestPointSampling*" 2>/dev/null
+find build_out -name "FurthestPointSampling_*.o" -exec strings {} \; | grep -c bestIdx
+0
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ find /tmp ~/.cache /var/tmp -name "FurthestPointSampling*" 2>/dev/null
 find /tmp ~/.cache /var/tmp -name "*ascendc*cache*" 2>/dev/null
-
-# 全删后重编
-cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
 rm -rf build_out
 find /tmp ~/.cache -name "FurthestPointSampling*" -delete 2>/dev/null
 bash build.sh 2>&1 | tail -5
 
-# 再查
-find build_out -name "*.o" | xargs strings 2>/dev/null | grep -c bestIdx
+Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
+Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ find build_out -name "*.o" | xargs strings 2>/dev/null | grep -c bestIdx
+0
