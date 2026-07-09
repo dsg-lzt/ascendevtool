@@ -65,12 +65,15 @@ log "1/4 编译算子..."
     python3 -m pip install decorator -q 2>/dev/null || true
     cd "$OP_SRC_DIR"
     rm -rf build_out
-    export ASCENDC_CUSTOM_OPTIONS="-DFORCE_RECOMPILE_R46"
-    export BUILD_KERNEL_SRC="$OP_SRC_DIR/op_kernel/furthest_point_sampling.cpp"
-    sed -i 's|--preset=default|--preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3|g' build.sh
-
-    bash build.sh > "$LOG_DIR/build.log" 2>&1 || true
-    git checkout -- build.sh   # 撤销 sed 修改，避免 git push 冲突
+    mkdir -p build_out
+    # cmake 配置
+    cmake -S . -B build_out --preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3 >> "$LOG_DIR/build.log" 2>&1 || true
+    # 覆盖 AscendC 源码拷贝，确保用最新
+    cp op_kernel/furthest_point_sampling.cpp build_out/op_kernel/binary/ascendc/furthest_point_sampling/furthest_point_sampling.cpp 2>/dev/null || true
+    # 编译
+    cmake --build build_out --target binary -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
+    cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
+    git checkout -- build.sh
 
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
