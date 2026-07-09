@@ -1,10 +1,17 @@
-# 1. 确认源码有 +1000
-grep "bestIdx + 1000" /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
-
-# 2. 删干净 build_out，重新编译
-cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ grep "bestIdx + 1000" /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp
+                uint32_t safeIdx = bestIdx + 1000;  // FORCE CHANGE
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ cd /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling
 rm -rf build_out && bash build.sh 2>&1 | tail -10
+./packages/vendors/customize/version.info
+./upgrade.sh
+CRC: 2182085747
+SHA256: 615f36c284fc56043ff644cb8b9a924612b306b804826462aed1c0a823c5f4b7
+Skipping md5sum at user request
 
-# 3. 看 .o 文件里有没有 bestIdx
-find build_out -name "FurthestPointSampling_*.o" -exec strings {} \; | grep -c bestIdx
-第3步如果输出 >0 说明编译成功，否则始终是旧二进制。
+Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
+Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ find build_out -name "FurthestPointSampling_*.o" -exec strings {} \; | grep -c bestIdx
+0
+(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling$ 
