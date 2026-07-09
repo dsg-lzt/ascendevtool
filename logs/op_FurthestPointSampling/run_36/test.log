@@ -1,0 +1,203 @@
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:23.951.865 [task_fail_callback_data_manager.cc:58] 1166212 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:23.959.518 [msprof_callback_impl.cpp:359] >>> (tid:1166212) Started to register profiling ctrl callback.
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:23.959.591 [msprof_callback_impl.cpp:366] >>> (tid:1166212) Started to register profiling hash id callback.
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:23.959.597 [prof_atls_plugin.cpp:115] (tid:1166212) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:23.959.601 [msprof_callback_impl.cpp:373] >>> (tid:1166212) Started to register profiling enable host freq callback.
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:23.959.604 [prof_atls_plugin.cpp:115] (tid:1166212) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:23.959.607 [msprof_callback_impl.cpp:380] >>> (tid:1166212) Started to register profiling typeId callback.
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:23.959.610 [prof_atls_plugin.cpp:115] (tid:1166212) RegisterProfileCallback, callback type is 6
+[INFO] HCCL(1166212,python):2026-07-09-10:19:23.996.915 [adapter_rts.cc:2817] [1166212][adapter_rts.cc][CallBackInitRts] g_deviceType [7] g_deviceLogicId [-1] g_devicePhyId [-1]
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:24.896.964 [prof_atls_plugin.cpp:215] (tid:1166212) Module[61] register callback of ctrl handle.
+=== FPS Operator Test ===
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:39.209.921 [prof_atls_plugin.cpp:215] (tid:1166212) Module[45] register callback of ctrl handle.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.210.527 [op_tiling_manager.cc:109]1166212 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpTilingManager::LoadSo is [371] micro seconds.
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:39.244.436 [prof_atls_plugin.cpp:215] (tid:1166212) Module[6] register callback of ctrl handle.
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.247.518 [runtime_keeper.cc:137] 1166212 GetLibRuntimeSoName: CHIP_TYPE_ENTRY size is 3
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.250.062 [runtime_keeper.cc:171] 1166212 CreateRuntimeImpl: Open libruntime_v100.so successfully
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.250.123 [runtime.cc:5662] 1166212 GetVisibleDevices: ASCEND_RT_VISIBLE_DEVICES param was not set
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.764 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[4] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.787 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[6] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.793 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[5] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.809 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[0] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.813 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[1] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.817 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[8] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.823 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[2] package worker was created successfully
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.251.827 [package_worker_factory.cpp:40][RegisterPackageWorkerCreator][tid:1166212] Register[3] package worker was created successfully
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:39.251.869 [prof_atls_plugin.cpp:215] (tid:1166212) Module[7] register callback of ctrl handle.
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.251.887 [task_fail_callback_data_manager.cc:51] 1166212 RegTaskFailCallback: register TaskFailCallback finish, name:GeErrorTracking.
+[INFO] IDEDD(1166212,python):2026-07-09-10:19:39.252.144 [adx_dump_record.cpp:644][tid:1171510] start dump thread, remote dump record temp path : /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/.
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.252.296 [drv_log_user.c:638][ascend][curpid:1166212,1171511][drv][hdc][share_log_read_in_single_module]Server create success.(dev_id=0; fid=0; service_type="service_dump"; pid=1166212)
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.252.382 [drv_log_user.c:638][ascend][curpid:1166212,1171511][drv][hdc][share_log_read_in_single_module]Server create success.(dev_id=1; fid=0; service_type="service_dump"; pid=1166212)
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.254.706 [task_fail_callback_data_manager.cc:51] 1166212 RegTaskFailCallback: register TaskFailCallback finish, name:AdumpException.
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.254.747 [acl_resource_manager.cpp:133]1166212 GetRuntimeV2Env: runtime v2 flag : model flag = 1, singleOp flag = 1
+[INFO] PROFILING(1166212,python):2026-07-09-10:19:39.255.008 [prof_atls_plugin.cpp:215] (tid:1166212) Module[48] register callback of ctrl handle.
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:39.255.068 [msprof_callback_impl.cpp:111] >>> (tid:1166212) MsprofCtrlCallback called, type: 255
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:39.255.193 [ai_drv_dev_api.cpp:333] >>> (tid:1166212) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.284 [acl.cpp:229]1166212 GetAllPackageVersion: Version of runtime package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.314 [acl.cpp:229]1166212 GetAllPackageVersion: Version of runtime package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.343 [acl.cpp:229]1166212 GetAllPackageVersion: Version of compiler package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.370 [acl.cpp:229]1166212 GetAllPackageVersion: Version of hccl package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.398 [acl.cpp:229]1166212 GetAllPackageVersion: Version of toolkit package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.425 [acl.cpp:229]1166212 GetAllPackageVersion: Version of opp package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.452 [acl.cpp:229]1166212 GetAllPackageVersion: Version of opp_kernel package is 8.3.RC1
+[INFO] ASCENDCL(1166212,python):2026-07-09-10:19:39.255.486 [acl.cpp:229]1166212 GetAllPackageVersion: Version of driver package is 24.1.rc4.b999
+[INFO] GE(1166212,python):2026-07-09-10:19:39.256.299 [ge_api.cc:220][status:INIT]1166212 GEInitializeImpl:GEInitialize start
+[INFO] GE(1166212,python):2026-07-09-10:19:39.256.333 [ge_api.cc:234]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::GEAPICheckSupportedGlobalOptions is [5] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.260.636 [ge_api.cc:245]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::CheckOptionsValid is [32] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.260.709 [ge_api.cc:259]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::ManagerInitialize is [1] micro seconds.
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:39.262.963 [msprof_callback_impl.cpp:111] >>> (tid:1166212) MsprofCtrlCallback called, type: 255
+[EVENT] PROFILING(1166212,python):2026-07-09-10:19:39.262.985 [ai_drv_dev_api.cpp:333] >>> (tid:1166212) Succeeded to DrvGetApiVersion version: 0x72317
+[INFO] GE(1166212,python):2026-07-09-10:19:39.263.025 [ge_api.cc:278]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::InitProfiling is [75] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.263.454 [ge_api.cc:287]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::InitPreparation is [52] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.263.467 [gelib.cc:93]1166212 Initialize:[GEPERFTRACE] GE Init Start
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.336.377 [api_c_soc.cc:103] 1166212 rtSetSocVersion: soc version is Ascend310P1, type=4, soc type=12
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:39.430.359 [tracer_mgr_operate.c:66](tid:1166212) create object GE_Init_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:39.430.594 [tracer_mgr_operate.c:66](tid:1166212) create object GE_Compile_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:39.430.873 [tracer_mgr_operate.c:66](tid:1166212) create object AutoFuse_Backend_Trace0 successfully, exitSave(true), noLock(false).
+[INFO] GE(1166212,python):2026-07-09-10:19:39.431.003 [gelib.cc:311]1166212 SystemInitialize:Infer init GELib success, device id :-1 
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:39.436.843 [atrace_client_core.c:160](tid:1166212) start to receive device[0] trace log.
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.437.014 [client_manager.cpp:491][GetClientRunMode][tid:1166212] runningMode:0
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.437.082 [client_manager.cpp:133][GetInstance][tid:1166212] [ClientManager] Current mode:1
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.437.152 [process_mode_base.cpp:152][GetLogLevel][tid:1166212] [TsdClient] get ASCEND_GLOBAL_LOG_LEVEL [] ASCEND_GLOBAL_EVENT_ENABLE [] ASCEND_MODULE_LOG_LEVEL []
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.437.218 [process_mode_manager.cpp:79][OpenProcess][tid:1166212] [ProcessModeManager] enter into open process deviceId[0] rankSize[0]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.437.584 [client_manager.cpp:289][CheckPackageExistsOnce][tid:1166212] [TsdClient][deviceId=0] set package path[/usr/local/Ascend/ascend-toolkit/latest/opp/Ascend310P/aicpu/], package name[Ascend310P-aicpu_syskernels.tar.gz], packageType[0]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.438.019 [client_manager.cpp:289][CheckPackageExistsOnce][tid:1166212] [TsdClient][deviceId=0] set package path[/usr/local/Ascend/ascend-toolkit/latest/opp/Ascend310P/aicpu/], package name[Ascend310P-aicpu_extend_syskernels.tar.gz], packageType[1]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.438.185 [client_manager.cpp:278][CheckPackageExistsOnce][tid:1166212] [TsdClient][deviceId=0] pkg size[0] in path[/usr/local/Ascend/ascend-toolkit/latest/opp/built-in/] must be only one, skip send package, packageType[6]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.438.240 [process_mode_manager.cpp:466][InitTsdClient][tid:1166212] [TsdClient] deviceId[0] begin to init hdc client
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.439.309 [version_verify.cpp:37][SetVersionInfo][tid:1166212] VersionVerify: send client version to server
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.439.413 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:35, features:{check before send aicpu package}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.439.477 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:37, features:{check before send open qs message}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.439.484 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:64, features:{get check code retry}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.083 [version_verify.cpp:69][PeerVersionCheck][tid:1166212] VersionVerify: Check client version info, server[1230], client[1230]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.166 [version_verify.cpp:90][ParseVersionInfo][tid:1166212] VersionVerify: pass client version info success
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.226 [hdc_client.cpp:273][CheckHdcConnection][tid:1166212] Service[2] create hdc successfully.
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.285 [version_verify.cpp:123][SpecialFeatureCheck][tid:1166212] VersionVerify: new type[35], supported
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.371 [process_mode_manager.cpp:693][GetDeviceCheckCodeOnce][tid:1166212] [TsdClient][deviceId=0] [sessionId=1] wait package info respond
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.565 [version_verify.cpp:123][SpecialFeatureCheck][tid:1166212] VersionVerify: new type[64], supported
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.662 [process_mode_manager.cpp:419][SendAICPUPackage][tid:1166212] [TsdClient][deviceId_=0] the checksum of host package[52464693] is same to device[52464693], skip send package.
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.734 [process_mode_manager.cpp:1821][SendCommonPackage][tid:1166212] [TsdClient][deviceId_=0] package is not existed, skip send, packageType[6]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.797 [process_mode_manager.cpp:1935][LoadDriverExtendPkg][tid:1166212] device not driver extend pkg skip send
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.440.862 [process_mode_manager.cpp:466][InitTsdClient][tid:1166212] [TsdClient] deviceId[0] begin to init hdc client
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.441.860 [version_verify.cpp:37][SetVersionInfo][tid:1166212] VersionVerify: send client version to server
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.441.958 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:35, features:{check before send aicpu package}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.016 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:37, features:{check before send open qs message}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.073 [version_verify.cpp:53][SetVersionInfo][tid:1166212] send feature_info:{msg_type:64, features:{get check code retry}}
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.385 [version_verify.cpp:69][PeerVersionCheck][tid:1166212] VersionVerify: Check client version info, server[1230], client[1230]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.461 [version_verify.cpp:90][ParseVersionInfo][tid:1166212] VersionVerify: pass client version info success
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.522 [hdc_client.cpp:273][CheckHdcConnection][tid:1166212] Service[2] create hdc successfully.
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.591 [process_mode_manager.cpp:521][ConstructOpenMsg][tid:1166212] [TsdClient] tsd get process sign successfully, procpid[1166212] signSize[48]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.653 [version_verify.cpp:115][SpecialFeatureCheck][tid:1166212] VersionVerify: previous type[6], supported
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.442.725 [process_mode_manager.cpp:98][OpenProcess][tid:1166212] [ProcessModeManager] deviceId[0] sessionId[1] rankSize[0], wait subprocess start respond
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.835.710 [stub_process_mode_nowin.cpp:62][ProcessQueueForMdc][tid:1166212] [TsdClient] it is unnecessary for current mode[0] to grant queue auth to aicpusd
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.835.758 [stub_process_mode_nowin.cpp:101][OpenInHost][tid:1166212] enter into OpenInHost deviceid[0]
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.835.764 [stub_process_mode_nowin.cpp:105][OpenInHost][tid:1166212] host cpu does not support
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.835.769 [process_mode_manager.cpp:121][OpenProcess][tid:1166212] [TsdClient][deviceId=0] [sessionId=1] start hccp and computer process success
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.835.804 [devmm_svm.c:99][ascend][curpid:1166212,1166212][drv][devmm][devmm_setup_device]DrvMemDeviceOpen. (devid=0)
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.836.280 [devmm_virt_interface.c:394][ascend][curpid:1166212,1166212][drv][devmm][devmm_ioctl_init_process]Init_process details. (hostpid=1166212)
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.836.705 [drv_log_user.c:638][ascend][curpid:1166212,1166212][drv][devmm][share_log_read_in_single_module]Setup device succeeded. (logical_devid=0; devid=0; vfid=0; hostpid=1166212; devpid=20014)
+[INFO] DRV(1166212,python):2026-07-09-10:19:39.836.726 [devmm_svm.c:84][ascend][curpid:1166212,1166212][drv][devmm][devmm_set_device_info]Device info. (devid=0; dvpp_size=17179869184; support_bar_mem=1; support_dev_read_only=0; support_dev_mem_map_host=0; support_bar_huge_mem=1; is_alloced_by_malloc=0; host_rw_dev_ro=1; double_pgtable_offset=17592186044416)
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.837.271 [raw_device.cc:406] 1166212 Init: isAddrFlat:0
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.837.295 [engine.cc:80] 1166212 Engine: Constructor.
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.837.305 [direct_hwts_engine.cc:56] 1166212 DirectHwtsEngine: Constructor.
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:39.891.235 [npu_driver.cc:6691] 1171571 GetDeviceStatus: GetDeviceStatus status=1.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:39.908.953 [tracer_mgr_operate.c:66](tid:1166212) create object RUNTIME_ATRACE_DEV0_TS0 successfully, exitSave(false), noLock(false).
+[INFO] TDT(1166212,python):2026-07-09-10:19:39.908.992 [client_manager.cpp:202][SetProfilingCallback][tid:1166212] [TsdClient] set profiling callback successfully
+[INFO] GE(1166212,python):2026-07-09-10:19:39.912.923 [process_node_engine_manager.cc:63]1166212 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[HOST_CPU] is [2] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.912.952 [process_node_engine_manager.cc:63]1166212 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[NPU] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.912.959 [process_node_engine_manager.cc:63]1166212 Initialize:[GEPERFTRACE] The time cost of ProcessNodeEngineManager::Initialize[UDF] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.642 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[AIcoreEngine] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.661 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_HCCL] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.666 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.672 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_ASCEND] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.677 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_ASCEND_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.682 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_AICPU_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.699 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_DVPP] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.704 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_GE_LOCAL] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.709 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_HOST_CPU] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.714 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_RTS] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.719 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DNN_VM_RTS_FFTS_PLUS] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.723 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[DSAEngine] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.727 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[VectorEngine] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.913.731 [dnnengine_manager.cc:129]1166212 Initialize:[GEPERFTRACE] The time cost of DNNEngineManager::Initialize[ffts_plus] is [0] micro seconds.
+[INFO] GE(1166212,python):2026-07-09-10:19:39.914.352 [op_tiling_manager.cc:109]1166212 ~FuncPerfScope:[GEPERFTRACE] The time cost of OpTilingManager::LoadSo is [220] micro seconds.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:40.172.094 [tracer_mgr_operate.c:66](tid:1166212) create object FE_Global_Trace successfully, exitSave(false), noLock(false).
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:40.172.184 [tracer_mgr_operate.c:66](tid:1166212) create object FE_Statistics_Trace successfully, exitSave(false), noLock(false).
+[ERROR] FE(1166212,python):2026-07-09-10:19:40.173.221 [configuration.cc:1059]1166212 AssembleEachOpsStoreInfo:Builtin op store[tbe-builtin] with path [/home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages/built-in/op_impl/ai_core/tbe/config/ascend310p] is invalid.
+[ERROR] FE(1166212,python):2026-07-09-10:19:40.173.265 [configuration.cc:1063]1166212 AssembleEachOpsStoreInfo:Builtin op store[tbe-builtin] with path [/home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages/built-in/op_impl/ai_core/tbe/config/ascend310p] is invalid.
+[ERROR] FE(1166212,python):2026-07-09-10:19:40.173.280 [configuration.cc:307]1166212 Initialize:[GraphOpt][Init] Failed to build OpsStoreInfo Vector.
+[ERROR] FE(1166212,python):2026-07-09-10:19:40.173.292 [fusion_manager.cc:101]1166212 Initialize:[FusionMngr][Init] Failed to initialize configuration.
+[ERROR] GE(1166212,python):2026-07-09-10:19:40.173.354 [ops_kernel_manager.cc:83]1166212 Initialize: ErrorNo: 1343250441(There is no valid so about OpsKernelInfoStore or GraphOptimizer.) PluginManager InvokeAll failed.
+[ERROR] GE(1166212,python):2026-07-09-10:19:40.173.369 [gelib.cc:233]1166212 InnerInitialize: ErrorNo: 1343250441(There is no valid so about OpsKernelInfoStore or GraphOptimizer.) [Init][OpsManager]GE ops manager initial failed.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:40.208.232 [tracer_mgr_operate.c:248](tid:1166212) destroy object FE_Global_Trace, exitSave(false).
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:40.208.263 [tracer_mgr_operate.c:248](tid:1166212) destroy object FE_Statistics_Trace, exitSave(false).
+[ERROR] GE(1166212,python):2026-07-09-10:19:40.208.393 [gelib.cc:161]1166212 Initialize: ErrorNo: 1343250441(There is no valid so about OpsKernelInfoStore or GraphOptimizer.) [Init][GeLib]GeLib initial failed.
+[INFO] GE(1166212,python):2026-07-09-10:19:40.208.437 [ge_api.cc:292]1166212 GEInitializeImpl:[GEPERFTRACE] The time cost of GEInitialize::GELibInitialize is [944971] micro seconds.
+[ERROR] GE(1166212,python):2026-07-09-10:19:40.208.460 [ge_api.cc:294]1166212 GEInitializeImpl: ErrorNo: 1343229953(GEInitialize Failed.) [Init][GELib]Failed, error code = 1343250441
+[ERROR] GE(1166212,python):2026-07-09-10:19:40.208.468 [ge_api.cc:372]1166212 GEInitialize: ErrorNo: 4294967295(failed) [GEInit] GEInitialize failed, error code:4294967295.
+[ERROR] ASCENDCL(1166212,python):2026-07-09-10:19:40.208.481 [local_compiler.cpp:87]1166212 Init: [Initialize][Ge]GEInitialize failed. ge result = 4294967295
+[ERROR] ASCENDCL(1166212,python):2026-07-09-10:19:40.208.497 [op_compile_service.cpp:73]1166212 SetCompileStrategy: [Init][Compiler]Init compiler failed
+[ERROR] ASCENDCL(1166212,python):2026-07-09-10:19:40.208.509 [op_compile_processor.cpp:67]1166212 Init: [Set][Options]OpCompileProcessor init failed!
+[ERROR] ASCENDCL(1166212,python):2026-07-09-10:19:40.208.518 [op_compile_processor.cpp:109]1166212 SetCompileOpt: [Init][Env]init env failed!
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:40.208.574 [api_impl.cc:7817] 1166212 PeekLastErr: level=0 err=0.
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py", line 85, in <module>
+    ok=test()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_furthest_point_sampling.py", line 58, in test
+    xyz=torch.randn(B,N,3).npu()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/backend_registration.py", line 147, in wrap_tensor_to
+    device_idx = _normalization_device(custom_backend_name, device)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/backend_registration.py", line 97, in _normalization_device
+    return _get_current_device_index()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/backend_registration.py", line 91, in _get_current_device_index
+    return getattr(getattr(torch, custom_backend_name), _get_device_index)()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 95, in current_device
+    torch_npu.npu._lazy_init()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/__init__.py", line 251, in _lazy_init
+    torch_npu._C._npu_init()
+RuntimeError: SetPrecisionMode:torch_npu/csrc/framework/LazyInitAclops.cpp:175 NPU function error: at_npu::native::AclSetCompileopt(aclCompileOpt::ACL_PRECISION_MODE, precision_mode), error code is 500001
+[ERROR] 2026-07-09-10:19:40 (PID:1166212, Device:0, RankID:-1) ERR00100 PTA call acl api failed
+[Error]: The internal ACL of the system is incorrect.
+        Rectify the fault based on the error information in the ascend log.
+[PID: 1166212] 2026-07-09-10:19:40.173.184 Invalid_Environment_Variable(E20002): Value [/home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages/] for environment variable [ASCEND_OPP_PATH] is invalid when load builtin op store..
+        Possible Cause: Environment variable configuration error.
+        Solution: Reset the environment variable by referring to the installation guide.
+        TraceBack (most recent call last):
+        [GraphOpt][Init] Failed to build OpsStoreInfo Vector.[FUNC:Initialize][FILE:configuration.cc][LINE:307]
+        [FusionMngr][Init] Failed to initialize configuration.[FUNC:Initialize][FILE:fusion_manager.cc][LINE:101]
+        PluginManager InvokeAll failed.[FUNC:Initialize][FILE:ops_kernel_manager.cc][LINE:83]
+        OpsManager initialize failed.[FUNC:InnerInitialize][FILE:gelib.cc][LINE:234]
+        GELib::InnerInitialize failed.[FUNC:Initialize][FILE:gelib.cc][LINE:162]
+        GEInitialize failed.[FUNC:GEInitialize][FILE:ge_api.cc][LINE:373]
+        [Initialize][Ge]GEInitialize failed. ge result = 4294967295[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:162]
+        [Init][Compiler]Init compiler failed[FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:146]
+        [Set][Options]OpCompileProcessor init failed![FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:146]
+
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:45.142.261 [tracer_mgr_operate.c:248](tid:1166212) destroy object GE_Compile_Trace0, exitSave(true).
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:45.142.313 [tracer_mgr_operate.c:248](tid:1166212) destroy object AutoFuse_Backend_Trace0, exitSave(true).
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:45.717.612 [runtime.cc:1793] 1166212 ~Runtime: deconstruct runtime
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:45.717.642 [runtime.cc:1880] 1166212 WaitMonitorExit: wait monitor success, used count=0.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:45.719.118 [tracer_mgr_operate.c:248](tid:1166212) destroy object RUNTIME_ATRACE_DEV0_TS0, exitSave(false).
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:45.741.627 [direct_hwts_engine.cc:72] 1166212 ~DirectHwtsEngine: Destructor.
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:45.741.686 [engine.cc:86] 1166212 ~Engine: Destructor.
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.858 [devmm_svm.c:2025][ascend][curpid:1166212,1166212][drv][devmm][drvMemDeviceClose]DrvMemDeviceClose. (devid=0)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.874 [svm_mem_statistics.c:136][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]HOST_MEM Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=11341824; alloc_cnt=3; free_cnt=3)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.879 [svm_mem_statistics.c:146][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]HOST_MEM Cached_size:12582912Bytes
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.883 [svm_mem_statistics.c:136][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=69632; alloc_cnt=2; free_cnt=2)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.887 [svm_mem_statistics.c:146][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.891 [svm_mem_statistics.c:136][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=1048576; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.895 [svm_mem_statistics.c:146][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.898 [svm_mem_statistics.c:136][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=4198400; alloc_cnt=3; free_cnt=3)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.902 [svm_mem_statistics.c:146][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Cached_size:6291456Bytes
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.905 [svm_mem_statistics.c:136][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=16777216; alloc_cnt=4; free_cnt=4)
+[INFO] DRV(1166212,python):2026-07-09-10:19:45.741.909 [svm_mem_statistics.c:146][ascend][curpid:1166212,1166212][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Cached_size:16777216Bytes
+[INFO] RUNTIME(1166212,python):2026-07-09-10:19:45.859.722 [task_fail_callback_data_manager.cc:63] 1166212 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:45.921.986 [stacktrace_signal.c:194](tid:1166212) unregister all signal handlers, can not capture signal.
+[INFO] ATRACE(1166212,python):2026-07-09-10:19:48.090.205 [atrace_client_core.c:127](tid:1171524) atrace receive thread exited, devId=0.
