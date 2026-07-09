@@ -69,7 +69,8 @@ log "1/4 编译算子..."
     # cmake 配置
     cmake -S . -B build_out --preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3 >> "$LOG_DIR/build.log" 2>&1 || true
     # 覆盖 AscendC 源码拷贝，确保用最新
-    cp op_kernel/furthest_point_sampling.cpp build_out/op_kernel/binary/ascendc/furthest_point_sampling/furthest_point_sampling.cpp 2>/dev/null || true
+    mkdir -p build_out/op_kernel/binary/ascendc/furthest_point_sampling
+    cp op_kernel/furthest_point_sampling.cpp build_out/op_kernel/binary/ascendc/furthest_point_sampling/furthest_point_sampling.cpp
     # 编译
     cmake --build build_out --target binary -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
     cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
