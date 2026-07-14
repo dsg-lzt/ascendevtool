@@ -7,7 +7,7 @@
  */
 
 extern "C" __global__ __aicore__ void furthest_point_sampling(
-    GM_ADDR input, GM_ADDR output, GM_ADDR, GM_ADDR tilingArg)
+    GM_ADDR input, GM_ADDR output, GM_ADDR workspace, GM_ADDR tilingArg)
 {
     GET_TILING_DATA(td, tilingArg);
 
@@ -25,6 +25,9 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     for (int32_t b = bs; b < be; b++) {
         __gm__ int32_t* o = out + b * M;
         o[0] = 0;  /* first selected point is always index 0 */
+        /* DEBUG: use workspace as debug output */
+        __gm__ int32_t* dbg = reinterpret_cast<__gm__ int32_t*>(output) + M;
+        dbg[b*2] = N;   /* confirm kernel execution per batch */
 
         if (dt == 4) {
             __gm__ float* p = reinterpret_cast<__gm__ float*>(input) + b * N * 3;
