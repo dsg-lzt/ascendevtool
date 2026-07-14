@@ -49,11 +49,16 @@ def test():
 
     # ---- warmup: first call triggers operator compilation ----
     print("  [warmup] compiling FPS operator...", flush=True)
-    _ = op(torch.randn(1,64,3).npu(), 8)
+    wm_out = op(torch.randn(1,64,3).npu(), 8)
     torch.npu.synchronize()
-    # warmup multi-batch too
-    _ = op(torch.randn(8,100,3).npu(), 20)
+    print(f"  [warmup] raw output[:8] = {wm_out.cpu()[0,:8].tolist()}", flush=True)
+
+    # warmup multi-batch
+    wm_out2 = op(torch.randn(8,100,3).npu(), 20)
     torch.npu.synchronize()
+    print(f"  [warmup] B=8 batch0[:6] = {wm_out2.cpu()[0,:6].tolist()}", flush=True)
+    print(f"  [warmup] B=8 batch1[:6] = {wm_out2.cpu()[1,:6].tolist()}", flush=True)
+    print(f"  [warmup] B=8 batch2[:6] = {wm_out2.cpu()[2,:6].tolist()}", flush=True)
     print("  [warmup] done.", flush=True)
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
