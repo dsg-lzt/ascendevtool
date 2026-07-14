@@ -229,3 +229,13 @@ Fast-forward
 [OP FurthestPointSampling R13] 16:06:11 ❌ 测试失败
 [OP FurthestPointSampling R13] 16:06:11 完成
 [OP-LOOP] 16:06:11 op_pipeline_run.sh 退出码: 0
+来自 https://github.com/dsg-lzt/ascendevtool
+ * branch            master     -> FETCH_HEAD
+更新 701a8e7..df84eb7
+Fast-forward
+ .../op_kernel/furthest_point_sampling.cpp          | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+[OP-LOOP] 16:09:57 执行 op_pipeline_run.sh FurthestPointSampling...
+[OP FurthestPointSampling R14] 16:09:57 1/4 编译算子...
+[OP FurthestPointSampling R14] 16:10:06 ERROR: 编译失败 (binary=2, package=2)
+[OP-LOOP] 16:10:06 op_pipeline_run.sh 退出码: 1
