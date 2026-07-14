@@ -61,9 +61,10 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    float d = (bi[i*C]-cx)*(bi[i*C]-cx)
-                            + (bi[i*C+1]-cy)*(bi[i*C+1]-cy)
-                            + (bi[i*C+2]-cz)*(bi[i*C+2]-cz);
+                    double dx = static_cast<double>(bi[i*C])   - static_cast<double>(cx);
+                    double dy = static_cast<double>(bi[i*C+1]) - static_cast<double>(cy);
+                    double dz = static_cast<double>(bi[i*C+2]) - static_cast<double>(cz);
+                    float d = static_cast<float>(dx*dx + dy*dy + dz*dz);
                     if (d < bw[i]) bw[i] = d;
                     if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
@@ -84,12 +85,10 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    float d = (static_cast<float>(bi[i*C])-cx)
-                            * (static_cast<float>(bi[i*C])-cx)
-                            + (static_cast<float>(bi[i*C+1])-cy)
-                            * (static_cast<float>(bi[i*C+1])-cy)
-                            + (static_cast<float>(bi[i*C+2])-cz)
-                            * (static_cast<float>(bi[i*C+2])-cz);
+                    double dx = static_cast<double>(bi[i*C])   - static_cast<double>(cx);
+                    double dy = static_cast<double>(bi[i*C+1]) - static_cast<double>(cy);
+                    double dz = static_cast<double>(bi[i*C+2]) - static_cast<double>(cz);
+                    float d = static_cast<float>(dx*dx + dy*dy + dz*dz);
                     if (d < bw[i]) bw[i] = d;
                     if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
