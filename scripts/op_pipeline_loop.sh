@@ -110,11 +110,13 @@ while [ $round -lt $MAX_ROUNDS ]; do
     git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
     git commit -m "logs: op pipeline round $round ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
 
-    for i in 1 2 3; do
-        timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
-        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
-        sleep 5
-    done
+    # push 日志（先试简单 push，失败才 pull+push，避免 rebase 因脏文件失败）
+    timeout 30 git push origin master >> "$LOOP_LOG" 2>&1
+    if [ $? -ne 0 ]; then
+        log "push 失败，先 pull 再 push..." >> "$LOOP_LOG" 2>&1
+        timeout 30 git pull origin master >> "$LOOP_LOG" 2>&1
+        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1
+    fi
 
     # 获取最新 HEAD 写入记录
     for i in 1 2 3; do
@@ -131,11 +133,10 @@ while [ $round -lt $MAX_ROUNDS ]; do
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
         git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
         git commit -m "logs: OP SUCCESS round $round ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
-        for i in 1 2 3; do
-            timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
-            timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
-            sleep 5
-        done
+        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 || {
+            timeout 30 git pull origin master >> "$LOOP_LOG" 2>&1
+            timeout 30 git push origin master >> "$LOOP_LOG" 2>&1
+        }
         exit 0
     fi
 
@@ -146,8 +147,7 @@ log "达到最大轮次 $MAX_ROUNDS" >> "$LOOP_LOG" 2>&1
 echo "OP_PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
 git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
 git commit -m "logs: OP MAX ROUNDS ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
-for i in 1 2 3; do
-    timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
-    timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
-    sleep 5
-done
+timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 || {
+    timeout 30 git pull origin master >> "$LOOP_LOG" 2>&1
+    timeout 30 git push origin master >> "$LOOP_LOG" 2>&1
+}
