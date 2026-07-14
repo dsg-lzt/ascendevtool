@@ -1,0 +1,2 @@
+========== 3. VERIFY: FurthestPointSampling ==========
+[WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
