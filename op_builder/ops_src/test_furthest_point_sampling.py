@@ -49,6 +49,16 @@ def test():
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
+    # ---- debug: dump raw output for N=50 ----
+    xyz=torch.randn(1,50,3).npu()
+    ref=cpu_fps(xyz.cpu(),12)
+    out=op(xyz,12)
+    torch.npu.synchronize()
+    out_cpu=out.cpu()
+    print(f"  B=1 N=50 M=12: ref[:12] = {ref[0,:12].tolist()}")
+    print(f"  B=1 N=50 M=12: out[:12] = {out_cpu[0,:12].tolist()}")
+    print(f"  B=1 N=50 M=12: {'PASS' if torch.equal(ref,out_cpu) else 'FAIL'}")
+
     # ---- debug: sweep N to find failing sizes ----
     for N in [50, 80, 100, 120, 150, 200, 250, 400, 600, 800, 900]:
         xyz=torch.randn(1,N,3).npu()
