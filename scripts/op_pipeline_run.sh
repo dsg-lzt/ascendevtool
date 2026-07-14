@@ -197,7 +197,7 @@ if [ -f "$SET_ENV" ]; then
     log "已设置自定义算子路径: $CUSTOM_OPP"
 fi
 if [ -z "$TEST_SCRIPT" ]; then
-    TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 -name "test_*.py" -path "*${OP_NAME}*" 2>/dev/null | head -1)
+    TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 -name "test_*.py" -ipath "*${OP_NAME}*" 2>/dev/null | head -1)
     if [ -z "$TEST_SCRIPT" ]; then
         TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 \( -name "test_*.py" -o -name "*_test.py" \) 2>/dev/null | head -1)
     fi
