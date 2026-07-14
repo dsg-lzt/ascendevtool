@@ -33,7 +33,8 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     auto platform = platform_ascendc::PlatformAscendC(context->GetPlatformInfo());
     uint64_t ubSize = 0;
     platform.GetCoreMemSize(platform_ascendc::CoreMemType::UB, ubSize);
-    uint32_t coreNum = 1;
+    uint32_t coreNum = platform.GetCoreNum();
+    if (coreNum == 0) coreNum = 1;
 
     uint64_t ubElm = ubSize / dataTypeLength;
     uint32_t tileN = static_cast<uint32_t>((ubElm - N) / 9);
@@ -72,7 +73,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
 
     size_t *workspaces = context->GetWorkspaceSizes(1);
-    workspaces[0] = 0;
+    workspaces[0] = static_cast<size_t>(B) * N * sizeof(float);
 
     return ge::GRAPH_SUCCESS;
 }
