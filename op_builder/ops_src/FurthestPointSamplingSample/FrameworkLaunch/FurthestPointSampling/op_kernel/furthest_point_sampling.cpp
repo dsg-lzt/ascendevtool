@@ -2,82 +2,124 @@
 
 constexpr int32_t COORD_DIM = 3;
 
-template<typename T>
-class KernelFPS {
-public:
-    __aicore__ inline KernelFPS() {}
+__aicore__ void fps_float32_core(
+    __gm__ float* inBatch, __gm__ int32_t* outBatch,
+    __gm__ float* minDist, uint32_t N, uint32_t M)
+{
+    for (uint32_t i = 0; i < N; i++) minDist[i] = 3.402823e+38f;
 
-    __aicore__ inline void Init(GM_ADDR p, GM_ADDR s,
-                                uint32_t B, uint32_t N, uint32_t M,
-                                uint32_t tileN, uint32_t bpc, uint32_t crem, float iv) {
-        B_ = B; N_ = N; M_ = M; initVal_ = (T)iv;
-        inGm = reinterpret_cast<__gm__ T*>(p);
-        outGm = reinterpret_cast<__gm__ int32_t*>(s);
-        start_ = 0; end_ = B_;
-    }
+    int32_t farthest = 0;
 
-    __aicore__ inline void Process() {
-        AscendC::TPipe pipe;
-        AscendC::TBuf<AscendC::QuePosition::VECCALC> mdBuf;
-        const uint32_t N = N_;  // snapshot N, prevent weird optimization
-        const uint32_t M = M_;
-        pipe.InitBuffer(mdBuf, N * sizeof(T));
-        AscendC::LocalTensor<T> md = mdBuf.Get<T>();
+    for (uint32_t m = 0; m < M; m++) {
+        outBatch[m] = farthest;
 
-        for (uint32_t b = start_; b < end_; b++) {
-            __gm__ T* bi = inGm + b * N * COORD_DIM;
-            __gm__ int32_t* bo = outGm + b * M;
+        float cx = inBatch[farthest * COORD_DIM];
+        float cy = inBatch[farthest * COORD_DIM + 1];
+        float cz = inBatch[farthest * COORD_DIM + 2];
 
-            for (uint32_t i = 0; i < N; i++) md.SetValue(i, initVal_);
+        float bestVal = -1.0f;
+        int32_t bestIdx = 0;
 
-            T sx = bi[0], sy = bi[1], sz = bi[2];
-            bo[0] = 0;
-            if (b == end_ - 1 && M >= 2) { bo[0] = (int32_t)N; bo[1] = (int32_t)M; continue; }
+        for (uint32_t i = 0; i < N; i++) {
+            float dx = inBatch[i * COORD_DIM] - cx;
+            float dy = inBatch[i * COORD_DIM + 1] - cy;
+            float dz = inBatch[i * COORD_DIM + 2] - cz;
+            float d = dx * dx + dy * dy + dz * dz;
 
-            for (uint32_t m = 1; m < M; m++) {
-                float best = -1e38f;
-                uint32_t bestIdx = 0;
-
-                for (uint32_t i = 0; i < N; i++) {
-                    uint32_t idx3 = i * COORD_DIM;
-                    float dx = (float)bi[idx3 + 0] - (float)sx;
-                    float dy = (float)bi[idx3 + 1] - (float)sy;
-                    float dz = (float)bi[idx3 + 2] - (float)sz;
-                    float nd = dx * dx + dy * dy + dz * dz;
-
-                    float od = (float)md.GetValue(i);
-                    if (nd < od) md.SetValue(i, (T)nd);
-                    float cd = (float)md.GetValue(i);
-                    if (cd > best) { best = cd; bestIdx = i; }
-                }
-
-                uint32_t safeIdx = bestIdx + 1000;  // FORCE CHANGE
-                if (safeIdx >= (N + 1000)) safeIdx = 0;
-                uint32_t off = safeIdx * COORD_DIM;
-                sx = bi[off + 0]; sy = bi[off + 1]; sz = bi[off + 2];
-                bo[m] = (int32_t)safeIdx;
-                md.SetValue(safeIdx, (T)0.0f);
+            if (d < minDist[i]) minDist[i] = d;
+            if (minDist[i] > bestVal) {
+                bestVal = minDist[i];
+                bestIdx = static_cast<int32_t>(i);
             }
         }
-    }
 
-private:
-    __gm__ T* inGm;
-    __gm__ int32_t* outGm;
-    uint32_t B_, N_, M_, start_, end_;
-    T initVal_;
-};
+        farthest = bestIdx;
+        minDist[farthest] = 0.0f;
+    }
+}
+
+__aicore__ void fps_float16_core(
+    __gm__ half* inBatch, __gm__ int32_t* outBatch,
+    __gm__ float* minDist, uint32_t N, uint32_t M)
+{
+    for (uint32_t i = 0; i < N; i++) minDist[i] = 3.402823e+38f;
+
+    int32_t farthest = 0;
+
+    for (uint32_t m = 0; m < M; m++) {
+        outBatch[m] = farthest;
+
+        float cx = static_cast<float>(inBatch[farthest * COORD_DIM]);
+        float cy = static_cast<float>(inBatch[farthest * COORD_DIM + 1]);
+        float cz = static_cast<float>(inBatch[farthest * COORD_DIM + 2]);
+
+        float bestVal = -1.0f;
+        int32_t bestIdx = 0;
+
+        for (uint32_t i = 0; i < N; i++) {
+            float dx = static_cast<float>(inBatch[i * COORD_DIM]) - cx;
+            float dy = static_cast<float>(inBatch[i * COORD_DIM + 1]) - cy;
+            float dz = static_cast<float>(inBatch[i * COORD_DIM + 2]) - cz;
+            float d = dx * dx + dy * dy + dz * dz;
+
+            if (d < minDist[i]) minDist[i] = d;
+            if (minDist[i] > bestVal) {
+                bestVal = minDist[i];
+                bestIdx = static_cast<int32_t>(i);
+            }
+        }
+
+        farthest = bestIdx;
+        minDist[farthest] = 0.0f;
+    }
+}
 
 extern "C" __global__ __aicore__ void furthest_point_sampling(
-    GM_ADDR input, GM_ADDR output, GM_ADDR workspace, GM_ADDR tiling) {
+    GM_ADDR input, GM_ADDR output, GM_ADDR workspace, GM_ADDR tiling)
+{
     GET_TILING_DATA(td, tiling);
+
+    uint32_t B = td.B;
+    uint32_t N = td.N;
+    uint32_t M = td.M;
+    uint32_t bpc = td.batchPerCore;
+    uint32_t crem = td.coreRem;
+
+    uint32_t coreId = AscendC::GetBlockIdx();
+    uint32_t batchStart, batchEnd;
+    if (coreId < crem) {
+        batchStart = coreId * (bpc + 1);
+        batchEnd = batchStart + bpc + 1;
+    } else {
+        batchStart = crem * (bpc + 1) + (coreId - crem) * bpc;
+        batchEnd = batchStart + bpc;
+    }
+    if (batchStart >= B) return;
+    if (batchEnd > B) batchEnd = B;
+
     if (TILING_KEY_IS(0)) {
-        KernelFPS<float> op;
-        op.Init(input, output, td.B, td.N, td.M, td.tileN, td.batchPerCore, td.coreRem, td.initVal);
-        op.Process();
+        __gm__ float* inBase = reinterpret_cast<__gm__ float*>(input);
+        __gm__ int32_t* outBase = reinterpret_cast<__gm__ int32_t*>(output);
+        __gm__ float* wsBase = reinterpret_cast<__gm__ float*>(workspace);
+
+        for (uint32_t b = batchStart; b < batchEnd; b++) {
+            fps_float32_core(
+                inBase + b * N * COORD_DIM,
+                outBase + b * M,
+                wsBase + b * N,
+                N, M);
+        }
     } else if (TILING_KEY_IS(1)) {
-        KernelFPS<half> op;
-        op.Init(input, output, td.B, td.N, td.M, td.tileN, td.batchPerCore, td.coreRem, td.initVal);
-        op.Process();
+        __gm__ half* inBase = reinterpret_cast<__gm__ half*>(input);
+        __gm__ int32_t* outBase = reinterpret_cast<__gm__ int32_t*>(output);
+        __gm__ float* wsBase = reinterpret_cast<__gm__ float*>(workspace);
+
+        for (uint32_t b = batchStart; b < batchEnd; b++) {
+            fps_float16_core(
+                inBase + b * N * COORD_DIM,
+                outBase + b * M,
+                wsBase + b * N,
+                N, M);
+        }
     }
 }

@@ -53,7 +53,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext* context) {
     context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
 
     size_t* ws = context->GetWorkspaceSizes(1);
-    ws[0] = B * N * dtLen;
+    ws[0] = static_cast<size_t>(B) * N * sizeof(float);
     return ge::GRAPH_SUCCESS;
 }
 }
