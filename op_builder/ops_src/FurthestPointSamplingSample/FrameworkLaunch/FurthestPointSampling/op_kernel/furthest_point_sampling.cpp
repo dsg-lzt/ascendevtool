@@ -31,18 +31,14 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     if (bs >= B || be <= bs) return;
     if (be > B) be = B;
 
-    /* Use UB for batch input copy (verify DataCopy works) */
-    AscendC::TPipe pipe;
-    AscendC::TBuf<AscendC::QuePosition::VECCALC> bufIn;
-    pipe.InitBuffer(bufIn, N * C * sizeof(float));
-
-    /* minDist directly in GM to avoid UB pipeline sync issues */
+    /* minDist in GM workspace — each core uses local offset within own ws */
     __gm__ float*   wsGm  = reinterpret_cast<__gm__ float*>(workspace);
     __gm__ int32_t* outGm = reinterpret_cast<__gm__ int32_t*>(output);
 
     for (int32_t b = bs; b < be; b++) {
-        __gm__ float*   bw = wsGm  + b * N;
-        __gm__ int32_t* bo = outGm + b * M;
+        int32_t lb = b - bs;   /* local batch index within this core */
+        __gm__ float*   bw = wsGm  + lb * N;   /* local offset (per-core ws) */
+        __gm__ int32_t* bo = outGm + b  * M;   /* global offset (shared output) */
 
         /* init minDist in GM */
         for (int32_t i = 0; i < N; i++) bw[i] = 3.4028234663852886e+38f;
