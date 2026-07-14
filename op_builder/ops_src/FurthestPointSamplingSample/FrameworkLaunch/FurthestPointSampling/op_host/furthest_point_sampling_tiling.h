@@ -11,6 +11,7 @@ namespace optiling {
 BEGIN_TILING_DATA_DEF(FpsTilingData)
   TILING_DATA_FIELD_DEF(uint32_t, B);
   TILING_DATA_FIELD_DEF(uint32_t, N);
+  TILING_DATA_FIELD_DEF(uint32_t, padN);
   TILING_DATA_FIELD_DEF(uint32_t, M);
   TILING_DATA_FIELD_DEF(uint32_t, C);
   TILING_DATA_FIELD_DEF(uint32_t, dataTypeLength);

@@ -6,6 +6,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     GET_TILING_DATA(td, tilingArg);
 
     int32_t B=td.B, N=td.N, M=td.M, bpc=td.batchPerCore, crem=td.coreRemainder, dt=td.dataTypeLength;
+    int32_t wsN = td.wsStride;  /* padded workspace stride */
     uint32_t cid = AscendC::GetBlockIdx();
     int32_t bs, be;
     if (cid < (uint32_t)crem) { bs = cid*(bpc+1); be = bs+bpc+1; }
@@ -20,7 +21,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
         __gm__ float* in = reinterpret_cast<__gm__ float*>(input);
         for (int32_t b = bs; b < be; b++) {
             __gm__ int32_t* o = out + b * M;
-            __gm__ float*   w = ws  + b * N;
+            __gm__ float*   w = ws  + b * wsN;
             for (int32_t i = 0; i < N; i++) w[i] = 3.402823e+38f;
             int32_t fid = 0;
             for (int32_t m = 0; m < M; m++) {
@@ -40,7 +41,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
         __gm__ half* in = reinterpret_cast<__gm__ half*>(input);
         for (int32_t b = bs; b < be; b++) {
             __gm__ int32_t* o = out + b * M;
-            __gm__ float*   w = ws  + b * N;
+            __gm__ float*   w = ws  + b * wsN;
             for (int32_t i = 0; i < N; i++) w[i] = 3.402823e+38f;
             int32_t fid = 0;
             for (int32_t m = 0; m < M; m++) {

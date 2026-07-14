@@ -36,10 +36,14 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     uint32_t coreNum = 1;
 
     uint64_t ubElm = ubSize / dataTypeLength;
-    uint32_t tileN = static_cast<uint32_t>((ubElm - N) / 9);
-    if (tileN > static_cast<uint32_t>(N)) tileN = static_cast<uint32_t>(N);
+    /* pad N to 128 for alignment */
+    int32_t padN = ((N + 127) / 128) * 128;
+    if (padN < 128) padN = 128;
+
+    uint32_t tileN = static_cast<uint32_t>((ubElm - padN) / 9);
+    if (tileN > static_cast<uint32_t>(padN)) tileN = static_cast<uint32_t>(padN);
     if (tileN < 64) tileN = 64;
-    uint32_t numTiles = (N + tileN - 1) / tileN;
+    uint32_t numTiles = (padN + tileN - 1) / tileN;
 
     uint32_t batchesPerCore = (B + coreNum - 1) / coreNum;
     uint32_t coreRemainder = B % coreNum;
@@ -52,6 +56,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     FpsTilingData tiling;
     tiling.set_B(B);
     tiling.set_N(N);
+    tiling.set_padN(padN);
     tiling.set_M(M);
     tiling.set_C(COORD_DIM);
     tiling.set_dataTypeLength(dataTypeLength);
@@ -60,8 +65,8 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     tiling.set_tileLoopNum(numTiles);
     tiling.set_batchPerCore(batchesPerCore);
     tiling.set_coreRemainder(coreRemainder);
-    tiling.set_wsOffset(N);
-    tiling.set_wsStride(N);
+    tiling.set_wsOffset(padN);
+    tiling.set_wsStride(padN);
     tiling.set_initVal((dataTypeLength == 4) ? kFp32Init : kFp16Init);
 
     context->SetTilingKey(static_cast<uint64_t>(tilingKey));
@@ -72,7 +77,7 @@ static ge::graphStatus TilingFunc(gert::TilingContext *context)
     context->GetRawTilingData()->SetDataSize(tiling.GetDataSize());
 
     size_t *workspaces = context->GetWorkspaceSizes(1);
-    workspaces[0] = static_cast<size_t>(B) * N * sizeof(float);
+    workspaces[0] = static_cast<size_t>(B) * padN * sizeof(float);
 
     return ge::GRAPH_SUCCESS;
 }
