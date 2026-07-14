@@ -68,9 +68,13 @@ log "1/4 编译算子..."
     mkdir -p build_out
     # cmake 配置
     cmake -S . -B build_out --preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3 >> "$LOG_DIR/build.log" 2>&1 || true
-    # 覆盖 AscendC 源码拷贝，确保用最新
-    mkdir -p build_out/op_kernel/binary/ascendc/furthest_point_sampling
-    cp op_kernel/furthest_point_sampling.cpp build_out/op_kernel/binary/ascendc/furthest_point_sampling/furthest_point_sampling.cpp
+    # 自动查找并拷贝 kernel 源码到 binary 目录（适配不同文件名）
+    KERNEL_SRC=$(find "$OP_SRC_DIR/op_kernel" -maxdepth 1 -name "*.cpp" 2>/dev/null | head -1)
+    if [ -n "$KERNEL_SRC" ]; then
+        KERNEL_NAME=$(basename "$KERNEL_SRC" .cpp)
+        mkdir -p "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}"
+        cp "$KERNEL_SRC" "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}/${KERNEL_NAME}.cpp"
+    fi
     # 编译
     cmake --build build_out --target binary -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
     cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true

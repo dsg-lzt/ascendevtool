@@ -15,6 +15,17 @@ LOG_ROOT="$TOOL_DIR/logs/op_${OP_NAME}"
 LOOP_LOG="$LOG_ROOT/loop.log"
 LAST_COMMIT_FILE="$PIPELINE_ROOT/.op_pipeline_last_commit_${OP_NAME}"
 
+# 诊断：打印路径到 loop.log 方便排查
+{
+    echo "[OP-LOOP] $(date '+%H:%M:%S') === DIAG ==="
+    echo "[OP-LOOP] $(date '+%H:%M:%S') SCRIPT_DIR=$SCRIPT_DIR"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') PIPELINE_ROOT=$PIPELINE_ROOT"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') TOOL_DIR=$TOOL_DIR"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') LOG_ROOT=$LOG_ROOT"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo 'NOT_A_GIT_REPO')"
+    echo "[OP-LOOP] $(date '+%H:%M:%S') PWD=$(pwd)"
+} >> "$LOOP_LOG" 2>&1
+
 round=0
 mkdir -p "$LOG_ROOT"
 : > "$LOOP_LOG"
@@ -30,14 +41,14 @@ log() {
     echo "[OP-LOOP] $(date '+%H:%M:%S') $*" >> "$LOOP_LOG"
 }
 
-# 重试最多3次，单次超时30秒
-git_pull()  { for i in 1 2 3; do timeout 30 git pull  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
-git_fetch() { for i in 1 2 3; do timeout 30 git fetch origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
-git_push()  { for i in 1 2 3; do timeout 30 git push  origin master 2>/dev/null && return 0; sleep 5; done; return 1; }
+# 重试最多3次，单次超时30秒（错误输出到日志，不看黑洞）
+git_pull()  { for i in 1 2 3; do timeout 30 git pull  origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
+git_fetch() { for i in 1 2 3; do timeout 30 git fetch origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
+git_push()  { for i in 1 2 3; do timeout 30 git push  origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
 git_rebase_push() {
     for i in 1 2 3; do
-        timeout 30 git pull --rebase origin master 2>/dev/null
-        timeout 30 git push origin master 2>/dev/null && return 0
+        timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1
+        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && return 0
         sleep 5
     done
     return 1
