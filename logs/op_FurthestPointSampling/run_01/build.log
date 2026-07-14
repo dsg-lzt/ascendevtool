@@ -35,8 +35,8 @@ CMake Warning:
 
 
 -- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out
-[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
 [ 66%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
 
 
 ==============check valid for ops info start==============
@@ -47,48 +47,48 @@ Compile op info cfg successfully.
 [ 66%] Built target ops_info_gen_ascend310p
 [100%] Linking CXX shared library libcust_opmaster_rt2.0.so
 [100%] Built target cust_optiling
-[ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ...
 [ascend310p] Generating FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf ...
-[INFO] RUNTIME(1788797,python3):2026-07-14-11:05:05.690.890 [task_fail_callback_data_manager.cc:58] 1788797 TaskFailCallBackManager: Constructor.
-[EVENT] PROFILING(1788797,python3):2026-07-14-11:05:05.707.928 [msprof_callback_impl.cpp:359] >>> (tid:1788797) Started to register profiling ctrl callback.
-[EVENT] PROFILING(1788797,python3):2026-07-14-11:05:05.708.005 [msprof_callback_impl.cpp:366] >>> (tid:1788797) Started to register profiling hash id callback.
-[INFO] PROFILING(1788797,python3):2026-07-14-11:05:05.708.008 [prof_atls_plugin.cpp:115] (tid:1788797) RegisterProfileCallback, callback type is 7
-[EVENT] PROFILING(1788797,python3):2026-07-14-11:05:05.708.010 [msprof_callback_impl.cpp:373] >>> (tid:1788797) Started to register profiling enable host freq callback.
-[INFO] PROFILING(1788797,python3):2026-07-14-11:05:05.708.012 [prof_atls_plugin.cpp:115] (tid:1788797) RegisterProfileCallback, callback type is 8
-[EVENT] PROFILING(1788797,python3):2026-07-14-11:05:05.708.014 [msprof_callback_impl.cpp:380] >>> (tid:1788797) Started to register profiling typeId callback.
-[INFO] PROFILING(1788797,python3):2026-07-14-11:05:05.708.015 [prof_atls_plugin.cpp:115] (tid:1788797) RegisterProfileCallback, callback type is 6
-[INFO] PROFILING(1788797,python3):2026-07-14-11:05:05.741.908 [prof_atls_plugin.cpp:215] (tid:1788797) Module[61] register callback of ctrl handle.
+[ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ...
+[INFO] RUNTIME(2892134,python3):2026-07-14-15:15:50.702.491 [task_fail_callback_data_manager.cc:58] 2892134 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2892134,python3):2026-07-14-15:15:50.720.282 [msprof_callback_impl.cpp:359] >>> (tid:2892134) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2892134,python3):2026-07-14-15:15:50.720.351 [msprof_callback_impl.cpp:366] >>> (tid:2892134) Started to register profiling hash id callback.
+[INFO] PROFILING(2892134,python3):2026-07-14-15:15:50.720.354 [prof_atls_plugin.cpp:115] (tid:2892134) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2892134,python3):2026-07-14-15:15:50.720.356 [msprof_callback_impl.cpp:373] >>> (tid:2892134) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2892134,python3):2026-07-14-15:15:50.720.358 [prof_atls_plugin.cpp:115] (tid:2892134) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2892134,python3):2026-07-14-15:15:50.720.360 [msprof_callback_impl.cpp:380] >>> (tid:2892134) Started to register profiling typeId callback.
+[INFO] PROFILING(2892134,python3):2026-07-14-15:15:50.720.361 [prof_atls_plugin.cpp:115] (tid:2892134) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2892134,python3):2026-07-14-15:15:50.751.648 [prof_atls_plugin.cpp:215] (tid:2892134) Module[61] register callback of ctrl handle.
 Opc tool start working now, please wait for a moment.
-[INFO] RUNTIME(1788797,python3):2026-07-14-11:05:07.145.700 [task_fail_callback_data_manager.cc:63] 1788797 ~TaskFailCallBackManager: Destructor.
-[INFO] ATRACE(1788797,python3):2026-07-14-11:05:07.302.246 [stacktrace_signal.c:194](tid:1788797) unregister all signal handlers, can not capture signal.
+[INFO] RUNTIME(2892134,python3):2026-07-14-15:15:52.007.177 [task_fail_callback_data_manager.cc:63] 2892134 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2892134,python3):2026-07-14-15:15:52.171.926 [stacktrace_signal.c:194](tid:2892134) unregister all signal handlers, can not capture signal.
 [ascend310p] Generating FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf Done
-[INFO] RUNTIME(1788796,python3):2026-07-14-11:05:05.690.939 [task_fail_callback_data_manager.cc:58] 1788796 TaskFailCallBackManager: Constructor.
-[EVENT] PROFILING(1788796,python3):2026-07-14-11:05:05.707.858 [msprof_callback_impl.cpp:359] >>> (tid:1788796) Started to register profiling ctrl callback.
-[EVENT] PROFILING(1788796,python3):2026-07-14-11:05:05.707.934 [msprof_callback_impl.cpp:366] >>> (tid:1788796) Started to register profiling hash id callback.
-[INFO] PROFILING(1788796,python3):2026-07-14-11:05:05.707.937 [prof_atls_plugin.cpp:115] (tid:1788796) RegisterProfileCallback, callback type is 7
-[EVENT] PROFILING(1788796,python3):2026-07-14-11:05:05.707.940 [msprof_callback_impl.cpp:373] >>> (tid:1788796) Started to register profiling enable host freq callback.
-[INFO] PROFILING(1788796,python3):2026-07-14-11:05:05.707.942 [prof_atls_plugin.cpp:115] (tid:1788796) RegisterProfileCallback, callback type is 8
-[EVENT] PROFILING(1788796,python3):2026-07-14-11:05:05.707.943 [msprof_callback_impl.cpp:380] >>> (tid:1788796) Started to register profiling typeId callback.
-[INFO] PROFILING(1788796,python3):2026-07-14-11:05:05.707.944 [prof_atls_plugin.cpp:115] (tid:1788796) RegisterProfileCallback, callback type is 6
-[INFO] PROFILING(1788796,python3):2026-07-14-11:05:05.741.908 [prof_atls_plugin.cpp:215] (tid:1788796) Module[61] register callback of ctrl handle.
+[INFO] RUNTIME(2892132,python3):2026-07-14-15:15:50.719.531 [task_fail_callback_data_manager.cc:58] 2892132 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2892132,python3):2026-07-14-15:15:50.736.786 [msprof_callback_impl.cpp:359] >>> (tid:2892132) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2892132,python3):2026-07-14-15:15:50.736.884 [msprof_callback_impl.cpp:366] >>> (tid:2892132) Started to register profiling hash id callback.
+[INFO] PROFILING(2892132,python3):2026-07-14-15:15:50.736.889 [prof_atls_plugin.cpp:115] (tid:2892132) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2892132,python3):2026-07-14-15:15:50.736.891 [msprof_callback_impl.cpp:373] >>> (tid:2892132) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2892132,python3):2026-07-14-15:15:50.736.893 [prof_atls_plugin.cpp:115] (tid:2892132) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2892132,python3):2026-07-14-15:15:50.736.895 [msprof_callback_impl.cpp:380] >>> (tid:2892132) Started to register profiling typeId callback.
+[INFO] PROFILING(2892132,python3):2026-07-14-15:15:50.736.896 [prof_atls_plugin.cpp:115] (tid:2892132) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2892132,python3):2026-07-14-15:15:50.767.478 [prof_atls_plugin.cpp:215] (tid:2892132) Module[61] register callback of ctrl handle.
 Opc tool start working now, please wait for a moment.
-[INFO] RUNTIME(1788796,python3):2026-07-14-11:05:07.185.472 [task_fail_callback_data_manager.cc:63] 1788796 ~TaskFailCallBackManager: Destructor.
-[INFO] ATRACE(1788796,python3):2026-07-14-11:05:07.339.187 [stacktrace_signal.c:194](tid:1788796) unregister all signal handlers, can not capture signal.
+[INFO] RUNTIME(2892132,python3):2026-07-14-15:15:52.006.908 [task_fail_callback_data_manager.cc:63] 2892132 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2892132,python3):2026-07-14-15:15:52.175.156 [stacktrace_signal.c:194](tid:2892132) unregister all signal handlers, can not capture signal.
 [ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 Done
 [100%] Built target FurthestPointSampling_ascend310p
 [100%] Built target ascendc_bin_ascend310p_gen_ops_config
 [100%] Built target binary
 Consolidate compiler generated dependencies of target cust_optiling
-[ 33%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
-[ 33%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
-[ 33%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
-[ 33%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
-[ 50%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
-[ 50%] Generating scripts/install.sh, scripts/upgrade.sh
-[ 75%] Built target ops_info_gen_ascend310p
-[ 75%] Built target cust_optiling
-[ 75%] Built target gen_version_info
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 41%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 41%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 41%] Built target ops_info_gen_ascend310p
+[ 41%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
+[ 50%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
+[ 66%] Built target cust_optiling
 /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 66%] Built target gen_version_info
+[ 75%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
 [ 75%] Built target modify_vendor
 [ 75%] Built target optiling_compat
 [INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
@@ -106,7 +106,7 @@ CPack: - Run preinstall target for: opp
 CPack: - Install project: opp []
 CPack: Create package
 
-About to compress 764 KB of data...
+About to compress 744 KB of data...
 Adding files to archive named "custom_opp_ubuntu_x86_64.run"...
 ./help.info
 ./install.sh
@@ -129,8 +129,8 @@ Adding files to archive named "custom_opp_ubuntu_x86_64.run"...
 ./packages/vendors/customize/op_proto/lib/linux/x86_64/libcust_opsproto_rt2.0.so
 ./packages/vendors/customize/version.info
 ./upgrade.sh
-CRC: 1093455511
-SHA256: fafd14bddd6afa835a60b706af9c344b3822491b9323abfd923eae633d976c89
+CRC: 1566403582
+SHA256: 749a86fe0af1490151e46e2c3a6f858b177db955769024d1f2d50eac18b9013a
 Skipping md5sum at user request
 
 Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
