@@ -4,7 +4,7 @@
  * Input:  points  [B, N, 3]  float32|float16
  * Output: indices [B, M]     int32
  *
- * minDist stored in UB LocalTensor (no GM workspace needed).
+ * minDist in UB LocalTensor (reliable read-write). Input read from GM (read-only).
  */
 #include "kernel_operator.h"
 
@@ -34,7 +34,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     if (bs >= B || be <= bs) return;
     if (be > B) be = B;
 
-    /* allocate UB buffer for minDist */
+    /* UB buffer for minDist */
     AscendC::TPipe pipe;
     AscendC::TBuf<AscendC::QuePosition::VECCALC> bufMd;
     pipe.InitBuffer(bufMd, N * sizeof(float));
@@ -43,12 +43,13 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     for (int32_t b = bs; b < be; b++) {
         __gm__ int32_t* bo = reinterpret_cast<__gm__ int32_t*>(output) + b * M;
 
-        /* initialize UB minDist */
-        for (int32_t i = 0; i < N; i++) mdLocal.SetValue(i, 3.402823e+38f);
+        /* initialize UB minDist: Duplicate is the reliable vector path */
+        const float kBig = 3.4028234663852886e+38f;
+        AscendC::Duplicate(mdLocal, kBig, N);
 
         int32_t farthest = 0;
 
-        if (dtLn == 4) {                           /* ---- float32 ---- */
+        if (dtLn == 4) {
             __gm__ float* bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
 
             for (int32_t m = 0; m < M; m++) {
@@ -68,15 +69,14 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                     float d = tx*tx + ty*ty + tz*tz;
 
                     float cur = mdLocal.GetValue(i);
-                    if (d < cur) cur = d;
-                    mdLocal.SetValue(i, cur);
+                    if (d < cur) { cur = d; mdLocal.SetValue(i, d); }
                     if (cur > bestVal) { bestVal = cur; bestIdx = i; }
                 }
                 farthest = bestIdx;
                 mdLocal.SetValue(farthest, 0.0f);
             }
 
-        } else {                                   /* ---- float16 ---- */
+        } else {
             __gm__ half* bi = reinterpret_cast<__gm__ half*>(input) + b * N * C;
 
             for (int32_t m = 0; m < M; m++) {
@@ -96,8 +96,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                     float d = tx*tx + ty*ty + tz*tz;
 
                     float cur = mdLocal.GetValue(i);
-                    if (d < cur) cur = d;
-                    mdLocal.SetValue(i, cur);
+                    if (d < cur) { cur = d; mdLocal.SetValue(i, d); }
                     if (cur > bestVal) { bestVal = cur; bestIdx = i; }
                 }
                 farthest = bestIdx;
