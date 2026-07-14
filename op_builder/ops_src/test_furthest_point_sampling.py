@@ -49,8 +49,17 @@ def test():
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
-    # ---- debug cases ----
-    # repeat the failing case 5 times to check consistency
+    # ---- debug: sweep N to find failing sizes ----
+    for N in [50, 80, 100, 120, 150, 200, 250, 400, 600, 800, 900]:
+        xyz=torch.randn(1,N,3).npu()
+        M=min(N//4, 30)
+        if M==0: M=1
+        ref=cpu_fps(xyz.cpu(),M)
+        out=op(xyz,M)
+        torch.npu.synchronize()
+        ok=torch.equal(ref,out.cpu())
+        print(f"  B=1 N={N:4d} M={M:2d}: {'PASS' if ok else 'FAIL'}")
+    # repeat the failing case 5 times
     for rep in range(5):
         xyz=torch.randn(8,100,3).npu()
         ref=cpu_fps(xyz.cpu(),20)
@@ -62,20 +71,6 @@ def test():
             print(f"  [re-run {rep}] B=8 N=100 M=20: FAIL m={tw}/160 per_batch={pb}")
         else:
             print(f"  [re-run {rep}] B=8 N=100 M=20: PASS")
-    # single batch with same total points
-    xyz=torch.randn(1,800,3).npu()
-    ref=cpu_fps(xyz.cpu(),20)
-    out=op(xyz,20)
-    torch.npu.synchronize()
-    ok=torch.equal(ref,out.cpu())
-    print(f"  B=1 N=800 M=20: {'PASS' if ok else 'FAIL'}")
-    # B=8 small N
-    xyz=torch.randn(8,32,3).npu()
-    ref=cpu_fps(xyz.cpu(),8)
-    out=op(xyz,8)
-    torch.npu.synchronize()
-    ok=torch.equal(ref,out.cpu())
-    print(f"  B=8 N=32 M=8: {'PASS' if ok else 'FAIL'}")
 
     passed=0
     for B,N,M in tests:
