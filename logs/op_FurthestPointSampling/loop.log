@@ -31,3 +31,23 @@ Fast-forward
 [OP FurthestPointSampling R02] 11:09:07 ❌ 测试失败
 [OP FurthestPointSampling R02] 11:09:07 完成
 [OP-LOOP] 11:09:07 op_pipeline_run.sh 退出码: 0
+来自 https://github.com/dsg-lzt/ascendevtool
+ * branch            master     -> FETCH_HEAD
+更新 c04334b..f52591d
+Fast-forward
+ .../op_host/furthest_point_sampling.cpp            |   5 +-
+ .../op_kernel/furthest_point_sampling.cpp          | 103 +++++++++------------
+ 2 files changed, 46 insertions(+), 62 deletions(-)
+[OP-LOOP] 11:17:32 执行 op_pipeline_run.sh FurthestPointSampling...
+[OP FurthestPointSampling R03] 11:17:32 1/4 编译算子...
+[OP FurthestPointSampling R03] 11:17:41 编译成功
+[OP FurthestPointSampling R03] 11:17:41 2/4 精度验证...
+[OP FurthestPointSampling R03] 11:17:41 精度验证通过
+[OP FurthestPointSampling R03] 11:17:41 3/4 安装算子...
+[OP FurthestPointSampling R03] 11:17:41 安装成功
+[OP FurthestPointSampling R03] 11:17:41 4/4 运行测试...
+[OP FurthestPointSampling R03] 11:17:41 已设置自定义算子路径: /home/orange/pipeline_tool/AscendDevTool/oplib/custom_opp_packages
+[OP FurthestPointSampling R03] 11:17:41 运行测试: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/test_FurthestPointSampling.py
+[OP FurthestPointSampling R03] 11:18:13 ❌ 测试失败
+[OP FurthestPointSampling R03] 11:18:13 完成
+[OP-LOOP] 11:18:13 op_pipeline_run.sh 退出码: 0
