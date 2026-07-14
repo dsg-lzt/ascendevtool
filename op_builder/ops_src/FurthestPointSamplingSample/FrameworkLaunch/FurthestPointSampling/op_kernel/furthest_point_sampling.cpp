@@ -3,100 +3,98 @@
  *
  * Input:  points  [B, N, 3]  float32|float16
  * Output: indices [B, M]     int32
- * Work:   float[B, N]        per-batch min distance (always float)
+ * Workspace: float[B, N]     per-batch minDist (always float precision)
  *
- * NOTE: all GM pointer arithmetic done at the top-level entry function
- * using byte offsets against raw GM_ADDR to avoid template & cast issues.
+ * Design: no UB buffers, no templates — direct __gm__ typed arithmetic.
  */
 #include "kernel_operator.h"
 
-#define F32_MAX  3.402823e+38f
-#define F32_INIT -1.0f
+constexpr int32_t C = 3;  /* coordinate dimension */
 
 extern "C" __global__ __aicore__ void furthest_point_sampling(
     GM_ADDR input, GM_ADDR output, GM_ADDR workspace, GM_ADDR tilingArg)
 {
     GET_TILING_DATA(td, tilingArg);
 
-    int32_t B       = (int32_t)td.B;
-    int32_t N       = (int32_t)td.N;
-    int32_t M       = (int32_t)td.M;
-    int32_t bpc     = (int32_t)td.batchPerCore;
-    int32_t crem    = (int32_t)td.coreRemainder;
-    int32_t dtLen   = (int32_t)td.dataTypeLength;
+    int32_t B = static_cast<int32_t>(td.B);
+    int32_t N = static_cast<int32_t>(td.N);
+    int32_t M = static_cast<int32_t>(td.M);
+    int32_t bpc = static_cast<int32_t>(td.batchPerCore);
+    int32_t crem= static_cast<int32_t>(td.coreRemainder);
+    int32_t dtLn= static_cast<int32_t>(td.dataTypeLength);
 
     uint32_t cid = AscendC::GetBlockIdx();
     int32_t bs, be;
-    if (cid < (uint32_t)crem) {
-        bs = cid * (bpc + 1);
+    if (cid < static_cast<uint32_t>(crem)) {
+        bs = static_cast<int32_t>(cid) * (bpc + 1);
         be = bs + bpc + 1;
     } else {
-        bs = crem * (bpc + 1) + ((int32_t)cid - crem) * bpc;
+        bs = crem * (bpc + 1) + (static_cast<int32_t>(cid) - crem) * bpc;
         be = bs + bpc;
     }
-    if (bs >= B) return;
+    if (bs >= B || be <= bs) return;
     if (be > B) be = B;
-    if (be <= bs) return;
 
-    int32_t inStride = N * COORD_DIM * dtLen;
-    int32_t outStride = M * (int32_t)sizeof(int32_t);
-    int32_t wsStride = N * (int32_t)sizeof(float);
+    /* base typed GM pointers */
+    __gm__ int32_t* outGm = reinterpret_cast<__gm__ int32_t*>(output);
+    __gm__ float*   wsGm  = reinterpret_cast<__gm__ float*>(workspace);
 
     for (int32_t b = bs; b < be; b++) {
-        /* ---- input/output/ws base pointers for this batch (byte offset) ---- */
-        uint8_t*  batchIn  = (uint8_t* __gm__)input    + b * inStride;
-        int32_t*  batchOut = (int32_t* __gm__)((uint8_t* __gm__)output   + b * outStride);
-        float*    batchWs  = (float*   __gm__)((uint8_t* __gm__)workspace + b * wsStride);
+        /* batch-level pointers via typed arithmetic on __gm__ pointers */
+        __gm__ int32_t* bo = outGm + b * M;
+        __gm__ float*   bw = wsGm  + b * N;
 
-        /* initialise workspace */
-        for (int32_t i = 0; i < N; i++) batchWs[i] = F32_MAX;
+        for (int32_t i = 0; i < N; i++) bw[i] = 3.402823e+38f;
 
         int32_t farthest = 0;
 
-        for (int32_t m = 0; m < M; m++) {
-            batchOut[m] = farthest;
+        if (dtLn == 4) {                           /* ---- float32 ---- */
+            __gm__ float* bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
 
-            if (dtLen == 4) {
-                float* p = (float* __gm__)batchIn;
-                float cx = p[farthest * COORD_DIM];
-                float cy = p[farthest * COORD_DIM + 1];
-                float cz = p[farthest * COORD_DIM + 2];
+            for (int32_t m = 0; m < M; m++) {
+                bo[m] = farthest;
+                float cx = bi[farthest * C];
+                float cy = bi[farthest * C + 1];
+                float cz = bi[farthest * C + 2];
 
-                float bestVal = F32_INIT;
+                float bestVal = -1.0f;
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    float dx = p[i * COORD_DIM] - cx;
-                    float dy = p[i * COORD_DIM + 1] - cy;
-                    float dz = p[i * COORD_DIM + 2] - cz;
-                    float d  = dx * dx + dy * dy + dz * dz;
-
-                    if (d < batchWs[i]) batchWs[i] = d;
-                    if (batchWs[i] > bestVal) { bestVal = batchWs[i]; bestIdx = i; }
+                    float d = (bi[i*C]-cx)*(bi[i*C]-cx)
+                            + (bi[i*C+1]-cy)*(bi[i*C+1]-cy)
+                            + (bi[i*C+2]-cz)*(bi[i*C+2]-cz);
+                    if (d < bw[i]) bw[i] = d;
+                    if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
                 farthest = bestIdx;
-                batchWs[farthest] = 0.0f;
+                bw[farthest] = 0.0f;
+            }
 
-            } else {
-                __gm__ half* p = (__gm__ half*)(uint8_t* __gm__)batchIn;
-                float cx = (float)p[farthest * COORD_DIM];
-                float cy = (float)p[farthest * COORD_DIM + 1];
-                float cz = (float)p[farthest * COORD_DIM + 2];
+        } else {                                   /* ---- float16 ---- */
+            __gm__ half* bi = reinterpret_cast<__gm__ half*>(input) + b * N * C;
 
-                float bestVal = F32_INIT;
+            for (int32_t m = 0; m < M; m++) {
+                bo[m] = farthest;
+                float cx = static_cast<float>(bi[farthest * C]);
+                float cy = static_cast<float>(bi[farthest * C + 1]);
+                float cz = static_cast<float>(bi[farthest * C + 2]);
+
+                float bestVal = -1.0f;
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    float dx = (float)p[i * COORD_DIM] - cx;
-                    float dy = (float)p[i * COORD_DIM + 1] - cy;
-                    float dz = (float)p[i * COORD_DIM + 2] - cz;
-                    float d  = dx * dx + dy * dy + dz * dz;
-
-                    if (d < batchWs[i]) batchWs[i] = d;
-                    if (batchWs[i] > bestVal) { bestVal = batchWs[i]; bestIdx = i; }
+                    float d = (static_cast<float>(bi[i*C])-cx)
+                            * (static_cast<float>(bi[i*C])-cx)
+                            + (static_cast<float>(bi[i*C+1])-cy)
+                            * (static_cast<float>(bi[i*C+1])-cy)
+                            + (static_cast<float>(bi[i*C+2])-cz)
+                            * (static_cast<float>(bi[i*C+2])-cz);
+                    if (d < bw[i]) bw[i] = d;
+                    if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
                 farthest = bestIdx;
-                batchWs[farthest] = 0.0f;
+                bw[farthest] = 0.0f;
             }
         }
     }
