@@ -20,9 +20,6 @@ LOOP_LOG="$LOG_ROOT/loop.log"
 LAST_COMMIT_FILE="/tmp/.op_pipeline_last_commit_${OP_NAME}"
 
 round=0
-mkdir -p "$LOG_ROOT"
-rm -f "$LOOP_LOG"
-rm -rf "$LOG_ROOT"/run_*
 
 cd "$TOOL_DIR" || exit 1
 export GIT_MERGE_AUTOEDIT=no
@@ -63,6 +60,11 @@ done
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
 log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT" >> "$LOOP_LOG" 2>&1
+
+# 清理旧日志（在 git pull 之后，确保旧日志不会从 git 恢复回来）
+mkdir -p "$LOG_ROOT"
+rm -f "$LOOP_LOG"
+rm -rf "$LOG_ROOT"/run_*
 
 while [ $round -lt $MAX_ROUNDS ]; do
     cd "$TOOL_DIR" || exit 1
