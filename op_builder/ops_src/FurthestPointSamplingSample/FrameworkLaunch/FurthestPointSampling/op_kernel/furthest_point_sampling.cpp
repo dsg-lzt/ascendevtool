@@ -6,6 +6,7 @@
  * Workspace: float[B, N]     per-batch minDist (always float precision)
  *
  * Design: no UB buffers, no templates — direct __gm__ typed arithmetic.
+ * Distance computed as separate scalar ops to avoid FMA-induced divergence.
  */
 #include "kernel_operator.h"
 
@@ -61,10 +62,10 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    double dx = static_cast<double>(bi[i*C])   - static_cast<double>(cx);
-                    double dy = static_cast<double>(bi[i*C+1]) - static_cast<double>(cy);
-                    double dz = static_cast<double>(bi[i*C+2]) - static_cast<double>(cz);
-                    float d = static_cast<float>(dx*dx + dy*dy + dz*dz);
+                    float tx = bi[i*C]   - cx;
+                    float ty = bi[i*C+1] - cy;
+                    float tz = bi[i*C+2] - cz;
+                    float d = tx*tx + ty*ty + tz*tz;
                     if (d < bw[i]) bw[i] = d;
                     if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
@@ -85,10 +86,10 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                 int32_t bestIdx = 0;
 
                 for (int32_t i = 0; i < N; i++) {
-                    double dx = static_cast<double>(bi[i*C])   - static_cast<double>(cx);
-                    double dy = static_cast<double>(bi[i*C+1]) - static_cast<double>(cy);
-                    double dz = static_cast<double>(bi[i*C+2]) - static_cast<double>(cz);
-                    float d = static_cast<float>(dx*dx + dy*dy + dz*dz);
+                    float tx = static_cast<float>(bi[i*C])   - cx;
+                    float ty = static_cast<float>(bi[i*C+1]) - cy;
+                    float tz = static_cast<float>(bi[i*C+2]) - cz;
+                    float d = tx*tx + ty*ty + tz*tz;
                     if (d < bw[i]) bw[i] = d;
                     if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
                 }
