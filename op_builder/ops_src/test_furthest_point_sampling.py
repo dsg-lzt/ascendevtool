@@ -51,6 +51,9 @@ def test():
     print("  [warmup] compiling FPS operator...", flush=True)
     _ = op(torch.randn(1,64,3).npu(), 8)
     torch.npu.synchronize()
+    # warmup multi-batch too
+    _ = op(torch.randn(8,100,3).npu(), 20)
+    torch.npu.synchronize()
     print("  [warmup] done.", flush=True)
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
