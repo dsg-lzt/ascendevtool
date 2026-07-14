@@ -39,7 +39,7 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
 
     for (int32_t b = bs; b < be; b++) {
         __gm__ int32_t* bo = outGm + b * M;
-        AscendC::Duplicate(md, kFmax, N);
+        for (int32_t i = 0; i < N; i++) md.SetValue(i, 3.402823e+38f);
 
         int32_t farthest = 0;
         int32_t dtLn = static_cast<int32_t>(td.dataTypeLength);
