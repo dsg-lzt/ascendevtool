@@ -63,10 +63,11 @@ def test():
 
     # ---- end warmup ----
     passed=0
-    tests = [(8,100,20),(1,128,32),(1,512,64),(2,256,48),(4,128,16),
-             (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(3,300,150)]
+    tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
+             (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
     passed=0
     for B,N,M in tests:
+        torch.npu.empty_cache()  # clear NPU cache before each call
         xyz=torch.randn(B,N,3).npu()
         ref=cpu_fps(xyz.cpu(),M)
         try:
