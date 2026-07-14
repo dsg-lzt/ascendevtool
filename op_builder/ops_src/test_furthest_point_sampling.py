@@ -21,7 +21,7 @@ cpp_source = """
 #include <torch/extension.h>
 #include <torch_npu/csrc/framework/OpCommand.h>
 at::Tensor fps_npu(const at::Tensor& xyz, int64_t npoint) {
-    auto out = at::zeros({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
+    auto out = at::empty({xyz.size(0), npoint}, xyz.options().dtype(at::kInt));
     at_npu::native::OpCommand cmd;
     cmd.Name("FurthestPointSampling").Input(xyz).Output(out).Attr("npoint", npoint).Run();
     return out;
@@ -47,27 +47,17 @@ def test():
     torch.ops.load_library(os.path.join(build_dir, 'fps_ops.so'))
     op = torch.ops.fps_ops.farthest_point_sample
 
-    # ---- warmup: first call triggers operator compilation ----
+    # ---- warmup ----
     print("  [warmup] compiling FPS operator...", flush=True)
-    wm_out = op(torch.randn(1,64,3).npu(), 8)
+    _ = op(torch.randn(1,64,3).npu(), 8)
+    _ = op(torch.randn(8,100,3).npu(), 20)
     torch.npu.synchronize()
-    print(f"  [warmup] raw output[:8] = {wm_out.cpu()[0,:8].tolist()}", flush=True)
-
-    # warmup multi-batch
-    wm_out2 = op(torch.randn(8,100,3).npu(), 20)
-    torch.npu.synchronize()
-    print(f"  [warmup] B=8 batch0[:6] = {wm_out2.cpu()[0,:6].tolist()}", flush=True)
-    print(f"  [warmup] B=8 batch1[:6] = {wm_out2.cpu()[1,:6].tolist()}", flush=True)
-    print(f"  [warmup] B=8 batch2[:6] = {wm_out2.cpu()[2,:6].tolist()}", flush=True)
     print("  [warmup] done.", flush=True)
 
-    # ---- end warmup ----
-    passed=0
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
     passed=0
     for B,N,M in tests:
-        torch.npu.empty_cache()  # clear NPU cache before each call
         xyz=torch.randn(B,N,3).npu()
         ref=cpu_fps(xyz.cpu(),M)
         try:
