@@ -5,8 +5,7 @@
  * Output: indices [B, M]     int32
  * Workspace: float[B, N]     per-batch minDist (always float precision)
  *
- * Design: no UB buffers, no templates — direct __gm__ typed arithmetic.
- * Distance computed as separate scalar ops to avoid FMA-induced divergence.
+ * NOTE: use incremental pointer advance to avoid __gm__ arithmetic bugs.
  */
 #include "kernel_operator.h"
 
@@ -40,18 +39,15 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     __gm__ int32_t* outGm = reinterpret_cast<__gm__ int32_t*>(output);
     __gm__ float*   wsGm  = reinterpret_cast<__gm__ float*>(workspace);
 
-    for (int32_t b = bs; b < be; b++) {
-        /* batch-level pointers via typed arithmetic on __gm__ pointers */
-        __gm__ int32_t* bo = outGm + b * M;
-        __gm__ float*   bw = wsGm  + b * N;
+    if (dtLn == 4) {                                   /* ---- float32 ---- */
+        for (int32_t b = bs; b < be; b++) {
+            __gm__ int32_t* bo = outGm + b * M;
+            __gm__ float*   bw = wsGm  + b * N;
+            __gm__ float*   bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
 
-        for (int32_t i = 0; i < N; i++) bw[i] = 3.402823e+38f;
+            for (int32_t i = 0; i < N; i++) bw[i] = 3.402823e+38f;
 
-        int32_t farthest = 0;
-
-        if (dtLn == 4) {                           /* ---- float32 ---- */
-            __gm__ float* bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
-
+            int32_t farthest = 0;
             for (int32_t m = 0; m < M; m++) {
                 bo[m] = farthest;
                 float cx = bi[farthest * C];
@@ -72,10 +68,17 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
                 farthest = bestIdx;
                 bw[farthest] = 0.0f;
             }
+        }
 
-        } else {                                   /* ---- float16 ---- */
-            __gm__ half* bi = reinterpret_cast<__gm__ half*>(input) + b * N * C;
+    } else {                                           /* ---- float16 ---- */
+        for (int32_t b = bs; b < be; b++) {
+            __gm__ int32_t* bo = outGm + b * M;
+            __gm__ float*   bw = wsGm  + b * N;
+            __gm__ half*    bi = reinterpret_cast<__gm__ half*>(input) + b * N * C;
 
+            for (int32_t i = 0; i < N; i++) bw[i] = 3.402823e+38f;
+
+            int32_t farthest = 0;
             for (int32_t m = 0; m < M; m++) {
                 bo[m] = farthest;
                 float cx = static_cast<float>(bi[farthest * C]);
