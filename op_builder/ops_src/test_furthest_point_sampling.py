@@ -61,20 +61,7 @@ def test():
     print(f"  [warmup] B=8 batch2[:6] = {wm_out2.cpu()[2,:6].tolist()}", flush=True)
     print("  [warmup] done.", flush=True)
 
-    # ---- debug: fixed seed N=100 M=20 per-batch dump ----
-    torch.manual_seed(42)
-    B,N,M = 1,100,20
-    xyz=torch.randn(B,N,3).npu()
-    ref=cpu_fps(xyz.cpu(),M)
-    for rep in range(3):
-        out=op(xyz,M)
-        torch.npu.synchronize()
-        out_c=out.cpu()
-        ok=torch.equal(ref,out_c)
-        diff_pos = [j for j in range(M) if ref[0,j]!=out_c[0,j]]
-        wrong = len(diff_pos)
-        print(f"  [N100 rep{rep}] wrong={wrong}/{M} positions={diff_pos[:10]}")
-    # ---- end debug test ----
+    # ---- end warmup ----
     passed=0
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),(1,1024,128),
              (2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
