@@ -1,79 +1,56 @@
-/**
- * FurthestPointSampling - AscendC Kernel
- * minDist in GM (not UB) to avoid pipeline sync issues.
- * Each batch uses its own GM workspace region.
- */
 #include "kernel_operator.h"
-
-constexpr int32_t C = 3;
+constexpr int32_t C3 = 3;
+const float FMAX = 3.4028234663852886e+38f;
 
 extern "C" __global__ __aicore__ void furthest_point_sampling(
     GM_ADDR input, GM_ADDR output, GM_ADDR workspace, GM_ADDR tilingArg)
 {
     GET_TILING_DATA(td, tilingArg);
-
-    int32_t B = static_cast<int32_t>(td.B);
-    int32_t N = static_cast<int32_t>(td.N);
-    int32_t M = static_cast<int32_t>(td.M);
-    int32_t bpc = static_cast<int32_t>(td.batchPerCore);
-    int32_t crem= static_cast<int32_t>(td.coreRemainder);
-    int32_t dtLn= static_cast<int32_t>(td.dataTypeLength);
-
+    int32_t B=td.B, N=td.N, M=td.M, bpc=td.batchPerCore, crem=td.coreRemainder, dt=td.dataTypeLength;
     uint32_t cid = AscendC::GetBlockIdx();
     int32_t bs, be;
-    if (cid < static_cast<uint32_t>(crem)) {
-        bs = static_cast<int32_t>(cid) * (bpc + 1);
-        be = bs + bpc + 1;
-    } else {
-        bs = crem * (bpc + 1) + (static_cast<int32_t>(cid) - crem) * bpc;
-        be = bs + bpc;
-    }
+    if (cid < (uint32_t)crem) { bs = cid*(bpc+1); be = bs+bpc+1; }
+    else { bs = crem*(bpc+1)+(cid-crem)*bpc; be = bs+bpc; }
     if (bs >= B || be <= bs) return;
     if (be > B) be = B;
 
-    /* minDist in GM workspace — each core uses local offset within own ws */
-    __gm__ float*   wsGm  = reinterpret_cast<__gm__ float*>(workspace);
-    __gm__ int32_t* outGm = reinterpret_cast<__gm__ int32_t*>(output);
+    /* UB for minDist */
+    AscendC::TPipe pipe;
+    AscendC::TBuf<AscendC::QuePosition::VECCALC> bMd;
+    pipe.InitBuffer(bMd, N * sizeof(float) + M * sizeof(float) + N * sizeof(float));
+    AscendC::LocalTensor<float> md = bMd.Get<float>();
 
     for (int32_t b = bs; b < be; b++) {
-        __gm__ float*   bw = wsGm  + b * N;   /* global batch offset */
-        __gm__ int32_t* bo = outGm + b * M;
-
-        /* init minDist in GM */
-        for (int32_t i = 0; i < N; i++) bw[i] = 3.4028234663852886e+38f;
-
-        bo[0] = static_cast<int32_t>(cid);  /* DEBUG: write block ID */
-        int32_t farthest = 0;
-
-        if (dtLn == 4) {
-            __gm__ float* bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
-            for (int32_t m = 1; m < M; m++) {
-                bo[m] = farthest;
-                float cx = bi[farthest*C], cy = bi[farthest*C+1], cz = bi[farthest*C+2];
-                float bestVal = -1.0f;
-                int32_t bestIdx = 0;
+        __gm__ int32_t* o = (__gm__ int32_t*)((uint8_t* __gm__)output + b*M*4);
+        AscendC::Duplicate(md, FMAX, N);
+        int32_t fid = 0;
+        if (dt == 4) {
+            __gm__ float* p = (__gm__ float*)((uint8_t* __gm__)input + b*N*12);
+            for (int32_t m = 0; m < M; m++) {
+                o[m] = fid;
+                float cx=p[fid*C3], cy=p[fid*C3+1], cz=p[fid*C3+2];
+                int32_t bi = 0; float bv = -1.0f;
                 for (int32_t i = 0; i < N; i++) {
-                    float d = (bi[i*C]-cx)*(bi[i*C]-cx) + (bi[i*C+1]-cy)*(bi[i*C+1]-cy) + (bi[i*C+2]-cz)*(bi[i*C+2]-cz);
-                    if (d < bw[i]) bw[i] = d;
-                    if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
+                    float d = (p[i*C3]-cx)*(p[i*C3]-cx)+(p[i*C3+1]-cy)*(p[i*C3+1]-cy)+(p[i*C3+2]-cz)*(p[i*C3+2]-cz);
+                    float v = md.GetValue(i);
+                    if (d < v) { md.SetValue(i, d); v = d; }
+                    if (v > bv) { bv = v; bi = i; }
                 }
-                farthest = bestIdx;
-                bw[farthest] = 0.0f;
+                fid = bi; md.SetValue(fid, 0.0f);
             }
         } else {
-            __gm__ half* bi = reinterpret_cast<__gm__ half*>(input) + b * N * C;
+            __gm__ half* p = (__gm__ half*)((uint8_t* __gm__)input + b*N*6);
             for (int32_t m = 0; m < M; m++) {
-                bo[m] = farthest;
-                float cx = (float)bi[farthest*C], cy = (float)bi[farthest*C+1], cz = (float)bi[farthest*C+2];
-                float bestVal = -1.0f;
-                int32_t bestIdx = 0;
+                o[m] = fid;
+                float cx=(float)p[fid*C3], cy=(float)p[fid*C3+1], cz=(float)p[fid*C3+2];
+                int32_t bi = 0; float bv = -1.0f;
                 for (int32_t i = 0; i < N; i++) {
-                    float d = ((float)bi[i*C]-cx)*((float)bi[i*C]-cx) + ((float)bi[i*C+1]-cy)*((float)bi[i*C+1]-cy) + ((float)bi[i*C+2]-cz)*((float)bi[i*C+2]-cz);
-                    if (d < bw[i]) bw[i] = d;
-                    if (bw[i] > bestVal) { bestVal = bw[i]; bestIdx = i; }
+                    float d = ((float)p[i*C3]-cx)*((float)p[i*C3]-cx)+((float)p[i*C3+1]-cy)*((float)p[i*C3+1]-cy)+((float)p[i*C3+2]-cz)*((float)p[i*C3+2]-cz);
+                    float v = md.GetValue(i);
+                    if (d < v) { md.SetValue(i, d); v = d; }
+                    if (v > bv) { bv = v; bi = i; }
                 }
-                farthest = bestIdx;
-                bw[farthest] = 0.0f;
+                fid = bi; md.SetValue(fid, 0.0f);
             }
         }
     }
