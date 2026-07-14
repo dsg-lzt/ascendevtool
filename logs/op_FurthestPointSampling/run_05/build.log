@@ -1,0 +1,298 @@
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/ascend-toolkit/latest"
+  ASCEND_COMPUTE_UNIT:STRING="ascend310p"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="True"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="True"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="customize"
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Opbuild generating sources
+-- Opbuild generating sources - done
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_CROSS_PLATFORM_COMPILER
+
+
+-- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out
+[ 33%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
+
+
+==============check valid for ops info start==============
+==============check valid for ops info end================
+
+
+Compile op info cfg successfully.
+[ 66%] Built target ops_info_gen_ascend310p
+[100%] Linking CXX shared library libcust_opmaster_rt2.0.so
+[100%] Built target cust_optiling
+[ascend310p] Generating FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf ...
+[ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ...
+In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_1961578_kernel.cpp:6:
+In file included from /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_1961577_kernel.cpp::416::
+28/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:: 41error: use of undeclared identifier 'COORD_DIM'
+    int32_t inStride = N * COORD_DIM * dtLen;:
+28                           ^:
+ error: use of undeclared identifier 'COORD_DIM'
+    int32_t inStride = N * COORD_DIM * dtLen;
+                           ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp::4747::4747::  error: error: casting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore functioncasting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore function
+
+        uint8_t*  batchIn  = (uint8_t* __gm__)input    + b * inStride;        uint8_t*  batchIn  = (uint8_t* __gm__)input    + b * inStride;
+
+                                              ^                                              ^
+
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp::4848::6565::  error: error: casting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore functioncasting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore function
+
+        int32_t*  batchOut = (int32_t* __gm__)((uint8_t* __gm__)output   + b * outStride);        int32_t*  batchOut = (int32_t* __gm__)((uint8_t* __gm__)output   + b * outStride);
+
+                                                                ^                                                                ^
+
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp49::4965::65 :error:  casting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore functionerror: 
+casting '__gm__ uint8_t *' (aka '__gm__ unsigned char *') to type 'uint8_t *__gm__' (aka 'unsigned char *__gm__') is not allowed in aicore function
+        float*    batchWs  = (float*   __gm__)((uint8_t* __gm__)workspace + b * wsStride);
+        float*    batchWs  = (float*   __gm__)((uint8_t* __gm__)workspace + b * wsStride);                                                                ^
+
+                                                                ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:61:41: error: use of undeclared identifier 'COORD_DIM'
+                float cx = p[farthest * COORD_DIM];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:61:41: error: use of undeclared identifier 'COORD_DIM'
+                float cx = p[farthest * COORD_DIM];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:62:41: error: use of undeclared identifier 'COORD_DIM'
+                float cy = p[farthest * COORD_DIM + 1];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:62:41: error: use of undeclared identifier 'COORD_DIM'
+                float cy = p[farthest * COORD_DIM + 1];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:63:41: error: use of undeclared identifier 'COORD_DIM'
+                float cz = p[farthest * COORD_DIM + 2];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:63:41: error: use of undeclared identifier 'COORD_DIM'
+                float cz = p[farthest * COORD_DIM + 2];
+                                        ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp::6969::3838::  error: error: use of undeclared identifier 'COORD_DIM'use of undeclared identifier 'COORD_DIM'
+
+                    float dx = p[i * COORD_DIM] - cx;                    float dx = p[i * COORD_DIM] - cx;
+
+                                     ^                                     ^
+
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp70::7038::38 :error:  use of undeclared identifier 'COORD_DIM'error: 
+use of undeclared identifier 'COORD_DIM'
+                    float dy = p[i * COORD_DIM + 1] - cy;
+                    float dy = p[i * COORD_DIM + 1] - cy;                                     ^
+
+                                     ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp::7171::3838::  error: error: use of undeclared identifier 'COORD_DIM'use of undeclared identifier 'COORD_DIM'
+
+                    float dz = p[i * COORD_DIM + 2] - cz;                    float dz = p[i * COORD_DIM + 2] - cz;
+
+                                     ^                                     ^
+
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp::8181::4848::  error: error: casting 'uint8_t *' (aka 'unsigned char *') to type '__gm__ half *' is not allowed in aicore functioncasting 'uint8_t *' (aka 'unsigned char *') to type '__gm__ half *' is not allowed in aicore function
+
+                __gm__ half* p = (__gm__ half*)(uint8_t* __gm__)batchIn;                __gm__ half* p = (__gm__ half*)(uint8_t* __gm__)batchIn;
+
+                                               ^                                               ^
+
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:82:48: error: use of undeclared identifier 'COORD_DIM'
+                float cx = (float)p[farthest * COORD_DIM];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:82:48: error: use of undeclared identifier 'COORD_DIM'
+                float cx = (float)p[farthest * COORD_DIM];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:83:48: error: use of undeclared identifier 'COORD_DIM'
+                float cy = (float)p[farthest * COORD_DIM + 1];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:83:48: error: use of undeclared identifier 'COORD_DIM'
+                float cy = (float)p[farthest * COORD_DIM + 1];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:84:48: error: use of undeclared identifier 'COORD_DIM'
+                float cz = (float)p[farthest * COORD_DIM + 2];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:84:48: error: use of undeclared identifier 'COORD_DIM'
+                float cz = (float)p[farthest * COORD_DIM + 2];
+                                               ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:90:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dx = (float)p[i * COORD_DIM] - cx;
+                                            ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:90:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dx = (float)p[i * COORD_DIM] - cx;
+                                            ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:91:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dy = (float)p[i * COORD_DIM + 1] - cy;
+                                            ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:91:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dy = (float)p[i * COORD_DIM + 1] - cy;
+                                            ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:92:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dz = (float)p[i * COORD_DIM + 2] - cz;
+                                            ^
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp:92:45: error: use of undeclared identifier 'COORD_DIM'
+                    float dz = (float)p[i * COORD_DIM + 2] - cz;
+                                            ^
+1717 error errorss generated generated.
+.
+make[5]: *** [FurthestPointSampling_c985327b2284935571ddeceb4c43dd721961578.mk:4：FurthestPointSampling_c985327b2284935571ddeceb4c43dd721961578_0] 错误 1
+make[5]: *** [FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf1961577.mk:4：FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf1961577_0] 错误 1
+[INFO] RUNTIME(1961578,python3):2026-07-14-11:48:41.135.076 [task_fail_callback_data_manager.cc:58] 1961578 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(1961578,python3):2026-07-14-11:48:41.151.570 [msprof_callback_impl.cpp:359] >>> (tid:1961578) Started to register profiling ctrl callback.
+[EVENT] PROFILING(1961578,python3):2026-07-14-11:48:41.151.644 [msprof_callback_impl.cpp:366] >>> (tid:1961578) Started to register profiling hash id callback.
+[INFO] PROFILING(1961578,python3):2026-07-14-11:48:41.151.647 [prof_atls_plugin.cpp:115] (tid:1961578) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(1961578,python3):2026-07-14-11:48:41.151.653 [msprof_callback_impl.cpp:373] >>> (tid:1961578) Started to register profiling enable host freq callback.
+[INFO] PROFILING(1961578,python3):2026-07-14-11:48:41.151.654 [prof_atls_plugin.cpp:115] (tid:1961578) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(1961578,python3):2026-07-14-11:48:41.151.656 [msprof_callback_impl.cpp:380] >>> (tid:1961578) Started to register profiling typeId callback.
+[INFO] PROFILING(1961578,python3):2026-07-14-11:48:41.151.657 [prof_atls_plugin.cpp:115] (tid:1961578) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(1961578,python3):2026-07-14-11:48:41.185.257 [prof_atls_plugin.cpp:215] (tid:1961578) Module[61] register callback of ctrl handle.
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.126 [repository_manager_log.py:30][log] [log_utils.py:150][repository_manager] [ascend310p]  FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_0.o: No such file or directory
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.301 [op_compilation.py:324][__single_op_compile] Exception occured, An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_0.o: No such file or directory
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.954 [opc_common.py:231][_log_error] Traceback (most recent call last):
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/asc_opc_tool/op_compilation.py", line 316, in __single_op_compile
+    json_file_path = single_op_obj.op_compile()
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/single_op_compile.py", line 243, in op_compile
+    json_file_path = self.__call_op()
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/single_op_compile.py", line 148, in __call_op
+    op_func(*inputs, *outputs, *new_attrs, self.__op_info.get(OpcOptions.KERNEL_NAME), **kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/common/register/operation_func_mgr.py", line 214, in wrapper
+    return func(*args, **kwargs)
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.962 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/common/utils/para_check.py", line 546, in _in_wrapper
+    return func(*args, **kwargs)
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/dynamic/FurthestPointSampling.py", line 228, in furthest_point_sampling
+    compile_op(src, origin_func_name, op_info, options, code_channel, '{}', {'valueDepend': {}})
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/compile_op.py"[INFO] RUNTIME(1961577,python3):2026-07-14-11:48:41.135.076 [task_fail_callback_data_manager.cc:58] 1961577 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(1961577,python3):2026-07-14-11:48:41.151.570 [msprof_callback_impl.cpp:359] >>> (tid:1961577) Started to register profiling ctrl callback.
+[EVENT] PROFILING(1961577,python3):2026-07-14-11:48:41.151.644 [msprof_callback_impl.cpp:366] >>> (tid:1961577) Started to register profiling hash id callback.
+[INFO] PROFILING(1961577,python3):2026-07-14-11:48:41.151.647 [prof_atls_plugin.cpp:115] (tid:1961577) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(1961577,python3):2026-07-14-11:48:41.151.650 [msprof_callback_impl.cpp:373] >>> (tid:1961577) Started to register profiling enable host freq callback.
+[INFO] PROFILING(1961577,python3):2026-07-14-11:48:41.151.651 [prof_atls_plugin.cpp:115] (tid:1961577) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(1961577,python3):2026-07-14-11:48:41.151.653 [msprof_callback_impl.cpp:380] >>> (tid:1961577) Started to register profiling typeId callback.
+[INFO] PROFILING(1961577,python3):2026-07-14-11:48:41.151.654 [prof_atls_plugin.cpp:115] (tid:1961577) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(1961577,python3):2026-07-14-11:48:41.185.293 [prof_atls_plugin.cpp:215] (tid:1961577) Module[61] register callback of ctrl handle.
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.461.670 [repository_manager_log.py:30][log] [log_utils.py:150][repository_manager] [ascend310p]  FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_0.o: No such file or directory
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.461.853 [op_compilation.py:324][__single_op_compile] Exception occured, An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_0.o: No such file or directory
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.752 [opc_common.py:231][_log_error] Traceback (most recent call last):
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/asc_opc_tool/op_compilation.py", line 316, in __single_op_compile
+    json_file_path = single_op_obj.op_compile()
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/single_op_compile.py", line 243, in op_compile
+    json_file_path = self.__call_op()
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/opc_tool/single_op_compile.py", line 148, in __call_op
+    op_func(*inputs, *outputs, *new_attrs, self.__op_info.get(OpcOptions.KERNEL_NAME), **kwargs)
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/common/register/operation_func_mgr.py", line 214, in wrapper
+    return func(*args, **kwargs)
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.760 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/common/utils/para_check.py", line 546, in _in_wrapper
+    return func(*args, **kwargs)
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/dynamic/FurthestPointSampling.py", line 228, in furthest_point_sampling
+    compile_op(src, origin_func_name, op_info, options, code_channel, '{}', {'valueDepend': {}})
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/compile_op.py", line 1386, in compile_op
+, line 1386, in compile_op
+    _compile_ascendc_cce(compile_info, compile_option_tuple, tiling_info)
+    _compile_ascendc_cce(compile_info, compile_option_tuple, tiling_info)
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.967 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/compile_op.py", line 1536, in _compile_ascendc_cce
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.766 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/compile_op.py", line 1536, in _compile_ascendc_cce
+    fatbin_objs(obj_files, compile_info.dst_file, compile_info.is_debug, compile_info.compile_log_path)
+    fatbin_objs(obj_files, compile_info.dst_file, compile_info.is_debug, compile_info.compile_log_path)
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_compile_base.py", line 542, in fatbin_objs
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_compile_base.py", line 542, in fatbin_objs
+    CommonUtility.run_cmd_inner(compile_cmd, CompileStage.FATBIN, compile_log_path)
+    CommonUtility.run_cmd_inner(compile_cmd, CompileStage.FATBIN, compile_log_path)
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_common_utility.py", line 337, in run_cmd_inner
+  File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_common_utility.py", line 337, in run_cmd_inner
+    CommonUtility.dump_build_log(output.decode(), cmds, stage, ret_code)
+    CommonUtility.dump_build_log(output.decode(), cmds, stage, ret_code)
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.972 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_common_utility.py", line 565, in dump_build_log
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.770 [opc_common.py:231][_log_error]   File "/usr/local/Ascend/ascend-toolkit/8.3.RC1/python/site-packages/tbe/tikcpp/ascendc_common_utility.py", line 565, in dump_build_log
+    raise Exception("An error occurred during compile phases of {}, msg is {}".\
+    raise Exception("An error occurred during compile phases of {}, msg is {}".\
+Exception: An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_0.o: No such file or directory
+
+Exception: An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_0.o: No such file or directory
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.462.979 [op_compilation.py:196][record_compile_error_info] Op[FurthestPointSampling] of index[0] compile failed, kernelName: FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.
+
+[ERROR] TBE(1961578,python3):2026-07-14-11:48:42.463.029 [opc_common.py:524][opc_log_full] [../asc_opc_tool/op_compilation.py:198][record_compile_error_info] reason is:[An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_0.o: No such file or directory
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.777 [op_compilation.py:196][record_compile_error_info] Op[FurthestPointSampling] of index[0] compile failed, kernelName: FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.
+].
+Opc tool start working now, please wait for a moment.
+[ERROR] TBE(1961577,python3):2026-07-14-11:48:42.462.833 [opc_common.py:524][opc_log_full] [../asc_opc_tool/op_compilation.py:198][record_compile_error_info] reason is:[An error occurred during compile phases of CompileStage.FATBIN, msg is ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_0.o: No such file or directory
+[[32m2026-7-14 3:48:42[0m] [[31mERROR[0m] [ascend310p] FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_0/kernel_meta_FurthestPointSampling_c985327b2284935571ddeceb4c43dd72/kernel_meta/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72_0.o: No such file or directory
+].
+
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(1961578,python3):2026-07-14-11:48:42.934.525 [task_fail_callback_data_manager.cc:63] 1961578 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(1961578,python3):2026-07-14-11:48:43.089.283 [stacktrace_signal.c:194](tid:1961578) unregister all signal handlers, can not capture signal.
+[[32m2026-7-14 3:48:42[0m] [[31mERROR[0m] [ascend310p] FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf ld.lld: error: cannot open /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/kernel_1/kernel_meta_FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf/kernel_meta/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf_0.o: No such file or directory
+
+[INFO] RUNTIME(1961577,python3):2026-07-14-11:48:42.907.823 [task_fail_callback_data_manager.cc:63] 1961577 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(1961577,python3):2026-07-14-11:48:43.065.837 [stacktrace_signal.c:194](tid:1961577) unregister all signal handlers, can not capture signal.
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.json not generated!
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/ascend310p/furthest_point_sampling/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.json not generated!
+make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:3：furthest_point_sampling0] 错误 1
+make[4]: *** 正在等待未完成的任务....
+make[4]: *** [/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/FurthestPointSampling_ascend310p/furthest_point_sampling.make:5：furthest_point_sampling1] 错误 1
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_compile_kernel.py", line 219, in <module>
+    kernel_builder.ascendc_build()
+  File "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/cmake/util/ascendc_compile_kernel.py", line 162, in ascendc_build
+    raise RuntimeError('Kernel Compilation Error: OpType {} Kernel File {}!'.format(
+RuntimeError: Kernel Compilation Error: OpType FurthestPointSampling Kernel File /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/op_kernel/furthest_point_sampling.cpp!
+gmake[3]: *** [op_kernel/CMakeFiles/FurthestPointSampling_ascend310p.dir/build.make:70：op_kernel/CMakeFiles/FurthestPointSampling_ascend310p] 错误 1
+gmake[2]: *** [CMakeFiles/Makefile2:425：op_kernel/CMakeFiles/FurthestPointSampling_ascend310p.dir/all] 错误 2
+gmake[1]: *** [CMakeFiles/Makefile2:379：op_kernel/CMakeFiles/binary.dir/rule] 错误 2
+gmake: *** [Makefile:293：binary] 错误 2
+Consolidate compiler generated dependencies of target cust_optiling
+[ 25%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
+[ 25%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 16%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 33%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 50%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
+[ 58%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
+[ 58%] Built target ops_info_gen_ascend310p
+[ 75%] Built target cust_optiling
+[ 75%] Built target gen_version_info
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 75%] Built target optiling_compat
+[ 75%] Built target modify_vendor
+[INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 75%] Built target npu_supported_ops
+[ 83%] Linking CXX shared library libcust_opapi.so
+[ 83%] Built target cust_opapi
+[ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_tf_parsers
+[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[100%] Built target cust_op_proto
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
+  file INSTALL cannot find
+  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
+  No such file or directory.
+Call Stack (most recent call first):
+  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
+
+
+CPack Error: Error when generating package: opp
+gmake: *** [Makefile:71：package] 错误 1
