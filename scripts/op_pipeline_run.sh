@@ -13,13 +13,15 @@ if [ -z "$OP_NAME" ]; then
     exit 1
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
-    PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-else
-    PIPELINE_ROOT="$(dirname "$SCRIPT_DIR")"
+TOOL_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -z "$TOOL_DIR" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+    if echo "$SCRIPT_DIR" | grep -q "/AscendDevTool/"; then
+        TOOL_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+    else
+        TOOL_DIR="$(dirname "$SCRIPT_DIR")"
+    fi
 fi
-TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
 LOG_DIR="$TOOL_DIR/logs/op_${OP_NAME}/run_$ROUND"
 
 rm -rf "$LOG_DIR"
@@ -35,10 +37,29 @@ fail() {
     echo "BUILD_ERROR: $*" >> "$LOG_DIR/status.txt"
 }
 
+_gen_summary() {
+    {
+        echo "=== Op Pipeline Round $ROUND Summary ==="
+        echo "Operator: $OP_NAME"
+        echo "Time: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo ""
+        echo "--- build.log (tail 20) ---"
+        tail -20 "$LOG_DIR/build.log" 2>/dev/null || echo "N/A"
+        echo ""
+        echo "--- verify.log (tail 20) ---"
+        tail -20 "$LOG_DIR/verify.log" 2>/dev/null || echo "N/A"
+        echo ""
+        echo "--- test.log (tail 30) ---"
+        tail -30 "$LOG_DIR/test.log" 2>/dev/null || echo "N/A"
+        echo ""
+        echo "--- status ---"
+        cat "$LOG_DIR/status.txt" 2>/dev/null || echo "NO_STATUS"
+    } > "$LOG_DIR/summary.txt"
+}
+
 # ---- 0. 检查算子工程 ----
 OP_SRC_DIR="$TOOL_DIR/op_builder/ops_src/${OP_NAME}Sample/FrameworkLaunch/${OP_NAME}"
 if [ ! -d "$OP_SRC_DIR" ]; then
-    # 名字可能不完全匹配，尝试大小写不敏感的模糊查找
     MATCH=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 1 -type d -iname "*${OP_NAME}*" 2>/dev/null | head -1)
     if [ -n "$MATCH" ]; then
         REAL_NAME=$(basename "$MATCH" | sed 's/Sample$//')
@@ -58,50 +79,71 @@ fi
 # ---- 1. 编译 ----
 log "1/4 编译算子..."
 (
-    cd "$TOOL_DIR"
+    cd "$TOOL_DIR" || exit 1
     export PATH=/home/orange/miniconda3/envs/torch_npu/bin:$PATH
     export PYTHONPATH=/home/orange/miniconda3/envs/torch_npu/lib/python3.9/site-packages:$PYTHONPATH
     export ASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3
     python3 -m pip install decorator -q 2>/dev/null || true
-    cd "$OP_SRC_DIR"
+
+    cd "$OP_SRC_DIR" || exit 1
     rm -rf build_out
     mkdir -p build_out
+
     # cmake 配置
-    cmake -S . -B build_out --preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3 >> "$LOG_DIR/build.log" 2>&1 || true
-    # 自动查找并拷贝 kernel 源码到 binary 目录（适配不同文件名）
+    cmake -S . -B build_out --preset=default -DASCEND_PYTHON_EXECUTABLE=/home/orange/miniconda3/envs/torch_npu/bin/python3 >> "$LOG_DIR/build.log" 2>&1
+    if [ $? -ne 0 ]; then
+        echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
+        fail "cmake configure 失败"
+        _gen_summary
+        exit 1
+    fi
+
+    # 自动查找并拷贝 kernel 源码到 binary 目录
     KERNEL_SRC=$(find "$OP_SRC_DIR/op_kernel" -maxdepth 1 -name "*.cpp" 2>/dev/null | head -1)
     if [ -n "$KERNEL_SRC" ]; then
         KERNEL_NAME=$(basename "$KERNEL_SRC" .cpp)
-        mkdir -p "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}"
-        cp "$KERNEL_SRC" "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}/${KERNEL_NAME}.cpp"
+        mkdir -p "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}" 2>/dev/null
+        cp "$KERNEL_SRC" "build_out/op_kernel/binary/ascendc/${KERNEL_NAME}/${KERNEL_NAME}.cpp" 2>/dev/null
     fi
-    # 编译
-    cmake --build build_out --target binary -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
-    cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1 || true
-    git checkout -- build.sh
+
+    # 编译 binary target
+    cmake --build build_out --target binary -j$(nproc) >> "$LOG_DIR/build.log" 2>&1
+    BINARY_EXIT=$?
+    # 编译 package target
+    cmake --build build_out --target package -j$(nproc) >> "$LOG_DIR/build.log" 2>&1
+    PKG_EXIT=$?
+
+    git checkout -- build.sh 2>/dev/null || true
+
+    if [ $BINARY_EXIT -ne 0 ] || [ $PKG_EXIT -ne 0 ]; then
+        echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
+        fail "编译失败 (binary=$BINARY_EXIT, package=$PKG_EXIT)"
+        _gen_summary
+        exit 1
+    fi
 
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
-    if [ -n "$RUN_FILE" ]; then
-        echo "BUILD_OK" > "$LOG_DIR/status.txt"
-        log "编译成功"
-    else
+    if [ -z "$RUN_FILE" ]; then
         echo "BUILD_FAILED" > "$LOG_DIR/status.txt"
-        fail ".run 包未生成"
+        fail "编译成功但 .run 包未生成"
+        _gen_summary
+        exit 1
     fi
+
+    echo "BUILD_OK" > "$LOG_DIR/status.txt"
+    log "编译成功"
 )
-if tail -1 "$LOG_DIR/status.txt" 2>/dev/null | grep -q "BUILD_FAILED"; then
-    _gen_summary
-    exit 1
-fi
+
+status=$(tail -1 "$LOG_DIR/status.txt" 2>/dev/null)
+[ "$status" = "BUILD_FAILED" ] && exit 1
 
 # ---- 2. 验证 ----
 log "2/4 精度验证..."
 (
-    cd "$TOOL_DIR"
+    cd "$TOOL_DIR" || exit 1
     source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null; conda activate torch_npu 2>/dev/null || true
     python op_builder/op_manager.py verify "$OP_NAME" > "$LOG_DIR/verify.log" 2>&1
-    VERIFY_EXIT=$?
-    if [ $VERIFY_EXIT -ne 0 ]; then
+    if [ $? -ne 0 ]; then
         echo "VERIFY_FAILED" >> "$LOG_DIR/status.txt"
         log "WARN: 精度验证失败（继续安装）"
     else
@@ -113,20 +155,31 @@ log "2/4 精度验证..."
 # ---- 3. 安装 ----
 log "3/4 安装算子..."
 (
-    cd "$TOOL_DIR"
+    cd "$TOOL_DIR" || exit 1
     source /home/orange/miniconda3/etc/profile.d/conda.sh 2>/dev/null; conda activate torch_npu 2>/dev/null || true
-    # 直接查找并安装 .run 包
+
     RUN_FILE=$(find "$OP_SRC_DIR/build_out" -maxdepth 1 -name "*.run" -type f 2>/dev/null | head -1)
     if [ -n "$RUN_FILE" ]; then
         CUSTOM_PATH="$TOOL_DIR/oplib/custom_opp_packages"
         rm -rf "$CUSTOM_PATH" && mkdir -p "$CUSTOM_PATH"
-        # try to uninstall old operator first
-        if [ -f "$CUSTOM_PATH/install.sh" ]; then cd "$CUSTOM_PATH" && bash install.sh --uninstall >> "$LOG_DIR/install.log" 2>&1 || true; fi
+
+        if [ -f "$CUSTOM_PATH/install.sh" ]; then
+            cd "$CUSTOM_PATH" && bash install.sh --uninstall >> "$LOG_DIR/install.log" 2>&1 || true
+            cd "$TOOL_DIR"
+        fi
+
         bash "$RUN_FILE" --extract="$CUSTOM_PATH" --quiet >> "$LOG_DIR/install.log" 2>&1
         if [ -f "$CUSTOM_PATH/install.sh" ]; then
-            cd "$CUSTOM_PATH" && bash install.sh --quiet --install-path="$CUSTOM_PATH" >> "$LOG_DIR/install.log" 2>&1 && log "安装成功" && echo "INSTALL_OK" >> "$LOG_DIR/status.txt" && cd "$TOOL_DIR"
+            cd "$CUSTOM_PATH" && bash install.sh --quiet --install-path="$CUSTOM_PATH" >> "$LOG_DIR/install.log" 2>&1
+            if [ $? -eq 0 ]; then
+                log "安装成功"
+                echo "INSTALL_OK" >> "$LOG_DIR/status.txt"
+            else
+                echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
+            fi
+            cd "$TOOL_DIR"
         else
-            cd "$TOOL_DIR" && echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
+            echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
         fi
     else
         echo "INSTALL_FAILED" >> "$LOG_DIR/status.txt"
@@ -145,7 +198,6 @@ if [ -f "$SET_ENV" ]; then
     log "已设置自定义算子路径: $CUSTOM_OPP"
 fi
 if [ -z "$TEST_SCRIPT" ]; then
-    # 自动查找算子目录下的测试脚本
     TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 -name "test_*.py" -path "*${OP_NAME}*" 2>/dev/null | head -1)
     if [ -z "$TEST_SCRIPT" ]; then
         TEST_SCRIPT=$(find "$TOOL_DIR/op_builder/ops_src" -maxdepth 2 \( -name "test_*.py" -o -name "*_test.py" \) 2>/dev/null | head -1)
@@ -155,7 +207,7 @@ if [ -n "$TEST_SCRIPT" ]; then
     TEST_PYTHON="${ASCEND_OP_TEST_PYTHON:-/home/orange/miniconda3/envs/torch_npu/bin/python}"
     if [ -f "$TEST_SCRIPT" ]; then
         log "运行测试: $TEST_SCRIPT"
-        cd "$(dirname "$TEST_SCRIPT")"
+        cd "$(dirname "$TEST_SCRIPT")" || exit 1
         $TEST_PYTHON "$TEST_SCRIPT" > "$LOG_DIR/test.log" 2>&1
         TEST_EXIT=$?
         if grep -qE "Traceback \(most recent call\)|Error|AssertionError|RuntimeError" "$LOG_DIR/test.log" 2>/dev/null; then
@@ -178,25 +230,6 @@ else
 fi
 
 # ---- 5. 生成摘要 ----
-_gen_summary() {
-    {
-        echo "=== Op Pipeline Round $ROUND Summary ==="
-        echo "Operator: $OP_NAME"
-        echo "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-        echo ""
-        echo "--- build.log (tail 20) ---"
-        tail -20 "$LOG_DIR/build.log" 2>/dev/null || echo "N/A"
-        echo ""
-        echo "--- verify.log (tail 20) ---"
-        tail -20 "$LOG_DIR/verify.log" 2>/dev/null || echo "N/A"
-        echo ""
-        echo "--- test.log (tail 30) ---"
-        tail -30 "$LOG_DIR/test.log" 2>/dev/null || echo "N/A"
-        echo ""
-        echo "--- status ---"
-        cat "$LOG_DIR/status.txt" 2>/dev/null || echo "NO_STATUS"
-    } > "$LOG_DIR/summary.txt"
-}
 _gen_summary
 
 log "完成"

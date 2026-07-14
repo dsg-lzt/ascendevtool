@@ -1,5 +1,6 @@
 #!/bin/bash
-# op_pipeline_loop.sh
+# op_pipeline_loop.sh — 算子开发循环（git poll → run → push logs → repeat）
+# 用法: bash scripts/op_pipeline_loop.sh <op_name> [max_rounds]
 
 OP_NAME="${1}"
 if [ -z "$OP_NAME" ]; then
@@ -8,112 +9,143 @@ if [ -z "$OP_NAME" ]; then
 fi
 MAX_ROUNDS="${2:-9999}"
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PIPELINE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-TOOL_DIR="$PIPELINE_ROOT/AscendDevTool"
+TOOL_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -z "$TOOL_DIR" ]; then
+    echo "[FATAL] 不在 git 仓库内，无法确定项目根目录"
+    exit 1
+fi
+
 LOG_ROOT="$TOOL_DIR/logs/op_${OP_NAME}"
 LOOP_LOG="$LOG_ROOT/loop.log"
-LAST_COMMIT_FILE="$PIPELINE_ROOT/.op_pipeline_last_commit_${OP_NAME}"
-
-# 诊断：打印路径到 loop.log 方便排查
-{
-    echo "[OP-LOOP] $(date '+%H:%M:%S') === DIAG ==="
-    echo "[OP-LOOP] $(date '+%H:%M:%S') SCRIPT_DIR=$SCRIPT_DIR"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') PIPELINE_ROOT=$PIPELINE_ROOT"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') TOOL_DIR=$TOOL_DIR"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') LOG_ROOT=$LOG_ROOT"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo 'NOT_A_GIT_REPO')"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') PWD=$(pwd)"
-} >> "$LOOP_LOG" 2>&1
+LAST_COMMIT_FILE="/tmp/.op_pipeline_last_commit_${OP_NAME}"
 
 round=0
 mkdir -p "$LOG_ROOT"
-: > "$LOOP_LOG"
+rm -f "$LOOP_LOG"
 rm -rf "$LOG_ROOT"/run_*
 
-cd "$TOOL_DIR"
+cd "$TOOL_DIR" || exit 1
 export GIT_MERGE_AUTOEDIT=no
 git config user.email "op-pipeline@ascend-dev.local" 2>/dev/null || true
 git config user.name "Op Pipeline Bot" 2>/dev/null || true
 
 log() {
     echo "[OP-LOOP] $(date '+%H:%M:%S') $*"
-    echo "[OP-LOOP] $(date '+%H:%M:%S') $*" >> "$LOOP_LOG"
 }
 
-# 重试最多3次，单次超时30秒（错误输出到日志，不看黑洞）
-git_pull()  { for i in 1 2 3; do timeout 30 git pull  origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
-git_fetch() { for i in 1 2 3; do timeout 30 git fetch origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
-git_push()  { for i in 1 2 3; do timeout 30 git push  origin master >> "$LOOP_LOG" 2>&1 && return 0; sleep 5; done; return 1; }
-git_rebase_push() {
-    for i in 1 2 3; do
-        timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1
-        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && return 0
-        sleep 5
-    done
-    return 1
-}
+# ==================== DIAG ====================
+{
+    log "=== DIAG ==="
+    log "TOOL_DIR=$TOOL_DIR"
+    log "LOG_ROOT=$LOG_ROOT"
+    log "GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo 'NOT_A_GIT_REPO')"
+    log "PWD=$(pwd)"
 
-git checkout -- .
-git_pull || log "WARN: 初始 git pull 失败"
+    if [ -n "$GIT_TOKEN" ]; then
+        log "GIT_TOKEN 已设置 (${#GIT_TOKEN} chars)"
+        if git ls-remote origin HEAD > /dev/null 2>&1; then
+            log "GIT_TOKEN 认证通过 ✓"
+        else
+            log "⚠ GIT_TOKEN 认证失败 — git push 将无法上传日志"
+        fi
+    else
+        log "⚠ GIT_TOKEN 未设置 — git push 将无法上传日志"
+    fi
+} >> "$LOOP_LOG" 2>&1
+# ==================== DIAG END ====================
+
+# 首次 pull
+git checkout -- . >> "$LOOP_LOG" 2>&1
+for i in 1 2 3; do
+    timeout 30 git pull origin master >> "$LOOP_LOG" 2>&1 && break
+    sleep 5
+done
 LAST_COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "")
 echo "$LAST_COMMIT" > "$LAST_COMMIT_FILE"
-log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT"
+log "算子: $OP_NAME | 初始 commit: $LAST_COMMIT" >> "$LOOP_LOG" 2>&1
 
 while [ $round -lt $MAX_ROUNDS ]; do
-    cd "$TOOL_DIR"
+    cd "$TOOL_DIR" || exit 1
 
     if [ $round -eq 0 ]; then
         round=1
-        log "=== 第 1/$MAX_ROUNDS 轮 ($OP_NAME) ==="
+        log "=== 第 1/$MAX_ROUNDS 轮 ($OP_NAME) ===" >> "$LOOP_LOG" 2>&1
     else
-        git_fetch
-        CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
-        LAST_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
+        # poll: fetch 并检查是否有新 commit
+        for i in 1 2 3; do
+            timeout 30 git fetch origin master >> "$LOOP_LOG" 2>&1 && break
+            sleep 5
+        done
 
-        if [ "$CURRENT_REMOTE" = "$LAST_COMMIT" ]; then
+        CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
+        SAVED_COMMIT=$(cat "$LAST_COMMIT_FILE" 2>/dev/null || echo "")
+
+        if [ "$CURRENT_REMOTE" = "$SAVED_COMMIT" ]; then
             sleep 30
             continue
         fi
 
         round=$((round + 1))
-        log "=== 第 $round/$MAX_ROUNDS 轮 ($OP_NAME) ==="
+        log "=== 第 $round/$MAX_ROUNDS 轮 ($OP_NAME) ===" >> "$LOOP_LOG" 2>&1
 
-        git checkout -- .
-        git_pull || log "WARN: git pull 失败"
+        # 清理工作区 + 拉最新代码
+        git checkout -- . >> "$LOOP_LOG" 2>&1
+        for i in 1 2 3; do
+            timeout 30 git pull origin master >> "$LOOP_LOG" 2>&1 && break
+            sleep 5
+        done
         echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
     fi
 
-    log "执行 op_pipeline_run.sh $OP_NAME..."
-    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME" 2>&1 | tee -a "$LOOP_LOG"
+    log "执行 op_pipeline_run.sh $OP_NAME..." >> "$LOOP_LOG" 2>&1
+    bash "$TOOL_DIR/scripts/op_pipeline_run.sh" "$round" "$OP_NAME" >> "$LOOP_LOG" 2>&1
+    RUN_EXIT=$?
 
-    cd "$TOOL_DIR"
-    git checkout -- .
+    log "op_pipeline_run.sh 退出码: $RUN_EXIT" >> "$LOOP_LOG" 2>&1
 
-    log "上传日志..."
-    git add "$LOG_ROOT/" 2>/dev/null
-    git commit -m "logs: op pipeline round $round ($OP_NAME)" 2>/dev/null || true
-    git_rebase_push || log "WARN: git push 失败"
+    # 提交并推送日志
+    cd "$TOOL_DIR" || exit 1
+    git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
+    git commit -m "logs: op pipeline round $round ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
 
-    git_fetch
+    for i in 1 2 3; do
+        timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
+        timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
+        sleep 5
+    done
+
+    # 获取最新 HEAD 写入记录
+    for i in 1 2 3; do
+        timeout 30 git fetch origin master >> "$LOOP_LOG" 2>&1 && break
+        sleep 5
+    done
     CURRENT_REMOTE=$(git rev-parse origin/master 2>/dev/null || echo "")
     echo "$CURRENT_REMOTE" > "$LAST_COMMIT_FILE"
 
+    # 检查测试是否通过
     STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
-    if tail -1 "$STATUS_FILE" 2>/dev/null | grep -q "^TEST_OK$"; then
-        log "✅ 测试通过！"
+    if [ -f "$STATUS_FILE" ] && tail -1 "$STATUS_FILE" 2>/dev/null | grep -q "^TEST_OK$"; then
+        log "✅ 测试通过！" >> "$LOOP_LOG" 2>&1
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
-        git add "$LOG_ROOT/" 2>/dev/null
-        git commit -m "logs: OP SUCCESS round $round ($OP_NAME)" 2>/dev/null || true
-        git_rebase_push || true
+        git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
+        git commit -m "logs: OP SUCCESS round $round ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
+        for i in 1 2 3; do
+            timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
+            timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
+            sleep 5
+        done
         exit 0
     fi
 
     sleep 5
 done
 
-log "达到最大轮次 $MAX_ROUNDS"
+log "达到最大轮次 $MAX_ROUNDS" >> "$LOOP_LOG" 2>&1
 echo "OP_PIPELINE_MAX_ROUNDS_REACHED" >> "$LOG_ROOT/loop_status.txt"
-git add "$LOG_ROOT/" 2>/dev/null
-git commit -m "logs: OP MAX ROUNDS ($OP_NAME)" 2>/dev/null || true
-git_rebase_push || true
+git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
+git commit -m "logs: OP MAX ROUNDS ($OP_NAME)" >> "$LOOP_LOG" 2>&1 || true
+for i in 1 2 3; do
+    timeout 30 git pull --rebase origin master >> "$LOOP_LOG" 2>&1 || { sleep 5; continue; }
+    timeout 30 git push origin master >> "$LOOP_LOG" 2>&1 && break
+    sleep 5
+done
