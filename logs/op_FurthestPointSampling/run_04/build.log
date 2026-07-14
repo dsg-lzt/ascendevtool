@@ -1,0 +1,139 @@
+Preset CMake variables:
+
+  ASCEND_CANN_PACKAGE_PATH:PATH="/usr/local/Ascend/ascend-toolkit/latest"
+  ASCEND_COMPUTE_UNIT:STRING="ascend310p"
+  ASCEND_PACK_SHARED_LIBRARY:BOOL="False"
+  CMAKE_BUILD_TYPE:STRING="Release"
+  CMAKE_CROSS_PLATFORM_COMPILER:PATH="/usr/bin/aarch64-linux-gnu-g++"
+  CMAKE_INSTALL_PREFIX:PATH="/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out"
+  ENABLE_BINARY_PACKAGE:BOOL="True"
+  ENABLE_CROSS_COMPILE:BOOL="False"
+  ENABLE_SOURCE_PACKAGE:BOOL="True"
+  ENABLE_TEST:BOOL="True"
+  vendor_name:STRING="customize"
+
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Opbuild generating sources
+-- Opbuild generating sources - done
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_CROSS_PLATFORM_COMPILER
+
+
+-- Build files have been written to: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out
+[ 33%] Generating tbe/op_info_cfg/ai_core/ascend310p/aic-ascend310p-ops-info.json
+[ 66%] Building CXX object op_host/CMakeFiles/cust_optiling.dir/furthest_point_sampling.cpp.o
+
+
+==============check valid for ops info start==============
+==============check valid for ops info end================
+
+
+Compile op info cfg successfully.
+[ 66%] Built target ops_info_gen_ascend310p
+[100%] Linking CXX shared library libcust_opmaster_rt2.0.so
+[100%] Built target cust_optiling
+[ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 ...
+[ascend310p] Generating FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf ...
+[INFO] RUNTIME(2965731,python3):2026-07-14-15:30:50.224.047 [task_fail_callback_data_manager.cc:58] 2965731 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2965731,python3):2026-07-14-15:30:50.255.259 [msprof_callback_impl.cpp:359] >>> (tid:2965731) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2965731,python3):2026-07-14-15:30:50.255.377 [msprof_callback_impl.cpp:366] >>> (tid:2965731) Started to register profiling hash id callback.
+[INFO] PROFILING(2965731,python3):2026-07-14-15:30:50.255.382 [prof_atls_plugin.cpp:115] (tid:2965731) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2965731,python3):2026-07-14-15:30:50.255.385 [msprof_callback_impl.cpp:373] >>> (tid:2965731) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2965731,python3):2026-07-14-15:30:50.255.388 [prof_atls_plugin.cpp:115] (tid:2965731) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2965731,python3):2026-07-14-15:30:50.255.390 [msprof_callback_impl.cpp:380] >>> (tid:2965731) Started to register profiling typeId callback.
+[INFO] PROFILING(2965731,python3):2026-07-14-15:30:50.255.393 [prof_atls_plugin.cpp:115] (tid:2965731) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2965731,python3):2026-07-14-15:30:50.301.372 [prof_atls_plugin.cpp:215] (tid:2965731) Module[61] register callback of ctrl handle.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(2965731,python3):2026-07-14-15:30:51.863.161 [task_fail_callback_data_manager.cc:63] 2965731 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2965731,python3):2026-07-14-15:30:52.030.644 [stacktrace_signal.c:194](tid:2965731) unregister all signal handlers, can not capture signal.
+[ascend310p] Generating FurthestPointSampling_c985327b2284935571ddeceb4c43dd72 Done
+[INFO] RUNTIME(2965729,python3):2026-07-14-15:30:50.359.697 [task_fail_callback_data_manager.cc:58] 2965729 TaskFailCallBackManager: Constructor.
+[EVENT] PROFILING(2965729,python3):2026-07-14-15:30:50.388.993 [msprof_callback_impl.cpp:359] >>> (tid:2965729) Started to register profiling ctrl callback.
+[EVENT] PROFILING(2965729,python3):2026-07-14-15:30:50.389.107 [msprof_callback_impl.cpp:366] >>> (tid:2965729) Started to register profiling hash id callback.
+[INFO] PROFILING(2965729,python3):2026-07-14-15:30:50.389.112 [prof_atls_plugin.cpp:115] (tid:2965729) RegisterProfileCallback, callback type is 7
+[EVENT] PROFILING(2965729,python3):2026-07-14-15:30:50.389.115 [msprof_callback_impl.cpp:373] >>> (tid:2965729) Started to register profiling enable host freq callback.
+[INFO] PROFILING(2965729,python3):2026-07-14-15:30:50.389.117 [prof_atls_plugin.cpp:115] (tid:2965729) RegisterProfileCallback, callback type is 8
+[EVENT] PROFILING(2965729,python3):2026-07-14-15:30:50.389.119 [msprof_callback_impl.cpp:380] >>> (tid:2965729) Started to register profiling typeId callback.
+[INFO] PROFILING(2965729,python3):2026-07-14-15:30:50.389.121 [prof_atls_plugin.cpp:115] (tid:2965729) RegisterProfileCallback, callback type is 6
+[INFO] PROFILING(2965729,python3):2026-07-14-15:30:50.429.303 [prof_atls_plugin.cpp:215] (tid:2965729) Module[61] register callback of ctrl handle.
+Opc tool start working now, please wait for a moment.
+[INFO] RUNTIME(2965729,python3):2026-07-14-15:30:51.946.696 [task_fail_callback_data_manager.cc:63] 2965729 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(2965729,python3):2026-07-14-15:30:52.112.315 [stacktrace_signal.c:194](tid:2965729) unregister all signal handlers, can not capture signal.
+[ascend310p] Generating FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf Done
+[100%] Built target FurthestPointSampling_ascend310p
+[100%] Built target ascendc_bin_ascend310p_gen_ops_config
+[100%] Built target binary
+Consolidate compiler generated dependencies of target cust_optiling
+[ 58%] Building CXX object op_host/CMakeFiles/cust_opapi.dir/__/autogen/aclnn_furthest_point_sampling.cpp.o
+[ 58%] Generating scripts/install.sh, scripts/upgrade.sh
+[ 58%] Building CXX object framework/tf_plugin/CMakeFiles/cust_tf_parsers.dir/tensorflow_furthest_point_sampling_plugin.cc.o
+[ 58%] Built target ops_info_gen_ascend310p
+[ 58%] Generating tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 58%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/__/autogen/op_proto.cc.o
+[ 58%] Building CXX object op_host/CMakeFiles/cust_op_proto.dir/furthest_point_sampling.cpp.o
+[ 58%] Built target gen_version_info
+[ 75%] Built target cust_optiling
+/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/autogen /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core
+[ 75%] Built target modify_vendor
+[INFO] Succed generated /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/tbe/op_info_cfg/ai_core/npu_supported_ops.json
+[ 75%] Built target optiling_compat
+[ 75%] Built target npu_supported_ops
+[ 83%] Linking CXX shared library libcust_opapi.so
+[ 83%] Built target cust_opapi
+[ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_tf_parsers
+[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[100%] Built target cust_op_proto
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CPack: Create package
+
+About to compress 744 KB of data...
+Adding files to archive named "custom_opp_ubuntu_x86_64.run"...
+./help.info
+./install.sh
+./packages/vendors/customize/framework/tensorflow/libcust_tf_parsers.so
+./packages/vendors/customize/framework/tensorflow/npu_supported_ops.json
+./packages/vendors/customize/op_api/include/aclnn_furthest_point_sampling.h
+./packages/vendors/customize/op_api/lib/libcust_opapi.so
+./packages/vendors/customize/op_impl/ai_core/tbe/config/ascend310p/aic-ascend310p-ops-info.json
+./packages/vendors/customize/op_impl/ai_core/tbe/customize_impl/dynamic/furthest_point_sampling.cpp
+./packages/vendors/customize/op_impl/ai_core/tbe/customize_impl/dynamic/furthest_point_sampling.py
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/binary_info_config.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/furthest_point_sampling.json
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/lib/linux/x86_64/libcust_opmaster_rt2.0.so
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/liboptiling.so
+./packages/vendors/customize/op_proto/inc/op_proto.h
+./packages/vendors/customize/op_proto/lib/linux/x86_64/libcust_opsproto_rt2.0.so
+./packages/vendors/customize/version.info
+./upgrade.sh
+CRC: 2341766847
+SHA256: 2a363984e073bd5a9d516be21695808bb152be97eff1d413451c2eb1ceb016c1
+Skipping md5sum at user request
+
+Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
+Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
