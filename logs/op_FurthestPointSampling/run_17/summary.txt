@@ -1,0 +1,67 @@
+=== Op Pipeline Round 17 Summary ===
+Operator: FurthestPointSampling
+Time: 2026-07-14 16:24:34
+
+--- build.log (tail 20) ---
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_0512de17d6b390b595b1b6c79858fddf.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/ascend310p/furthest_point_sampling/FurthestPointSampling_c985327b2284935571ddeceb4c43dd72.o
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/binary_info_config.json
+./packages/vendors/customize/op_impl/ai_core/tbe/kernel/config/ascend310p/furthest_point_sampling.json
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/lib/linux/x86_64/libcust_opmaster_rt2.0.so
+./packages/vendors/customize/op_impl/ai_core/tbe/op_tiling/liboptiling.so
+./packages/vendors/customize/op_proto/inc/op_proto.h
+./packages/vendors/customize/op_proto/lib/linux/x86_64/libcust_opsproto_rt2.0.so
+./packages/vendors/customize/version.info
+./upgrade.sh
+CRC: 3607832632
+SHA256: 6fe7ecd070e676e675a9c1735909ac69e9216e34893cc8c151571ad2238782b9
+Skipping md5sum at user request
+
+Self-extractable archive "custom_opp_ubuntu_x86_64.run" successfully created.
+Copy /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/_CPack_Packages/Linux/External/custom_opp_ubuntu_x86_64.run/custom_opp_ubuntu_x86_64.run to /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run.json generated.
+CPack: - package: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/custom_opp_ubuntu_x86_64.run generated.
+
+--- verify.log (tail 20) ---
+========== 3. VERIFY: FurthestPointSampling ==========
+[WARN] 未找到 AclNNInvocation 目录: /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/AclNNInvocation，跳过验证步骤。
+
+--- test.log (tail 30) ---
+[INFO] GE(3351429,python):2026-07-14-16:24:28.745.526 [gelib.cc:328]3351429 SystemFinalize:Infer finalize GELib success.
+[INFO] GE(3351429,python):2026-07-14-16:24:28.763.973 [ge_api.cc:428][status:STOP]3351429 GEFinalize:GEFinalize finished
+[INFO] DRV(3351429,python):2026-07-14-16:24:29.264.413 [drv_log_user.c:638][ascend][curpid:3351429,3351429][drv][hdc][share_log_read_in_single_module]Server destroy success.(dev_id=0; fid=0; service="service_dump"; pid=3351429)
+[INFO] DRV(3351429,python):2026-07-14-16:24:29.264.440 [drv_log_user.c:638][ascend][curpid:3351429,3351429][drv][hdc][share_log_read_in_single_module]Server destroy success.(dev_id=1; fid=0; service="service_dump"; pid=3351429)
+[INFO] ATRACE(3351429,python):2026-07-14-16:24:31.341.539 [tracer_mgr_operate.c:66](tid:3351429) create object GE_Compile_Trace1 successfully, exitSave(true), noLock(false).
+[INFO] ATRACE(3351429,python):2026-07-14-16:24:31.342.203 [tracer_mgr_operate.c:248](tid:3351429) destroy object AutoFuse_Backend_Trace0, exitSave(true).
+[INFO] RUNTIME(3351429,python):2026-07-14-16:24:31.566.970 [runtime.cc:1793] 3351429 ~Runtime: deconstruct runtime
+[INFO] RUNTIME(3351429,python):2026-07-14-16:24:31.566.996 [runtime.cc:1880] 3351429 WaitMonitorExit: wait monitor success, used count=0.
+[INFO] ATRACE(3351429,python):2026-07-14-16:24:31.568.870 [tracer_mgr_operate.c:248](tid:3351429) destroy object RUNTIME_ATRACE_DEV0_TS0, exitSave(false).
+[INFO] RUNTIME(3351429,python):2026-07-14-16:24:31.591.218 [direct_hwts_engine.cc:72] 3351429 ~DirectHwtsEngine: Destructor.
+[INFO] RUNTIME(3351429,python):2026-07-14-16:24:31.591.261 [engine.cc:86] 3351429 ~Engine: Destructor.
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.487 [devmm_svm.c:2025][ascend][curpid:3351429,3351429][drv][devmm][drvMemDeviceClose]DrvMemDeviceClose. (devid=0)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.496 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]HOST_MEM Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=11341824; alloc_cnt=3; free_cnt=3)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.501 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]HOST_MEM Cached_size:12582912Bytes
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.504 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=204800; alloc_cnt=13; free_cnt=13)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.507 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Mem stats (Bytes). (module_name=GE; module_id=45; current_alloced_size=0; alloced_peak_size=1048576; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.510 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.513 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=1048576; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.517 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_P2P_HBM dev0 Cached_size:2097152Bytes
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.519 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=2101248; alloc_cnt=2; free_cnt=2)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.522 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_SMALL_TS_DDR dev0 Cached_size:4194304Bytes
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.525 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=16867328; alloc_cnt=15; free_cnt=15)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.528 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=APP; module_id=33; current_alloced_size=0; alloced_peak_size=2097152; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.531 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Mem stats (Bytes). (module_name=GE; module_id=45; current_alloced_size=0; alloced_peak_size=2097152; alloc_cnt=1; free_cnt=1)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.534 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_HBM dev0 Cached_size:23068672Bytes
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.536 [svm_mem_statistics.c:136][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_P2P_HBM dev0 Mem stats (Bytes). (module_name=RUNTIME; module_id=7; current_alloced_size=0; alloced_peak_size=4194304; alloc_cnt=2; free_cnt=2)
+[INFO] DRV(3351429,python):2026-07-14-16:24:31.591.539 [svm_mem_statistics.c:146][ascend][curpid:3351429,3351429][drv][devmm][_svm_mem_stats_show]MEM_DEV_HUGE_P2P_HBM dev0 Cached_size:4194304Bytes
+[INFO] RUNTIME(3351429,python):2026-07-14-16:24:31.707.684 [task_fail_callback_data_manager.cc:63] 3351429 ~TaskFailCallBackManager: Destructor.
+[INFO] ATRACE(3351429,python):2026-07-14-16:24:31.768.631 [stacktrace_signal.c:194](tid:3351429) unregister all signal handlers, can not capture signal.
+[INFO] ATRACE(3351429,python):2026-07-14-16:24:33.878.156 [atrace_client_core.c:127](tid:3352246) atrace receive thread exited, devId=0.
+
+--- status ---
+BUILD_OK
+VERIFY_OK
+INSTALL_OK
+TEST_ERROR
