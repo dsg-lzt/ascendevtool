@@ -49,15 +49,47 @@ def test():
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
-    # ---- debug: dump raw output for N=50 ----
-    xyz=torch.randn(1,50,3).npu()
-    ref=cpu_fps(xyz.cpu(),12)
-    out=op(xyz,12)
-    torch.npu.synchronize()
-    out_cpu=out.cpu()
-    print(f"  B=1 N=50 M=12: ref[:12] = {ref[0,:12].tolist()}")
-    print(f"  B=1 N=50 M=12: out[:12] = {out_cpu[0,:12].tolist()}")
-    print(f"  B=1 N=50 M=12: {'PASS' if torch.equal(ref,out_cpu) else 'FAIL'}")
+    # ---- debug: verify OpCommand can call ANY operator (FPS or built-in) ----
+    import copy
+    stub_source = """
+    #include <torch/extension.h>
+    #include <torch_npu/csrc/framework/OpCommand.h>
+    at::Tensor test_op_npu(const at::Tensor& x, const std::string& op_name) {
+        auto out = at::empty_like(x);
+        at_npu::native::OpCommand cmd;
+        if (op_name == "FPS") {
+            auto out2 = at::empty({x.size(0), 5}, x.options().dtype(at::kInt));
+            cmd.Name("FurthestPointSampling").Input(x).Output(out2).Attr("npoint", (int64_t)5).Run();
+            return out2;
+        }
+        // built-in: Abs
+        cmd.Name(op_name).Input(x).Output(out).Run();
+        return out;
+    }
+    TORCH_LIBRARY(fps_stub, m) { m.def("test_op", &test_op_npu); }
+    """
+    stub_dir = tempfile.mkdtemp()
+    load_inline(name='fps_stub', cpp_sources=[stub_source],
+        extra_include_paths=[npu_inc],
+        extra_ldflags=[f'-L{lib_dir}', f'-l:{os.path.basename(npu_so)}'],
+        build_directory=stub_dir, is_python_module=False, verbose=False)
+    torch.ops.load_library(os.path.join(stub_dir, 'fps_stub.so'))
+    stub_op = torch.ops.fps_stub.test_op
+    x = torch.randn(1,5,3).npu()
+    # test built-in Abs first
+    try:
+        abs_out = stub_op(abs(x), "Abs")
+        torch.npu.synchronize()
+        print(f"  [OpCommand Abs] OK: {abs_out.cpu().abs().sum().item():.4f}")
+    except Exception as e:
+        print(f"  [OpCommand Abs] FAILED: {e}")
+    # test our FPS operator
+    try:
+        fps_out = stub_op(x, "FPS")
+        torch.npu.synchronize()
+        print(f"  [OpCommand FPS] returns: {fps_out.cpu().tolist()}")
+    except Exception as e:
+        print(f"  [OpCommand FPS] FAILED: {e}")
 
     # ---- debug: sweep N to find failing sizes ----
     for N in [50, 80, 100, 120, 150, 200, 250, 400, 600, 800, 900]:
