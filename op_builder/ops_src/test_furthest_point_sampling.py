@@ -61,8 +61,26 @@ def test():
     print(f"  [warmup] B=8 batch2[:6] = {wm_out2.cpu()[2,:6].tolist()}", flush=True)
     print("  [warmup] done.", flush=True)
 
-    tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
-             (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
+    # ---- ONLY test B=8 N=100 M=20, repeated for consistency ----
+    import copy
+    for rep in range(3):
+        B,N,M = 8,100,20
+        xyz=torch.randn(B,N,3).npu()
+        ref=cpu_fps(xyz.cpu(),M)
+        out=op(xyz,M)
+        torch.npu.synchronize()
+        out_cpu=out.cpu()
+        ok=torch.equal(ref,out_cpu)
+        if ok:
+            print(f"  [B8{rep}] PASS")
+        else:
+            diff=(ref!=out_cpu); tw=diff.sum().item(); pb=diff.sum(dim=1).tolist()
+            first=diff.nonzero(as_tuple=False)[0].tolist()
+            print(f"  [B8{rep}] FAIL m={tw}/160 per_batch={pb} 1st:batch={first[0]} idx={first[1]} ref={ref[first[0],first[1]].item()} out={out_cpu[first[0],first[1]].item()}")
+    # ---- end debug test ----
+    passed=0
+    tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),(1,1024,128),
+             (2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
     passed=0
     for B,N,M in tests:
         xyz=torch.randn(B,N,3).npu()
