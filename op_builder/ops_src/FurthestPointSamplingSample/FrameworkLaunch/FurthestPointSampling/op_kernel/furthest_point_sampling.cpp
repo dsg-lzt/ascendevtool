@@ -36,9 +36,8 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
     __gm__ int32_t* outGm = reinterpret_cast<__gm__ int32_t*>(output);
 
     for (int32_t b = bs; b < be; b++) {
-        int32_t lb = b - bs;   /* local batch index within this core */
-        __gm__ float*   bw = wsGm  + lb * N;   /* local offset (per-core ws) */
-        __gm__ int32_t* bo = outGm + b  * M;   /* global offset (shared output) */
+        __gm__ float*   bw = wsGm  + b * N;   /* global batch offset */
+        __gm__ int32_t* bo = outGm + b * M;
 
         /* init minDist in GM */
         for (int32_t i = 0; i < N; i++) bw[i] = 3.4028234663852886e+38f;
