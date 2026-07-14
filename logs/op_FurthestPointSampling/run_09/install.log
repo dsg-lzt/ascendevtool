@@ -1,7 +1,0 @@
-[ops_custom] [2026-07-07 14:41:05] [WARNING] The directory /usr/local/Ascend/ascend-toolkit/latest/opp does not have sufficient permissions. Please check and modify the folder permissions (e.g., using chmod), or use the --install-path option to specify an installation path and change the environment variable ASCEND_CUSTOM_OPP_PATH to the specified path.
-[ops_custom] [2026-07-07 14:41:05] [INFO] copy uninstall sh success
-chmod: 更改 '/usr/local/Ascend/ascend-toolkit/latest/opp/vendors' 的权限: 不允许的操作
-[ops_custom] [2026-07-07 14:41:05] [INFO] upgrade framework
-[ops_custom] [2026-07-07 14:41:05] [INFO] create /usr/local/Ascend/ascend-toolkit/latest/opp/vendors/customize/framework.
-mkdir: 无法创建目录 "/usr/local/Ascend/ascend-toolkit/latest/opp/vendors/customize": 权限不够
-[ops_custom] [2026-07-07 14:41:05] [ERROR] create /usr/local/Ascend/ascend-toolkit/latest/opp/vendors/customize/framework failed
