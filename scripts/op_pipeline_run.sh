@@ -134,8 +134,7 @@ log "1/4 编译算子..."
     log "编译成功"
 )
 
-status=$(tail -1 "$LOG_DIR/status.txt" 2>/dev/null)
-[ "$status" = "BUILD_FAILED" ] && exit 1
+if grep -q "^BUILD_FAILED$" "$LOG_DIR/status.txt" 2>/dev/null; then exit 1; fi
 
 # ---- 2. 验证 ----
 log "2/4 精度验证..."

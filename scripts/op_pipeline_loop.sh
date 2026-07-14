@@ -124,7 +124,7 @@ while [ $round -lt $MAX_ROUNDS ]; do
 
     # 检查测试是否通过
     STATUS_FILE="$LOG_ROOT/run_$(printf '%02d' $round)/status.txt"
-    if [ -f "$STATUS_FILE" ] && tail -1 "$STATUS_FILE" 2>/dev/null | grep -q "^TEST_OK$"; then
+    if grep -q "^TEST_OK$" "$STATUS_FILE" 2>/dev/null; then
         log "✅ 测试通过！" >> "$LOOP_LOG" 2>&1
         echo "OP_PIPELINE_SUCCESS_ROUND=$round" >> "$LOG_ROOT/loop_status.txt"
         git add "${LOG_ROOT}/" >> "$LOOP_LOG" 2>&1
