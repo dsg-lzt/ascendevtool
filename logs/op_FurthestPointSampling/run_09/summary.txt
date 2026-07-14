@@ -1,0 +1,35 @@
+=== Op Pipeline Round 09 Summary ===
+Operator: FurthestPointSampling
+Time: 2026-07-14 15:52:17
+
+--- build.log (tail 20) ---
+[ 83%] Built target cust_opapi
+[ 91%] Linking CXX shared library libcust_tf_parsers.so
+[ 91%] Built target cust_tf_parsers
+[100%] Linking CXX shared library libcust_opsproto_rt2.0.so
+[100%] Built target cust_op_proto
+Run CPack packaging tool...
+CPack: Create package using External
+CPack: Install projects
+CPack: - Run preinstall target for: opp
+CPack: - Install project: opp []
+CMake Error at /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/cmake_install.cmake:62 (file):
+  file INSTALL cannot find
+  "/home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/op_kernel/binary/config":
+  No such file or directory.
+Call Stack (most recent call first):
+  /home/orange/pipeline_tool/AscendDevTool/op_builder/ops_src/FurthestPointSamplingSample/FrameworkLaunch/FurthestPointSampling/build_out/cmake_install.cmake:57 (include)
+
+
+CPack Error: Error when generating package: opp
+gmake: *** [Makefile:71：package] 错误 1
+
+--- verify.log (tail 20) ---
+N/A
+
+--- test.log (tail 30) ---
+N/A
+
+--- status ---
+BUILD_FAILED
+BUILD_ERROR: 编译失败 (binary=2, package=2)
