@@ -42,11 +42,12 @@ extern "C" __global__ __aicore__ void furthest_point_sampling(
         /* init minDist in GM */
         for (int32_t i = 0; i < N; i++) bw[i] = 3.4028234663852886e+38f;
 
+        bo[0] = static_cast<int32_t>(cid);  /* DEBUG: write block ID */
         int32_t farthest = 0;
 
         if (dtLn == 4) {
             __gm__ float* bi = reinterpret_cast<__gm__ float*>(input) + b * N * C;
-            for (int32_t m = 0; m < M; m++) {
+            for (int32_t m = 1; m < M; m++) {
                 bo[m] = farthest;
                 float cx = bi[farthest*C], cy = bi[farthest*C+1], cz = bi[farthest*C+2];
                 float bestVal = -1.0f;
