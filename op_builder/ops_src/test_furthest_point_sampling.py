@@ -63,21 +63,6 @@ def test():
 
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),
              (1,1024,128),(2,500,100),(4,200,50),(1,64,8),(8,100,20),(3,300,150)]
-    # ---- B=8 N=100 M=20 detailed dump ----
-    xyz_debug = torch.randn(8,100,3).npu()
-    ref_debug = cpu_fps(xyz_debug.cpu(), 20)
-    out_debug = op(xyz_debug, 20)
-    torch.npu.synchronize()
-    out_debug_cpu = out_debug.cpu()
-    for bi in range(8):
-        ref_b = ref_debug[bi].tolist()
-        out_b = out_debug_cpu[bi].tolist()
-        if ref_b != out_b:
-            diff_idx = [j for j in range(20) if ref_b[j] != out_b[j]]
-            print(f"  [detail] batch={bi}: wrong at m={diff_idx}")
-            print(f"    ref={ref_b}")
-            print(f"    out={out_b}")
-
     passed=0
     for B,N,M in tests:
         xyz=torch.randn(B,N,3).npu()
