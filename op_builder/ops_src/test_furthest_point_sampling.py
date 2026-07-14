@@ -61,33 +61,19 @@ def test():
     print(f"  [warmup] B=8 batch2[:6] = {wm_out2.cpu()[2,:6].tolist()}", flush=True)
     print("  [warmup] done.", flush=True)
 
-    # ---- test B=8 by calling 1 batch at a time ----
-    B,N,M = 8,100,20
+    # ---- debug: fixed seed N=100 M=20 per-batch dump ----
+    torch.manual_seed(42)
+    B,N,M = 1,100,20
     xyz=torch.randn(B,N,3).npu()
     ref=cpu_fps(xyz.cpu(),M)
-    out = torch.zeros(B, M, dtype=torch.int32)
-    for bi in range(B):
-        out_bi = op(xyz[bi:bi+1], M)
+    for rep in range(3):
+        out=op(xyz,M)
         torch.npu.synchronize()
-        out[bi:bi+1] = out_bi.cpu()
-    ok = torch.equal(ref, out)
-    if ok:
-        print(f"  [B8-per-batch] PASS")
-    else:
-        diff=(ref!=out); tw=diff.sum().item(); pb=diff.sum(dim=1).tolist()
-        print(f"  [B8-per-batch] FAIL m={tw}/160 per_batch={pb}")
-
-    # ---- original B=8 call for comparison ----
-    xyz2=torch.randn(B,N,3).npu()
-    ref2=cpu_fps(xyz2.cpu(),M)
-    out2=op(xyz2,M)
-    torch.npu.synchronize()
-    ok2=torch.equal(ref2,out2.cpu())
-    if ok2:
-        print(f"  [B8-bulk] PASS")
-    else:
-        diff2=(ref2!=out2.cpu()); tw2=diff2.sum().item(); pb2=diff2.sum(dim=1).tolist()
-        print(f"  [B8-bulk] FAIL m={tw2}/160 per_batch={pb2}")
+        out_c=out.cpu()
+        ok=torch.equal(ref,out_c)
+        diff_pos = [j for j in range(M) if ref[0,j]!=out_c[0,j]]
+        wrong = len(diff_pos)
+        print(f"  [N100 rep{rep}] wrong={wrong}/{M} positions={diff_pos[:10]}")
     # ---- end debug test ----
     passed=0
     tests = [(1,128,32),(1,512,64),(2,256,48),(4,128,16),(1,1024,128),
