@@ -70,6 +70,20 @@ class TorchToNpuTransformer(cst.CSTTransformer):
             return updated_node.with_changes(
                 value=updated_node.value.with_changes(attr=cst.Name("npu"))
             )
+        # Handle .major/.minor — NPU has no CUDA compute capability.
+        # Match both direct (torch.cuda.get_device_properties(0).major) and
+        # variable (device_props.major where device_props comes from get_device_properties)
+        if original_node.attr.value in ("major", "minor"):
+            val = original_node.value
+            # Direct call: torch.cuda.get_device_properties(0).major
+            if isinstance(val, cst.Call) and isinstance(val.func, cst.Attribute):
+                if val.func.attr.value == "get_device_properties":
+                    self.changes += 1
+                    return cst.Integer("0")
+            # Variable: device_props.major (assigned from get_device_properties)
+            if isinstance(val, cst.Name):
+                self.changes += 1
+                return cst.Integer("0")
         return updated_node
 
     # ── Call: .cuda() → .npu()  ───────────────────────────────────────
