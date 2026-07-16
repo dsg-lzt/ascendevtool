@@ -107,6 +107,26 @@ class TorchToNpuTransformer(cst.CSTTransformer):
             return cst.SimpleString(f'{quote}{new_val}{quote}')
         return updated_node
 
+    # ── FormattedString (f-string): replace "cuda:" → "npu:" in text parts ──
+    def leave_FormattedString(self, original_node: cst.FormattedString, updated_node: cst.FormattedString) -> cst.BaseExpression:
+        new_parts = []
+        changed = False
+        for part in original_node.parts:
+            if isinstance(part, cst.FormattedStringText):
+                text = part.value
+                new_text = text.replace("cuda:", "npu:").replace("gpu:", "npu:")
+                if new_text != text:
+                    changed = True
+                    new_parts.append(part.with_changes(value=new_text))
+                else:
+                    new_parts.append(part)
+            else:
+                new_parts.append(part)
+        if changed:
+            self.changes += 1
+            return updated_node.with_changes(parts=new_parts)
+        return updated_node
+
     # ── ImportFrom: from torch.cuda.amp import X → from torch.npu.amp import X ──
     def leave_ImportFrom(self, original_node: cst.ImportFrom, updated_node: cst.ImportFrom) -> cst.BaseSmallStatement:
         module_val = self._module_str(original_node.module)
