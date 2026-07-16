@@ -1,31 +1,4 @@
-(ascenddevtool) (base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ CSV=$(find ../ascenddev_output/sam3_scan -name unsupported_api.csv | head -1)
-(ascenddevtool) (base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python migrate.py ../sam3_scan "$CSV" -o ../ascenddev_output/sam3_NPU
-错误: 源码目录不存在: ../sam3_scan
-(ascenddevtool) (base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python migrate.py ../sam3 "$CSV" -o ../ascenddev_output/sam3_NPU
->>> 算子替换分析...
-分析完成：9 个不支持的算子
-  已入库/可映射: 0
-  可拆分: 0
-  数学等价改写: 0
-  需开发: 9
-已生成 13 个文件/脚手架
->>> CUDA→NPU 迁移...
-迁移完成: 375 处变更 (跳过 2 个生成文件)
-
-输出目录: ../ascenddev_output/sam3_NPU
-(ascenddevtool) (base) orange@orange-NucBox-K11:~/pipeline_tool/AscendDevTool$ python migrate.py ../sam3 "$CSV" -o ../ascenddev_output/sam3_NPU
->>> 算子替换分析...
-分析完成：9 个不支持的算子
-  已入库/可映射: 0
-  可拆分: 0
-  数学等价改写: 0
-  需开发: 9
-已生成 13 个文件/脚手架
->>> CUDA→NPU 迁移...
-迁移完成: 377 处变更 (跳过 2 个生成文件)
-
-输出目录: ../ascenddev_output/sam3_NPU
-(torch_npu) orange@orange-NucBox-K11:~/pipeline_tool/ascenddev_output/sam3_NPU$ python test.py
+(torch_npu) (base) orange@orange-NucBox-K11:~/pipeline_tool/ascenddev_output/sam3_NPU$ python test.py
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
@@ -34,18 +7,31 @@
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
 /home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
   warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/model_misc.py:72: UserWarning: Flash Attention is disabled as it requires a GPU with Ampere (8.0) CUDA capability.
+  OLD_GPU, USE_FLASH_ATTN, MATH_KERNEL_ON = get_sdpa_settings()
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
+ npu Autocast only supports dtypes of torch.float16 currently.
+  warnings.warn(error_message)
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+[W716 14:06:15.594258619 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
+loaded ../../weights/sam3.1/sam3.1_multiplex.pt and found missing and/or unexpected keys:
+missing_keys=['backbone.vision_backbone.convs.3.conv_1x1.weight', 'backbone.vision_backbone.convs.3.conv_1x1.bias', 'backbone.vision_backbone.convs.3.conv_3x3.weight', 'backbone.vision_backbone.convs.3.conv_3x3.bias']
+[W716 14:06:23.172236830 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_addmm_activation.out' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+.[W716 14:13:20.580543378 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'torchvision::roi_align' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+[W716 14:13:20.590345691 GetCANNInfo.cpp:117] Warning: Driver Version: 24.1.rc4.b999 is invalid or not supported yet. (function operator())
+[W716 14:13:20.598603279 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_assert_async' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+INFO 2026-07-16 14:13:26,754 930836 sam3_video_predictor.py: 110: using the following GPU IDs: [0]
 Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 6, in <module>
-    from sam3.model_builder import build_sam3_image_model
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/__init__.py", line 5, in <module>
-    from .model_builder import build_sam3_image_model, build_sam3_predictor
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 15, in <module>
-    from sam3.model.decoder import (
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/decoder.py", line 26, in <module>
-    from .model_misc import (
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/model_misc.py", line 72, in <module>
-    OLD_GPU, USE_FLASH_ATTN, MATH_KERNEL_ON = get_sdpa_settings()
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/model_misc.py", line 44, in get_sdpa_settings
-    old_gpu = torch.npu.get_device_properties(0).major < 7
-TypeError: '<' not supported between instances of 'NoneType' and 'int'
-[ERROR] 2026-07-16-10:54:29 (PID:57442, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 24, in <module>
+    video_predictor = build_sam3_video_predictor()
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 849, in build_sam3_video_predictor
+    return Sam3VideoPredictorMultiGPU(
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/sam3_video_predictor.py", line 123, in __init__
+    torch.npu.set_device(self.device)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 89, in set_device
+    device_id = _get_device_index(device, optional=True)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 151, in _get_device_index
+    raise ValueError('Expected a npu device, but got: {}'.format(device) + pta_error(ErrCode.VALUE))
+ValueError: Expected a npu device, but got: cuda:0
+[ERROR] 2026-07-16-14:13:26 (PID:930836, Device:0, RankID:-1) ERR00003 PTA invalid value
