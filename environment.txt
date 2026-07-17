@@ -1,15 +1,1 @@
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 8, in <module>
-    from sam3.model_builder import build_sam3_image_model
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/__init__.py", line 5, in <module>
-    from .model_builder import build_sam3_image_model, build_sam3_predictor
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 14, in <module>
-    from sam3.model.decoder import (
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/decoder.py", line 1016
-    out = torch((q @ k.transpose(-2, -1)) / (q.size(-1) ** 0.5)).softmax(dim=-1) @ v, dropout_p=dropout
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
-[ERROR] 2026-07-17-17:50:12 (PID:2266015, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
-[WARNING] The specified program cannot exit normally, exitCode:1. Please check your code or make sure that the operation is valid.
-[ERROR] Running profiling failed.Please check log for more info.
+  grep -n "_npu_sdpa\|npu_compat" sam3/model/vitdet.py | head -5
