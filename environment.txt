@@ -1,60 +1,10 @@
-
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-torch: 2.6.0+cpu
-torch_npu: 2.6.0.post3
-..W0717 16:22:09.002000 1140340 site-packages/torch/_inductor/debug.py:435] [0/0] model__1_inference_3 debug trace: /home/orange/pipeline_tool/torch_compile_debug/run_2026_07_17_16_21_40_640114-pid_1140340/torchinductor/model__1_inference_3.0
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/test.py", line 12, in <module>
-    out = foo(x)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 574, in _fn
-    return fn(*args, **kwargs)
-  File "/home/orange/pipeline_tool/test.py", line 7, in foo
-    @torch.compile
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
-    return fn(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_functorch/aot_autograd.py", line 1184, in forward
-    return compiled_fn(full_args)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 323, in runtime_wrapper
-    all_outs = call_func_at_runtime_with_args(
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
-    out = normalize_as_list(f(args))
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 672, in inner_fn
-    outs = compiled_fn(args)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 490, in wrapper
-    return compiled_fn(runtime_args)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 466, in __call__
-    return self.current_callable(inputs)
-  File "/tmp/torchinductor_orange/hy/chymi3rl5eg5gartbf2ut6yjiavpgzhwt565b5uno5opcn2rtiwy.py", line 105, in call
-    triton_unk_fused_sum_0.run(arg0_1, buf0, 10000, grid=grid(), stream=stream0)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/_inductor/npu_triton_heuristics.py", line 864, in run
-    self.autotune_to_one_config(*args, grid=grid, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/_inductor/npu_triton_heuristics.py", line 619, in autotune_to_one_config
-    timings = self.benchmark_all_configs(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 885, in benchmark_all_configs
-    timings = {
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_inductor/runtime/triton_heuristics.py", line 886, in <dictcomp>
-    launcher: self.bench(launcher, *args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/_inductor/npu_triton_heuristics.py", line 613, in bench
-    return benchmarker.benchmark_gpu(kernel_call, rep=1)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_inductor/runtime/benchmarking.py", line 66, in wrapper
-    return fn(self, *args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/_inductor/runtime/benchmarking.py", line 202, in benchmark_gpu
-    return self.triton_do_bench(_callable, **kwargs, return_mode="median")
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/triton/testing.py", line 147, in do_bench
-    di.synchronize()
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 72, in synchronize
-    return torch_npu._C._npu_synchronize()
-RuntimeError: The Inner error is reported as above. The process exits for this inner error, and the current working operator name is triton_unk_fused_sum_0.
-Since the operator is called asynchronously, the stacktrace may be inaccurate. If you want to get the accurate stacktrace, please set the environment variable ASCEND_LAUNCH_BLOCKING=1.
-Note: ASCEND_LAUNCH_BLOCKING=1 will force ops to run in synchronous mode, resulting in performance degradation. Please unset ASCEND_LAUNCH_BLOCKING in time after debugging.
-[ERROR] 2026-07-17-16:22:09 (PID:1140340, Device:0, RankID:-1) ERR00100 PTA call acl api failed.
-[PID: 1140340] 2026-07-17-16:22:09.009.188 Operation_Unsupported(EL0014): The operation is unsupported.
-        TraceBack (most recent call last):
-        rtGetC2cCtrlAddr execute failed, reason=[driver error:feature not support][FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:53]
+  python -c "
+  import torch
+  for backend in ['npu', 'inductor', 'eager', 'aot_eager']:
+      try:
+          f = torch.compile(lambda x: x.sum(), backend=backend)
+          out = f(torch.randn(100,100).npu())
+          print(f'{backend}: ✅')
+      except Exception as e:
+          print(f'{backend}: ❌ {str(e)[:80]}')
+  "
