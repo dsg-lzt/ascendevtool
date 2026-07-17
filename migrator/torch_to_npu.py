@@ -49,16 +49,34 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         return None
 
     def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
-        if self._torch_import_index is None or self._torch_npu_already_imported:
-            return updated_node
-        new_import = cst.parse_statement("import torch_npu\n")
-        set_cm = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=False)\n")
         new_body: List[cst.BaseStatement] = list(updated_node.body)
-        insert_at = self._torch_import_index + 1
-        new_body.insert(insert_at, set_cm)
-        new_body.insert(insert_at, new_import)
-        self.changes += 2
-        return updated_node.with_changes(body=tuple(new_body))
+        changes_made = 0
+
+        # 1. Insert import torch_npu after import torch
+        if self._torch_import_index is not None and not self._torch_npu_already_imported:
+            insert_import = cst.parse_statement("import torch_npu\n")
+            new_body.insert(self._torch_import_index + 1 + changes_made, insert_import)
+            changes_made += 1
+
+        # 2. Find first torch.compile() call and insert set_compile_mode before it
+        # (but only if set_compile_mode is not already present)
+        has_set_cm = any("set_compile_mode" in (stmt.code if hasattr(stmt, 'code') else cst.Module(body=[stmt]).code) for stmt in new_body)
+        if not has_set_cm:
+            compile_line_idx = None
+            for i, stmt in enumerate(new_body):
+                code = stmt.code if hasattr(stmt, 'code') else cst.Module(body=[stmt]).code
+                if "torch.compile(" in code:
+                    compile_line_idx = i
+                    break
+            if compile_line_idx is not None:
+                set_cm = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=True)\n")
+                new_body.insert(compile_line_idx, set_cm)
+                changes_made += 1
+
+        if changes_made:
+            self.changes += changes_made
+            return updated_node.with_changes(body=tuple(new_body))
+        return updated_node
 
     # ── Attribute: torch.cuda → torch.npu / torch.cuda.X → torch.npu.X ──
     def leave_Attribute(self, original_node: cst.Attribute, updated_node: cst.Attribute) -> cst.BaseExpression:
