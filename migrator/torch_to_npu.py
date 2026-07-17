@@ -49,42 +49,14 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         return None
 
     def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+        if self._torch_import_index is None or self._torch_npu_already_imported:
+            return updated_node
+        new_import = cst.parse_statement("import torch_npu\n")
         new_body: List[cst.BaseStatement] = list(updated_node.body)
-        changes_made = 0
-
-        # 1. Insert import torch_npu after import torch
-        if self._torch_import_index is not None and not self._torch_npu_already_imported:
-            insert_import = cst.parse_statement("import torch_npu\n")
-            new_body.insert(self._torch_import_index + 1 + changes_made, insert_import)
-            changes_made += 1
-
-        # 2. Check if set_compile_mode already present
-        has_set_cm = any("set_compile_mode" in (stmt.code if hasattr(stmt, 'code') else cst.Module(body=[stmt]).code) for stmt in new_body)
-
-        if not has_set_cm:
-            # 2a. Insert jit_compile=False at module level (so model.npu() with complex works)
-            if self._torch_import_index is not None:
-                set_cm_false = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=False)\n")
-                insert_pos = self._torch_import_index + 1 + changes_made
-                new_body.insert(insert_pos, set_cm_false)
-                changes_made += 1
-
-            # 2b. Find first torch.compile() call and insert jit_compile=True before it
-            compile_line_idx = None
-            for i, stmt in enumerate(new_body):
-                code = stmt.code if hasattr(stmt, 'code') else cst.Module(body=[stmt]).code
-                if "torch.compile(" in code:
-                    compile_line_idx = i
-                    break
-            if compile_line_idx is not None:
-                set_cm_true = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=True)\n")
-                new_body.insert(compile_line_idx, set_cm_true)
-                changes_made += 1
-
-        if changes_made:
-            self.changes += changes_made
-            return updated_node.with_changes(body=tuple(new_body))
-        return updated_node
+        insert_at = self._torch_import_index + 1
+        new_body.insert(insert_at, new_import)
+        self.changes += 1
+        return updated_node.with_changes(body=tuple(new_body))
 
     # ── Attribute: torch.cuda → torch.npu / torch.cuda.X → torch.npu.X ──
     def leave_Attribute(self, original_node: cst.Attribute, updated_node: cst.Attribute) -> cst.BaseExpression:
@@ -117,7 +89,7 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 return cst.Integer("0")
         return updated_node
 
-    # ── Call: .cuda() → .npu(); torch.compile() → inject backend="npu"  ──
+    # ── Call: .cuda() → .npu()  ───────────────────────────────────────
     def leave_Call(self, original_node: cst.Call, updated_node: cst.Call) -> cst.BaseExpression:
         if isinstance(original_node.func, cst.Attribute):
             attr = original_node.func
@@ -126,21 +98,6 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 return updated_node.with_changes(
                     func=cst.Attribute(value=attr.value, attr=cst.Name("npu"), lpar=attr.lpar, rpar=attr.rpar)
                 )
-            # torch.compile(fn, ...) → inject backend="npu" if not present
-            if attr.attr.value == "compile" and isinstance(attr.value, cst.Name) and attr.value.value == "torch":
-                has_backend = any(
-                    isinstance(arg, cst.Arg) and arg.keyword is not None and arg.keyword.value == "backend"
-                    for arg in original_node.args
-                )
-                if not has_backend and original_node.args:
-                    self.changes += 1
-                    kw_arg = cst.Arg(
-                        keyword=cst.Name("backend"),
-                        value=cst.SimpleString('"npu"'),
-                        equal=cst.AssignEqual(),
-                    )
-                    new_args = tuple(updated_node.args) + (kw_arg,)
-                    return updated_node.with_changes(args=new_args)
         return updated_node
 
     # ── SimpleString: "cuda"/"gpu" → "npu" ───────────────────
