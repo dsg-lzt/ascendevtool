@@ -1,37 +1,8 @@
-(torch_npu) (base) orange@orange-NucBox-K11:~/pipeline_tool/ascenddev_output/sam3_NPU$ python test.py
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
-  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
-/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/model_misc.py:72: UserWarning: Flash Attention is disabled as it requires a GPU with Ampere (8.0) CUDA capability.
-  OLD_GPU, USE_FLASH_ATTN, MATH_KERNEL_ON = get_sdpa_settings()
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
- npu Autocast only supports dtypes of torch.float16 currently.
-  warnings.warn(error_message)
-/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
-  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
-[W716 14:06:15.594258619 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
-loaded ../../weights/sam3.1/sam3.1_multiplex.pt and found missing and/or unexpected keys:
 missing_keys=['backbone.vision_backbone.convs.3.conv_1x1.weight', 'backbone.vision_backbone.convs.3.conv_1x1.bias', 'backbone.vision_backbone.convs.3.conv_3x3.weight', 'backbone.vision_backbone.convs.3.conv_3x3.bias']
-[W716 14:06:23.172236830 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_addmm_activation.out' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
-.[W716 14:13:20.580543378 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'torchvision::roi_align' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
-[W716 14:13:20.590345691 GetCANNInfo.cpp:117] Warning: Driver Version: 24.1.rc4.b999 is invalid or not supported yet. (function operator())
-[W716 14:13:20.598603279 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_assert_async' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
-INFO 2026-07-16 14:13:26,754 930836 sam3_video_predictor.py: 110: using the following GPU IDs: [0]
-Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 24, in <module>
-    video_predictor = build_sam3_video_predictor()
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 849, in build_sam3_video_predictor
-    return Sam3VideoPredictorMultiGPU(
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/sam3_video_predictor.py", line 123, in __init__
-    torch.npu.set_device(self.device)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 89, in set_device
-    device_id = _get_device_index(device, optional=True)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/npu/utils.py", line 151, in _get_device_index
-    raise ValueError('Expected a npu device, but got: {}'.format(device) + pta_error(ErrCode.VALUE))
-ValueError: Expected a npu device, but got: cuda:0
-[ERROR] 2026-07-16-14:13:26 (PID:930836, Device:0, RankID:-1) ERR00003 PTA invalid value
+开始测试推理时间...
+[W717 10:01:28.408500197 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_addmm_activation.out' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+.[W717 10:08:03.682211627 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'torchvision::roi_align' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+[W717 10:08:03.695147663 GetCANNInfo.cpp:117] Warning: Driver Version: 24.1.rc4.b999 is invalid or not supported yet. (function operator())
+[W717 10:08:03.702318968 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_assert_async' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
+-> 单次纯推理耗时: 393061.71 ms
+正在进行10次循环测速以获取平均值...
