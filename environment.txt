@@ -1,24 +1,39 @@
-.Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 13, in <module>
-    model = build_sam3_image_model()
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 654, in build_sam3_image_model
-    model = _setup_device_and_mode(model, device, eval_mode)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 569, in _setup_device_and_mode
-    model = model.npu()
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 54, in npu
-    return self._apply(lambda t: t.npu(device))
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
-    module._apply(fn)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
-    module._apply(fn)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
-    module._apply(fn)
-  [Previous line repeated 3 more times]
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 991, in _apply
-    self._buffers[key] = fn(buf)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 54, in <lambda>
-    return self._apply(lambda t: t.npu(device))
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/backend_registration.py", line 148, in wrap_tensor_to
-    return self.to(device=torch.device(f'{custom_backend_name}:{device_idx}'), non_blocking=non_blocking, **kwargs)
-RuntimeError: Current settings do not support Complex dtype. Please try again with jit_compile=False.
-[ERROR] 2026-07-17-16:28:48 (PID:1199495, Device:0, RankID:-1) ERR01007 OPS feature not supported
+开始测试推理时间...
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 24, in <module>
+    inference_state = processor.set_image(image)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/sam3_image_processor.py", line 61, in set_image
+    state["backbone_out"] = self.model.backbone.forward_image(image)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vl_combiner.py", line 83, in forward_image
+    return activation_ckpt_wrapper(self._forward_image_no_act_ckpt)(
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/act_ckpt_utils.py", line 90, in act_ckpt_wrapper
+    ret = module(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vl_combiner.py", line 90, in _forward_image_no_act_ckpt
+    sam3_features, sam3_pos, sam2_features, sam2_pos = self.vision_backbone.forward(
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/necks.py", line 112, in forward
+    xs = self.trunk(tensor_list)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 987, in forward
+    x = blk(x)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 740, in forward
+    x = x + self.dropout(self.drop_path(self.ls2(self.mlp(self.norm2(x)))))
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 73, in forward
+    x = addmm_act(type(self.act), self.fc1, x)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/perflib/fused.py", line 17, in addmm_act
+    self = self.to(torch.bfloat16)
+RuntimeError: npu_dtype_cast_impl_op_api:third_party/op-plugin/op_plugin/ops/opapi/CastKernelNpuOpApi.cpp:35 NPU function error: call aclnnCast failed, error code is 161002
+[ERROR] 2026-07-17-16:31:15 (PID:1229898, Device:0, RankID:-1) ERR00100 PTA call acl api failed.
+[PID: 1229898] 2026-07-17-16:31:15.879.287 AclNN_Parameter_Error(EZ1001): The param dtype not implemented for DT_BFLOAT16, should be in dtype support list [DT_FLOAT16,DT_FLOAT,DT_DOUBLE,DT_INT8,DT_UINT8,DT_INT16,DT_INT32,DT_INT64,DT_UINT16,DT_UINT32,DT_UINT64,DT_BOOL,DT_COMPLEX64,DT_COMPLEX128,].
