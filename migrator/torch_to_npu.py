@@ -86,7 +86,7 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 return cst.Integer("0")
         return updated_node
 
-    # ── Call: .cuda() → .npu()  ───────────────────────────────────────
+    # ── Call: .cuda() → .npu(); torch.compile() → inject backend="npu"  ──
     def leave_Call(self, original_node: cst.Call, updated_node: cst.Call) -> cst.BaseExpression:
         if isinstance(original_node.func, cst.Attribute):
             attr = original_node.func
@@ -95,6 +95,21 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 return updated_node.with_changes(
                     func=cst.Attribute(value=attr.value, attr=cst.Name("npu"), lpar=attr.lpar, rpar=attr.rpar)
                 )
+            # torch.compile(fn, ...) → inject backend="npu" if not present
+            if attr.attr.value == "compile" and isinstance(attr.value, cst.Name) and attr.value.value == "torch":
+                has_backend = any(
+                    isinstance(arg, cst.Arg) and arg.keyword is not None and arg.keyword.value == "backend"
+                    for arg in original_node.args
+                )
+                if not has_backend and original_node.args:
+                    self.changes += 1
+                    kw_arg = cst.Arg(
+                        keyword=cst.Name("backend"),
+                        value=cst.SimpleString('"npu"'),
+                        equal=cst.AssignEqual(),
+                    )
+                    new_args = tuple(updated_node.args) + (kw_arg,)
+                    return updated_node.with_changes(args=new_args)
         return updated_node
 
     # ── SimpleString: "cuda"/"gpu" → "npu" ───────────────────
