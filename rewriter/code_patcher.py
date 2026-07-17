@@ -393,10 +393,12 @@ def apply_rewrites_to_source(
             continue
 
         # 注入 npu_compat（torch.cross 等 monkey-patch）
+        source_before = source
         source = _inject_npu_compat(source, output_dir)
+        injected_changed = (source != source_before)
 
         new_source, changes = patch_source_file(source)
-        if changes == 0 and source == new_source:
+        if changes == 0 and source == new_source and not injected_changed:
             continue
 
         py_file.write_text(new_source, encoding="utf-8")
