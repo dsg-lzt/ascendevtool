@@ -1,3 +1,21 @@
+python test.py
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.3.RC1/x86_64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/model_misc.py:72: UserWarning: Flash Attention is disabled as it requires a GPU with Ampere (8.0) CUDA capability.
+  OLD_GPU, USE_FLASH_ATTN, MATH_KERNEL_ON = get_sdpa_settings()
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/amp/autocast_mode.py:314: UserWarning: In npu autocast, but the target dtype is not supported. Disabling autocast.
+ npu Autocast only supports dtypes of torch.float16 currently.
+  warnings.warn(error_message)
+/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+[W717 10:01:19.719523980 op_api_common.cpp:37] Warning: A common user is using the files of the root user. (function operator())
+loaded ../../weights/sam3.1/sam3.1_multiplex.pt and found missing and/or unexpected keys:
 missing_keys=['backbone.vision_backbone.convs.3.conv_1x1.weight', 'backbone.vision_backbone.convs.3.conv_1x1.bias', 'backbone.vision_backbone.convs.3.conv_3x3.weight', 'backbone.vision_backbone.convs.3.conv_3x3.bias']
 开始测试推理时间...
 [W717 10:01:28.408500197 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_addmm_activation.out' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
@@ -6,3 +24,14 @@ missing_keys=['backbone.vision_backbone.convs.3.conv_1x1.weight', 'backbone.visi
 [W717 10:08:03.702318968 VariableFallbackKernel.cpp:250] Warning: CAUTION: The operator 'aten::_assert_async' is not currently supported on the NPU backend and will fall back to run on the CPU. This may have performance implications. (function npu_cpu_fallback)
 -> 单次纯推理耗时: 393061.71 ms
 正在进行10次循环测速以获取平均值...
+-> 10次循环平均推理耗时: 393677.13 ms
+================ 预测结果数值 ================
+检测到的目标数量: 2
+置信度分数 (Scores): [0.525729  0.9800719]
+边界框坐标 (Boxes): 
+[[ 6.0575220e+02 -1.2287781e-01  6.4100171e+02  7.0273552e+00]
+ [-1.8345833e+00  1.5946069e+02  1.9260277e+02  3.3284903e+02]]
+掩码矩阵形状 (Masks Shape): (2, 1, 480, 640)
+==============================================
+
+可视化图片已成功保存至: ./sam3_result.png
