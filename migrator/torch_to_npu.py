@@ -203,21 +203,8 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         return None
 
 
-_SDPA_RE = re.compile(
-    r"F\.scaled_dot_product_attention\s*\(\s*([^,]+?)\s*,\s*([^,]+?)\s*,\s*([^)]+?)\s*\)"
-)
-
-
 def transform_source(source: str) -> Tuple[str, int]:
     tree = cst.parse_module(source)
     transformer = TorchToNpuTransformer()
     new_tree = tree.visit(transformer)
-    code = new_tree.code
-
-    # Post-processing: replace F.scaled_dot_product_attention with manual attention
-    def _replace_sdpa(m: re.Match) -> str:
-        q, k, v = m.group(1), m.group(2), m.group(3)
-        return f"(({q} @ {k}.transpose(-2, -1)) / ({q}.size(-1) ** 0.5)).softmax(dim=-1) @ {v}"
-
-    new_code, n = _SDPA_RE.subn(_replace_sdpa, code)
-    return new_code, transformer.changes + n
+    return new_tree.code, transformer.changes
