@@ -74,16 +74,12 @@ class TorchToNpuTransformer(cst.CSTTransformer):
                 self.changes += 1
                 return updated_node.with_changes(attr=cst.Name("float16"))
         # Handle .major/.minor — NPU has no CUDA compute capability.
-        # Match both direct (torch.cuda.get_device_properties(0).major) and
-        # variable (device_props.major where device_props comes from get_device_properties)
         if original_node.attr.value in ("major", "minor"):
             val = original_node.value
-            # Direct call: torch.cuda.get_device_properties(0).major
             if isinstance(val, cst.Call) and isinstance(val.func, cst.Attribute):
                 if val.func.attr.value == "get_device_properties":
                     self.changes += 1
                     return cst.Integer("0")
-            # Variable: device_props.major (assigned from get_device_properties)
             if isinstance(val, cst.Name):
                 self.changes += 1
                 return cst.Integer("0")
@@ -207,8 +203,21 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         return None
 
 
+_SDPA_RE = re.compile(
+    r"F\.scaled_dot_product_attention\s*\(\s*([^,]+?)\s*,\s*([^,]+?)\s*,\s*([^)]+?)\s*\)"
+)
+
+
 def transform_source(source: str) -> Tuple[str, int]:
     tree = cst.parse_module(source)
     transformer = TorchToNpuTransformer()
     new_tree = tree.visit(transformer)
-    return new_tree.code, transformer.changes
+    code = new_tree.code
+
+    # Post-processing: replace F.scaled_dot_product_attention with manual attention
+    def _replace_sdpa(m: re.Match) -> str:
+        q, k, v = m.group(1), m.group(2), m.group(3)
+        return f"(({q} @ {k}.transpose(-2, -1)) / ({q}.size(-1) ** 0.5)).softmax(dim=-1) @ {v}"
+
+    new_code, n = _SDPA_RE.subn(_replace_sdpa, code)
+    return new_code, transformer.changes + n
