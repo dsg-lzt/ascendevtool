@@ -1,36 +1,15 @@
-[W717 17:42:53.058014361 IsNegInfKernelNpu.cpp:35] Warning: Warning: kernel [isneginf.out] is not supported by NPU currently. Now this kernel is running on CPU. (function operator())
-..Traceback (most recent call last):
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 23, in <module>
-    inference_state = processor.set_image(image)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/sam3_image_processor.py", line 60, in set_image
-    state["backbone_out"] = self.model.backbone.forward_image(image)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vl_combiner.py", line 82, in forward_image
-    return activation_ckpt_wrapper(self._forward_image_no_act_ckpt)(
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/act_ckpt_utils.py", line 89, in act_ckpt_wrapper
-    ret = module(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vl_combiner.py", line 89, in _forward_image_no_act_ckpt
-    sam3_features, sam3_pos, sam2_features, sam2_pos = self.vision_backbone.forward(
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/necks.py", line 111, in forward
-    xs = self.trunk(tensor_list)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 987, in forward
-    x = blk(x)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 734, in forward
-    x = self.ls1(self.attn(x))
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/vitdet.py", line 619, in forward
-    x = F.scaled_dot_product_attention(q, k, v)
-RuntimeError: can not cast format when output is input
-[ERROR] 2026-07-17-17:43:12 (PID:2102617, Device:0, RankID:-1) ERR01007 OPS feature not supported
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 8, in <module>
+    from sam3.model_builder import build_sam3_image_model
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/__init__.py", line 5, in <module>
+    from .model_builder import build_sam3_image_model, build_sam3_predictor
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 14, in <module>
+    from sam3.model.decoder import (
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model/decoder.py", line 1016
+    out = torch((q @ k.transpose(-2, -1)) / (q.size(-1) ** 0.5)).softmax(dim=-1) @ v, dropout_p=dropout
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+[ERROR] 2026-07-17-17:50:12 (PID:2266015, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[WARNING] The specified program cannot exit normally, exitCode:1. Please check your code or make sure that the operation is valid.
+[ERROR] Running profiling failed.Please check log for more info.
