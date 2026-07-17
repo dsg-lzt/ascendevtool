@@ -1,10 +1,24 @@
-  python -c "
-  import torch
-  for backend in ['npu', 'inductor', 'eager', 'aot_eager']:
-      try:
-          f = torch.compile(lambda x: x.sum(), backend=backend)
-          out = f(torch.randn(100,100).npu())
-          print(f'{backend}: ✅')
-      except Exception as e:
-          print(f'{backend}: ❌ {str(e)[:80]}')
-  "
+.Traceback (most recent call last):
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/test.py", line 13, in <module>
+    model = build_sam3_image_model()
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 654, in build_sam3_image_model
+    model = _setup_device_and_mode(model, device, eval_mode)
+  File "/home/orange/pipeline_tool/ascenddev_output/sam3_NPU/sam3/model_builder.py", line 569, in _setup_device_and_mode
+    model = model.npu()
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 54, in npu
+    return self._apply(lambda t: t.npu(device))
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 903, in _apply
+    module._apply(fn)
+  [Previous line repeated 3 more times]
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/nn/modules/module.py", line 991, in _apply
+    self._buffers[key] = fn(buf)
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch_npu/utils/_module.py", line 54, in <lambda>
+    return self._apply(lambda t: t.npu(device))
+  File "/home/orange/miniconda3/envs/torch_npu/lib/python3.10/site-packages/torch/utils/backend_registration.py", line 148, in wrap_tensor_to
+    return self.to(device=torch.device(f'{custom_backend_name}:{device_idx}'), non_blocking=non_blocking, **kwargs)
+RuntimeError: Current settings do not support Complex dtype. Please try again with jit_compile=False.
+[ERROR] 2026-07-17-16:28:48 (PID:1199495, Device:0, RankID:-1) ERR01007 OPS feature not supported
