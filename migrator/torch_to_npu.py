@@ -52,7 +52,7 @@ class TorchToNpuTransformer(cst.CSTTransformer):
         if self._torch_import_index is None or self._torch_npu_already_imported:
             return updated_node
         new_import = cst.parse_statement("import torch_npu\n")
-        set_cm = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=False)\n")
+        set_cm = cst.parse_statement("torch.npu.set_compile_mode(jit_compile=True)\n")
         new_body: List[cst.BaseStatement] = list(updated_node.body)
         insert_at = self._torch_import_index + 1
         new_body.insert(insert_at, set_cm)
