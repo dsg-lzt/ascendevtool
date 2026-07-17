@@ -70,6 +70,11 @@ class TorchToNpuTransformer(cst.CSTTransformer):
             return updated_node.with_changes(
                 value=updated_node.value.with_changes(attr=cst.Name("npu"))
             )
+        # torch.bfloat16 → torch.float16 (310P doesn't support bf16)
+        if original_node.attr.value == "bfloat16":
+            if isinstance(original_node.value, cst.Name) and original_node.value.value == "torch":
+                self.changes += 1
+                return updated_node.with_changes(attr=cst.Name("float16"))
         # Handle .major/.minor — NPU has no CUDA compute capability.
         # Match both direct (torch.cuda.get_device_properties(0).major) and
         # variable (device_props.major where device_props comes from get_device_properties)
