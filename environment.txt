@@ -1,47 +1,118 @@
-  cat > GroundingDINO_SwinT_OGC.py <<'PYEOF'
-  batch_size = 1
-  modelname = "groundingdino"
-  backbone = "swin_T_224_1k"
-  position_embedding = "sine"
-  pe_temperatureH = 20
-  pe_temperatureW = 20
-  return_interm_indices = [1, 2, 3]
-  backbone_freeze_keywords = None
-  enc_layers = 6
-  dec_layers = 6
-  pre_norm = False
-  dim_feedforward = 2048
-  hidden_dim = 256
-  dropout = 0.0
-  nheads = 8
-  num_queries = 900
-  query_dim = 4
-  num_patterns = 0
-  num_feature_levels = 4
-  enc_n_points = 4
-  dec_n_points = 4
-  two_stage_type = "standard"
-  two_stage_bbox_embed_share = False
-  two_stage_class_embed_share = False
-  transformer_activation = "relu"
-  dec_pred_bbox_embed_share = True
-  dn_box_noise_scale = 1.0
-  dn_label_noise_ratio = 0.5
-  dn_label_coef = 1.0
-  dn_bbox_coef = 1.0
-  embed_init_tgt = True
-  dn_labelbook_size = 2000
-  max_text_len = 256
-  text_encoder_type = "bert-base-uncased"
-  use_text_enhancer = True
-  use_fusion_layer = True
-  use_checkpoint = True
-  use_transformer_ckpt = True
-  use_text_cross_attention = True
-  text_dropout = 0.0
-  fusion_dropout = 0.0
-  fusion_droppath = 0.1
-  sub_sentence_present = True
-  local_cache = "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/models--bert-base-uncased/snapshots/86b5e0934494bd15c9632b12f734a8a67f723594"
-  use_local_cache = True
-  PYEOF
+eitp run   --profile default   --target cpu   --device cpu   --execution-mode single_package   --run-set gd-cpu-golden   --target-id cpu
+EITP_CALL_START {"args": {"device": "cpu"}, "argv": ["run", "--profile", "default", "--target", "cpu", "--device", "cpu", "--execution-mode", "single_package", "--run-set", "gd-cpu-golden", "--target-id", "cpu"], "command": "run", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+EITP_WORKSPACE_RUN_START workspace=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo profile=default python=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.eitp_venv/bin/python target=cpu device=cpu run_set=gd-cpu-golden
+ASCEND_ENV_SOURCED=/usr/local/Ascend/ascend-toolkit/set_env.sh
+EITP_ADAPTER_FULL_PIPELINE_START
+ROOT_DIR=/home/orange/Documents/AscendEITP/ascend-eitp
+BASE_DIR=/home/orange/Documents/AscendEITP
+PY=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.eitp_venv/bin/python
+MODEL_MANIFEST=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json
+ADAPTER=adapter.entry:GroundingDinoAdapter
+ADAPTER_CONFIG=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/config.json
+INPUT_JSON=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json
+SOURCE_DIR=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+SCAN_SOURCE_DIR=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+SCAN_SOURCE_MODULE=none
+BASELINE_DEVICE=cpu
+BASELINE_PATCH_REGISTRY=none
+CANDIDATE_DEVICE=cpu
+TARGET_DEVICE=cpu
+REQUIRE_NPU_ACCEPTANCE=0
+EXECUTION_MODE=single_package
+PREPARE_PROVIDERS=0
+REFERENCE_RUN_DIR=none
+REFERENCE_ARTIFACT_DIR=none
+REFERENCE_LABEL=external_reference
+EXTERNAL_REFERENCE_PROVIDED=0
+AUTO_REGISTRY_MAX_ITERS=3
+AUTO_REPLACEMENT_ABLATION=0
+AUTO_REPLACEMENT_ABLATION_MAX=8
+AUTO_FEATURE_CAPTURE=1
+AUTO_FEATURE_CAPTURE_MAX_MODULES=8
+AUTO_REGISTRY_EXTRA_OPS=none
+AUTO_REGISTRY_EXCLUDE_OPS=none
+AUTO_REGISTRY_BASE_DBS=none
+AUTO_REGISTRY_REGISTRIES=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/registry.json
+PATCH_FILTER_UNSUPPORTED=0
+COMPARE_TASK_THRESHOLDS=none
+TASK_EVALUATORS=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/metrics/evaluator.py:ModelTaskEvaluator
+NPU_AUDIT_PERFORMANCE_WARNINGS=0
+EITP_STAGE_START stage=scan source_dir=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+EITP_CALL_START {"args": {"output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "source_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo"}, "argv": ["scan", "--source-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "--torch-version", "default", "--timeout-sec", "1800"], "command": "scan", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+{"category": "scan_completed", "report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json", "scan_completed": true, "status": "succeeded"}
+EITP_CALL_END {"args": {"output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "source_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo"}, "argv": ["scan", "--source-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "--torch-version", "default", "--timeout-sec", "1800"], "command": "scan", "elapsed_ms": 5825.442, "event": "end", "return_code": 0, "schema_version": "eitp.cli_marker.v1", "status": "success"}
+EITP_STAGE_END stage=scan report=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json cli_rc=0 scan_status=succeeded action_category=scan_completed
+EITP_STAGE_START stage=baseline device=cpu
+EITP_CALL_START {"args": {"allow_failure": true, "compile_mode": "preserve", "device": "cpu", "input_path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "model_dtype": "preserve", "model_manifest": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "patch_chain_candidates": false, "patch_sync_timing": false, "repeat": 3, "warmup": 1}, "argv": ["infer", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--device", "cpu", "--target-product", "cpu", "--warmup", "1", "--repeat", "3", "--max-inline-elements", "512", "--compile-mode", "preserve", "--model-dtype", "preserve", "--model-manifest", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "--input-json", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "--no-manifest-registry", "--allow-failure"], "command": "infer", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+EITP_RUNTIME_STAGE_START stage=device_prepare category=setup
+EITP_RUNTIME_STAGE_END stage=device_prepare category=setup status=succeeded duration_ms=634.330
+EITP_RUNTIME_STAGE_START stage=device_select category=setup
+EITP_RUNTIME_STAGE_END stage=device_select category=setup status=succeeded duration_ms=6.739
+EITP_RUNTIME_STAGE_START stage=adapter_load category=setup
+EITP_RUNTIME_STAGE_END stage=adapter_load category=setup status=succeeded duration_ms=1.093
+EITP_RUNTIME_STAGE_START stage=patch_environment category=patch
+EITP_RUNTIME_STAGE_END stage=patch_environment category=patch status=succeeded duration_ms=0.176
+EITP_RUNTIME_STAGE_START stage=model_load category=setup
+/home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/GroundingDINO/groundingdino/models/GroundingDINO/ms_deform_attn.py:31: UserWarning: Failed to load custom C++ ops. Running on CPU mode Only!
+  warnings.warn("Failed to load custom C++ ops. Running on CPU mode Only!")
+/home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+final text_encoder_type: bert-base-uncased
+EITP_RUNTIME_STAGE_END stage=model_load category=setup status=succeeded duration_ms=1693.970
+EITP_RUNTIME_STAGE_START stage=model_dtype_policy category=setup
+EITP_RUNTIME_STAGE_END stage=model_dtype_policy category=setup status=succeeded duration_ms=6.700
+EITP_RUNTIME_STAGE_START stage=input_load category=setup
+EITP_RUNTIME_STAGE_END stage=input_load category=setup status=succeeded duration_ms=7.198
+EITP_RUNTIME_STAGE_START stage=warmup category=warmup iteration=0
+/home/orange/.local/lib/python3.10/site-packages/transformers/modeling_utils.py:1060: FutureWarning: The `device` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+/home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:745: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.5 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/torch/utils/checkpoint.py:87: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/GroundingDINO/groundingdino/models/GroundingDINO/transformer.py:862: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+EITP_RUNTIME_STAGE_END stage=warmup category=warmup iteration=0 status=succeeded duration_ms=3830.993
+EITP_RUNTIME_STAGE_START stage=inference category=measured_inference iteration=0
+EITP_RUNTIME_STAGE_END stage=inference category=measured_inference iteration=0 status=succeeded duration_ms=3708.814
+EITP_RUNTIME_STAGE_START stage=inference category=measured_inference iteration=1
+EITP_RUNTIME_STAGE_END stage=inference category=measured_inference iteration=1 status=succeeded duration_ms=3742.200
+EITP_RUNTIME_STAGE_START stage=inference category=measured_inference iteration=2
+EITP_RUNTIME_STAGE_END stage=inference category=measured_inference iteration=2 status=succeeded duration_ms=3756.659
+EITP_RUNTIME_STAGE_START stage=output_export category=postprocess
+EITP_RUNTIME_STAGE_END stage=output_export category=postprocess status=succeeded duration_ms=6.550
+EITP_RUNTIME_STAGE_START stage=output_release category=cleanup
+EITP_RUNTIME_STAGE_END stage=output_release category=cleanup status=succeeded duration_ms=0.380
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_CALL_END {"args": {"allow_failure": true, "compile_mode": "preserve", "device": "cpu", "input_path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "model_dtype": "preserve", "model_manifest": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "patch_chain_candidates": false, "patch_sync_timing": false, "repeat": 3, "warmup": 1}, "argv": ["infer", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--device", "cpu", "--target-product", "cpu", "--warmup", "1", "--repeat", "3", "--max-inline-elements", "512", "--compile-mode", "preserve", "--model-dtype", "preserve", "--model-manifest", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "--input-json", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "--no-manifest-registry", "--allow-failure"], "command": "infer", "elapsed_ms": 19145.567, "event": "end", "return_code": 0, "schema_version": "eitp.cli_marker.v1", "status": "success"}
+EITP_CALL_START {"args": {"output": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline"}, "argv": ["package", "validate", "--run-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--require-success", "--output", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json"], "command": "package.validate", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+valid
+EITP_CALL_END {"args": {"output": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline"}, "argv": ["package", "validate", "--run-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--require-success", "--output", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json"], "command": "package.validate", "elapsed_ms": 1.868, "event": "end", "return_code": 0, "schema_version": "eitp.cli_marker.v1", "status": "success"}
+EITP_STAGE_END stage=baseline run=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_STAGE_START stage=single_package_validate run=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_SINGLE_PACKAGE_SUMMARY={"device": "cpu", "inference_package_ready": true, "manifest_status": "succeeded", "model_id": "grounding-dino", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "scan": {"actionable": {"blocking": false, "category": "scan_completed", "recommended_actions": [], "summary": "The official CANN PyTorch analyser completed successfully."}, "cli_return_code": 0, "completed": true, "report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json", "status": "succeeded"}, "schema_version": "eitp.single_device_package.v1", "status": "ready", "validation_status": "valid"}
+EITP_STAGE_END stage=single_package_validate summary=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/single_package_summary.json
+EITP_ADAPTER_SINGLE_PACKAGE_DONE run=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline artifacts=disabled
+EITP_CALL_END {"args": {"device": "cpu"}, "argv": ["run", "--profile", "default", "--target", "cpu", "--device", "cpu", "--execution-mode", "single_package", "--run-set", "gd-cpu-golden", "--target-id", "cpu"], "command": "run", "elapsed_ms": 26419.276, "error": "run-set 'gd-cpu-golden' already belongs to a different manifest/config/input", "error_type": "ValueError", "event": "end", "return_code": 1, "schema_version": "eitp.cli_marker.v1", "status": "exception"}
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/bin/eitp", line 6, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/cli.py", line 174, in main
+    return_code = int(args.func(args))
+                      ~~~~~~~~~^^^^^^
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/cli_commands/workspace.py", line 153, in _run_workspace
+    result = execute_workspace_run(options, dry_run=bool(args.dry_run))
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/orchestration/workspace_run.py", line 182, in execute_workspace_run
+    published = publish_run_set(
+        work_root=work_root,
+    ...<10 lines>...
+        keep_workdir=options.keep_workdir or return_code != 0,
+    )
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/engine/run_set.py", line 72, in publish_run_set
+    raise ValueError(
+        f"run-set {run_set!r} already belongs to a different manifest/config/input"
+    )
+ValueError: run-set 'gd-cpu-golden' already belongs to a different manifest/config/input
