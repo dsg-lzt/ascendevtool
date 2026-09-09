@@ -1,3 +1,6 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   find . -maxdepth 3 -type d -name "groundingdino" 2>/dev/null
   ls -d GroundingDINO 2>/dev/null && echo "有 GroundingDINO 子目录"
+./GroundingDINO/groundingdino
+GroundingDINO
+有 GroundingDINO 子目录
