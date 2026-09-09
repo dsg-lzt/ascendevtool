@@ -1,2 +1,3 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+ cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   ls -d models--bert-base-uncased/snapshots/*/ 2>/dev/null || echo "repo里没有snapshots"
+models--bert-base-uncased/snapshots/86b5e0934494bd15c9632b12f734a8a67f723594/
