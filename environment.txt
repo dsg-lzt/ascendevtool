@@ -1,2 +1,9 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   grep -n "model_id\s*=\|from_pretrained\|build_model\|AutoModel\|_decode_detections" .ascend-eitp/adapter/entry.py
+17:    model_id = "grounding-dino-hf"
+23:        from transformers import AutoModelForZeroShotObjectDetection, AutoProcessor
+26:        processor = AutoProcessor.from_pretrained(model_id, local_files_only=local_files_only)
+27:        model = AutoModelForZeroShotObjectDetection.from_pretrained(
+66:        detections = _decode_detections(
+104:    model_id = str(config.get("model_id") or "IDEA-Research/grounding-dino-tiny")
+108:def _decode_detections(
