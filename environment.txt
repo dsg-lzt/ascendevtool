@@ -1,30 +1,99 @@
-from __future__ import annotations
+{
+  "model_id_candidates": [
+    "./snapshot/grounding-dino-tiny",
+    "IDEA-Research/grounding-dino-tiny"
+  ],
+  "input_json": "input.json",
+  "box_threshold": 0.25,
+  "text_threshold": 0.25
+}
 
-from typing import Any
+{
+  "sample_id": "cat-dog-001",
+  "image_path": "../../../.asset/cat_dog.jpeg",
+  "text": "cat. dog.",
+  "box_threshold": 0.25,
+  "text_threshold": 0.25
+}
 
-from ascend_eitp.validation.registry import EvaluationContext
-from ascend_eitp.validation.tasks.detection import _compare_groundingdino_detection_metrics
+{
+  "schema_version": "eitp.model_project.v1",
+  "model_id": "grounding-dino",
+  "entry_mode": "python",
+  "layout": "repo_overlay",
+  "adapter": {
+    "spec": "adapter.entry:GroundingDinoAdapter",
+    "config": "config.json",
+    "input": "input.json"
+  },
+  "patching": {
+    "registry": "registry.json",
+    "policy": "prefer_npu_then_cpu_diagnostic"
+  },
+  "runtime": {
+    "compile_mode": "preserve",
+    "model_dtype": "preserve"
+  },
+  "assets": {
+    "repo_root": "../../..",
+    "weights": []
+  },
+  "devices": {
+    "baseline": ["cpu", "cuda:0"],
+    "targets": ["npu:0"]
+  },
+  "portable": {
+    "path_policy": "repo_relative",
+    "environment_included": false,
+    "required_runtime": "ascend-eitp"
+  },
+  "validation": {
+    "evaluators": ["../../metrics/evaluator.py:ModelTaskEvaluator"],
+    "acceptance_policy": "production"
+  }
+}
 
 
-class ModelTaskEvaluator:
-    """Repo-owned GroundingDINO task metric.
-
-    Mirrors the built-in grounding-dino detection evaluator so Embedded compare
-    and Deploy certification use the same acceptance rule (paired box IoU, score
-    relative error, label token consistency, detection count).
-    """
-
-    evaluator_id = "grounding-dino.task.v1"
-
-    def matches(self, context: EvaluationContext) -> bool:
-        values = [
-            str(context.baseline_manifest.get("model_id") or ""),
-            str(context.candidate_manifest.get("model_id") or ""),
-        ]
-        return any("grounding" in value.lower() for value in values)
-
-    def evaluate(self, context: EvaluationContext) -> dict[str, Any]:
-        return _compare_groundingdino_detection_metrics(
-            baseline_output=context.baseline_output,
-            candidate_output=context.candidate_output,
-        )
+{
+  "schema_version": "eitp.model_pipeline_profile.v1",
+  "layout": "repo_overlay",
+  "id": "default",
+  "display_name": "GroundingDINO (default)",
+  "aliases": [
+    "grounding-dino"
+  ],
+  "entry": {
+    "model_manifest": "manifest.json",
+    "adapter": "adapter.entry:GroundingDinoAdapter",
+    "adapter_config": "config.json",
+    "input_json": "input.json"
+  },
+  "paths": {
+    "source_dir": "${EITP_MODEL_REPO_ROOT}"
+  },
+  "defaults": {
+    "baseline_device": "cpu",
+    "candidate_device": "npu:0",
+    "target_device": "310p",
+    "warmup": 1,
+    "repeat": 3,
+    "run_cann_scan": 1,
+    "auto_registry_max_iters": 3
+  },
+  "auto_registry": {
+    "extra_ops": [
+      "torch.special.logit",
+      "torch.logit"
+    ],
+    "exclude_ops": [],
+    "registries": ["registry.json"]
+  },
+  "compare": {
+    "task_thresholds": [],
+    "ignore_paths": []
+  },
+  "validation": {
+    "evaluators": ["../../metrics/evaluator.py:ModelTaskEvaluator"],
+    "acceptance_policy": "production"
+  }
+}
