@@ -1,3 +1,4 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   find . -maxdepth 3 -name "GroundingDINO_SwinT_OGC.py" 2>/dev/null
   find . -maxdepth 3 -name "*.pth" 2>/dev/null
+./snapshot/groundingdino_swint_ogc.pth
