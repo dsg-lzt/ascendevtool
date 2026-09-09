@@ -1,5 +1,40 @@
-   grep -n "^class " .ascend-eitp/adapter/entry.py     # 远程实际类名(应该是 GroudingDinoAdapter?)
+● 改完后按顺序跑这几条(都在远程 repo 根 /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo):
+
+  1) 先确认改对 + adapter 能 import
+
+  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   grep -n "adapter.entry" .ascend-eitp/profiles/default/manifest.json .ascend-eitp/profiles/default/pipeline.json
-10:class GroundingDinoAdapter:
-.ascend-eitp/profiles/default/manifest.json:5:    "spec": "adapter.entry:GroudingDinoAdapter"
-.ascend-eitp/profiles/default/pipeline.json:26:    "adapter": "adapter.entry:GroudingDinoAdapter",
+  eitp model validate --manifest .ascend-eitp/profiles/default/manifest.json --import-check
+
+  grep 应显示 GroundingDinoAdapter,validate 应通过(不再报 no attribute 'GroudingDinoAdapter')。
+
+  2) 跑 CPU golden(生成参考包)
+
+  eitp run --profile default --target cpu --device cpu \
+    --execution-mode single_package \
+    --run-set gd-cpu-golden --target-id cpu
+
+
+  grep 应显示 GroundingDinoAdapter,validate 应通过(不再报 no attribute 'GroudingDinoAdapter')。
+
+  2) 跑 CPU golden(生成参考包)
+
+  eitp run --profile default --target cpu --device cpu \
+    --execution-mode single_package \
+    --run-set gd-cpu-golden --target-id cpu
+
+  3) 用 golden 引用跑 NPU 迁移闭环
+
+  CPU golden 跑成后,把 --reference-run 指向 golden 目录再跑 NPU:
+
+  eitp run --profile default --target 310p --device npu:0 \
+    --reference-run .ascend-eitp/runs/gd-cpu-golden/golden \
+    --run-set gd-310p-acceptance --target-id 310p-npu0
+
+  ▎ Step 3 的 --reference-run 路径要以 Step 2 实际产出为准。跑完 Step 2 先 ls .ascend-eitp/runs/gd-cpu-golden/ 看 golden
+  ▎ 在哪个子目录,再填进 Step 3。若路径不对会报找不到 golden。
+
+  现在的关键一步
+
+  先跑第 1 条,把 validate 的输出贴我。之前就卡在 adapter_load 报类名错,这一步过了我们才继续;跑 CPU golden 会真的加载模型
+  forward(权重、bert 下载、torchvision 这些点会在这里暴露)。一步一步来,别跳。
