@@ -1,1 +1,145 @@
-  grep -n "_npu_sdpa\|npu_compat" sam3/model/vitdet.py | head -5
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+from ascend_eitp.contracts.execution import production_execution_contract
+
+
+class GroundingDinoAdapter:
+    """HF transformers GroundingDINO entrypoint for the AscendEITP pipeline.
+
+    The pipeline calls load_model -> load_inputs -> run_inference. Outputs are
+    task-final detections (boxes/scores/labels), not debug tensors.
+    """
+
+    model_id = "grounding-dino-hf"
+
+    def __init__(self, config: dict[str, Any] | None = None):
+        self.config = config or {}
+
+    def load_model(self, device: str) -> dict[str, Any]:
+        from transformers import AutoModelForZeroShotObjectDetection, AutoProcessor
+
+        model_id, local_files_only = _select_checkpoint(self.config)
+        processor = AutoProcessor.from_pretrained(model_id, local_files_only=local_files_only)
+        model = AutoModelForZeroShotObjectDetection.from_pretrained(
+            model_id,
+            local_files_only=local_files_only,
+        )
+        model = model.to(device).eval()
+        return {"processor": processor, "model": model, "model_id": model_id}
+
+    def load_inputs(self, input_path: str | None, device: str) -> dict[str, Any]:
+        path = Path(input_path or self.config.get("input_json", "input.json"))
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        image_path = Path(payload["image_path"])
+        if not image_path.is_absolute():
+            image_path = Path(path).parent / image_path
+        from PIL import Image
+
+        return {
+            "image_path": str(image_path.resolve()),
+            "image": Image.open(image_path).convert("RGB"),
+            "text": payload["text"],
+            "box_threshold": float(payload.get("box_threshold", 0.25)),
+            "text_threshold": float(payload.get("text_threshold", 0.25)),
+        }
+
+    def run_inference(
+        self, model: dict[str, Any], inputs: dict[str, Any], device: str
+    ) -> dict[str, Any]:
+        import torch
+
+        processor = model["processor"]
+        torch_model = model["model"]
+        encoded = processor(
+            images=inputs["image"], text=inputs["text"], return_tensors="pt"
+        )
+        encoded = {
+            key: value.to(torch_model.device) if hasattr(value, "to") else value
+            for key, value in encoded.items()
+        }
+        with torch.inference_mode():
+            outputs = torch_model(**encoded)
+        detections = _decode_detections(
+            processor,
+            outputs,
+            image_size=inputs["image"].size,
+            box_threshold=inputs["box_threshold"],
+            text_threshold=inputs["text_threshold"],
+        )
+        return {
+            "boxes": [[float(value) for value in row["box"]] for row in detections],
+            "scores": [float(row["score"]) for row in detections],
+            "labels": [str(row["label"]) for row in detections],
+            "detection_count": len(detections),
+            "score_threshold": inputs["box_threshold"],
+            "image_path": inputs["image_path"],
+            "text": inputs["text"],
+            "execution_contract": production_execution_contract(
+                output_evidence="final_task_predictions",
+                input_provenance=inputs["image_path"],
+                checkpoint_provenance=str(model["model_id"]),
+                stages=["image_preprocess", "grounding_forward", "detection_postprocess"],
+            ),
+        }
+
+
+def _select_checkpoint(config: dict[str, Any]) -> tuple[str, bool]:
+    """Pick the first existing local snapshot, else fall back to the HF hub id."""
+    candidates = config.get("model_id_candidates")
+    if isinstance(candidates, list):
+        base_dir = Path(str(config.get("base_dir") or ".")).expanduser()
+        for candidate in candidates:
+            text = str(candidate or "").strip()
+            if not text:
+                continue
+            path = Path(text).expanduser()
+            if not path.is_absolute():
+                path = base_dir / path
+            if path.exists():
+                return str(path.resolve()), True
+    model_id = str(config.get("model_id") or "IDEA-Research/grounding-dino-tiny")
+    return model_id, False
+
+
+def _decode_detections(
+    processor: Any,
+    outputs: Any,
+    *,
+    image_size: tuple[int, int],
+    box_threshold: float,
+    text_threshold: float,
+) -> list[dict[str, Any]]:
+    target_sizes = [image_size[::-1]]
+    try:
+        results = processor.post_process_grounded_object_detection(
+            outputs,
+            target_sizes,
+            box_threshold=box_threshold,
+            text_threshold=text_threshold,
+        )
+    except TypeError:
+        results = processor.post_process_grounded_object_detection(
+            outputs, target_sizes
+        )
+    first = results[0]
+    boxes = first.get("boxes")
+    scores = first.get("scores")
+    labels = first.get("labels", first.get("text_labels", []))
+    rows = []
+    for index, box in enumerate(boxes or []):
+        rows.append(
+            {
+                "box": [float(value) for value in box],
+                "score": float(scores[index]) if index < len(scores) else 0.0,
+                "label": labels[index] if index < len(labels) else "",
+            }
+        )
+    return rows
+
+
+
+
