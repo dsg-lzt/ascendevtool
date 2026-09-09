@@ -1,2 +1,7 @@
-  ls ~/.cache/huggingface/hub/ | grep -i bert
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   ls ~/.cache/huggingface/hub/ | grep -i bert
   find /home/orange -maxdepth 6 -type d -name "*bert-base-uncased*" 2>/dev/null | head
+models--bert-base-uncased
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/models--bert-base-uncased
+/home/orange/Documents/BoxSenceAcsend/weights/models--bert-base-uncased
+/home/orange/.cache/huggingface/hub/.locks/models--bert-base-uncased
+/home/orange/.cache/huggingface/hub/models--bert-base-uncased
