@@ -1,226 +1,90 @@
-from __future__ import annotations
-
-import json
-import os
-import sys
-from pathlib import Path
-from typing import Any
-
-from ascend_eitp.contracts.execution import production_execution_contract
-
-
-def _ensure_groundingdino_importable(repo_root: Path) -> None:
-    """Put the dir containing the `groundingdino` python package on sys.path.
-
-    The source can sit directly at <repo>/groundingdino or inside a
-    differently-named subdir such as <repo>/GroudingDINO/groundingdino, so we
-    scan one level down rather than hard-coding a name.
-    """
-    for candidate in (repo_root, *(repo_root / item for item in repo_root.iterdir() if item.is_dir())):
-        if (candidate / "groundingdino").is_dir():
-            if str(candidate) not in sys.path:
-                sys.path.insert(0, str(candidate))
-            return
-    raise FileNotFoundError(
-        f"could not locate the 'groundingdino' source package under repo {repo_root}"
+eitp run   --profile default   --target cpu   --device cpu   --execution-mode single_package   --run-set gd-cpu-golden   --target-id cpu
+EITP_CALL_START {"args": {"device": "cpu"}, "argv": ["run", "--profile", "default", "--target", "cpu", "--device", "cpu", "--execution-mode", "single_package", "--run-set", "gd-cpu-golden", "--target-id", "cpu"], "command": "run", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+EITP_WORKSPACE_RUN_START workspace=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo profile=default python=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.eitp_venv/bin/python target=cpu device=cpu run_set=gd-cpu-golden
+ASCEND_ENV_SOURCED=/usr/local/Ascend/ascend-toolkit/set_env.sh
+EITP_ADAPTER_FULL_PIPELINE_START
+ROOT_DIR=/home/orange/Documents/AscendEITP/ascend-eitp
+BASE_DIR=/home/orange/Documents/AscendEITP
+PY=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.eitp_venv/bin/python
+MODEL_MANIFEST=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json
+ADAPTER=adapter.entry:GroundingDinoAdapter
+ADAPTER_CONFIG=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/config.json
+INPUT_JSON=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json
+SOURCE_DIR=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+SCAN_SOURCE_DIR=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+SCAN_SOURCE_MODULE=none
+BASELINE_DEVICE=cpu
+BASELINE_PATCH_REGISTRY=none
+CANDIDATE_DEVICE=cpu
+TARGET_DEVICE=cpu
+REQUIRE_NPU_ACCEPTANCE=0
+EXECUTION_MODE=single_package
+PREPARE_PROVIDERS=0
+REFERENCE_RUN_DIR=none
+REFERENCE_ARTIFACT_DIR=none
+REFERENCE_LABEL=external_reference
+EXTERNAL_REFERENCE_PROVIDED=0
+AUTO_REGISTRY_MAX_ITERS=3
+AUTO_REPLACEMENT_ABLATION=0
+AUTO_REPLACEMENT_ABLATION_MAX=8
+AUTO_FEATURE_CAPTURE=1
+AUTO_FEATURE_CAPTURE_MAX_MODULES=8
+AUTO_REGISTRY_EXTRA_OPS=none
+AUTO_REGISTRY_EXCLUDE_OPS=none
+AUTO_REGISTRY_BASE_DBS=none
+AUTO_REGISTRY_REGISTRIES=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/registry.json
+PATCH_FILTER_UNSUPPORTED=0
+COMPARE_TASK_THRESHOLDS=none
+TASK_EVALUATORS=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/metrics/evaluator.py:ModelTaskEvaluator
+NPU_AUDIT_PERFORMANCE_WARNINGS=0
+EITP_STAGE_START stage=scan source_dir=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+EITP_CALL_START {"args": {"output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "source_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo"}, "argv": ["scan", "--source-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "--torch-version", "default", "--timeout-sec", "1800"], "command": "scan", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+{"category": "scan_completed", "report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json", "scan_completed": true, "status": "succeeded"}
+EITP_CALL_END {"args": {"output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "source_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo"}, "argv": ["scan", "--source-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan", "--torch-version", "default", "--timeout-sec", "1800"], "command": "scan", "elapsed_ms": 5731.55, "event": "end", "return_code": 0, "schema_version": "eitp.cli_marker.v1", "status": "success"}
+EITP_STAGE_END stage=scan report=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json cli_rc=0 scan_status=succeeded action_category=scan_completed
+EITP_STAGE_START stage=baseline device=cpu
+EITP_CALL_START {"args": {"allow_failure": true, "compile_mode": "preserve", "device": "cpu", "input_path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "model_dtype": "preserve", "model_manifest": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "patch_chain_candidates": false, "patch_sync_timing": false, "repeat": 3, "warmup": 1}, "argv": ["infer", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--device", "cpu", "--target-product", "cpu", "--warmup", "1", "--repeat", "3", "--max-inline-elements", "512", "--compile-mode", "preserve", "--model-dtype", "preserve", "--model-manifest", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "--input-json", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "--no-manifest-registry", "--allow-failure"], "command": "infer", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+EITP_RUNTIME_STAGE_START stage=device_prepare category=setup
+EITP_RUNTIME_STAGE_END stage=device_prepare category=setup status=succeeded duration_ms=634.013
+EITP_RUNTIME_STAGE_START stage=device_select category=setup
+EITP_RUNTIME_STAGE_END stage=device_select category=setup status=succeeded duration_ms=6.696
+EITP_RUNTIME_STAGE_START stage=adapter_load category=setup
+EITP_RUNTIME_STAGE_END stage=adapter_load category=setup status=succeeded duration_ms=2.030
+EITP_RUNTIME_STAGE_START stage=patch_environment category=patch
+EITP_RUNTIME_STAGE_END stage=patch_environment category=patch status=succeeded duration_ms=0.185
+EITP_RUNTIME_STAGE_START stage=model_load category=setup
+/home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/GroundingDINO/groundingdino/models/GroundingDINO/ms_deform_attn.py:31: UserWarning: Failed to load custom C++ ops. Running on CPU mode Only!
+  warnings.warn("Failed to load custom C++ ops. Running on CPU mode Only!")
+EITP_RUNTIME_STAGE_END stage=model_load category=setup status=failed duration_ms=1097.979
+EITP_RUNTIME_FAILURE {"stage": "inference", "exception_type": "FileNotFoundError", "message": "GroundingDINO model config not found: /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/GroudingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py", "diagnostic_code": "EITP-ASSET-001"}
+/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_CALL_END {"args": {"allow_failure": true, "compile_mode": "preserve", "device": "cpu", "input_path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "model_dtype": "preserve", "model_manifest": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "output_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "patch_chain_candidates": false, "patch_sync_timing": false, "repeat": 3, "warmup": 1}, "argv": ["infer", "--output-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--device", "cpu", "--target-product", "cpu", "--warmup", "1", "--repeat", "3", "--max-inline-elements", "512", "--compile-mode", "preserve", "--model-dtype", "preserve", "--model-manifest", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/manifest.json", "--input-json", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/profiles/default/input.json", "--no-manifest-registry", "--allow-failure"], "command": "infer", "elapsed_ms": 4962.713, "event": "end", "return_code": 0, "schema_version": "eitp.cli_marker.v1", "status": "success"}
+EITP_CALL_START {"args": {"output": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline"}, "argv": ["package", "validate", "--run-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--require-success", "--output", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json"], "command": "package.validate", "event": "start", "schema_version": "eitp.cli_marker.v1"}
+invalid
+EITP_CALL_END {"args": {"output": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline"}, "argv": ["package", "validate", "--run-dir", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "--require-success", "--output", "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/reports/baseline_validation.json"], "command": "package.validate", "elapsed_ms": 1.713, "event": "end", "return_code": 1, "schema_version": "eitp.cli_marker.v1", "status": "failed"}
+EITP_STAGE_END stage=baseline run=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_STAGE_START stage=single_package_validate run=/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline
+EITP_SINGLE_PACKAGE_SUMMARY={"device": "cpu", "inference_package_ready": false, "manifest_status": "failed", "model_id": "grounding-dino", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/baseline", "scan": {"actionable": {"blocking": false, "category": "scan_completed", "recommended_actions": [], "summary": "The official CANN PyTorch analyser completed successfully."}, "cli_return_code": 0, "completed": true, "report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-cpu-golden/pipeline/scan/scan.json", "status": "succeeded"}, "schema_version": "eitp.single_device_package.v1", "status": "failed", "validation_status": "invalid"}
+EITP_CALL_END {"args": {"device": "cpu"}, "argv": ["run", "--profile", "default", "--target", "cpu", "--device", "cpu", "--execution-mode", "single_package", "--run-set", "gd-cpu-golden", "--target-id", "cpu"], "command": "run", "elapsed_ms": 12093.043, "error": "run-set 'gd-cpu-golden' already belongs to a different manifest/config/input", "error_type": "ValueError", "event": "end", "return_code": 1, "schema_version": "eitp.cli_marker.v1", "status": "exception"}
+Traceback (most recent call last):
+  File "/home/orange/miniconda3/bin/eitp", line 6, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/cli.py", line 174, in main
+    return_code = int(args.func(args))
+                      ~~~~~~~~~^^^^^^
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/cli_commands/workspace.py", line 153, in _run_workspace
+    result = execute_workspace_run(options, dry_run=bool(args.dry_run))
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/orchestration/workspace_run.py", line 182, in execute_workspace_run
+    published = publish_run_set(
+        work_root=work_root,
+    ...<10 lines>...
+        keep_workdir=options.keep_workdir or return_code != 0,
     )
-
-
-class GroundingDinoAdapter:
-    """Original IDEA-Research GroundingDINO entrypoint (build_model + raw .pth).
-
-    Loads the repo-owned model (SwinT backbone + BERT text encoder) straight
-    from a config .py and a .pth checkpoint, then runs forward on the device the
-    pipeline passes in. Deformable attention falls back to its pure-torch path
-    automatically because inputs are not CUDA tensors, so the same code runs on
-    CPU baseline and NPU candidate.
-    """
-
-    model_id = "grounding-dino"
-
-    def __init__(self, config: dict[str, Any] | None = None):
-        self.config = config or {}
-
-    def load_model(self, device: str):
-        self._ensure_device_import(device)
-        import torch
-
-        repo_root = self._repo_root()
-        _ensure_groundingdino_importable(repo_root)
-
-        from groundingdino.models import build_model
-        from groundingdino.util.misc import clean_state_dict
-        from groundingdino.util.slconfig import SLConfig
-
-        config_path = self._repo_path(self.config.get("config_path", ""), repo_root=repo_root)
-        if not config_path.is_file():
-            raise FileNotFoundError(f"GroundingDINO model config not found: {config_path}")
-        args = SLConfig.fromfile(str(config_path))
-        args.device = device
-        model = build_model(args)
-
-        checkpoint_path = self._pick_checkpoint()
-        if checkpoint_path is None:
-            candidates = self.config.get("checkpoint_candidates") or []
-            base = self._repo_root()
-            raise FileNotFoundError(
-                "no GroundingDINO checkpoint found among candidates "
-                f"{[str(c) for c in candidates]} under repo {base}"
-            )
-        checkpoint = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
-        state = checkpoint.get("model", checkpoint)
-        model.load_state_dict(clean_state_dict(state), strict=False)
-        model.to(device).eval()
-        return {"model": model, "device": device, "checkpoint": str(checkpoint_path)}
-
-    def load_inputs(self, input_path: str | None, device: str):
-        import json as _json
-
-        path = Path(input_path or self.config.get("input_json", "input.json"))
-        payload = _json.loads(Path(path).read_text(encoding="utf-8"))
-        image_path = Path(payload["image_path"])
-        if not image_path.is_absolute():
-            image_path = Path(path).parent / image_path
-        image_path = image_path.resolve()
-
-        import PIL.Image as PILImage
-
-        return {
-            "image_path": str(image_path),
-            "image_pil": PILImage.open(image_path).convert("RGB"),
-            "text": payload["text"],
-            "box_threshold": float(payload.get("box_threshold", self.config.get("box_threshold", 0.25))),
-            "text_threshold": float(payload.get("text_threshold", self.config.get("text_threshold", 0.25))),
-        }
-
-    def run_inference(
-        self, model: dict[str, Any], inputs: dict[str, Any], device: str
-    ) -> dict[str, Any]:
-        import torch
-
-        torch_model = model["model"]
-        image = self._preprocess(inputs["image_pil"]).to(device)
-        caption = self._preprocess_caption(inputs["text"])
-
-        with torch.inference_mode():
-            outputs = torch_model(image[None], captions=[caption])
-
-        logits = outputs["pred_logits"].cpu().sigmoid()[0]
-        boxes_norm = outputs["pred_boxes"].cpu()[0]
-        keep = logits.max(dim=1)[0] > inputs["box_threshold"]
-        logits = logits[keep]
-        boxes_norm = boxes_norm[keep]
-
-        scores = logits.max(dim=1)[0]
-        phrases = self._decode_phrases(
-            torch_model, logits, caption, inputs["text_threshold"]
-        )
-
-        width, height = inputs["image_pil"].size
-        boxes = [
-            self._cxcywh_to_xyxy_px(box, width, height)
-            for box in boxes_norm.tolist()
-        ]
-        return {
-            "boxes": boxes,
-            "scores": [float(score) for score in scores.tolist()],
-            "labels": [str(phrase) for phrase in phrases],
-            "detection_count": len(boxes),
-            "score_threshold": inputs["box_threshold"],
-            "image_path": inputs["image_path"],
-            "text": inputs["text"],
-            "execution_contract": production_execution_contract(
-                output_evidence="final_task_predictions",
-                input_provenance=inputs["image_path"],
-                checkpoint_provenance=str(model["checkpoint"]),
-                stages=["image_preprocess", "grounding_forward", "detection_postprocess"],
-            ),
-        }
-
-    # ---- helpers ---------------------------------------------------------
-
-    @staticmethod
-    def _ensure_device_import(device: str) -> None:
-        if str(device).startswith("npu") or str(device) == "ascend":
-            import torch_npu  # noqa: F401  (registers the npu backend)
-
-    def _repo_root(self) -> Path:
-        base = Path(
-            os.environ.get("EITP_MODEL_REPO_ROOT")
-            or self.config.get("repo_root")
-            or "."
-        ).expanduser()
-        return base.resolve()
-
-    def _repo_path(self, value: str, repo_root: Path | None = None) -> Path:
-        path = Path(value).expanduser()
-        if not path.is_absolute():
-            path = (repo_root or self._repo_root()) / path
-        return path.resolve()
-
-    def _pick_checkpoint(self) -> Path | None:
-        repo_root = self._repo_root()
-        for candidate in self.config.get("checkpoint_candidates") or []:
-            text = str(candidate or "").strip()
-            if not text:
-                continue
-            path = self._repo_path(text, repo_root=repo_root)
-            if path.is_file():
-                return path
-        return None
-
-    @staticmethod
-    def _preprocess_caption(caption: str) -> str:
-        result = caption.lower().strip()
-        return result if result.endswith(".") else result + "."
-
-    @staticmethod
-    def _preprocess(image_pil):
-        import groundingdino.datasets.transforms as T
-
-        transform = T.Compose(
-            [
-                T.RandomResize([800], max_size=1333),
-                T.ToTensor(),
-                T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-            ]
-        )
-        image, _ = transform(image_pil, None)
-        return image
-
-    @staticmethod
-    def _decode_phrases(
-        torch_model: Any, logits: Any, caption: str, text_threshold: float
-    ) -> list[str]:
-        from groundingdino.util.utils import get_phrases_from_posmap
-
-        tokenizer = torch_model.tokenizer
-        tokenized = tokenizer(caption)
-        phrases = []
-        for logit in logits:
-            posmap = (logit > text_threshold).bool()
-            phrase = get_phrases_from_posmap(posmap, tokenized, tokenizer).replace(".", "")
-            phrases.append(phrase)
-        return phrases
-
-    @staticmethod
-    def _cxcywh_to_xyxy_px(box: list[float], width: int, height: int) -> list[float]:
-        cx, cy, bw, bh = (float(value) for value in box)
-        return [
-            (cx - bw / 2.0) * width,
-            (cy - bh / 2.0) * height,
-            (cx + bw / 2.0) * width,
-            (cy + bh / 2.0) * height,
-        ]
-
-
-
-{
-  "config_path": "GroudingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py",
-  "checkpoint_candidates": [
-    "snapshot/groundingdino_swint_ogc.pth"
-  ],
-  "input_json": "input.json",
-  "box_threshold": 0.25,
-  "text_threshold": 0.25
-}
+  File "/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/engine/run_set.py", line 72, in publish_run_set
+    raise ValueError(
+        f"run-set {run_set!r} already belongs to a different manifest/config/input"
+    )
+ValueError: run-set 'gd-cpu-golden' already belongs to a different manifest/config/input
