@@ -1,3 +1,6 @@
- cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
-  ls -d models--bert-base-uncased/snapshots/*/ 2>/dev/null || echo "repo里没有snapshots"
-models--bert-base-uncased/snapshots/86b5e0934494bd15c9632b12f734a8a67f723594/
+  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+
+  echo 'local_cache = "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/models--bert-base-uncased/snapshots/86b5e093
+  4494bd15c9632b12f734a8a67f723594"' >> GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py
+
+  echo 'use_local_cache = True' >> GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py
