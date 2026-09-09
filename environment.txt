@@ -1,9 +1,3 @@
-# AscendEITP Pipeline Report
-
-- Status: `needs_next_iteration`
-- Target: `310p-npu0`
-- Candidate device: `npu:0`
-- Compare: `fail`
-- NPU audit: `fail`
-- Promotion: `fail`
-- Final iteration: `1`
+(ascenddevtool) orange@orange-NucBox-K11:~/Downloads/Lingshu-1130/src/eai_perception/eai_perception/weights/GroundingDINO$ ls
+checkpoint_0906_synthsis_data.pth  checkpoint_mix.pth  groundingdino_swint_ogc.pth
+checkpoint_hq_v2.pth               checkpoint_mug.pth  sam_hq_vit_tiny.pth
