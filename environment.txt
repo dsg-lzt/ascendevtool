@@ -1,2 +1,5 @@
-  grep -n "^class " .ascend-eitp/adapter/entry.py     # 远程实际类名(应该是 GroudingDinoAdapter?)
+   grep -n "^class " .ascend-eitp/adapter/entry.py     # 远程实际类名(应该是 GroudingDinoAdapter?)
   grep -n "adapter.entry" .ascend-eitp/profiles/default/manifest.json .ascend-eitp/profiles/default/pipeline.json
+10:class GroundingDinoAdapter:
+.ascend-eitp/profiles/default/manifest.json:5:    "spec": "adapter.entry:GroudingDinoAdapter"
+.ascend-eitp/profiles/default/pipeline.json:26:    "adapter": "adapter.entry:GroudingDinoAdapter",
