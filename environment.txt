@@ -1,3 +1,369 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2
-
-  ls
+cat manifest.json 
+{
+  "adapter": "adapter.entry:GroundingDinoAdapter",
+  "adapter_config": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/config.json",
+  "adapter_execution": {
+    "boundary": "in_process",
+    "migration_evidence_role": "migration_run",
+    "operator_instrumentation_supported": true,
+    "patch_registry_scope": "model_process"
+  },
+  "adapter_stage_sync_timing": false,
+  "allow_failure": true,
+  "artifacts": {
+    "adapter_config_dependency_0": "inputs/assets/01b94181bb_input.json",
+    "adapter_config_dependency_1": "inputs/assets/assets/156058a72f_cat_dog.jpeg",
+    "adapter_config_snapshot": "inputs/adapter_config.json",
+    "environment": "environment.json",
+    "input_path_dependency_0": "inputs/assets/156058a72f_cat_dog.jpeg",
+    "input_snapshot": "inputs/input.json",
+    "module_trace": "traces/modules.jsonl",
+    "operator_trace": "traces/ops.jsonl",
+    "output": "outputs/output.json",
+    "output_summary": "outputs/summary.json",
+    "patch_registry_snapshot": "inputs/patch_registry.json",
+    "patches": "patches/applied.json",
+    "performance": "performance.json",
+    "progress_trace": "traces/progress.jsonl",
+    "runtime_watchdog_state": "traces/runtime_watchdog_state.json",
+    "scan": "scans/scan.json",
+    "stage_trace": "traces/stages.jsonl"
+  },
+  "candidate_chain_summary": {
+    "attempted_candidate_count": 12,
+    "cpu_fallback_event_count": 0,
+    "data_movement_event_count": 0,
+    "failed_candidate_count": 0,
+    "op_count": 1,
+    "registered_candidate_count": 4,
+    "registered_chain_count": 1,
+    "rows": [
+      {
+        "attempted_candidate_count": 12,
+        "attempted_candidates": [
+          {
+            "candidate_count": 4,
+            "chain_index": 0,
+            "chain_mode": "runtime_candidate_chain",
+            "count": 12,
+            "device": "npu",
+            "elapsed_ms": 0.212088,
+            "kind": "cann_native",
+            "mean_elapsed_ms": 0.12052366666666665,
+            "op": "torch.nn.functional.scaled_dot_product_attention",
+            "priority": 20,
+            "provenance": {
+              "bench_command": "eitp bench sdpa --device npu:0 --dtype float16 --preset routing --include-prompt-flash --skip-native --skip-reference --skip-cpu-fallback --chunk-size 256 --warmup 2 --repeat 5 --atol 5e-3 --rtol 5e-2 --prompt-flash-min-speedup 1.1 --output runs/sdpa_prompt_flash_benchmark.json",
+              "confidence": 48,
+              "evidence_status": "registered_replacement"
+            },
+            "replacement": "ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto",
+            "source": "operator_trace",
+            "status": "succeeded",
+            "target": "torch.nn.functional.scaled_dot_product_attention"
+          }
+        ],
+        "cpu_fallback_event_count": 0,
+        "cpu_fallbacks": [],
+        "data_movement_event_count": 0,
+        "data_movement_events": [],
+        "failed_candidate_count": 0,
+        "failed_candidates": [],
+        "op": "torch.nn.functional.scaled_dot_product_attention",
+        "patch_applied_count": 1,
+        "patch_devices": [
+          "npu"
+        ],
+        "patch_failed_candidates": [],
+        "patch_kinds": [
+          "candidate_chain"
+        ],
+        "registered_candidate_count": 4,
+        "registered_candidates": [
+          {
+            "chain_index": 0,
+            "device": "npu",
+            "kind": "cann_native",
+            "op": "torch.nn.functional.scaled_dot_product_attention",
+            "priority": 20,
+            "provenance": {
+              "bench_command": "eitp bench sdpa --device npu:0 --dtype float16 --preset routing --include-prompt-flash --skip-native --skip-reference --skip-cpu-fallback --chunk-size 256 --warmup 2 --repeat 5 --atol 5e-3 --rtol 5e-2 --prompt-flash-min-speedup 1.1 --output runs/sdpa_prompt_flash_benchmark.json",
+              "confidence": 48,
+              "evidence_status": "registered_replacement"
+            },
+            "replacement": "ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto",
+            "source": "patch_report.applied.candidate_chain",
+            "target": "torch.nn.functional.scaled_dot_product_attention"
+          },
+          {
+            "chain_index": 1,
+            "device": "npu",
+            "kind": "custom_npu",
+            "op": "torch.nn.functional.scaled_dot_product_attention",
+            "priority": 30,
+            "provenance": {
+              "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --output runs/sdpa_benchmark.json",
+              "confidence": 45,
+              "evidence_status": "registered_replacement"
+            },
+            "replacement": "ascend_eitp.operators.sdpa.auto_scaled_dot_product_attention",
+            "source": "patch_report.applied.candidate_chain",
+            "target": "torch.nn.functional.scaled_dot_product_attention"
+          },
+          {
+            "chain_index": 2,
+            "device": "npu",
+            "kind": "custom_npu",
+            "op": "torch.nn.functional.scaled_dot_product_attention",
+            "priority": 40,
+            "provenance": {
+              "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --chunk-size 64 --chunk-size 128 --chunk-size 256 --output runs/sdpa_chunked_benchmark.json",
+              "confidence": 42,
+              "evidence_status": "registered_replacement"
+            },
+            "replacement": "ascend_eitp.operators.sdpa.chunked_scaled_dot_product_attention",
+            "source": "patch_report.applied.candidate_chain",
+            "target": "torch.nn.functional.scaled_dot_product_attention"
+          },
+          {
+            "chain_index": 3,
+            "device": "npu",
+            "kind": "custom_npu",
+            "op": "torch.nn.functional.scaled_dot_product_attention",
+            "priority": 50,
+            "provenance": {
+              "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --output runs/sdpa_benchmark.json",
+              "confidence": 43,
+              "evidence_status": "registered_replacement"
+            },
+            "replacement": "ascend_eitp.operators.sdpa.manual_scaled_dot_product_attention",
+            "source": "patch_report.applied.candidate_chain",
+            "target": "torch.nn.functional.scaled_dot_product_attention"
+          }
+        ],
+        "registered_chain": true,
+        "runtime_fallback_event_count": 0,
+        "runtime_fallbacks": [],
+        "selected_candidate": {
+          "candidate_count": 4,
+          "chain_index": 0,
+          "chain_mode": "runtime_candidate_chain",
+          "count": 12,
+          "device": "npu",
+          "elapsed_ms": 0.212088,
+          "kind": "cann_native",
+          "op": "torch.nn.functional.scaled_dot_product_attention",
+          "priority": 20,
+          "provenance": {
+            "bench_command": "eitp bench sdpa --device npu:0 --dtype float16 --preset routing --include-prompt-flash --skip-native --skip-reference --skip-cpu-fallback --chunk-size 256 --warmup 2 --repeat 5 --atol 5e-3 --rtol 5e-2 --prompt-flash-min-speedup 1.1 --output runs/sdpa_prompt_flash_benchmark.json",
+            "confidence": 48,
+            "evidence_status": "registered_replacement"
+          },
+          "replacement": "ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto",
+          "source": "operator_trace",
+          "status": "succeeded",
+          "target": "torch.nn.functional.scaled_dot_product_attention"
+        },
+        "status": "selected",
+        "target": "torch.nn.functional.scaled_dot_product_attention"
+      }
+    ],
+    "runtime_fallback_event_count": 0,
+    "schema_version": "eitp.candidate_chain_summary.v1",
+    "selected_candidate_count": 1,
+    "status": "ok",
+    "succeeded_candidate_count": 12
+  },
+  "capture_modules": [],
+  "compile_mode": "preserve",
+  "created_at": "2026-09-10T09:16:00.086850+00:00",
+  "device": "npu:0",
+  "device_drain_interval": 0,
+  "input_path": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/input.json",
+  "input_snapshots": {
+    "adapter_config": {
+      "artifact": "inputs/adapter_config.json",
+      "artifact_key": "adapter_config_snapshot",
+      "dependencies": [
+        {
+          "artifact": "inputs/assets/01b94181bb_input.json",
+          "field": "adapter_config",
+          "path": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/candidate/inputs/assets/01b94181bb_input.json",
+          "size_bytes": 168,
+          "source": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/input.json"
+        },
+        {
+          "artifact": "inputs/assets/assets/156058a72f_cat_dog.jpeg",
+          "field": "input_path",
+          "path": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/candidate/inputs/assets/assets/156058a72f_cat_dog.jpeg",
+          "size_bytes": 123411,
+          "source": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/GroundingDINO/.asset/cat_dog.jpeg"
+        }
+      ],
+      "skipped_dependencies": [],
+      "source": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/config.json"
+    },
+    "input_path": {
+      "artifact": "inputs/input.json",
+      "artifact_key": "input_snapshot",
+      "dependencies": [
+        {
+          "artifact": "inputs/assets/156058a72f_cat_dog.jpeg",
+          "field": "input_path",
+          "path": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/candidate/inputs/assets/156058a72f_cat_dog.jpeg",
+          "size_bytes": 123411,
+          "source": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/GroundingDINO/.asset/cat_dog.jpeg"
+        }
+      ],
+      "skipped_dependencies": [],
+      "source": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/input.json"
+    },
+    "patch_registry": {
+      "artifact": "inputs/patch_registry.json",
+      "artifact_key": "patch_registry_snapshot",
+      "dependencies": [],
+      "skipped_dependencies": [],
+      "source": "/tmp/ascend-eitp-infer-registry-kbo8zjt5/merged_registry.json"
+    }
+  },
+  "max_inline_elements": 512,
+  "model_dtype": "preserve",
+  "model_id": "grounding-dino",
+  "npu_hf32": {},
+  "npu_options": {},
+  "patch_chain_candidates": true,
+  "patch_registry": "/tmp/ascend-eitp-infer-registry-kbo8zjt5/merged_registry.json",
+  "patch_summary": {
+    "applied": 1,
+    "failed": 0,
+    "implementation_stage_counts": {
+      "runtime_candidate_chain": 1
+    },
+    "phase_order": [
+      "pre_load",
+      "runtime"
+    ],
+    "promoted_entries": 0,
+    "skipped": 0,
+    "validation_status_counts": {
+      "runtime_selected": 1
+    }
+  },
+  "patch_sync_timing": false,
+  "repeat": 1,
+  "request_completion": "device_barrier",
+  "run_id": "79b0bce600ee434c9170cc963c4c8876",
+  "runtime_policy": {
+    "adapter_runtime_context": {
+      "context": {
+        "backend": "npu",
+        "device": "npu:0",
+        "device_ids": [
+          "npu:0"
+        ],
+        "distributed": false,
+        "distributed_backend": "hccl",
+        "local_rank": 0,
+        "primary": true,
+        "rank": 0,
+        "requested_device": "npu:0",
+        "schema_version": "eitp.runtime_context.v1",
+        "world_size": 1
+      },
+      "mode": "attribute",
+      "schema_version": "eitp.adapter_runtime_context.v1",
+      "status": "configured"
+    },
+    "compile": {
+      "applied": false,
+      "mode": "preserve",
+      "schema_version": "eitp.runtime_compile_policy.v1",
+      "status": "preserved"
+    },
+    "deferred_device_assertions": {
+      "checked_count": 0,
+      "enabled": true,
+      "flush_count": 0,
+      "pending_count": 0,
+      "queued_count": 0,
+      "schema_version": "eitp.deferred_device_assertions.v1"
+    },
+    "device_selection": {
+      "device": "npu:0",
+      "runtime": "npu",
+      "status": "selected"
+    },
+    "model_dtype": {
+      "applied": false,
+      "before": {
+        "buffer_elements_by_dtype": {},
+        "buffer_tensor_count": 0,
+        "module_count": 0,
+        "parameter_elements_by_dtype": {},
+        "parameter_tensor_count": 0,
+        "status": "captured"
+      },
+      "policy": "preserve",
+      "schema_version": "eitp.model_dtype_policy.v1",
+      "status": "preserved"
+    },
+    "npu_hf32_scope": {
+      "active_options": {},
+      "apply_count": 0,
+      "apply_error": null,
+      "restore_count": 0,
+      "restore_error": null,
+      "restore_options": {},
+      "schema_version": "eitp.npu_hf32_scope.v1",
+      "scope": "none",
+      "synchronized_before_restore": false
+    },
+    "npu_option_scope": {
+      "active_options": {},
+      "apply_count": 0,
+      "apply_error": null,
+      "restore_count": 0,
+      "restore_error": null,
+      "restore_options": {},
+      "schema_version": "eitp.npu_option_scope.v1",
+      "scope": "none",
+      "sources": [],
+      "synchronized_before_restore": false
+    },
+    "request_completion": {
+      "completion_mode_counts": {
+        "device_barrier": 0,
+        "host_output_ready": 0,
+        "task_stream_barrier": 0
+      },
+      "d2h_count": 0,
+      "device_drain_count": 0,
+      "device_drain_interval": 0,
+      "device_drain_latency_ms": {},
+      "policy": "device_barrier",
+      "warmup_policy": "device_barrier"
+    },
+    "runtime_context": {
+      "backend": "npu",
+      "device": "npu:0",
+      "device_ids": [
+        "npu:0"
+      ],
+      "distributed": false,
+      "distributed_backend": "hccl",
+      "local_rank": 0,
+      "primary": true,
+      "rank": 0,
+      "requested_device": "npu:0",
+      "schema_version": "eitp.runtime_context.v1",
+      "world_size": 1
+    }
+  },
+  "schema_version": "eitp.run_package.v1",
+  "status": "failed",
+  "target_product": "310p",
+  "torch_profile": false,
+  "trace_modules": false,
+  "unsupported_csv": null,
+  "warmup": 1
+}
