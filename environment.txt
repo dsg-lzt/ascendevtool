@@ -1,11 +1,76 @@
-  第 1 条(先进目录):
-
-  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve
-
-  第 2 条(列出文件):
-
-  ls
-
-  把 ls 的结果贴我。看到文件名后,第 3 条用文件名直接 cat,比如若是 planned_registry.json:
-
-  cat planned_registry.json
+cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve
+(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve$  ls
+benchmarks  capability_db.json  capability_db.md  op_advice.json  op_advice.md  op_plan.json  op_plan.md  op_playbook.json  op_playbook.md  planned_registry.json  resolve.json  resolve.md
+(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve$   cat planned_registry.json
+{
+  "operators": [
+    {
+      "bench_command": "eitp bench sdpa --device npu:0 --dtype float16 --preset routing --include-prompt-flash --skip-native --skip-reference --skip-cpu-fallback --chunk-size 256 --warmup 2 --repeat 5 --atol 5e-3 --rtol 5e-2 --prompt-flash-min-speedup 1.1 --output runs/sdpa_prompt_flash_benchmark.json",
+      "chain_admission": "model_compare_required",
+      "chain_stage": "native_npu",
+      "confidence": 48,
+      "constraints": {
+        "fallback": "Contract misses and immediate kernel errors use the device-local manual decomposition; this recipe does not select CPU.",
+        "precision": "The FP32 bridge restores FP32 output but computes attention in FP16. Prompt FlashAttention must pass operator-relative-error and model task-metric gates before registry promotion.",
+        "scope": "4D BNSD FP16/BF16 or uniform FP32 NPU inference with equal Q/K/V head counts, no dropout, non-causal, and no GQA. The optional mask must be a same-device PyTorch bool keep-mask with shape (Q,K), (B|1,Q,K), or (B|1,1,Q,K); it is inverted to the Prompt Flash block-mask convention."
+      },
+      "device": "npu",
+      "evidence_status": "registered_replacement",
+      "kind": "cann_native",
+      "notes": "Generated from capability evidence status=registered_replacement source=sdpa.npu_prompt_flash_auto confidence=48.",
+      "op": "torch.nn.functional.scaled_dot_product_attention",
+      "priority": 20,
+      "replacement": "ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto"
+    },
+    {
+      "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --output runs/sdpa_benchmark.json",
+      "chain_admission": "model_compare_required",
+      "chain_stage": "decomposition_npu",
+      "confidence": 45,
+      "constraints": {
+        "dropout": "dropout_p is honored by torch.dropout and should be benchmarked with the model train/eval mode.",
+        "precision": "Configure inference-wide NPU precision through the model profile runtime.npu_options field when needed."
+      },
+      "device": "npu",
+      "evidence_status": "registered_replacement",
+      "kind": "custom_npu",
+      "notes": "Generated from capability evidence status=registered_replacement source=sdpa.auto_device_then_cpu confidence=45.",
+      "op": "torch.nn.functional.scaled_dot_product_attention",
+      "priority": 30,
+      "replacement": "ascend_eitp.operators.sdpa.auto_scaled_dot_product_attention"
+    },
+    {
+      "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --chunk-size 64 --chunk-size 128 --chunk-size 256 --output runs/sdpa_chunked_benchmark.json",
+      "chain_admission": "model_compare_required",
+      "chain_stage": "decomposition_npu",
+      "confidence": 42,
+      "constraints": {
+        "performance": "Profile several chunk sizes on the target NPU because too-small chunks can trade memory for launch overhead.",
+        "scope": "Chunking applies to non-causal calls; causal calls use the unchunked manual decomposition path."
+      },
+      "device": "npu",
+      "evidence_status": "registered_replacement",
+      "kind": "custom_npu",
+      "notes": "Generated from capability evidence status=registered_replacement source=sdpa.chunked_manual_device confidence=42.",
+      "op": "torch.nn.functional.scaled_dot_product_attention",
+      "priority": 40,
+      "replacement": "ascend_eitp.operators.sdpa.chunked_scaled_dot_product_attention"
+    },
+    {
+      "bench_command": "eitp bench sdpa --device npu:0 --preset sam2-tiny --output runs/sdpa_benchmark.json",
+      "chain_admission": "model_compare_required",
+      "chain_stage": "decomposition_npu",
+      "confidence": 43,
+      "device": "npu",
+      "evidence_status": "registered_replacement",
+      "kind": "custom_npu",
+      "notes": "Generated from capability evidence status=registered_replacement source=sdpa.manual_device confidence=43.",
+      "op": "torch.nn.functional.scaled_dot_product_attention",
+      "priority": 50,
+      "replacement": "ascend_eitp.operators.sdpa.manual_scaled_dot_product_attention"
+    }
+  ],
+  "schema_version": "eitp.op_registry.v1",
+  "provider_registry_schema": "eitp.extension_provider_registry.v1"
+}
+(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve$ 
