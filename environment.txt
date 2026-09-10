@@ -1,4 +1,5 @@
-  ls .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/ 2>/dev/null
-  python3 -c "import json;d=json.load(open('.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/planned_registry.json'));
-  print('条目数:',len(d.get('operators') or []));[print(' -',o.get('op'),'->',o.get('replacement')) for o in (d.get('operators') 
-  or [])]" 2>&1
+  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo && ls
+  .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/
+
+  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo && cat
+  .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/planned_registry.json
