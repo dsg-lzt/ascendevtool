@@ -1,6 +1,4 @@
   cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
-  python3 -c "
-  import json
-  d=json.load(open('.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/compare/report.json'))
-  print(json.dumps(d.get('task_metrics'), indent=2, ensure_ascii=False)[:3000])
-  "
+  python3 -c "import json; d=json.load(open('.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/compare/report.json')); print(json.dumps(d.get('task_metrics'), indent=2, 
+  ensure_ascii=False)[:3000])"
+
