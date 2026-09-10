@@ -1,8 +1,11 @@
-(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo && ls
-  .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/
-GroundingDINO  models--bert-base-uncased  snapshot
-bash: .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/: 是一个目录
-(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo && cat
-  .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/planned_registry.json
-^C
-bash: .ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve/planned_registry.json: 权限不够
+  第 1 条(先进目录):
+
+  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_2/ops/resolve
+
+  第 2 条(列出文件):
+
+  ls
+
+  把 ls 的结果贴我。看到文件名后,第 3 条用文件名直接 cat,比如若是 planned_registry.json:
+
+  cat planned_registry.json
