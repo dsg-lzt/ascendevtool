@@ -7,3 +7,10 @@ init-model
 /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/manifest.json
 [call_end]
 init-model success 1.392ms
+[start]
+/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/manifest.json --import-check
+[call_start]
+model.validate
+valid
+[call_end]
+model.validate success 2.219ms
