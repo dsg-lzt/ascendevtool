@@ -1,4 +1,9 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   ls .ascend-eitp/references/ 2>/dev/null && echo "--- references 存在"
   ls .ascend-eitp/runs/gd-cpu-golden-2/ 2>/dev/null && echo "--- runs 里的 golden-2"
   find .ascend-eitp -maxdepth 4 -type d -name golden 2>/dev/null
+golden  input  run.json
+--- runs 里的 golden-2
+.ascend-eitp/runs/gd-cpu-golden/golden
+.ascend-eitp/runs/gd-cpu-golden-2/golden
+.ascend-eitp/runs/sam3-image-cpu-golden/golden
