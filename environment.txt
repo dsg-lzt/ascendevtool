@@ -1,13 +1,5 @@
-  cat > /tmp/dbg.py <<'PY'
-  from groundingdino.util.slconfig import SLConfig
-  from groundingdino.models import build_model
-
-  cfg = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
-  args = SLConfig.fromfile(cfg)
-  print("local_cache =", getattr(args, "local_cache", "<缺失>"))
-  print("use_local_cache =", getattr(args, "use_local_cache", "<缺失>"))
-  print("text_encoder_type =", getattr(args, "text_encoder_type", "<缺失>"))
-  build_model(args)
-  PY
-
-  .eitp_venv/bin/python /tmp/dbg.py
+  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
+  .eitp_venv/bin/python -c "import groundingdino.util.slconfig as s, groundingdino.models as m; 
+  a=s.SLConfig.fromfile('GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py'); 
+  print('local_cache=',getattr(a,'local_cache','MISSING')); print('use_local_cache=',getattr(a,'use_local_cache','MISSING')); 
+  m.build_model(a)"
