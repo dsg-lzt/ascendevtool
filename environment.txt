@@ -1,2 +1,30 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
-  grep -n "^class \|ModelTaskEvaluator" .ascend-eitp/metrics/evaluator.py
+from __future__ import annotations
+
+from typing import Any
+
+from ascend_eitp.validation.registry import EvaluationContext
+from ascend_eitp.validation.tasks.detection import _compare_groundingdino_detection_metrics
+
+
+class ModelTaskEvaluator:
+    """Repo-owned GroundingDINO task metric.
+
+    Mirrors the built-in grounding-dino detection evaluator so Embedded compare
+    and Deploy certification use the same acceptance rule (paired box IoU, score
+    relative error, label token consistency, detection count).
+    """
+
+    evaluator_id = "grounding-dino.task.v1"
+
+    def matches(self, context: EvaluationContext) -> bool:
+        values = [
+            str(context.baseline_manifest.get("model_id") or ""),
+            str(context.candidate_manifest.get("model_id") or ""),
+        ]
+        return any("grounding" in value.lower() for value in values)
+
+    def evaluate(self, context: EvaluationContext) -> dict[str, Any]:
+        return _compare_groundingdino_detection_metrics(
+            baseline_output=context.baseline_output,
+            candidate_output=context.candidate_output,
+        )
