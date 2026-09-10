@@ -1,5 +1,52 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
-  .eitp_venv/bin/python -c "import groundingdino.util.slconfig as s, groundingdino.models as m; 
-  a=s.SLConfig.fromfile('GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py'); 
-  print('local_cache=',getattr(a,'local_cache','MISSING')); print('use_local_cache=',getattr(a,'use_local_cache','MISSING')); 
-  m.build_model(a)"
+
+/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/baseline
+✓ infer 完成（20.1s）
+valid
+✓ package.validate 完成（0.0s）
+■ 阶段结束：baseline
+▶ 阶段开始：single_package_validate
+EITP_SINGLE_PACKAGE_SUMMARY={"device": "cpu", "inference_package_ready": true, "manifest_status": "succeeded", "model_id": "grounding-dino", "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/baseline", "scan": {"actionable": {"blocking": false, "category": "scan_completed", "recommended_actions": [], "summary": "The official CANN PyTorch analyser completed successfully."}, "cli_return_code": 0, "completed": true, "report": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/scan/scan.json", "status": "succeeded"}, "schema_version": "eitp.single_device_package.v1", "status": "ready", "validation_status": "valid"}
+■ 阶段结束：single_package_validate
+✓ 单包运行完成
+■ 迁移结束：accepted
+
+
+
+▶ 阶段开始：scan
+{"category": "scan_completed", "report": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/scan/scan.json", "scan_completed": true, "status": "succeeded"}
+✓ scan 完成（6.7s）
+■ 阶段结束：scan（rc=0）
+－ 跳过阶段：baseline
+▶ 阶段开始：reference_validate
+invalid
+✗ package.validate 失败（0.0s）
+■ 迁移结束：failed
+{
+  "schema_version": "eitp.run_set_publish.v1",
+  "status": "failed",
+  "pipeline_returncode": 1,
+  "plan": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/resolved/plan.json",
+  "run_root": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/runs/repo-310p",
+  "target_root": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/runs/repo-310p/310p-npu0",
+  "work_root_retained": true
+}
+✗ run 失败（11.7s）
+
+
+failed · run-set repo-310p / 310p-npu0
+Compare
+—
+NPU audit
+—
+Task metrics
+—
+Promotion
+—
+Pipeline
+—
+Final iteration
+1
+report.md
+
+本次运行没有结构化报错。
+迁移失败时，失败原因（如精度不达标、CPU fallback、算子未替换）会在这里列成条目，并附上修复建议。
