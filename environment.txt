@@ -1,4 +1,4 @@
-grep -rn "ERR01007\|OpName\|Op name\|op_name\|Op type\|not supported" \
+(.venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groundingdino/repo$   grep -rn "ERR01007\|OpName\|Op name\|op_name\|Op type\|not supported" \
     /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_1/candidate/
   2>/dev/null | head -30
 /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_1/candidate/npu_audit.json:37:            "message": "[W910 17:01:37.970640463 IsNegInfKernelNpu.cpp:35] Warning: Warning: kernel [isneginf.out] is not supported by NPU currently. Now this kernel is running on CPU. (function operator())",
