@@ -1,25 +1,9 @@
+  1. 看你之前那次(跑通那次)用的确切命令 —— 你还有印象是敲的什么吗?或者旧 repo 里有没有当时的 run 记录:
 
-■ 阶段结束：resolve  iteration=1 registry=/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_1/ops/resolve/planned_registry.json entries=0
-▶ 阶段开始：candidate  iteration=1 device=npu:0
-  · device_prepare
-  · device_prepare ✓
-  · device_select
-  · device_select ✓
-  · adapter_load
-  · adapter_load ✓
-  · patch_environment
-  · patch_environment ✓
-  · patch_pre_load
-  · patch_pre_load ✓
-  · model_load
-  · model_load ✓
-  · patch_runtime
-  · patch_runtime ✓
-  · model_dtype_policy
-  · model_dtype_policy ✓
-  · input_load
-  · input_load ✓
-  · warmup
-[错误]
-EITP-OP-001：can not cast format when output is input
-[ERROR] 2026-09-10-17:01:41 (PID:1715286, Device:0, RankID:-1) ERR01007 OPS feature not supported（RuntimeError）
+  ls /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/runs/ 2>/dev/null
+
+  2. 拿这次失败的完整算子信息:
+
+  grep -rn "ERR01007\|OpName\|Op name\|op_name\|Op type\|not supported" \
+    /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_1/candidate/
+  2>/dev/null | head -30
