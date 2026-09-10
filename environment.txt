@@ -1,4 +1,21 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
+ cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
   python3 -c "import json; d=json.load(open('.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/compare/report.json')); print(json.dumps(d.get('task_metrics'), indent=2, 
   ensure_ascii=False)[:3000])"
-
+{
+  "error": {
+    "actions": [
+      "Inspect the structured traceback and the last completed pipeline stage."
+    ],
+    "category": "runtime_exception",
+    "code": "EITP-RUNTIME-001",
+    "evidence": {
+      "exception_type": "AttributeError"
+    },
+    "message": "task evaluator object 'ModelTaskEvaluator' not found in '/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/metrics/evaluator.py'",
+    "retryable": true,
+    "schema_version": "eitp.error.v1",
+    "stage": "compare"
+  },
+  "reason": "task_evaluator_error",
+  "status": "failed"
+}
