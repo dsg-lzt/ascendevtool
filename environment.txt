@@ -1,100 +1,25 @@
-EITP-REFERENCE-001
-reference_validate
-可重试
-reference_validate 阶段未通过（status=invalid）：Run package did not complete successfully; it is diagnostic evidence only.
-Run package did not complete successfully; it is diagnostic evidence only.
-证据
 
-
-{
-  "artifact_count": 9,
-  "artifacts": [
-    {
-      "exists": true,
-      "name": "environment",
-      "path": "environment.json",
-      "sha256": "42c8721adf9a970b8fafa3457f6ead21880e073980b04587fa54db52b7a9f19f",
-      "size_bytes": 11203
-    },
-    {
-      "exists": true,
-      "name": "performance",
-      "path": "performance.json",
-      "sha256": "29fb4caf0d5ba8f652e04b6c83b0fe4338af628bee1870af1dbeb0a4c1c7ef7f",
-      "size_bytes": 1724
-    },
-    {
-      "exists": true,
-      "name": "output",
-      "path": "outputs/output.json",
-      "sha256": "0bd31d41d642acf3dc400c98c1fde464ed1987b21660bac13ac1e31de166d758",
-      "size_bytes": 2335
-    },
-    {
-      "exists": true,
-      "name": "output_summary",
-      "path": "outputs/summary.json",
-      "sha256": "d6652d89a8fe42642e5fdd12eccdbef6c999f62ace8d3333564ed6ac86f047cf",
-      "size_bytes": 99
-    },
-    {
-      "exists": true,
-      "line_count": 10,
-      "name": "progress_trace",
-      "path": "traces/progress.jsonl",
-      "sha256": "048538b13e5f19edda17f6365e4e530f8f852228758bf01bece777f928fbedba",
-      "size_bytes": 2826
-    },
-    {
-      "exists": true,
-      "line_count": 5,
-      "name": "stage_trace",
-      "path": "traces/stages.jsonl",
-      "sha256": "6aebc9e4690af357eb4263a0da65d374299d4291ef44dcf2bb56df396f032472",
-      "size_bytes": 928
-    },
-    {
-      "exists": true,
-      "name": "patches",
-      "path": "patches/applied.json",
-      "sha256": "219b55fa279476dff1f31cd18ac7ca15563d17fa8c516c996745841f21f3a128",
-      "size_bytes": 65
-    },
-    {
-      "exists": true,
-      "line_count": 1,
-      "name": "module_trace",
-      "path": "traces/modules.jsonl",
-      "sha256": "d2633729eb195545586f0130aa03f1234807b71e847e6a5558aedf4c814552eb",
-      "size_bytes": 2210
-    },
-    {
-      "exists": true,
-      "name": "runtime_watchdog_state",
-      "path": "traces/runtime_watchdog_state.json",
-      "sha256": "f393d49e1f8890b05fbba1ca96980a7ef7cd595dac4b8be4aa3f923a51ae9c5f",
-      "size_bytes": 299
-    }
-  ],
-  "device": "cpu",
-  "errors": [
-    {
-      "field": "manifest.status",
-      "message": "Run package did not complete successfully; it is diagnostic evidence only."
-    }
-  ],
-  "manifest_status": "failed",
-  "model_id": "grounding-dino",
-  "present_artifact_count": 9,
-  "require_success": true,
-  "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/runs/repo-cpu-golden/golden",
-  "schema_version": "eitp.run_package_validation.v1",
-  "status": "invalid",
-  "strict": true,
-  "warnings": [
-    {
-      "field": "performance.iterations",
-      "message": "No completed timed iterations recorded"
-    }
-  ]
-}
+■ 阶段结束：resolve  iteration=1 registry=/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-310p/pipeline/iteration_1/ops/resolve/planned_registry.json entries=0
+▶ 阶段开始：candidate  iteration=1 device=npu:0
+  · device_prepare
+  · device_prepare ✓
+  · device_select
+  · device_select ✓
+  · adapter_load
+  · adapter_load ✓
+  · patch_environment
+  · patch_environment ✓
+  · patch_pre_load
+  · patch_pre_load ✓
+  · model_load
+  · model_load ✓
+  · patch_runtime
+  · patch_runtime ✓
+  · model_dtype_policy
+  · model_dtype_policy ✓
+  · input_load
+  · input_load ✓
+  · warmup
+[错误]
+EITP-OP-001：can not cast format when output is input
+[ERROR] 2026-09-10-17:01:41 (PID:1715286, Device:0, RankID:-1) ERR01007 OPS feature not supported（RuntimeError）
