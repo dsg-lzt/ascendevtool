@@ -1,21 +1,6 @@
-[import]
-weights → /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/snapshot (661.8 MB)
 [start]
-/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp init-model --repo /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo --model-id groundingdino --class-name GroundingDinoAdapter --profile-name default
-[call_start]
-init-model
-/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/manifest.json
-[call_end]
-init-model success 1.392ms
-[start]
-/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/manifest.json --import-check
-[call_start]
-model.validate
-valid
-[call_end]
-model.validate success 2.219ms
-
-
+/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp run --repo /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo --profile default --target cpu --device cpu --execution-mode single_package --run-set repo-cpu-golden --target-id cpu
+▶ 开始迁移：profile=default target=cpu device=cpu
 ASCEND_ENV_SOURCED=/usr/local/Ascend/ascend-toolkit/set_env.sh
 EITP_ADAPTER_FULL_PIPELINE_START
 ROOT_DIR=/home/orange/Documents/AscendEITP/ascend-eitp
@@ -52,43 +37,25 @@ PATCH_FILTER_UNSUPPORTED=0
 COMPARE_TASK_THRESHOLDS=none
 TASK_EVALUATORS=/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/metrics/evaluator.py:ModelTaskEvaluator
 NPU_AUDIT_PERFORMANCE_WARNINGS=0
-[stage_start]
-stage=scan source_dir=/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
-[call_start]
-scan
+▶ 阶段开始：scan
 {"category": "scan_completed", "report": "/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/scan/scan.json", "scan_completed": true, "status": "succeeded"}
-[call_end]
-scan success 7324.745ms
-[stage_end]
-stage=scan report=/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/scan/scan.json cli_rc=0 scan_status=succeeded action_category=scan_completed
-[stage_start]
-stage=baseline device=cpu
-[call_start]
-infer
-[runtime_stage_start]
-stage=device_prepare category=setup
-[runtime_stage_end]
-stage=device_prepare category=setup status=succeeded duration_ms=734.128
-[runtime_stage_start]
-stage=device_select category=setup
-[runtime_stage_end]
-stage=device_select category=setup status=succeeded duration_ms=0.212
-[runtime_stage_start]
-stage=adapter_load category=setup
-[runtime_stage_end]
-stage=adapter_load category=setup status=succeeded duration_ms=0.978
-[runtime_stage_start]
-stage=patch_environment category=patch
-[runtime_stage_end]
-stage=patch_environment category=patch status=succeeded duration_ms=0.172
-[runtime_stage_start]
-stage=model_load category=setup
+✓ scan 完成（5.8s）
+■ 阶段结束：scan（rc=0）
+▶ 阶段开始：baseline
+  · device_prepare
+  · device_prepare ✓
+  · device_select
+  · device_select ✓
+  · adapter_load
+  · adapter_load ✓
+  · patch_environment
+  · patch_environment ✓
+  · model_load
 /home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
   warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
 /home/orange/miniconda3/envs/npu_env/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
   return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
 final text_encoder_type: bert-base-uncased
-[runtime_stage_end]
-stage=model_load category=setup status=failed duration_ms=1495.072
-[runtime_failure]
-{"stage":"inference","exception_type":"AttributeError","message":"'NoneType' object has no attribute 'endswith'","diagnostic_code":"EITP-RUNTIME-001"}
+  · model_load ✗
+[错误]
+EITP-RUNTIME-001：'NoneType' object has no attribute 'endswith'（AttributeError）
