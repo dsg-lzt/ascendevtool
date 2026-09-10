@@ -1,21 +1,285 @@
-● 这次大进展:reference 校验过了、NPU 推理真的跑了(整个 run 用了 248 秒)、compare/audit/promotion 都执行了。最终 needs_next_iteration,根因是 precision_failed(compare
-  精度没过),且 registry_behavior_unchanged(自动 registry 连续迭代没变化 → 停下等人工注册)。
+cat $W/iteration_2/compare/report.md
+# AscendEITP Compare Report
 
-  看失败详情,按顺序跑这几条
+- Status: fail
+- Baseline: external_reference
+- Candidate: npu:0
+- Shared numeric values: 12
+- Failing values: 5
+- Max abs error: 0.16608238220214844
+- Max rel error: 0.04633098784611167
+- Hash mismatches: 0 / 0 (blocking=0)
+- Scalar mismatches: 0 / 18
+- Baseline mean latency ms: 3308.738967
+- Candidate mean latency ms: 608.820227
+- Speedup vs baseline: 5.434673192945673
 
-  cd /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo
-  W=.ascend-eitp/work/gd-310p-002/pipeline
+## Run Status
 
-  1. compare 报告(精度差在哪)
-  cat $W/iteration_2/compare/report.md
+- Baseline run status: succeeded
+- Candidate run status: succeeded
+- Blocking run failures: none
 
-  2. NPU audit(audit 为什么 fail——通常是 CPU fallback)
-  cat $W/iteration_2/candidate/npu_audit.json | python3 -m json.tool | head -60
+## Task Metrics
 
-  3. 诊断(哪个模块/算子第一个分歧)
-  cat $W/iteration_2/diagnostic.json | python3 -m json.tool | head -80
+- Task metric status: failed
+- Reason: task_evaluator_error
 
-  4. 算子 worklist(哪些算子没被替换、卡住)
-  cat $W/iteration_2/operator_worklist.json | python3 -m json.tool | head -80
+## Notable Differences
 
-  先把第 1 条 report.md 和第 4 条 worklist 的输出贴我——这两个最能说明"精度为什么 fail、卡在哪个算子"。先跑第 1 条。
+- $.boxes[1][0]: abs=0.16608238220214844, rel=0.0004208292728987217, baseline=394.6550130844116, candidate=394.82109546661377
+- $.boxes[1][1]: abs=0.04188895225524902, rel=0.0035901188881677965, baseline=11.66784542798996, candidate=11.709734380245209
+- $.boxes[1][3]: abs=0.03823709487915039, rel=4.251281041740594e-05, baseline=899.4252439141273, candidate=899.4634810090065
+- $.boxes[0][0]: abs=0.027197599411010742, rel=0.04633098784611167, baseline=0.5870282649993896, candidate=0.6142258644104004
+- $.boxes[0][2]: abs=0.02594590187072754, rel=4.6106054538410235e-05, baseline=562.7439200878143, candidate=562.7179741859436
+- $.boxes[0][3]: abs=0.02395188808441162, rel=2.730684775229285e-05, baseline=877.1385222375393, candidate=877.1145703494549
+- $.boxes[0][1]: abs=0.012888908386230469, rel=4.0343765866971977e-05, baseline=319.47707679867744, candidate=319.4899657070637
+- $.boxes[1][2]: abs=0.002574920654296875, rel=2.2585379793550807e-06, baseline=1140.0829553604126, candidate=1140.085530281067
+- $.scores[1]: abs=0.0011273026466369629, rel=0.0019924648105514985, baseline=0.5657829642295837, candidate=0.5646556615829468
+- $.scores[0]: abs=0.00048100948333740234, rel=0.0005861532303325799, baseline=0.8206207156181335, candidate=0.8201397061347961
+- $.detection_count: abs=0.0, rel=0.0, baseline=2.0, candidate=2.0
+- $.score_threshold: abs=0.0, rel=0.0, baseline=0.25, candidate=0.25
+
+## Trace Diagnostics
+
+- First divergent module: none detected
+
+## Feature Captures
+
+No feature capture traces were recorded.
+
+## Operator Replacement Trace
+
+- Candidate replacement events: 24
+- Candidate CPU fallback events: 0
+- Candidate failed replacement events: 0
+- Candidate-chain status: ok
+- Selected candidates: 1
+- Failed candidates: 0
+- Data movement events: 0
+- Candidate replacements:
+  - torch.nn.functional.scaled_dot_product_attention -> ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto device=npu status=succeeded count=24
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cat $W/iteration_2/candidate/npu_audit.json | python3 -m json.tool | head -60
+{
+    "blocking": [
+        {
+            "code": "runtime_log_cpu_fallback",
+            "evidence": {
+                "events": [
+                    {
+                        "device": "cpu",
+                        "kind": "native_fallback",
+                        "line": 11,
+                        "message": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/GroundingDINO/groundingdino/models/GroundingDINO/ms_deform_attn.py:31: UserWarning: Failed to load custom C++ ops. Running on CPU mode Only!",
+                        "op": "unknown",
+                        "replacement": null,
+                        "source": "logs/stderr.log",
+                        "status": "fallback"
+                    },
+                    {
+                        "device": "cpu",
+                        "kind": "native_fallback",
+                        "line": 12,
+                        "message": "warnings.warn(\"Failed to load custom C++ ops. Running on CPU mode Only!\")",
+                        "op": "unknown",
+                        "replacement": null,
+                        "source": "logs/stderr.log",
+                        "status": "fallback"
+                    }
+                ]
+            },
+            "reason": "Candidate runtime logs or warning artifacts report NPU operators falling back to CPU."
+        },
+        {
+            "code": "compare_not_passed",
+            "evidence": {
+                "compare_report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/compare/report.json",
+                "status": "fail"
+            },
+            "reason": "Compare report status is 'fail'."
+        },
+        {
+            "code": "production_task_metrics_not_passed",
+            "evidence": {
+                "schema_version": null,
+                "task_status": "failed"
+            },
+            "reason": "Production acceptance requires task_metrics.status='pass'."
+        }
+    ],
+    "candidate": {
+        "adapter": "adapter.entry:GroundingDinoAdapter",
+        "device": "npu:0",
+        "model_id": "grounding-dino",
+        "patch_registry": "/tmp/ascend-eitp-infer-registry-kbhhpyue/merged_registry.json",
+        "status": "succeeded"
+    },
+    "candidate_chain_summary": {
+        "attempted_candidate_count": 24,
+        "cpu_fallback_event_count": 2,
+        "data_movement_event_count": 0,
+        "failed_candidate_count": 0,
+        "op_count": 2,
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cat $W/iteration_2/diagnostic.json | python3 -m json.tool | head -80
+{
+    "compare_report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/compare/report.json",
+    "compare_status": "fail",
+    "operator_trace": {
+        "candidate_cpu_fallback_count": 0,
+        "candidate_cpu_fallbacks": [],
+        "candidate_failed_event_count": 0,
+        "candidate_failed_events": [],
+        "candidate_replacements": [
+            {
+                "count": 24,
+                "device": "npu",
+                "kind": "cann_native",
+                "mean_elapsed_ms": 0.12056125000000001,
+                "op": "torch.nn.functional.scaled_dot_product_attention",
+                "provenance": {
+                    "confidence": 48,
+                    "evidence_status": "registered_replacement"
+                },
+                "replacement": "ascend_eitp.operators.sdpa.npu_prompt_flash_attention_auto",
+                "status": "succeeded",
+                "target": "torch.nn.functional.scaled_dot_product_attention"
+            }
+        ],
+        "first_divergent_operator": null
+    },
+    "performance": {
+        "baseline_mean_latency_ms": 3308.738967,
+        "candidate_latency_delta_pct": -81.59962955457888,
+        "candidate_mean_latency_ms": 608.820227,
+        "speedup_vs_baseline": 5.434673192945673
+    },
+    "problem_trace": {
+        "first_divergent_module": null,
+        "suspicious_latency_modules": [],
+        "suspicious_output_modules": []
+    },
+    "recommendations": [
+        {
+            "action": "register_replacement",
+            "fallback_device": "cpu",
+            "op": "torch.nn.MultiheadAttention",
+            "preferred_device": "npu",
+            "reason": "No replacement is registered yet.",
+            "templates": {
+                "custom_cpu": "eitp ops register --registry /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/ops/resolve/planned_registry.json --op torch.nn.MultiheadAttention --replacement your_ops.cpu_fallback --kind custom_cpu --device cpu --priority 90",
+                "custom_npu": "eitp ops register --registry /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/ops/resolve/planned_registry.json --op torch.nn.MultiheadAttention --replacement your_ops.npu_replacement --kind custom_npu --device npu --priority 10"
+            },
+            "unsupported_count": 3
+        },
+        {
+            "action": "register_replacement",
+            "fallback_device": "cpu",
+            "op": "torch.nn.functional.grid_sample",
+            "preferred_device": "npu",
+            "reason": "No replacement is registered yet.",
+            "templates": {
+                "custom_cpu": "eitp ops register --registry /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/ops/resolve/planned_registry.json --op torch.nn.functional.grid_sample --replacement your_ops.cpu_fallback --kind custom_cpu --device cpu --priority 90",
+                "custom_npu": "eitp ops register --registry /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/ops/resolve/planned_registry.json --op torch.nn.functional.grid_sample --replacement your_ops.npu_replacement --kind custom_npu --device npu --priority 10"
+            },
+            "unsupported_count": 1
+        }
+    ],
+    "registry": {
+        "matched_ops": [],
+        "missing_ops": [
+            "torch.nn.MultiheadAttention",
+            "torch.nn.functional.grid_sample"
+        ],
+        "registered_replacements": 0
+    },
+    "registry_path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/ops/resolve/planned_registry.json",
+    "scan_report": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/scan.json",
+    "schema_version": "eitp.diagnostic_report.v1",
+    "status": "manual_registration_needed",
+    "unsupported_csv": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/run_repo_torch2_6_0_20260910_101324_854063/repo_analysis/unsupported_api.csv",
+    "unsupported_ops": {
+        "items": [
+            {
+                "count": 3,
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$   cat $W/iteration_2/operator_worklist.json | python3 -m json.tool | head -80
+{
+    "created_at": "2026-09-10T02:17:27.362126+00:00",
+    "inputs": {
+        "db": null,
+        "fuzzy": false,
+        "include_performance": false,
+        "npu_audit_reports": [
+            "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/candidate/npu_audit.json"
+        ],
+        "resolved_audit_reports": [
+            {
+                "label": "",
+                "path": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/candidate/npu_audit.json",
+                "source": ""
+            }
+        ],
+        "scan_reports": [
+            "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/scan.json"
+        ],
+        "script": null,
+        "script_dir": null,
+        "torch_profile_reports": [],
+        "unsupported_csvs": [
+            "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/run_repo_torch2_6_0_20260910_101324_854063/repo_analysis/unsupported_api.csv"
+        ],
+        "v3_audit_reports": [],
+        "v3_performance_reports": []
+    },
+    "items": [
+        {
+            "action": "replace_cpu_fallback_with_npu",
+            "audit_reason": "CPU fallback must be replaced before V3 all-NPU acceptance.",
+            "capability": null,
+            "commands": {},
+            "contracts": [],
+            "diagnostics": [],
+            "normalized_op": "unknown",
+            "npu_candidates": [],
+            "op": "unknown",
+            "performance": null,
+            "priority": 10,
+            "reason": "CPU fallback blocks all-NPU acceptance; select or implement an NPU replacement.",
+            "selected_candidate": null,
+            "selected_replacement": null,
+            "source": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/iteration_2/candidate/npu_audit.json",
+            "source_label": "",
+            "source_labels": []
+        },
+        {
+            "action": "resolve_static_unsupported_op",
+            "audit_reason": "CANN static scan reported 3 unsupported occurrence(s).",
+            "capability": null,
+            "commands": {
+                "resolve": "PYTHONPATH=src:${PYTHONPATH:-} ${ASCEND_EITP_PYTHON:-python} -m ascend_eitp.cli ops resolve --output-dir runs/torch_nn_multiheadattention_static_resolve --op torch.nn.MultiheadAttention --fuzzy --unsupported-csv /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/run_repo_torch2_6_0_20260910_101324_854063/repo_analysis/unsupported_api.csv"
+            },
+            "contracts": [],
+            "diagnostics": [],
+            "normalized_op": "torch.nn.multiheadattention",
+            "npu_candidates": [],
+            "op": "torch.nn.MultiheadAttention",
+            "performance": null,
+            "priority": 15,
+            "reason": "CANN static scan reported an unsupported API; resolve capability evidence and generate focused benchmark or registry work before runtime closure.",
+            "selected_candidate": null,
+            "selected_replacement": null,
+            "source": "/home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/run_repo_torch2_6_0_20260910_101324_854063/repo_analysis/unsupported_api.csv; /home/orange/Documents/AscendEITP/model_zoo/groudingdino/repo/.ascend-eitp/work/gd-310p-002/pipeline/scan/scan.json",
+            "source_label": "pipeline, repo_analysis",
+            "source_labels": [
+                "pipeline",
+                "repo_analysis"
+            ],
+            "static_scan": {
+                "locations": [
+                    {
+                        "file": "GroundingDINO/groundingdino/models/GroundingDINO/transformer_vanilla.py",
+                        "line": "83"
+                    },
+                    {
+                        "file": "GroundingDINO/groundingdino/models/GroundingDINO/transformer.py",
+                        "line": "830"
+(.eitp_venv) (base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/groudingdino/repo$ 
