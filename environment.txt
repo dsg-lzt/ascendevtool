@@ -1,31 +1,9 @@
-Cannot destructure property 'models' of '(intermediate value)' as it is null.
-
-1. 创建模型目录
-已完成
-/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
-模型名
-groundingdino
-创建 model_zoo/<model>/repo
-日志
-结果
-报错
-运行记录
-空闲
-阶段
-标记
-原始
-取消
-清空
-[mkdir]
-/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
-[mkdir]
-/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo
 [import]
-source → /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/GroundingDINO (25.0 MB)
-[import]
-weights → /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/snapshot/snapshot (661.8 MB)
-[import]
-venv → /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.eitp_venv
-venv 已复制并尝试重写内部路径；若仍报错，建议改用重新创建 venv。
-保存
-关闭
+weights → /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/snapshot (661.8 MB)
+[start]
+/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp init-model --repo /home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo --model-id groundingdino --class-name GroundingDinoAdapter --profile-name default
+[call_start]
+init-model
+/home/orange/Documents/AscendEITP/model_zoo/groundingdino/repo/.ascend-eitp/profiles/default/manifest.json
+[call_end]
+init-model success 1.392ms
