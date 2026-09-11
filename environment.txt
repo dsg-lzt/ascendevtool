@@ -1,130 +1,22 @@
-EITP-STAGE-001
-baseline
-可重试
-baseline 阶段未通过（status=invalid）：[manifest.status] Run package did not complete successfully; it is diagnostic evidence only.
-位置：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/reports/baseline_validation.json
-修改方法：
-该 run package 的 manifest.status 不是 succeeded，说明这一步本身没跑成功。查看本次运行日志里的错误，修复后重跑。
-原始报告：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/reports/baseline_validation.json
-证据
-
 {
-  "artifact_count": 13,
-  "artifacts": [
-    {
-      "exists": true,
-      "name": "environment",
-      "path": "environment.json",
-      "sha256": "5bc9dcca34a4eee925f525f944b7ffa05cac6a4e75ec43a8e7f28a1ca2269f02",
-      "size_bytes": 11167
+  "error": {
+    "diagnostic": {
+      "actions": [
+        "Verify the model profile asset path and download or generate the missing file."
+      ],
+      "category": "asset_missing",
+      "code": "EITP-ASSET-001",
+      "evidence": {
+        "exception_type": "FileNotFoundError"
+      },
+      "message": "/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py",
+      "retryable": true,
+      "schema_version": "eitp.error.v1",
+      "stage": "inference"
     },
-    {
-      "exists": true,
-      "name": "performance",
-      "path": "performance.json",
-      "sha256": "f262d7030f991555c42676ebc6936afc63a6305b3fb7b15725d793ba9f7aedd9",
-      "size_bytes": 1709
-    },
-    {
-      "exists": true,
-      "name": "output",
-      "path": "outputs/output.json",
-      "sha256": "c12ce343ef916bae09cd0de4d5c70ba9c11d30ce0c7caaf824a94a5ce38ed723",
-      "size_bytes": 1416
-    },
-    {
-      "exists": true,
-      "name": "output_summary",
-      "path": "outputs/summary.json",
-      "sha256": "c2eaeae17717b34a61c1ba85d4073ccace1e76e9c1e22e0ac09562333f8f83e9",
-      "size_bytes": 102
-    },
-    {
-      "exists": true,
-      "line_count": 10,
-      "name": "progress_trace",
-      "path": "traces/progress.jsonl",
-      "sha256": "b41aa9f61b778f5ca39eb022cc4dd40fb1936c1afb58bf026d2d98ad1f692da0",
-      "size_bytes": 2823
-    },
-    {
-      "exists": true,
-      "line_count": 5,
-      "name": "stage_trace",
-      "path": "traces/stages.jsonl",
-      "sha256": "02522a78b1b22a7ea0b032bdc63e89edfeac9239c2143698e68703a8f67926c6",
-      "size_bytes": 925
-    },
-    {
-      "exists": true,
-      "name": "patches",
-      "path": "patches/applied.json",
-      "sha256": "219b55fa279476dff1f31cd18ac7ca15563d17fa8c516c996745841f21f3a128",
-      "size_bytes": 65
-    },
-    {
-      "exists": true,
-      "name": "adapter_config_dependency_0",
-      "path": "inputs/assets/2b781e2422_input.json",
-      "sha256": "ca93f8767443c146861912eaed0b95c00472790907fd2e6f3ec639f637909476",
-      "size_bytes": 605
-    },
-    {
-      "exists": true,
-      "name": "adapter_config_snapshot",
-      "path": "inputs/adapter_config.json",
-      "sha256": "070341dc8c54a05432ac9f9f14da7c1f816887c09e5ee676c6ea20d156067274",
-      "size_bytes": 848
-    },
-    {
-      "exists": true,
-      "name": "input_snapshot",
-      "path": "inputs/input.json",
-      "sha256": "ca93f8767443c146861912eaed0b95c00472790907fd2e6f3ec639f637909476",
-      "size_bytes": 605
-    },
-    {
-      "exists": true,
-      "line_count": 1,
-      "name": "module_trace",
-      "path": "traces/modules.jsonl",
-      "sha256": "572723b5f48b2290a1e078f63102d4da24d75763ac678cb89d85204a07038a2e",
-      "size_bytes": 1291
-    },
-    {
-      "exists": true,
-      "name": "runtime_watchdog_state",
-      "path": "traces/runtime_watchdog_state.json",
-      "sha256": "a2ffe1f63e0c8ed834f8cb33af14330e7cd475cba39a75b65b0e32d55c2d39ac",
-      "size_bytes": 298
-    },
-    {
-      "exists": true,
-      "name": "scan",
-      "path": "scans/scan.json",
-      "sha256": "8e1690e0e051f6a790216ad75877dd7ff44076ac0ce57a1c83a9ba3d49c3097d",
-      "size_bytes": 330
-    }
-  ],
-  "device": "cpu",
-  "errors": [
-    {
-      "field": "manifest.status",
-      "message": "Run package did not complete successfully; it is diagnostic evidence only."
-    }
-  ],
-  "manifest_status": "failed",
-  "model_id": "lingbot-vla-v2-6b-robotwin",
-  "present_artifact_count": 13,
-  "require_success": true,
-  "run_dir": "/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/baseline",
-  "schema_version": "eitp.run_package_validation.v1",
-  "status": "invalid",
-  "strict": false,
-  "warnings": [
-    {
-      "field": "performance.iterations",
-      "message": "No completed timed iterations recorded"
-    }
-  ]
+    "event": "exception",
+    "exception_type": "FileNotFoundError",
+    "message": "/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/runtime/infer.py\", line 308, in run_inference_package\n    model = adapter.load_model(options.device)\n  File \"/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/adapter/entry.py\", line 37, in load_model\n    _require_source(repo_root, \"deploy/lingbot_vla_v2_policy.py\")\n  File \"/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/adapter/entry.py\", line 314, in _require_source\n    raise FileNotFoundError(path)\nFileNotFoundError: /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py\n"
+  }
 }
