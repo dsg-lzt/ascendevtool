@@ -1,8 +1,9 @@
-[start]
-/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/profiles/default/manifest.json --import-check
-invalid
-✗ model.validate 失败（0.0s）
-[start]
-/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/profiles/default/manifest.json --import-check
-invalid
-✗ model.validate 失败（0.0s）
+  cd /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo
+
+  ls .ascend-eitp/profiles/
+
+  cat .ascend-eitp/profiles/default/pipeline.json | grep -E '"id"|adapter'
+
+  ls .ascend-eitp/profiles/default/
+
+  ls .ascend-eitp/replacements/ .ascend-eitp/metrics/
