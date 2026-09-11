@@ -1,22 +1,9 @@
-{
-  "error": {
-    "diagnostic": {
-      "actions": [
-        "Verify the model profile asset path and download or generate the missing file."
-      ],
-      "category": "asset_missing",
-      "code": "EITP-ASSET-001",
-      "evidence": {
-        "exception_type": "FileNotFoundError"
-      },
-      "message": "/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py",
-      "retryable": true,
-      "schema_version": "eitp.error.v1",
-      "stage": "inference"
-    },
-    "event": "exception",
-    "exception_type": "FileNotFoundError",
-    "message": "/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py",
-    "traceback": "Traceback (most recent call last):\n  File \"/home/orange/Documents/AscendEITP/ascend-eitp/src/ascend_eitp/runtime/infer.py\", line 308, in run_inference_package\n    model = adapter.load_model(options.device)\n  File \"/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/adapter/entry.py\", line 37, in load_model\n    _require_source(repo_root, \"deploy/lingbot_vla_v2_policy.py\")\n  File \"/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/adapter/entry.py\", line 314, in _require_source\n    raise FileNotFoundError(path)\nFileNotFoundError: /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/deploy/lingbot_vla_v2_policy.py\n"
-  }
-}
+EITP-STAGE-001
+baseline
+可重试
+baseline 阶段未通过（status=invalid）：[manifest.status] Run package did not complete successfully; it is diagnostic evidence only.
+位置：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/reports/baseline_validation.json
+修改方法：
+该 run package 的 manifest.status 不是 succeeded，说明这一步本身没跑成功。查看本次运行日志里的错误，修复后重跑。
+原始报告：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden/pipeline/reports/baseline_validation.json
+证据
