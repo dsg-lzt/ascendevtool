@@ -1,1 +1,8 @@
-不是有效的 venv（缺 pyvenv.cfg）：/home/orange/AscendEITP/model_zoo/lingbot-vla-v2/repo/.eitp_venv
+[start]
+/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/profiles/default/manifest.json --import-check
+invalid
+✗ model.validate 失败（0.0s）
+[start]
+/home/orange/Documents/AscendEITP/ascend-eitp/.venv/bin/python -m ascend_eitp model validate --manifest /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/profiles/default/manifest.json --import-check
+invalid
+✗ model.validate 失败（0.0s）
