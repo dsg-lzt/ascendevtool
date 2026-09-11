@@ -1,16 +1,3 @@
-EITP-RUNTIME-001
-inference
-可重试
-No module named 'flash_attn'
-修改方法：
-Inspect the structured traceback and the last completed pipeline stage.
-证据
-EITP-STAGE-001
-baseline
-可重试
-baseline 阶段未通过（status=invalid）：[manifest.status] Run package did not complete successfully; it is diagnostic evidence only.
-位置：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden-2-2/pipeline/reports/baseline_validation.json
-修改方法：
-该 run package 的 manifest.status 不是 succeeded，说明这一步本身没跑成功。查看本次运行日志里的错误，修复后重跑。
-原始报告：/home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo/.ascend-eitp/work/repo-cpu-golden-2-2/pipeline/reports/baseline_validation.json
-证据
+#!/usr/bin/env bash
+export PYTHONPATH="/home/orange/AscendEITP/model_zoo/lingbot-vla-v2/repo/.eitp_venv/site-packages${PYTHONPATH:+:$PYTHONPATH}"
+exec "/home/orange/miniconda3/envs/npu_env/bin/python" "$@"
