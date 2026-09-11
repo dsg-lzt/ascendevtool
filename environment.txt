@@ -1,4 +1,4 @@
-  cd /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo
+(base) orange@orange-NucBox-K11:~/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo$   cd /home/orange/Documents/AscendEITP/model_zoo/lingbot-vla-v2/repo
 
   ls .ascend-eitp/profiles/
 
@@ -7,3 +7,13 @@
   ls .ascend-eitp/profiles/default/
 
   ls .ascend-eitp/replacements/ .ascend-eitp/metrics/
+default
+    "adapter": "adapter.entry:LingbotAdapter",
+    "adapter_config": "config.json",
+  "id": "default",
+config.json  config.json.bak  input.json  input.json.bak  manifest.json  pipeline.json  registry.json
+.ascend-eitp/metrics/:
+evaluator.py  evaluator.py.bak  __init__.py
+
+.ascend-eitp/replacements/:
+__init__.py
